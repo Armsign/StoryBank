@@ -1,0 +1,100 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Feb 5, 2018, 10:30:25 AM
+    Author     : PaulDunn
+*/
+
+body
+{
+    font-family: Georgia, "Lucida Console", Monaco, monospace;
+    font-size: 1em;
+    font-weight: normal;
+    color: #331100;
+    background-color: #FFFFFF;
+    background-image: url("../Images/free-vector-security-background-pattern-vector_017144_fww.jpg");
+    background-size: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+td img
+{
+    width: 100%; 
+    opacity: .4;
+}
+
+h1
+{
+    font-size: 1.8em;
+}
+
+h2
+{
+    font-size: 1.2em;
+    margin-top: 0 !important;
+}
+
+ul
+{
+    list-style: none;
+    margin-bottom: 24px;
+}
+
+li
+{
+    padding-left: 24px;
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.container
+{
+    text-align: center;
+    width: 96%;   
+    margin: 0;
+    padding: 2%;
+    border: 1px #663300 solid;    
+    -webkit-border-radius: 24px;
+    -moz-border-radius: 24px;
+    border-radius: 24px;  
+    background-color: rgba(255,255,222, 1);
+    
+    -webkit-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);    
+}
+
+.grid-container 
+{
+    padding: 32px;
+    display: grid;
+    grid-column-gap: 24px;
+    grid-row-gap: 24px;
+    grid-template-columns: auto auto auto;
+}
+
+.grid-item
+{
+    min-height: 420px;    
+}
+
+md-whiteframe
+{
+    background-color: #FFFFFF;
+    padding: 24px;
+}
+
+
+md-dialog
+{
+    padding: 24px;
+    width: 40%;
+}
+
+/*
+**  Fonts
+*/

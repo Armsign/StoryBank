@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="PLTravers">
+    <head>
+        <meta charset="UTF-8">
+        <title>Story Bank</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="Images/logo_full_white.png"/>        
+        
+        <!-- CSS -->
+        <link href="CSS/animate.min.css" rel="stylesheet" type="text/css"/>
+        <link href="CSS/PLTravers.css" rel="stylesheet" type="text/css"/>
+        <link href="CSS/angular-material.min.css" rel="stylesheet" type="text/css"/>
+        <link href="CSS/fixed-header.css" rel="stylesheet" type="text/css"/>        
+        <link href="CSS/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        
+        <!-- Setup routing -->
+        <base href="/StoryBank/">
+    </head>
+    <body ng-controller="ContainerCTRL" ng-cloak>
+
+        <!-- Would I prefer to be using $location instead of the href -->
+        <div class="animated bounceInDown">            
+          <div ng-view></div>
+        </div>        
+       
+        <!-- Javascript -->
+        <!-- <script src="Scripts/3rdParty/jquery-3.3.1.min.js" type="text/javascript"></script> -->
+        <script src="Scripts/3rdParty/angular.min.js" type="text/javascript"></script>
+        <script src="Scripts/3rdParty/angular-route.js" type="text/javascript"></script>
+        <script src="Scripts/3rdParty/angular-messages.min.js" type="text/javascript"></script>
+        <script src="Scripts/3rdParty/angular-aria.min.js" type="text/javascript"></script>
+        <script src="Scripts/3rdParty/angular-animate.min.js" type="text/javascript"></script>
+        <script src="Scripts/3rdParty/angular-cookies.min.js" type="text/javascript"></script>        
+        <script src="Scripts/3rdParty/angular-material.min.js" type="text/javascript"></script>                
+        <script src="Scripts/3rdParty/JSONToCSVConvertor.js" type="text/javascript"></script>                
+        <script src="Scripts/3rdParty/dataGrid.min.js" type="text/javascript"></script>                
+        <script src="Scripts/3rdParty/dataGridUtils.min.js" type="text/javascript"></script>                
+        <script src="Scripts/3rdParty/loading-bar.min.js" type="text/javascript"></script>                
+        <script src="Scripts/3rdParty/pagination.min.js" type="text/javascript"></script>                
+        <script src="Scripts/3rdParty/recorder.js" type="text/javascript"></script>
+
+        <!-- Core controller -->
+        <script src="Scripts/PLTravers.js" type="text/javascript"></script>        
+        
+    </body>
+</html>

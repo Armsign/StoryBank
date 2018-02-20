@@ -1,0 +1,38 @@
+<div class="grid-container">
+
+    <md-whiteframe class="md-whiteframe-1dp grid-item" style="grid-column: 1 / span 3; min-height: 0;">
+        <h1>Record your story!</h1>        
+    </md-whiteframe>
+    
+    <md-whiteframe class="md-whiteframe-1dp grid-item">
+
+    </md-whiteframe>
+
+    <md-whiteframe class="md-whiteframe-1dp grid-item">
+        <div  style="text-align: center;">
+
+            <div id="startRecord" ng-if="isRecording === 0">
+                <img style="margin-top: 72px; height: 256px; width: auto; opacity: 1; cursor: pointer;" src="Images/record-icon.png" ng-click="startRecording();" />
+            </div>
+
+            <div id="finishRecord" ng-if="isRecording === 1">
+                <img style="margin-top: 72px; height: 256px; width: auto; opacity: 1; cursor: pointer;" src="Images/going.gif" ng-click="stopRecording();" />
+            </div>
+
+            <div id="downloadRecord" ng-if="isRecording === 2">
+                <audio href="{{downloadURL}}" download>Download</a>
+            </div>                            
+
+        </div>           
+      
+    </md-whiteframe>
+    
+    <md-whiteframe class="md-whiteframe-1dp grid-item">
+
+    </md-whiteframe>    
+    
+    <md-whiteframe class="md-whiteframe-1dp grid-item" style="grid-column: 1 / span 3; min-height: 0;">
+        <h2>Armsign Pty Ltd</h2>
+    </md-whiteframe>  
+    
+    
