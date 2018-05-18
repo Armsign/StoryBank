@@ -10,15 +10,24 @@ and open the template in the editor.
 
 body
 {
-    font-family: Georgia, "Lucida Console", Monaco, monospace;
+    font-family: Source Sans, Bookman, Georgia, "Lucida Console", Monaco, monospace !important;
     font-size: 1em;
     font-weight: normal;
     color: #331100;
     background-color: #FFFFFF;
-    background-image: url("../Images/free-vector-security-background-pattern-vector_017144_fww.jpg");
-    background-size: 100%;
+    
+    background-image: url("../Images/MaryBack.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;    
+
     margin: 0;
     padding: 0;
+}
+
+p
+{
+    font-size: 16pt;
+    margin-top: 32px !important;
 }
 
 td img
@@ -29,7 +38,9 @@ td img
 
 h1
 {
-    font-size: 1.8em;
+    display: block;
+    font-size: 32pt !important;
+    text-align: center;
 }
 
 h2
@@ -72,14 +83,8 @@ li
 {
     padding: 32px;
     display: grid;
-    grid-column-gap: 24px;
-    grid-row-gap: 24px;
-    grid-template-columns: auto auto auto;
-}
-
-.grid-item
-{
-    min-height: 420px;    
+    grid-template-columns: 50% 50%;
+    height: 100%;
 }
 
 md-whiteframe
@@ -93,6 +98,23 @@ md-dialog
 {
     padding: 24px;
     width: 40%;
+}
+
+
+.roomDirectory
+{
+    min-height: 1080px !important;  
+    max-height: 1080px !important;  
+    
+    grid-template-columns: 100px 280px 280px 280px auto 100px;
+    grid-template-rows: 100px 293px 293px 293px auto 100px;    
+}
+
+.itemDirectory
+{
+    margin: 24px;
+    padding: 24px;    
+
 }
 
 /*

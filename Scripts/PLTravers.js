@@ -4,7 +4,7 @@
  *      Story Bank
  */
 
-var myApp = angular.module('PLTravers', ['ngRoute', 'ngMaterial', 'ngCookies', 'dataGrid', 'pagination']);
+var myApp = angular.module('PLTravers', ['ngRoute', 'ngMaterial', 'ngCookies', 'dataGrid', 'pagination', 'ngTagsInput']);
 
 myApp.controller('ContainerCTRL', ['$scope', '$location', function($scope, $location) 
 { 
@@ -16,8 +16,7 @@ myApp.controller('ContainerCTRL', ['$scope', '$location', function($scope, $loca
 
     angular.element(document).ready(function () 
     {        
-  
-          
+        //  Nothing good to go in here ;p
     });   
 
 }]);
@@ -48,7 +47,7 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
         if (token && token.length > 0)
         {
             //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=administer&method=newStories&token=' + token;       
+            var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=administer&method=newStories&token=' + token;       
             
             //  Call the login function appropriately
             $http.get(url).then(
@@ -67,7 +66,7 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
         if (token && token.length > 0)
         {
             //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=administer&method=flaggedStories&token=' + token;       
+            var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=administer&method=flaggedStories&token=' + token;       
             
             //  Call the login function appropriately
             $http.get(url).then(
@@ -86,7 +85,7 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
         if (token && token.length > 0)
         {
             //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=administer&method=members&token=' + token;       
+            var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=administer&method=members&token=' + token;       
             
             //  Call the login function appropriately
             $http.get(url).then(
@@ -142,7 +141,9 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
     {
         if (this.email.length > 0 && this.password.length > 0)
         {        
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=administer&method=login&email=' + this.email + '&password=' + this.password;       
+            $scope.securedLogin = -1;
+            
+            var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=administer&method=login&email=' + this.email + '&password=' + this.password;       
 
             //  Call the login function appropriately
             $http.get(url).then(
@@ -164,6 +165,9 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
                         $scope.getMemberServerData();
                         
                     } else {
+                        
+                        $scope.securedLogin = 0;
+                        
                          $mdDialog.show(
                             $mdDialog.alert()
                               .parent(angular.element(document.querySelector('#popupContainer')))
@@ -192,7 +196,7 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
         if (token && token.length > 0)
         {
             //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=administer&method=relogin&token=' + token;       
+            var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=administer&method=relogin&token=' + token;       
 
             //  Call the login function appropriately
             $http.get(url).then(
@@ -221,12 +225,24 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
 
 }]);
 
-myApp.controller('RecordCTRL', [ '$scope', '$timeout', function ($scope, $timeout) {
+myApp.controller('RecordCTRL', [ '$scope', '$timeout', function ($scope, $timeout) 
+{
 
     $scope.recorder = null;    
     $scope.isRecording = 0;
     $scope.promise = null;
     $scope.downloadURL = null;
+    
+    $scope.collatedData = {
+        
+        'title' : '',
+        'storedBy' : '',
+        'audioType' : '',
+        'audioLength' : '',
+        'transcription' : '',
+        'daBlob' : ''
+        
+    };
 
     $scope.startRecording = function() 
     {
@@ -250,16 +266,17 @@ myApp.controller('RecordCTRL', [ '$scope', '$timeout', function ($scope, $timeou
             $timeout.cancel($scope.promise);
         }
         
-        if ($scope.recorder && $scope.isRecording == 1)
+        if ($scope.recorder && $scope.isRecording === 1)
         {
             $scope.recorder.stop();
             $scope.isRecording = 2;
-            $scope.createDownloadLink();
             
             $scope.recorder.exportWAV(function(blob) 
             {
                 //  Ok all this then ... the blob looks like the wav
                 $scope.downloadURL = URL.createObjectURL(blob);            
+                
+                $scope.$digest();
             });
             
             //  Clear the contents of the recorder buffer
@@ -300,6 +317,25 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
 { 
     $scope.deposit = $rootScope.deposit;
     $scope.approved = 0;
+    $scope.storyTags = new Array();
+    
+    $scope.loadTags = function(query) 
+    {
+        //  Ok ... but how it actually needs to send these to an api ...        
+        var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=tags&method=fetch';       
+
+        //  Call the login function appropriately
+        $http.get(url).then(
+            function (response)   
+            {
+                $scope.storyTags = response.data;
+            }, 
+            function(response) 
+            {
+                //  That's ok, no tags, we don't even need them.
+            });         
+       return;
+    };    
     
     $scope.saveDialog = function()
     {
@@ -318,7 +354,7 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
         if (token && token.length > 0)
         {
             //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=administer&method=flags&token=' + token + '&deposit=' + $scope.deposit.id;       
+            var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=administer&method=flags&token=' + token + '&deposit=' + $scope.deposit.id;       
 
             //  Call the login function appropriately
             $http.get(url).then(
@@ -348,6 +384,47 @@ myApp.controller('MemberCtrl', function ($scope, $mdDialog, dataToPass)
     
 });
 
+myApp.controller('RoomCTRL', function ($scope, $routeParams, $location) 
+{ 
+    
+    $scope.activeArtefact = 0;
+    $scope.minutes = 0;
+    
+    $scope.switchArtefact = function(room, artefact)
+    {
+        if (artefact !== ($routeParams.artefact) * 1)
+        {
+            $scope.activeArtefact = artefact;
+            $location.path('/Room/View/' + room + '/' + artefact);
+        }
+        
+        $scope.minutes = 0;        
+    }; 
+    
+    $scope.timeOut = function()
+    {        
+        if($scope.minutes < 3) 
+        {
+            $scope.minutes++;
+            window.setTimeout($scope.timeOut, 6000); /* this checks the flag every 1000 milliseconds*/
+        } else { 
+
+            $location.path('/Room/ScreenSaver');
+        }
+        
+        $scope.$digest();         
+    };
+    
+    angular.element(document).ready(function () 
+    {                       
+        $scope.activeArtefact = ($routeParams.artefact) * 1;               
+        $scope.timeOut();
+        
+        $scope.$digest();
+    });  
+
+});
+
 myApp.config(['$routeProvider', function($routeProvider) 
 {      
     
@@ -360,6 +437,14 @@ myApp.config(['$routeProvider', function($routeProvider)
             templateUrl: 'Templates/Admin/admin.html',
             controller: 'AdminCTRL'    
         }). 
+        when('/Room/ScreenSaver', { 
+            templateUrl: 'Templates/Rooms/screenSaver.html',
+            controller: 'RoomCTRL'    
+        }).                 
+        when('/Room/View/C/:artefact', { 
+            templateUrl: 'Templates/Rooms/roomC.html',
+            controller: 'RoomCTRL'    
+        }).                 
         when('/Record', { 
             templateUrl: 'Templates/Record/record.html',
             controller: 'RecordCTRL'    
@@ -370,52 +455,3 @@ myApp.config(['$routeProvider', function($routeProvider)
         });                
     
 }]);
-
-/*
- 
-var recorder;
-var audio_context;
-var current_url;
-var recorder;
-var user_media;
-var recorder;
-
-function createDownloadLink() 
-{
-    
-    if (recorder)
-    {
-        recorder.exportWAV(function(blob) 
-        {
-            var url = URL.createObjectURL(blob);
-            var li = document.createElement('li');
-            var br = document.createElement('br');
-            var au = document.createElement('audio');
-            var hf = document.createElement('a');
-
-            au.controls = true;
-            au.src = url;
-            hf.href = url;
-            hf.download = new Date().toISOString() + '.wav';
-            hf.innerHTML = hf.download;
-            li.appendChild(au);
-            li.appendChild(au);
-            li.appendChild(br);
-            li.appendChild(hf);
-            recordingslist.appendChild(li);
-            
-        });
-        
-        //  Clear the contents of the recorder buffer
-        recorder.clear();
-    }    
-
-}
-
-
-
-        
-
-
-
-*/
