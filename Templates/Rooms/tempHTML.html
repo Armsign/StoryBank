@@ -1,0 +1,31 @@
+SELECT * FROM `contacts`;
+
+
+SELECT 	A.first_name, A.last_name, A.id, A.salutation,
+		A.title, ACC.name, EA.email_address, A.phone_mobile,
+        A.phone_work, A.phone_home, A.phone_other, A.phone_fax,
+        A.primary_address_street, A.primary_address_city,
+        A.primary_address_state, A.primary_address_postalcode,        
+        A.primary_address_country, A.description
+FROM contacts A
+LEFT JOIN email_addr_bean_rel EABR ON A.id = EABR.bean_id
+LEFT JOIN email_addresses EA ON EABR.email_address_id = EA.id
+LEFT JOIN accounts_contacts AC ON AC.contact_id = A.id
+LEFT JOIN accounts ACC ON AC.account_id = ACC.id
+WHERE A.deleted =0
+ORDER BY A.last_name ASC;
+
+
+
+Opportunity Name,	ID,	Opportunity Amount,	Currency,	Expected Close Date,	Sales Stage,	
+Probability (%),	Next Step,	Type,	Account Name,	Description,	Amount,
+
+SELECT 	A.name, A.id, A.amount, A.date_closed, 
+        A.sales_stage, A.probability, A.next_step,
+        A.opportunity_type, ACC.name, A.description
+FROM oppurtunities A
+LEFT JOIN accounts_opportunities AC ON AC.opportunity_id = A.id
+LEFT JOIN accounts ACC ON AC.account_id = ACC.id
+WHERE A.deleted =0
+ORDER BY A.name ASC
+

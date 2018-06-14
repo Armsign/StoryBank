@@ -1,6 +1,100 @@
-<!-- Not logged in view -->
-<div class="grid-container roomDirectory">
-        
-    <h1>Screen saver?</h1>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p><span style="font-family: arial, helvetica, sans-serif; font-size: small;"> </span></p>
+<p><span style="font-family: arial, helvetica, sans-serif; font-size: small;"> </span></p>
+<p><span style="font-family: arial, helvetica, sans-serif; font-size: small;"> </span></p>
+<table style="width: 100%;" border="0" cellspacing="2" cellpadding="2">
+    <thead style="width: 100%;">
+        <tr>
+            <th style="width: 50%;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;"> </span></th>
+            <th style="width: 16.667%;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;"> </span></th>
+            <th style="width: 16.667%;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;"> </span></th>
+            <th style="width: 16.667%;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;"> </span></th>
+        </tr>
+    </thead>
+    
+    <tbody style="width: 100%;">
+        <tr>
+            <td style="text-align: left;" colspan="4"><span style="font-family: arial, helvetica, sans-serif; font-size: small;"><strong>$aos_line_item_groups_name</strong></span></td>
+        </tr>
+        <tr>
+            <td style="text-align: left;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;">$aos_products_quotes_item_description</span></td>
+            <td style="text-align: right;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;">$aos_products_quotes_product_qty</span></td>
+            <td style="text-align: right;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;">$aos_products_quotes_product_unit_price</span></td>
+            <td style="text-align: right;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;">$aos_products_quotes_product_total_price</span></td>
+        </tr>
+        <tr>
+            <td colspan="2"><span style="font-family: arial, helvetica, sans-serif; font-size: small;">$aos_services_quotes_name</span></td>
+            <td style="text-align: right;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;">$aos_services_quotes_service_unit_price</span></td>
+            <td style="text-align: right;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;">$aos_services_quotes_service_total_price</span></td>
+        </tr>
+    </tbody>
+</table>
 
-</div>   
+<p><span style="font-family: arial, helvetica, sans-serif; font-size: small;"> </span></p>
+
+<table style="width: 100%;" border="0" cellspacing="2" cellpadding="2">
+<thead style="width: 100%;">
+<tr><th style="width: 50%;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;"> </span></th><th style="width: 50%;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;"> </span></th><th style="width: 50%;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;"> </span></th><th style="width: 50%;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;"> </span></th></tr>
+</thead>
+<tbody style="width: 100%;">
+<tr>
+<td colspan="2"><span style="font-family: arial, helvetica, sans-serif; font-size: small;"> </span></td>
+<td><span style="font-family: arial, helvetica, sans-serif; font-size: small;">Packaging &amp; Freight</span></td>
+<td style="text-align: right;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;">$shipping_amount</span></td>
+</tr>
+<tr>
+<td colspan="2"><span style="font-family: arial, helvetica, sans-serif; font-size: small;"> </span></td>
+<td><span style="font-family: arial, helvetica, sans-serif; font-size: small;">Subtotal</span></td>
+<td style="text-align: right;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;">$subtotal_amount</span></td>
+</tr>
+<tr>
+<td colspan="2"><span style="font-family: arial, helvetica, sans-serif; font-size: small;"> </span></td>
+<td><span style="font-family: arial, helvetica, sans-serif; font-size: small;">GST</span></td>
+<td style="text-align: right;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;">$tax_amount</span></td>
+</tr>
+<tr>
+<td colspan="2">
+<p><span style="font-family: arial, helvetica, sans-serif; font-size: small;"><img style="float: left;" src="http://192.168.0.2/SuiteCRM/custom/themes/default/images/Tagline.jpg" alt="" /> </span></p>
+</td>
+<td style="border-top: solid .5px #666666;"><span style="font-family: arial, helvetica, sans-serif; font-size: small;"><strong>Total</strong></span></td>
+<td style="border-top: solid .5px #666666; text-align: right;">
+<p><span style="font-family: arial, helvetica, sans-serif; font-size: small;"><strong>$total_amount</strong></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+
+SELECT 	A.name, A.id, A.website, EA.email_address,
+        A.phone_office, A.phone_alternate, A.phone_fax,
+        A.billing_address_street, A.billing_address_city,
+        A.billing_address_state, A.billing_address_postalcode,
+        A.billing_address_country,
+        A.shipping_address_street, A.shipping_address_city,
+        A.shipping_address_state, A.shipping_address_postalcode,
+        A.shipping_address_country, A.description, A.account_type,
+        A.industry
+FROM accounts A
+LEFT JOIN email_addr_bean_rel EABR ON A.id = EABR.bean_id
+LEFT JOIN email_addresses EA ON EABR.email_address_id = EA.id
+WHERE A.deleted =0
+ORDER BY A.name ASC
+
+
+
+SELECT 	A.first_name, A.last_name, A.id, A.website, EA.email_address,
+        A.phone_office, A.phone_alternate, A.phone_fax,
+        A.billing_address_street, A.billing_address_city,
+        A.billing_address_state, A.billing_address_postalcode,
+        A.billing_address_country,
+        A.shipping_address_street, A.shipping_address_city,
+        A.shipping_address_state, A.shipping_address_postalcode,
+        A.shipping_address_country, A.description, A.account_type,
+        A.industry
+FROM contacts A
+LEFT JOIN email_addr_bean_rel EABR ON A.id = EABR.bean_id
+LEFT JOIN email_addresses EA ON EABR.email_address_id = EA.id
+WHERE A.deleted =0
+ORDER BY A.name ASC

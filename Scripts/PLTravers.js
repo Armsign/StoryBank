@@ -4,7 +4,7 @@
  *      Story Bank
  */
 
-var myApp = angular.module('PLTravers', ['ngRoute', 'ngMaterial', 'ngCookies', 'dataGrid', 'pagination', 'ngTagsInput']);
+var myApp = angular.module('PLTravers', ['ngRoute', 'ngMaterial', 'ngCookies', 'dataGrid', 'pagination', 'ngTagsInput', 'material.components.keyboard']);
 
 myApp.controller('ContainerCTRL', ['$scope', '$location', function($scope, $location) 
 { 
@@ -423,6 +423,12 @@ myApp.controller('RoomCTRL', function ($scope, $routeParams, $location)
         $scope.$digest();
     });  
 
+});
+
+myApp.config(function ($mdKeyboardProvider) 
+{
+    // default layout is german
+    $mdKeyboardProvider.defaultLayout('English');
 });
 
 myApp.config(['$routeProvider', function($routeProvider) 
