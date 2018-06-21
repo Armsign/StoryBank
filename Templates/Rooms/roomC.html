@@ -1,44 +1,89 @@
 <!-- Not logged in view -->
 <div class="grid-container roomDirectory">
         
-        <div class="itemDirectory grid-item" ng-click="switchArtefact('C', 1);" style="grid-column: 2; grid-row: 2">
-                <img style="width: 100%; opacity: 1; cursor: pointer;" src="Images/RoomC/flower.png" />
+        <div class="grid-item" style="grid-column: 0; grid-row: 0;">
+                <img src="Images/RoomC/topLeft.svg" />
+        </div>    
+    
+        <div class="grid-item topBorder topBarLeft" style="grid-column: 2 / span 3; grid-row: 0;">
+            <p style="font-family: SkitchRegular; 
+               font-size: 3em; 
+               color: #C1B49A; 
+               text-align: center;">
+                
+                Welcome to the <span style="color: red;">Inspiration</span> Station
+                
+            </p>
+        </div>    
+    
+        <div class="grid-item topBorder topBarRight" style="grid-column: 5; grid-row: 0;">
+
+            &nbsp;
+            
+        </div>     
+    
+        <div class="grid-item" style="grid-column: 6; grid-row: 0;">
+                <img src="Images/RoomC/topRight.svg" />
+        </div>   
+    
+        <div class="grid-item leftBorder" style="grid-column: 0; grid-row: 2; text-align: center;">
+                <img src="Images/RoomC/framing_02.svg" style="height: 272px;"/>
+        </div>     
+
+        <div class="grid-item leftBorder" style="grid-column: 0; grid-row: 3; text-align: center;">
+            &nbsp;
+        </div>      
+    
+        <div class="grid-item leftBorder" style="grid-column: 0; grid-row: 4; text-align: center;">
+                <img src="Images/RoomC/framing_01.svg" style="height: 272px;"/>
+        </div>        
+    
+        <div class="itemDirectory grid-item" ng-click="switchArtefact($event, 'C', 1);" style="grid-column: 2; grid-row: 2">
+            <img id="artefact01" src="Images/RoomC/childhoodHome.svg" />                
+            
+                
         </div>        
         
-        <div class="grid-item itemDirectory" ng-click="switchArtefact('C', 2);" style="grid-column: 3; grid-row: 2">
-                <img style="width: 100%; opacity: 1; cursor: pointer;" src="Images/RoomC/horsey.png" />
+        <div class="grid-item itemDirectory" ng-click="switchArtefact($event, 'C', 2);" style="grid-column: 3; grid-row: 2">
+            <img id="artefact02" src="Images/RoomC/rockingHorse.svg" />
+                
         </div>                
         
-        <div class="grid-item itemDirectory" ng-click="switchArtefact('C', 3);" style="grid-column: 4; grid-row: 2">
-                <img style="width: 100%; opacity: 1; cursor: pointer;" src="Images/RoomC/IMG_1804.jpg" />
+        <div class="grid-item itemDirectory" ng-click="switchArtefact($event, 'C', 3);" style="grid-column: 4; grid-row: 2">
+            <img id="artefact03" src="Images/RoomC/dollGirl.svg" />
         </div>      
 
-        <div class="grid-item itemDirectory" ng-click="switchArtefact('C', 4);" style="grid-column: 2; grid-row: 3">
-                <img style="width: 100%; opacity: 1; cursor: pointer;" src="Images/RoomC/typewriter.jpg" />
+        <div class="grid-item itemDirectory" ng-click="switchArtefact($event, 'C', 4);" style="grid-column: 2; grid-row: 3">
+                <img id="artefact04" src="Images/RoomC/umbrellaParrot.svg" />
         </div>
             
-        <div class="grid-item itemDirectory" ng-click="switchArtefact('C', 5);" style="grid-column: 3; grid-row: 3">            
-                <img style="width: 100%; opacity: 1; cursor: pointer;" src="Images/RoomC/desk.jpg" />
-        </div>             
-
-    
-        <div class="grid-item itemDirectory" ng-click="switchArtefact('C', 6);" style="grid-column: 4; grid-row: 3">            
-                <img style="width: 100%; opacity: 1; cursor: pointer;" src="Images/RoomC/desk.jpg" />
-        </div>             
-
-        <div class="grid-item itemDirectory" ng-click="switchArtefact('C', 7);" style="grid-column: 2; grid-row: 4">            
-                <img style="width: 100%; opacity: 1; cursor: pointer;" src="Images/RoomC/desk.jpg" />
-        </div>             
-
-        <div class="grid-item itemDirectory" ng-click="switchArtefact('C', 8);" style="grid-column: 3; grid-row: 4">            
-                <img style="width: 100%; opacity: 1; cursor: pointer;" src="Images/RoomC/desk.jpg" />
+        <div class="grid-item itemDirectory" ng-click="switchArtefact($event, 'C', 5);" style="grid-column: 3; grid-row: 3">            
+            <img id="artefact05" src="Images/RoomC/statueBuddha.svg" />
+             
         </div>             
     
-        <div class="grid-item itemDirectory" ng-click="switchArtefact('C', 9);" style="grid-column: 4; grid-row: 4">            
-                <img style="width: 100%; opacity: 1; cursor: pointer;" src="Images/RoomC/desk.jpg" />
+        <div class="grid-item itemDirectory" ng-click="switchArtefact($event, 'C', 6);" style="grid-column: 4; grid-row: 3">            
+                <img id="artefact06" src="Images/RoomC/vaseRoses.svg" />
+        </div>             
+
+        <div class="grid-item itemDirectory" ng-click="switchArtefact($event, 'C', 7);" style="grid-column: 2; grid-row: 4">            
+            <img id="artefact07" src="Images/RoomC/typeWriter.svg" />
+                
+        </div>             
+
+        <div class="grid-item itemDirectory" ng-click="switchArtefact($event, 'C', 8);" style="grid-column: 3; grid-row: 4">            
+                <img id="artefact08" src="Images/RoomC/honoraryDoctorate.svg" />   
+        </div>             
+    
+        <div class="grid-item itemDirectory findYourVoice" ng-click="switchArtefact($event, 'C', 9);" style="grid-column: 4; grid-row: 4;">            
+            
+
+                Find Your Voice!
+
+                
         </div>  
     
-        <div class="grid-item itemDirectory animated fadeIn" style="grid-column: 5; grid-row: 2">
+        <div class="grid-item itemDirectory exposition animated fadeIn" style="grid-column: 5; grid-row: 2">
         
             <div ng-if="activeArtefact === 0">
                 <h1>Find out more!</h1>
@@ -54,24 +99,16 @@
             </div>
 
             <div ng-if="activeArtefact === 1">
-                <h1>Artefact in Question (1)</h1>
+                <h1>Mervin the Rocking Horse</h1>
                 
                 <p>
                     Tië orva anca en, ai rip hérë inqua tulma. Engwa calina aicassë é caw, ve nóa yelma cuivië, er ruc yarë sondë minya. Laicë lorna ronyo tëa oa, yára sanga né nië, né hlar tárië eru. Ílë nú mitta taniquelassë, yarra sanga nún oa. Nu tál tundo onótima, sa erë torma carca tella.
                 </p>
-                
-                <form name="myForm">
-  <md-input-container>
-      <input type="text"
-                        use-keyboard="Deutsch"
-                        ng-model="myModel">
-                    </md-input-container>
-                </form>
             </div>   
 
 
             <div ng-if="activeArtefact === 2">
-                <h1>Artefact in Question (2)</h1>
+                <h1>Childhood Home</h1>
                 
                 <p>
                     Tië orva anca en, ai rip hérë inqua tulma. Engwa calina aicassë é caw, ve nóa yelma cuivië, er ruc yarë sondë minya. Laicë lorna ronyo tëa oa, yára sanga né nië, né hlar tárië eru. Ílë nú mitta taniquelassë, yarra sanga nún oa. Nu tál tundo onótima, sa erë torma carca tella.
@@ -88,7 +125,7 @@
             </div>       
 
             <div ng-if="activeArtefact === 3">
-                <h1>Artefact in Question (3)</h1>
+                <h1>Honorary Doctorate</h1>
                 
                 <p>
                     Tië orva anca en, ai rip hérë inqua tulma. Engwa calina aicassë é caw, ve nóa yelma cuivië, er ruc yarë sondë minya. Laicë lorna ronyo tëa oa, yára sanga né nië, né hlar tárië eru. Ílë nú mitta taniquelassë, yarra sanga nún oa. Nu tál tundo onótima, sa erë torma carca tella.
@@ -105,7 +142,7 @@
             </div>           
 
            <div ng-if="activeArtefact === 4">
-                <h1>Artefact in Question (4)</h1>
+                <h1>Snow Globe</h1>
                 
                 <p>
                     Tië orva anca en, ai rip hérë inqua tulma. Engwa calina aicassë é caw, ve nóa yelma cuivië, er ruc yarë sondë minya. Laicë lorna ronyo tëa oa, yára sanga né nië, né hlar tárië eru. Ílë nú mitta taniquelassë, yarra sanga nún oa. Nu tál tundo onótima, sa erë torma carca tella.
@@ -122,7 +159,7 @@
             </div>  
 
            <div ng-if="activeArtefact === 5">
-                <h1>Artefact in Question (5)</h1>
+                <h1>Typewriter</h1>
                 
                 <p>
                     Tië orva anca en, ai rip hérë inqua tulma. Engwa calina aicassë é caw, ve nóa yelma cuivië, er ruc yarë sondë minya. Laicë lorna ronyo tëa oa, yára sanga né nië, né hlar tárië eru. Ílë nú mitta taniquelassë, yarra sanga nún oa. Nu tál tundo onótima, sa erë torma carca tella.
@@ -138,7 +175,7 @@
             </div>  
 
            <div ng-if="activeArtefact === 6">
-                <h1>Artefact in Question (6)</h1>
+                <h1>Vase of Roses</h1>
                 
                 <p>
                     Tië orva anca en, ai rip hérë inqua tulma. Engwa calina aicassë é caw, ve nóa yelma cuivië, er ruc yarë sondë minya. Laicë lorna ronyo tëa oa, yára sanga né nië, né hlar tárië eru. Ílë nú mitta taniquelassë, yarra sanga nún oa. Nu tál tundo onótima, sa erë torma carca tella.
@@ -155,7 +192,7 @@
             </div>  
 
            <div ng-if="activeArtefact === 7">
-                <h1>Artefact in Question (7)</h1>
+                <h1>Childhood doll</h1>
                 
                 <p>
                     Tië orva anca en, ai rip hérë inqua tulma. Engwa calina aicassë é caw, ve nóa yelma cuivië, er ruc yarë sondë minya. Laicë lorna ronyo tëa oa, yára sanga né nië, né hlar tárië eru. Ílë nú mitta taniquelassë, yarra sanga nún oa. Nu tál tundo onótima, sa erë torma carca tella.
@@ -172,7 +209,7 @@
             </div>  
 
            <div ng-if="activeArtefact === 8">
-                <h1>Artefact in Question (8)</h1>
+                <h1>Buddha</h1>
                 
                 <p>
                     Tië orva anca en, ai rip hérë inqua tulma. Engwa calina aicassë é caw, ve nóa yelma cuivië, er ruc yarë sondë minya. Laicë lorna ronyo tëa oa, yára sanga né nië, né hlar tárië eru. Ílë nú mitta taniquelassë, yarra sanga nún oa. Nu tál tundo onótima, sa erë torma carca tella.
@@ -188,34 +225,45 @@
             </div>  
 
            <div ng-if="activeArtefact === 9">
-                <h1>Artefact in Question (9)</h1>
+                <h1>Inspiration</h1>
                 
-                <p>
-                    Tië orva anca en, ai rip hérë inqua tulma. Engwa calina aicassë é caw, ve nóa yelma cuivië, er ruc yarë sondë minya. Laicë lorna ronyo tëa oa, yára sanga né nië, né hlar tárië eru. Ílë nú mitta taniquelassë, yarra sanga nún oa. Nu tál tundo onótima, sa erë torma carca tella.
-                </p>
-                
-                <p>
-                    Né low ilca lanat antorya, né murmë maren yat. Histë cenda arandur nat ai, ep olosta valarauko lia. Má línë caima leuca qua, tyávë nimba racinë tér vá. Net úr latin tanwëataquë, lauya anwavë lú vor.
-                </p>
+                <br/>
+                <textarea style="width: 100%; height: 300px;">What's this then?</textarea>
+                <br/>
 
-                <p>
-                    Lappa engwa ná cir. Nal nolya maquetta ëa, ta órë mitta holmë alahasta. Yávë nirya yalúmëa up ela, can méla rácina ohtatyaro et. Ran vaxë laurëa ep, nauva holmë turúva ata us, oa lápa nessa ontani tuc.
-                </p>
+                    <img src="Images/Common/keyboard_01.png" style="width: 100%; height: 100%;"/>
 
             </div>  
         
     </div>
-    
-    
-    <div class="grid-item itemDirectory animated fadeIn" style="grid-column: 5; grid-row: 4;" ng-if="activeArtefact !== 0">
-        
-        <br/>
-        <br/>
-        
-        <h1 style="float: right;" ng-click="switchArtefact('C', 0);">I'm inspired!</h1>
-        <br/>
-        <h1 style="float: right;" ng-click="switchArtefact('C', 0);">X</h1>
-        
-    </div>
 
-</div>   
+        <div class="grid-item" style="grid-column: 0; grid-row: 5">
+                <img src="Images/RoomC/bottomLeft.svg" />
+        </div>  
+   
+        <div class="grid-item rightBorder" style="grid-column: 6; grid-row: 2; text-align: center;">
+                <img src="Images/RoomC/framing_03.svg" style="height: 272px;"/>
+        </div>       
+    
+        <div class="grid-item rightBorder" style="grid-column: 6; grid-row: 3; text-align: center;">
+            &nbsp;
+        </div>        
+    
+        <div class="grid-item rightBorder" style="grid-column: 6; grid-row: 4; text-align: center;">
+                <img src="Images/RoomC/framing_04.svg" style="height: 272px;"/>
+        </div>   
+
+    
+        <div class="grid-item" style="grid-column: 6; grid-row: 5">
+                <img src="Images/RoomC/bottomRight.svg" />
+        </div>        
+    
+        <div class="grid-item bottomBorder bottomBarLeft" style="grid-column: 2 / span 3; grid-row: 5;">
+            &nbsp;
+        </div>    
+    
+        <div class="grid-item bottomBorder bottomBarRight" style="grid-column: 5; grid-row: 5;">
+            &nbsp;
+        </div>     
+    
+</div>    

@@ -4,7 +4,7 @@
  *      Story Bank
  */
 
-var myApp = angular.module('PLTravers', ['ngRoute', 'ngMaterial', 'ngCookies', 'dataGrid', 'pagination', 'ngTagsInput', 'material.components.keyboard']);
+var myApp = angular.module('PLTravers', ['ngRoute', 'ngMaterial', 'ngAria', 'ngAnimate', 'ngCookies', 'dataGrid', 'pagination', 'ngTagsInput']);
 
 myApp.controller('ContainerCTRL', ['$scope', '$location', function($scope, $location) 
 { 
@@ -390,15 +390,17 @@ myApp.controller('RoomCTRL', function ($scope, $routeParams, $location)
     $scope.activeArtefact = 0;
     $scope.minutes = 0;
     
-    $scope.switchArtefact = function(room, artefact)
+    $scope.switchArtefact = function($event, room, artefact)
     {
+        //  Something happened ...
+        $scope.minutes = 0;        
+        
         if (artefact !== ($routeParams.artefact) * 1)
         {
             $scope.activeArtefact = artefact;
             $location.path('/Room/View/' + room + '/' + artefact);
         }
         
-        $scope.minutes = 0;        
     }; 
     
     $scope.timeOut = function()
@@ -406,10 +408,10 @@ myApp.controller('RoomCTRL', function ($scope, $routeParams, $location)
         if($scope.minutes < 3) 
         {
             $scope.minutes++;
-            window.setTimeout($scope.timeOut, 6000); /* this checks the flag every 1000 milliseconds*/
+            window.setTimeout($scope.timeOut, 6000); /* this checks the flag every 6000 milliseconds*/
         } else { 
 
-            $location.path('/Room/ScreenSaver');
+            // $location.path('/Room/ScreenSaver');
         }
         
         $scope.$digest();         
@@ -419,16 +421,30 @@ myApp.controller('RoomCTRL', function ($scope, $routeParams, $location)
     {                       
         $scope.activeArtefact = ($routeParams.artefact) * 1;               
         $scope.timeOut();
+
+        //  Add new one
+        angular.element( document.querySelector( '#artefact0' + $scope.activeArtefact ) ).addClass("animated tada selectedImage");
+
+
+        
         
         $scope.$digest();
     });  
 
 });
 
-myApp.config(function ($mdKeyboardProvider) 
-{
-    // default layout is german
-    $mdKeyboardProvider.defaultLayout('English');
+myApp.controller('KeyboardCtrl', function ($scope, keyboardTarget) 
+{ 
+    $scope.KeyboardTarget = keyboardTarget;
+    
+    
+    
+    angular.element(document).ready(function () 
+    {        
+       //   We don't really need to know do we?
+       return;
+    });     
+    
 });
 
 myApp.config(['$routeProvider', function($routeProvider) 

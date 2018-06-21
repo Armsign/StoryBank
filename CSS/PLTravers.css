@@ -8,15 +8,42 @@ and open the template in the editor.
     Author     : PaulDunn
 */
 
+/*
+**  Special Fonts
+*/
+
+@font-face 
+{
+    font-family: BalfordBase;
+    src: url("Fonts/Balford-Base.otf");
+}
+
+@font-face 
+{
+    font-family: SourceSansProLight;
+    src: url("Fonts/SourceSansPro-Regular.otf");
+}
+
+@font-face 
+{
+    font-family: SkitchRegular;
+    src: url("Fonts/Yellow Design Studio - Skitch.otf");
+}
+
+selector 
+{ 
+    cursor: none; 
+}
+
 body
 {
-    font-family: Source Sans, Bookman, Georgia, "Lucida Console", Monaco, monospace !important;
+    font-family: SourceSansProLight, Source Sans, Bookman, Georgia, "Lucida Console", Monaco, monospace !important;
     font-size: 1em;
     font-weight: normal;
     color: #331100;
     background-color: #FFFFFF;
     
-    background-image: url("../Images/MaryBack.png");
+    background-image: url("../Images/Common/Background_Pantone454.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;    
 
@@ -38,9 +65,10 @@ td img
 
 h1
 {
+    font-family: BalfordBase !important;
     display: block;
     font-size: 32pt !important;
-    text-align: center;
+    text-align: left;
 }
 
 h2
@@ -79,14 +107,6 @@ li
     box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);    
 }
 
-.grid-container 
-{
-    padding: 32px;
-    display: grid;
-    grid-template-columns: 50% 50%;
-    height: 100%;
-}
-
 md-whiteframe
 {
     background-color: #FFFFFF;
@@ -100,23 +120,125 @@ md-dialog
     width: 40%;
 }
 
+.grid-container 
+{
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    /* height: 100%; */
+}
 
 .roomDirectory
 {
-    min-height: 1080px !important;  
-    max-height: 1080px !important;  
+    min-height: 1016px !important;  
+    max-height: 1016px !important;  
     
-    grid-template-columns: 100px 280px 280px 280px auto 100px;
-    grid-template-rows: 100px 293px 293px 293px auto 100px;    
+    grid-template-columns: 100px 276px 276px 276px 828px 100px;
+    grid-template-rows: 100px 272px 272px 272px 100px;    
 }
 
 .itemDirectory
 {
     margin: 24px;
     padding: 24px;    
-
+    text-align: center;
 }
 
-/*
-**  Fonts
-*/
+.itemDirectory img
+{ 
+    
+    height: 184px; 
+    opacity: 1;    
+}
+
+.itemDirectory p
+{ 
+    text-align: left;
+}
+
+*:focus 
+{
+    outline: none;
+}
+
+.selectedImage
+{    
+    padding: 32px;
+    
+    background-image: url("../Images/RoomC/itemHighlight.svg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;    
+}
+
+.findYourVoice
+{    
+    padding: 32px;
+    font-family: SkitchRegular; 
+    font-size: 3em; 
+    color: red; 
+    text-align: center;    
+    border: 1px dashed #FF0000;
+    -webkit-border-radius: 64px;
+    -moz-border-radius: 64px;
+    border-radius: 64px;   
+}
+
+.exposition
+{
+    margin: 0;
+    padding: 0;
+    padding-left: 32px;
+    padding-right: 32px;
+    border-left: 1px solid #C1B49A;
+    height: 816px;
+    overflow-y: hidden;
+}
+
+.leftBorder
+{
+    border-left: 1px solid #C1B49A;
+}
+
+.rightBorder
+{
+    border-right: 1px solid #C1B49A;
+}
+
+.topBorder
+{
+    border-top: 1px solid #C1B49A;
+}
+
+.bottomBorder
+{
+    border-bottom: 1px solid #C1B49A;
+}
+
+.topBarLeft
+{    
+    background-image: url("../Images/RoomC/topBarLeft.svg");
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+.topBarRight
+{    
+    background-image: url("../Images/RoomC/topBarRight.svg");
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    text-align: right;
+}
+
+.bottomBarLeft
+{    
+    background-image: url("../Images/RoomC/bottomBarLeft.svg");
+    background-repeat: no-repeat;
+    background-position: center top;
+}
+
+.bottomBarRight
+{    
+    background-image: url("../Images/RoomC/bottomBarRight.svg");
+    background-repeat: no-repeat;
+    background-position: center top;
+}

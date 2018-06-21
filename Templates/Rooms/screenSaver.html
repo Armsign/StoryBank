@@ -66,35 +66,3 @@
 </tr>
 </tbody>
 </table>
-
-SELECT 	A.name, A.id, A.website, EA.email_address,
-        A.phone_office, A.phone_alternate, A.phone_fax,
-        A.billing_address_street, A.billing_address_city,
-        A.billing_address_state, A.billing_address_postalcode,
-        A.billing_address_country,
-        A.shipping_address_street, A.shipping_address_city,
-        A.shipping_address_state, A.shipping_address_postalcode,
-        A.shipping_address_country, A.description, A.account_type,
-        A.industry
-FROM accounts A
-LEFT JOIN email_addr_bean_rel EABR ON A.id = EABR.bean_id
-LEFT JOIN email_addresses EA ON EABR.email_address_id = EA.id
-WHERE A.deleted =0
-ORDER BY A.name ASC
-
-
-
-SELECT 	A.first_name, A.last_name, A.id, A.website, EA.email_address,
-        A.phone_office, A.phone_alternate, A.phone_fax,
-        A.billing_address_street, A.billing_address_city,
-        A.billing_address_state, A.billing_address_postalcode,
-        A.billing_address_country,
-        A.shipping_address_street, A.shipping_address_city,
-        A.shipping_address_state, A.shipping_address_postalcode,
-        A.shipping_address_country, A.description, A.account_type,
-        A.industry
-FROM contacts A
-LEFT JOIN email_addr_bean_rel EABR ON A.id = EABR.bean_id
-LEFT JOIN email_addresses EA ON EABR.email_address_id = EA.id
-WHERE A.deleted =0
-ORDER BY A.name ASC
