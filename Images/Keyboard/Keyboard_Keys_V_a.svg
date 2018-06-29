@@ -1,0 +1,45 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" width="80px" height="80px" viewBox="0 0 80 80">
+<defs>
+<g id="Layer1_0_FILL">
+<path fill="#000000" stroke="none" d="
+M 70.85 40.05
+Q 70.85 27.3 61.8 18.25 52.75 9.2 40 9.2 27.25 9.2 18.15 18.25 9.2 27.3 9.2 40.05 9.2 52.8 18.15 61.8 27.25 70.85 40 70.85 52.75 70.85 61.8 61.8 70.85 52.8 70.85 40.05 Z"/>
+</g>
+
+<path id="Layer1_0_1_STROKES" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill="none" d="
+M 70.85 40.05
+Q 70.85 52.8 61.8 61.8 52.75 70.85 40 70.85 27.25 70.85 18.15 61.8 9.2 52.8 9.2 40.05 9.2 27.3 18.15 18.25 27.25 9.2 40 9.2 52.75 9.2 61.8 18.25 70.85 27.3 70.85 40.05 Z"/>
+
+<font horiz-adv-x="2048">
+<!--  Font Name: American Typewriter Medium BT
+Vendor ID: Bits
+Copyright 1990-1993 Bitstream Inc.  All rights reserved.
+URL for more Information: http://www.adobe.com/go/font_vendor_id?ID=Bits&Name=AmerType%20Md%20BT&PSName=AmerTypewriterITCbyBT-Medium&applanguage=en_US-->
+<font-face font-family="AmerType_Md_BT_Regular" units-per-em="2048" ascent="1935" descent="485"/>
+
+<glyph unicode="V" horiz-adv-x="1530" d="
+M 901 111
+Q 868 26 838 -1 807 -27 756 -27 706 -27 678 -1 649 26 614 121
+L 256 1106
+Q 230 1182 198 1211 165 1239 109 1239 105 1239 89 1233 73 1227 55 1227 1 1227 -19 1244 -39 1261 -39 1299 -39 1329 -12 1351 14 1372 51 1372 58 1372 165 1366 271 1360 371 1360 453 1360 537 1366 621 1372 623 1372 662 1372 682 1353 702 1333 702 1294 702 1262 680 1245 657 1227 614 1227 600 1227 565 1233 530 1239 508 1239 479 1239 462 1221 444 1202 444 1172 444 1156 448 1138 451 1121 457 1102
+L 764 200 1073 1102
+Q 1080 1123 1084 1143 1087 1164 1087 1187 1087 1208 1068 1224 1048 1239 1020 1239 998 1239 963 1233 927 1227 913 1227 871 1227 848 1245 825 1262 825 1294 825 1332 847 1352 868 1372 907 1372 909 1372 992 1366 1075 1360 1157 1360 1256 1360 1364 1366 1471 1372 1479 1372 1516 1372 1543 1351 1569 1329 1569 1299 1569 1270 1548 1248 1527 1227 1501 1227 1487 1227 1463 1233 1439 1239 1430 1239 1364 1239 1332 1211 1300 1182 1272 1106
+L 901 111 Z"/>
+</font>
+</defs>
+
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#Layer1_0_FILL"/>
+
+<use xlink:href="#Layer1_0_1_STROKES"/>
+</g>
+
+<g transform="matrix( 1.1005859375, 0, 0, 1.1005859375, 5.25,20.5) ">
+<clipPath id="Mask_Mask_1">
+<rect x="18.3" y="-2" width="26.6" height="39.45" fill="#FFFFFF" stroke="none"/>
+</clipPath>
+
+<text clip-path="url(#Mask_Mask_1)" writing-mode="lr"><tspan x="20.4" y="28.35" baseline-shift="0%" kerning="auto" font-family="AmerType_Md_BT_Regular" font-size="30" fill="#FFFFFF" xml:space="preserve">V</tspan></text>
+</g>
+</svg>

@@ -124,30 +124,27 @@ md-dialog
 {
     padding: 32px;
     display: grid;
-    grid-template-columns: 50% 50%;
-    /* height: 100%; */
 }
 
 .roomDirectory
 {
-    min-height: 1016px !important;  
-    max-height: 1016px !important;  
+    height: 1016px !important;  
     
-    grid-template-columns: 100px 276px 276px 276px 828px 100px;
-    grid-template-rows: 100px 272px 272px 272px 100px;    
+    grid-template-columns: 100px 207px 207px 207px 207px 207px 207px 207px 207px 100px;
+    grid-template-rows: 100px 116px 700px 100px;    
 }
 
 .itemDirectory
 {
-    margin: 24px;
-    padding: 24px;    
+    margin: 0px;
+    padding: 0px;    
     text-align: center;
 }
 
 .itemDirectory img
 { 
     
-    height: 184px; 
+    height: 116px; 
     opacity: 1;    
 }
 
@@ -189,7 +186,6 @@ md-dialog
     padding: 0;
     padding-left: 32px;
     padding-right: 32px;
-    border-left: 1px solid #C1B49A;
     height: 816px;
     overflow-y: hidden;
 }
@@ -241,4 +237,32 @@ md-dialog
     background-image: url("../Images/RoomC/bottomBarRight.svg");
     background-repeat: no-repeat;
     background-position: center top;
+}
+
+.keyBoardLayout
+{
+    display: block;
+}
+
+.keyBoardLayout ul li
+{    
+    padding: 0 !important;
+    margin-bottom: 6px !important;
+    float: left;
+    text-align: centre;
+    width: 64px;
+}
+
+.line1 img
+{    
+    background-color: black;
+    width: 56px;
+    
+    -webkit-border-radius: 32px;
+    -moz-border-radius: 32px;
+    border-radius: 32px;
+
+    -webkit-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
+    box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
 }
