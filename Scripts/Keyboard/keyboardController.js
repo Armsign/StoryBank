@@ -13,6 +13,8 @@ myApp.controller('KeyboardCTRL', ['$scope', function($scope)
 
     $scope.keyClick = function(keyClicked)
     {
+        
+    
     
         alert('Key cliecked ' + keyClicked);
         

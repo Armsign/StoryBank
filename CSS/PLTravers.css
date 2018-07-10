@@ -30,11 +30,6 @@ and open the template in the editor.
     src: url("Fonts/Yellow Design Studio - Skitch.otf");
 }
 
-selector 
-{ 
-    cursor: none; 
-}
-
 body
 {
     font-family: SourceSansProLight, Source Sans, Bookman, Georgia, "Lucida Console", Monaco, monospace !important;
@@ -49,6 +44,12 @@ body
 
     margin: 0;
     padding: 0;
+    
+    cursor: none;
+    
+    height: 1080px;
+    width: 1920px;
+    
 }
 
 p
@@ -113,7 +114,6 @@ md-whiteframe
     padding: 24px;
 }
 
-
 md-dialog
 {
     padding: 24px;
@@ -122,29 +122,43 @@ md-dialog
 
 .grid-container 
 {
-    padding: 32px;
     display: grid;
+    text-align: center;
 }
 
 .roomDirectory
 {
-    height: 1016px !important;  
+    height: 1080px !important;  
+    width: 1920px !important;
+    padding: 32px;
     
-    grid-template-columns: 100px 207px 207px 207px 207px 207px 207px 207px 207px 100px;
-    grid-template-rows: 100px 116px 700px 100px;    
+    grid-template-columns: 185px 185px 185px 185px 185px 185px 185px 185px 185px 185px;
+    grid-template-rows: 169px 678px 169px;    
 }
 
-.itemDirectory
+.navigationBar ul
 {
-    margin: 0px;
-    padding: 0px;    
+    margin: 0;
+    padding: 32px;    
+    list-style: none;
+    display: block;
+}
+
+.navigationBar ul li
+{
+    margin: 0;
+    padding: 16px;
+    width: 153px;
+    float: left;
     text-align: center;
 }
 
-.itemDirectory img
+.navigationBar ul li img
 { 
-    
-    height: 116px; 
+    margin: 0;
+    padding: 0;    
+    height: 126px;
+    max-width: 120px;
     opacity: 1;    
 }
 
@@ -159,9 +173,7 @@ md-dialog
 }
 
 .selectedImage
-{    
-    padding: 32px;
-    
+{        
     background-image: url("../Images/RoomC/itemHighlight.svg");
     background-repeat: no-repeat;
     background-size: 100% 100%;    
@@ -190,58 +202,44 @@ md-dialog
     overflow-y: hidden;
 }
 
-.leftBorder
+.typeWriter textarea
 {
-    border-left: 1px solid #C1B49A;
+    font-family: SourceSansProLight;
+    font-size: 13pt;
+    width: 560px;
+    height: 540px;
+    padding: 16px;
+    margin-left: 144px;
+    background: rgba(255,255,255, .2);
+    border: none;
+    resize: none;
+    overflow:hidden;
 }
 
-.rightBorder
+.typeWriter
+{   
+    background-image: url("../Images/RoomC/typeWriterBig.png");
+    background-repeat: no-repeat;
+    background-size: 928px 720px;    
+}
+
+.typeWriterFlair
 {
-    border-right: 1px solid #C1B49A;
-}
-
-.topBorder
-{
-    border-top: 1px solid #C1B49A;
-}
-
-.bottomBorder
-{
-    border-bottom: 1px solid #C1B49A;
-}
-
-.topBarLeft
-{    
-    background-image: url("../Images/RoomC/topBarLeft.svg");
+    background-image: url("../Images/RoomC/typeWriterFlair.svg");
     background-repeat: no-repeat;
-    background-position: center bottom;
+    background-size: 938px 621px; 
+    background-position: bottom; 
 }
 
-.topBarRight
-{    
-    background-image: url("../Images/RoomC/topBarRight.svg");
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    text-align: right;
-}
 
-.bottomBarLeft
-{    
-    background-image: url("../Images/RoomC/bottomBarLeft.svg");
-    background-repeat: no-repeat;
-    background-position: center top;
-}
-
-.bottomBarRight
-{    
-    background-image: url("../Images/RoomC/bottomBarRight.svg");
-    background-repeat: no-repeat;
-    background-position: center top;
-}
+/*
+**  Keyboard CSS
+*/
 
 .keyBoardLayout
 {
     display: block;
+    margin-top: 518px;
 }
 
 .keyBoardLayout ul li
@@ -250,13 +248,13 @@ md-dialog
     margin-bottom: 6px !important;
     float: left;
     text-align: centre;
-    width: 64px;
+    width: 54px;
 }
 
 .line1 img
 {    
     background-color: black;
-    width: 56px;
+    width: 54px;
     
     -webkit-border-radius: 32px;
     -moz-border-radius: 32px;
@@ -265,4 +263,45 @@ md-dialog
     -webkit-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
     -moz-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
     box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
+}
+
+.shiftDeposit
+{    
+    width: 100px !important;   
+}
+
+.shiftDeposit img
+{
+    height: 54px;
+    /* width: 168px; */
+    
+    background-color: black;
+    
+    -webkit-border-radius: 32px;
+    -moz-border-radius: 32px;
+    border-radius: 32px;
+
+    -webkit-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
+    box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);    
+}
+
+.spaceBar
+{
+    width: 284px !important; 
+}
+
+.spaceBar img
+{
+    height: 54px;
+    
+    background-color: black;
+    
+    -webkit-border-radius: 32px;
+    -moz-border-radius: 32px;
+    border-radius: 32px;
+
+    -webkit-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
+    box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);     
 }

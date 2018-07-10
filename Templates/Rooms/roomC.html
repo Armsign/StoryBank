@@ -1,102 +1,57 @@
-<!-- 
-
-    grid-template-columns: 100px 207px 207px 207px 207px 207px 207px 207px 207px 100px;
-    grid-template-rows: 100px 116px 764px 100px; 
-
--->
-
 <div class="grid-container roomDirectory">
     
-    <!-- Row 1 -->
-    <div class="grid-item" style="grid-column: 1; grid-row: 1;">
-            <img src="Images/RoomC/topLeft.svg" />
+    <!-- Row 1 Background image -->
+    <div style="grid-column: 1 / span 10; grid-row: 1; background-image: url('Images/RoomC/topRibbon.svg'); background-repeat: no-repeat;">
+        &nbsp;
+    </div>
+    
+    <div class="grid-item navigationBar" style="grid-column: 1 / span 7; grid-row: 1;">
+        
+        <ul>
+
+            <li ng-click="switchArtefact($event, 'C', 2);">
+                <img id="artefact02" src="Images/RoomC/rockingHorse.svg" />                       
+            </li>
+
+            <li ng-click="switchArtefact($event, 'C', 6);">            
+                <img id="artefact06" src="Images/RoomC/vaseRoses.svg" />
+            </li> 
+            
+            <li ng-click="switchArtefact($event, 'C', 1);">
+                <img id="artefact01" src="Images/RoomC/childhoodHome.svg" />                    
+            </li>
+            
+            <li ng-click="switchArtefact($event, 'C', 3);">
+                <img id="artefact03" src="Images/RoomC/dollGirl.svg" />
+            </li>
+            
+            <li ng-click="switchArtefact($event, 'C', 4);">
+                <img id="artefact04" src="Images/RoomC/typeWriter.svg" />
+            </li>
+
+            <li ng-click="switchArtefact($event, 'C', 5);">            
+                <img id="artefact05" src="Images/RoomC/statueBuddha.svg" />             
+            </li>   
+            
+            <li ng-click="switchArtefact($event, 'C', 8);">            
+                <img id="artefact08" src="Images/RoomC/honoraryDoctorate.svg" />   
+            </li>                             
+            
+        </ul>
+            
+    </div>  
+    
+    <div class="grid-item typeWriter" style="grid-column: 6 / span 5; grid-row: 1 / span 3;">
+         <textarea>Hello</textarea>         
     </div>    
-
-    <div class="grid-item topBorder topBarLeft" style="grid-column: 2 / span 4; grid-row: 1;">
-        <p style="font-family: SkitchRegular; 
-           font-size: 3em; 
-           color: #C1B49A; 
-           text-align: center;">
-
-            Welcome to the <span style="color: red;">Inspiration</span> Station
-
-        </p>
-    </div>    
-
-
-    <div class="grid-item topBorder topBarRight" style="grid-column: 6 / span 4; grid-row: 1;">
-
-        <p style="font-family: SkitchRegular; 
-           font-size: 3em; 
-           color: #C1B49A; 
-           text-align: center;">
-
-            <span style="color: red;">Touch</span> a topic below to <span style="color: red;">Begin</span>
-
-        </p>
-
-    </div>     
-
-    <div class="grid-item" style="grid-column: 10; grid-row: 1;">
-            <img src="Images/RoomC/topRight.svg" />
-    </div>   
+    
+    <div class="grid-item typeWriterFlair" style="grid-column: 6 / span 5; grid-row: 3;">
+        &nbsp;   
+    </div>        
 
     <!-- Row 2 -->
 
-    <div class="grid-item leftBorder" style="grid-column: 1; grid-row: 2; text-align: right;">
-            <img src="Images/RoomC/framing_02.svg" style="height: 272px;"/>
-            <div style="display: block; height: 272px;">&nbsp;</div>
-            <img src="Images/RoomC/framing_01.svg" style="height: 272px;"/>
-    </div>     
-
-    <div class="itemDirectory grid-item" ng-click="switchArtefact($event, 'C', 1);" style="grid-column: 2; grid-row: 2;">
-        <img id="artefact01" src="Images/RoomC/childhoodHome.svg" />                
-    </div>       
-
-    <div class="grid-item itemDirectory" ng-click="switchArtefact($event, 'C', 2);" style="grid-column: 3; grid-row: 2;">
-        <img id="artefact02" src="Images/RoomC/rockingHorse.svg" />                
-    </div>                    
-
-    <div class="grid-item itemDirectory" ng-click="switchArtefact($event, 'C', 3);" style="grid-column: 4; grid-row: 2;">
-        <img id="artefact03" src="Images/RoomC/dollGirl.svg" />
-    </div>      
-
-    <div class="grid-item itemDirectory" ng-click="switchArtefact($event, 'C', 4);" style="grid-column: 5; grid-row: 2;">
-        <img id="artefact04" src="Images/RoomC/umbrellaParrot.svg" />
-    </div>
-
-    <div class="grid-item itemDirectory" ng-click="switchArtefact($event, 'C', 5);" style="grid-column: 6; grid-row: 2;">            
-        <img id="artefact05" src="Images/RoomC/statueBuddha.svg" />             
-    </div>                 
-
-    <div class="grid-item itemDirectory" ng-click="switchArtefact($event, 'C', 6);" style="grid-column: 7; grid-row: 2;">            
-        <img id="artefact06" src="Images/RoomC/vaseRoses.svg" />
-    </div> 
-
-    <div class="grid-item itemDirectory" ng-click="switchArtefact($event, 'C', 7);" style="grid-column: 8; grid-row: 2;">            
-        <img id="artefact07" src="Images/RoomC/typeWriter.svg" />  
-    </div>             
-
-    <div class="grid-item itemDirectory" ng-click="switchArtefact($event, 'C', 8);" style="grid-column: 9; grid-row: 2;">            
-            <img id="artefact08" src="Images/RoomC/honoraryDoctorate.svg" />   
-    </div>             
-
-    <div class="grid-item rightBorder" style="grid-column: 10; grid-row: 2; text-align: left;">
-
-            <img src="Images/RoomC/framing_03.svg" style="height: 272px;"/>
-            <div style="display: block; height: 272px;">&nbsp;</div>
-            <img src="Images/RoomC/framing_04.svg" style="height: 272px;"/>
-
-    </div>  
-
-    <!-- Row 3 -->
-
-
-    <div class="grid-item leftBorder" style="grid-column: 1; grid-row: 3; text-align: right;">
-            &nbsp;
-    </div>        
-
-    <div class="grid-item itemDirectory exposition animated fadeIn" style="grid-column: 2 / span 4; grid-row: 3">
+    <div class="grid-item itemDirectory exposition animated fadeIn" style="grid-column: 1 / span 5; grid-row: 2; background-color: rgba(255,255,255,.4);">
 
         <div ng-if="activeArtefact === 0">
             <h1>Find out more!</h1>
@@ -221,61 +176,15 @@
 
         </div>  
 
-       <div ng-if="activeArtefact === 8">
-            <h1>Buddha</h1>
-
-            <p>
-                Tië orva anca en, ai rip hérë inqua tulma. Engwa calina aicassë é caw, ve nóa yelma cuivië, er ruc yarë sondë minya. Laicë lorna ronyo tëa oa, yára sanga né nië, né hlar tárië eru. Ílë nú mitta taniquelassë, yarra sanga nún oa. Nu tál tundo onótima, sa erë torma carca tella.
-            </p>
-
-            <p>
-                Né low ilca lanat antorya, né murmë maren yat. Histë cenda arandur nat ai, ep olosta valarauko lia. Má línë caima leuca qua, tyávë nimba racinë tér vá. Net úr latin tanwëataquë, lauya anwavë lú vor.
-            </p>
-
-            <p>
-                Lappa engwa ná cir. Nal nolya maquetta ëa, ta órë mitta holmë alahasta. Yávë nirya yalúmëa up ela, can méla rácina ohtatyaro et. Ran vaxë laurëa ep, nauva holmë turúva ata us, oa lápa nessa ontani tuc.
-            </p>
-        </div>  
-
-       <div ng-if="activeArtefact === 9">
-            <h1>Inspiration</h1>
-
-            <br/>
-            <textarea style="width: 100%; height: 300px;">What's this then?</textarea>
-            <br/>
-
-            
-            <!--
-                <img src="Images/Common/keyboard_01.png" style="width: 100%; height: 100%;"/>
-            -->
-        </div>  
+      
 
     </div>
     
-    <div class="grid-item" style="grid-column: 6 / span 4; grid-row: 3;">
+    <div class="grid-item" style="grid-column: 6 / span 5; grid-row: 2 / span 2;">
+        
         <div ng-include src="'Templates/Keyboard/depositCreation.html'" ng-controller="KeyboardCTRL" ng-init="ctrlTextArea = 0"></div>
+        
     </div>      
-    
-    <div class="grid-item rightBorder" style="grid-column: 10; grid-row: 3; text-align: right;">
-            &nbsp;
-    </div>     
-
-    <!-- Row 4 -->
-
-    <div class="grid-item" style="grid-column: 1; grid-row: 4">
-            <img src="Images/RoomC/bottomLeft.svg" />
-    </div>  
-
-    <div class="grid-item" style="grid-column: 10; grid-row: 4">
-            <img src="Images/RoomC/bottomRight.svg" />
-    </div>        
-
-    <div class="grid-item bottomBorder bottomBarLeft" style="grid-column: 2 / span 4; grid-row: 4;">
-        &nbsp;
-    </div>    
-
-    <div class="grid-item bottomBorder bottomBarRight" style="grid-column: 6 /span 4; grid-row: 4;">
-        &nbsp;
-    </div>     
+  
     
 </div>    

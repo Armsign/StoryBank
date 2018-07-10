@@ -1,7 +1,5 @@
 <!-- Keyboard template for integration -->
 
-OK. One keyboard coming right up.
-
 <div class="keyBoardLayout" ng-if="capsLock == 0">
     
     <ul>
@@ -97,14 +95,11 @@ OK. One keyboard coming right up.
         <li class="line1" ng-click="keyClick('-')">            
             <img src="Images/Keyboard/Keyboard_Keys_-_a.svg" />
         </li>                
-           
         
-        
-       <!-- Line 3 -->
+        <!-- Line 3 -->
         <li class="line1" style="width: 64px;">            
             &nbsp;
-        </li>
-        
+        </li>        
         
         <li class="line1" ng-click="keyClick('a')">            
             <img src="Images/Keyboard/Keyboard_Keys_A_a.svg" />
@@ -138,15 +133,15 @@ OK. One keyboard coming right up.
             <img src="Images/Keyboard/Keyboard_Keys_L_a.svg" />
         </li>                
         
-        <li class="line1" ng-click="keyClick('.')">            
-            <img src="Images/Keyboard/Keyboard_Keys_Stop.svg" />
+        <li class="line1" ng-click="keyClick('\'')">            
+            <img src="Images/Keyboard/Keyboard_Keys_'_a.svg" />
         </li>         
         
         <li class="line1" ng-click="keyClick('ENTER')">            
             <img src="Images/Keyboard/Keyboard_Keys_Enter.svg" />
         </li>             
         
-      <!-- Line 3 -->
+        <!-- Line 4 -->
         <li class="line1" style="width: 96px;">            
             &nbsp;
         </li>        
@@ -187,7 +182,16 @@ OK. One keyboard coming right up.
             <img src="Images/Keyboard/Keyboard_Keys_QuestionMark.svg" />
         </li>         
                         
-        
+        <!-- Line 5 -->  
+        <li class="shiftDeposit" ng-click="keyClick('Shift')">            
+            <img src="Images/Keyboard/Keyboard_Keys_Shift.svg" />
+        </li>
+        <li class="spaceBar" ng-click="keyClick('Space')">            
+            <img src="Images/Keyboard/Keyboard_Keys_Space.svg" />
+        </li>        
+        <li class="shiftDeposit" ng-click="keyClick('Deposit')">            
+            <img src="Images/Keyboard/Keyboard_Keys_Deposit.svg" />
+        </li>        
         
         
     </ul>
