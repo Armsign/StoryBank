@@ -20,6 +20,12 @@ and open the template in the editor.
 
 @font-face 
 {
+    font-family: Olivetti;
+    src: url("Fonts/zai_Olivetti-UnderwoodStudio21Typewriter.otf");
+}
+
+@font-face 
+{
     font-family: SourceSansProLight;
     src: url("Fonts/SourceSansPro-Regular.otf");
 }
@@ -44,7 +50,7 @@ body
 
     margin: 0;
     padding: 0;
-    
+
     cursor: none;
     
     height: 1080px;
@@ -128,8 +134,8 @@ md-dialog
 
 .roomDirectory
 {
-    height: 1080px !important;  
-    width: 1920px !important;
+    height: 1016px !important;  
+    width: 1856px !important;
     padding: 32px;
     
     grid-template-columns: 185px 185px 185px 185px 185px 185px 185px 185px 185px 185px;
@@ -147,7 +153,7 @@ md-dialog
 .navigationBar ul li
 {
     margin: 0;
-    padding: 16px;
+    padding: 0px 16px 0px 16px;
     width: 153px;
     float: left;
     text-align: center;
@@ -194,43 +200,80 @@ md-dialog
 
 .exposition
 {
-    margin: 0;
-    padding: 0;
-    padding-left: 32px;
-    padding-right: 32px;
-    height: 816px;
+    margin: 64px;
+    padding: 32px;
+    height: 700px;
     overflow-y: hidden;
+    border: 1px solid rgba(0,0,0, .2);
+    -webkit-border-radius: 32px;
+    -moz-border-radius: 32px;
+    border-radius: 32px;   
+    -webkit-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);  
+    
 }
 
-.typeWriter textarea
+.exposition img
 {
-    font-family: SourceSansProLight;
-    font-size: 13pt;
-    width: 560px;
-    height: 540px;
+    margin: 16px 32px 16px 0px;
+    width: 256px;
+    float: left;
+    border: 1px solid rgba(0,0,0, .2);
+    -webkit-border-radius: 32px;
+    -moz-border-radius: 32px;
+    border-radius: 32px; 
+    -webkit-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);  
+
+    
+}
+
+/*
+**  Story Page
+*/
+
+.typeWriter
+{   
+    background-image: url("../Images/RoomC/typeWriterStatic.png");
+    background-repeat: no-repeat;
+    background-size: 928px 1016px;   
+}
+
+.typeWriter tr:first-child td
+{
+    height: 514px;
+    vertical-align: bottom;
+}
+
+.typeWriter tr:last-child td
+{   
+    vertical-align: top;
+}
+
+.typeWriter md-input-container
+{
+    width: 550px;
     padding: 16px;
-    margin-left: 144px;
-    background: rgba(255,255,255, .2);
+    margin: 0;
+    margin-left: 132px;
     border: none;
     resize: none;
     overflow:hidden;
 }
 
-.typeWriter
-{   
-    background-image: url("../Images/RoomC/typeWriterBig.png");
-    background-repeat: no-repeat;
-    background-size: 928px 720px;    
-}
-
-.typeWriterFlair
+.typeWriter textarea
 {
-    background-image: url("../Images/RoomC/typeWriterFlair.svg");
-    background-repeat: no-repeat;
-    background-size: 938px 621px; 
-    background-position: bottom; 
+    font-family: Olivetti;
+    font-size: 11px;
+    line-height: 11px;
 }
 
+[disabled] md-input-container .md-input, md-input-container .md-input[disabled]
+{
+    color: #333333 !important;
+}
 
 /*
 **  Keyboard CSS
@@ -239,22 +282,35 @@ md-dialog
 .keyBoardLayout
 {
     display: block;
-    margin-top: 518px;
+    margin-top: 164px;
+    text-align: center;
 }
-
+ 
 .keyBoardLayout ul li
 {    
     padding: 0 !important;
     margin-bottom: 6px !important;
     float: left;
     text-align: centre;
-    width: 54px;
+    width: 72px;
+}
+
+.keyBoardLayout img
+{
+    opacity: 1;    
+}
+
+.line1
+{
+    animation-duration: 0.3s;
+    -moz-animation-duration: 0.3s;    
+    -webkit-animation-duration: 0.3s;
 }
 
 .line1 img
 {    
     background-color: black;
-    width: 54px;
+    width: 64px;
     
     -webkit-border-radius: 32px;
     -moz-border-radius: 32px;
@@ -267,12 +323,12 @@ md-dialog
 
 .shiftDeposit
 {    
-    width: 100px !important;   
+    width: 128px !important;   
 }
 
-.shiftDeposit img
+.shiftDeposit img, .spaceBar img
 {
-    height: 54px;
+    height: 64px;
     /* width: 168px; */
     
     background-color: black;
@@ -288,20 +344,5 @@ md-dialog
 
 .spaceBar
 {
-    width: 284px !important; 
-}
-
-.spaceBar img
-{
-    height: 54px;
-    
-    background-color: black;
-    
-    -webkit-border-radius: 32px;
-    -moz-border-radius: 32px;
-    border-radius: 32px;
-
-    -webkit-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
-    -moz-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
-    box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);     
+    width: 384px !important; 
 }

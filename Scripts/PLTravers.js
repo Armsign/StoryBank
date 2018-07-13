@@ -384,18 +384,18 @@ myApp.controller('MemberCtrl', function ($scope, $mdDialog, dataToPass)
     
 });
 
-myApp.controller('RoomCTRL', function ($scope, $routeParams, $location) 
+myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $location) 
 { 
-    
-    $scope.activeArtefact = 0;
+    $scope.activeStory = '';
+    $scope.activeArtefact = -1;
     $scope.minutes = 0;
     
     $scope.switchArtefact = function($event, room, artefact)
     {
         //  Something happened ...
-        $scope.minutes = 0;        
+        $scope.minutes = 0; 
         
-        if (artefact !== ($routeParams.artefact) * 1)
+        if ((artefact !== ($routeParams.artefact) * 1) && ( $rootScope.activeStory.length === 0 || ($rootScope.activeStory.length > 0 && confirm('Abandon this story?'))))
         {
             $scope.activeArtefact = artefact;
             $location.path('/Room/View/' + room + '/' + artefact);
@@ -410,12 +410,18 @@ myApp.controller('RoomCTRL', function ($scope, $routeParams, $location)
             $scope.minutes++;
             window.setTimeout($scope.timeOut, 6000); /* this checks the flag every 6000 milliseconds*/
         } else { 
+            //  Empty out the story ... 
 
             // $location.path('/Room/ScreenSaver');
         }
         
         $scope.$digest();         
     };
+    
+    $scope.keyClick = function(keyClicked)
+    {
+        $scope.activeStory = $scope.activeStory + keyClicked;
+    };    
     
     angular.element(document).ready(function () 
     {                       
@@ -424,27 +430,10 @@ myApp.controller('RoomCTRL', function ($scope, $routeParams, $location)
 
         //  Add new one
         angular.element( document.querySelector( '#artefact0' + $scope.activeArtefact ) ).addClass("animated tada selectedImage");
-
-
-        
         
         $scope.$digest();
     });  
 
-});
-
-myApp.controller('KeyboardCtrl', function ($scope, keyboardTarget) 
-{ 
-    $scope.KeyboardTarget = keyboardTarget;
-    
-    
-    
-    angular.element(document).ready(function () 
-    {        
-       //   We don't really need to know do we?
-       return;
-    });     
-    
 });
 
 myApp.config(['$routeProvider', function($routeProvider) 
