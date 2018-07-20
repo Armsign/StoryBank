@@ -1,15 +1,48 @@
 <!-- Keyboard template for integration -->
+
 <table>
     <tr>
         <td>
-            <md-input-container md-no-float>
-                <textarea ng-disabled="true" max-rows="16" aria-label md-maxlength="1000" md-no-resize ng-model="activeStory" placeholder="Your story begins here ..."></textarea>
-            </md-input-container>
+
+                <md-input-container md-no-float>
+                    <textarea ng-disabled="true" max-rows="16" aria-label md-maxlength="1000" md-no-resize ng-model="activeStory" placeholder="{{question}}"></textarea>
+                </md-input-container>
+                
+                <div ng-if="depositStage === 1">
+                    
+                    <md-input-container>    
+                        <p>Ready to make a deposit?<br/>
+                            Please type in your email address so we can find your account.<br/>
+                            Leave it blank if you'd like to remain anonymous.
+                            Press <b>Deposit</b> again to continue.</p>
+                    </md-input-container>    
+
+                    <md-input-container>                 
+                        <label>Email</label>
+                        <input ng-disabled="true" type="email" ng-model="email" placeholder="anon@storybank.com.au" />
+                    </md-input-container>
+                    
+                </div>
+
+                <div ng-if="depositStage === 2">
+
+                    <md-input-container>    
+                        <p>Ready to make a deposit?<br/>
+                        Please tell us your Nom De Plume or leave it blank for Anon.</p>
+                    </md-input-container>    
+
+                     <md-input-container>    
+                         <label>Nom De Plume</label>
+                        <input ng-disabled="true" ng-model="nomDePlume" placeholder="Anon" />
+                    </md-input-container>           
+
+                </div>
+    
         </td>
     </tr>
     <tr>
         <td>
-            
+
             <div class="keyBoardLayout" ng-if="capsLock === true">
 
                 <ul>
@@ -187,19 +220,19 @@
                     <li class="shiftDeposit" ng-click="keyClick($event, 'SHIFT')">            
                         <img src="Images/Keyboard/Keyboard_Keys_Shift.svg" />
                     </li>
-                    
+
                     <li class="line1" style="width: 108px;">            
                         &nbsp;
                     </li>  
-                    
+
                     <li class="spaceBar" ng-click="keyClick($event, ' ')">            
                         <img src="Images/Keyboard/Keyboard_Keys_Space.svg" />
                     </li>   
-                    
+
                     <li class="line1" style="width: 108px;">            
                         &nbsp;
                     </li>  
-                    
+
                     <li class="shiftDeposit" ng-click="keyClick($event, 'DEPOSIT')">            
                         <img src="Images/Keyboard/Keyboard_Keys_Deposit.svg" />
                     </li>         
@@ -341,7 +374,7 @@
                         <img src="Images/Keyboard/Keyboard_Keys_L_b.svg" />
                     </li>                
 
-                    <li class="line1" ng-click="keyClick($event, '\"')">            
+                    <li class="line1" ng-click="keyClick($event, '&quot;')">            
                         <img src="Images/Keyboard/Keyboard_Keys_'_b.svg" />
                     </li>         
 
@@ -394,19 +427,19 @@
                     <li class="shiftDeposit" ng-click="keyClick($event, 'SHIFT')">            
                         <img src="Images/Keyboard/Keyboard_Keys_Shift.svg" />
                     </li>
-                    
+
                     <li class="line1" style="width: 108px;">            
                         &nbsp;
                     </li>  
-                    
+
                     <li class="spaceBar" ng-click="keyClick($event, ' ')">            
                         <img src="Images/Keyboard/Keyboard_Keys_Space.svg" />
                     </li>   
-                    
+
                     <li class="line1" style="width: 108px;">            
                         &nbsp;
                     </li>  
-                    
+
                     <li class="shiftDeposit" ng-click="keyClick($event, 'DEPOSIT')">            
                         <img src="Images/Keyboard/Keyboard_Keys_Deposit.svg" />
                     </li>        
