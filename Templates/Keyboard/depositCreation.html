@@ -4,39 +4,128 @@
     <tr>
         <td>
 
+            <div ng-if="depositStage === 0">
                 <md-input-container md-no-float>
                     <textarea ng-disabled="true" max-rows="16" aria-label md-maxlength="1000" md-no-resize ng-model="activeStory" placeholder="{{question}}"></textarea>
                 </md-input-container>
+            </div>
                 
                 <div ng-if="depositStage === 1">
                     
-                    <md-input-container>    
-                        <p>Ready to make a deposit?<br/>
-                            Please type in your email address so we can find your account.<br/>
-                            Leave it blank if you'd like to remain anonymous.
-                            Press <b>Deposit</b> again to continue.</p>
+                    <md-input-container md-no-float>    
+                        <p>Ready to deposit your story?<br/><br/>
+                            Please type in your <b style="color: red;">email address</b> so we can find your account.<br/><br/>
+                            Leave it blank if you'd like to remain anonymous.<br/><br/>
+                        </p>
+                            
                     </md-input-container>    
 
-                    <md-input-container>                 
+                    <md-input-container md-no-float>                 
                         <label>Email</label>
                         <input ng-disabled="true" type="email" ng-model="email" placeholder="anon@storybank.com.au" />
                     </md-input-container>
+                    
+                    <md-input-container md-no-float>    
+                        
+                        <div class="paperButton" ng-click="completeEmail();">
+                        
+                            <p>Ready!</p>
+                            
+                        </div>
+                        
+                        <div class="paperButton" ng-click="cancelDeposit();">
+                        
+                            <p style="color: red;">Cancel!</p>
+                        
+                        </div>
+                        
+                    </md-input-container>                      
                     
                 </div>
 
                 <div ng-if="depositStage === 2">
 
-                    <md-input-container>    
-                        <p>Ready to make a deposit?<br/>
-                        Please tell us your Nom De Plume or leave it blank for Anon.</p>
+                    <md-input-container md-no-float>    
+                        <p style="margin: 0px;">It looks like this is your first time here!<br/><br/>
+                        Before we can process your deposit, please check the following:</p>
                     </md-input-container>    
 
-                     <md-input-container>    
-                         <label>Nom De Plume</label>
-                        <input ng-disabled="true" ng-model="nomDePlume" placeholder="Anon" />
-                    </md-input-container>           
-
+                    <md-input-container md-no-float>    
+                        
+                        <md-checkbox ng-model="consentGiven" aria-label="StoryBank Consent" ng-true-value="1" ng-false-value="0">
+                            <p>I would like my story to be available for others to enjoy;</p>
+                        </md-checkbox>
+                        
+                    </md-input-container>    
+                    
+                    <md-input-container md-no-float>    
+                        
+                        <md-checkbox ng-model="useEmail" aria-label="StoryBank Consent" ng-true-value="1" ng-false-value="0">
+                            <p>I would like to be contacted via email for updates about my stories and the P.L. Travers Building</p>
+                        </md-checkbox>
+                        
+                    </md-input-container>  
+                    
+                    <md-input-container md-no-float>    
+                        
+                        <div class="paperButton" ng-click="completeConsent();">
+                        
+                            <p>Confirm!</p>
+                            
+                        </div>
+                        
+                        <div class="paperButton" ng-click="cancelDeposit();">
+                        
+                            <p style="color: red;">Cancel!</p>
+                        
+                        </div>
+                        
+                    </md-input-container>                    
+                    
                 </div>
+    
+                <div ng-if="depositStage === 3">
+
+                    <md-input-container md-no-float>    
+                        <p>Have a Nom De Plume?<br/><br/>
+                            Please type in your <b style="color: red;">writing name</b> so we can add to your account.<br/><br/>
+                            Leave it blank if you'd like to remain anonymous.<br/><br/>
+                        </p>
+                            
+                    </md-input-container>    
+
+                    <md-input-container md-no-float>                 
+                        <label>Nom De Plume</label>
+                        <input ng-disabled="true" type="text" ng-model="nomDePlume" placeholder="Anon" />
+                    </md-input-container>
+                    
+                    <md-input-container md-no-float>    
+                        
+                        <div class="paperButton" ng-click="completeDeposit();">
+                        
+                            <p>Ready!</p>
+                            
+                        </div>
+                        
+                        <div class="paperButton" ng-click="cancelDeposit();">
+                        
+                            <p style="color: red;">Cancel!</p>
+                        
+                        </div>
+                        
+                    </md-input-container>   
+
+                </div>    
+    
+                <div ng-if="depositStage === 4">
+                    
+                    <md-input-container md-no-float>    
+                        <p>Thank you!</p>
+                        <p>Your story has been added to the Story Bank!</p>
+                        <p>Dont't forget to visit the Story Teller to hear more stories ...</p>
+                    </md-input-container>    
+                    
+                </div>    
     
         </td>
     </tr>
@@ -233,7 +322,7 @@
                         &nbsp;
                     </li>  
 
-                    <li class="shiftDeposit" ng-click="keyClick($event, 'DEPOSIT')">            
+                    <li class="shiftDeposit" ng-click="keyClick($event, 'DEPOSIT')" ng-if="depositStage === 0">           
                         <img src="Images/Keyboard/Keyboard_Keys_Deposit.svg" />
                     </li>         
 
@@ -440,7 +529,7 @@
                         &nbsp;
                     </li>  
 
-                    <li class="shiftDeposit" ng-click="keyClick($event, 'DEPOSIT')">            
+                    <li class="shiftDeposit" ng-click="keyClick($event, 'DEPOSIT')" ng-if="depositStage === 0">            
                         <img src="Images/Keyboard/Keyboard_Keys_Deposit.svg" />
                     </li>        
 

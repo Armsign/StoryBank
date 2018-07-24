@@ -63,7 +63,8 @@ body
 p
 {
     font-size: 16pt;
-    margin-top: 32px !important;
+    margin: 0px;
+    padding: 0px; 
 }
 
 td img
@@ -368,4 +369,51 @@ md-dialog
     padding: 32px;
     width: 667px;
     background-color: white;
+}
+
+md-checkbox
+{
+    margin-left: 32px !important;
+    margin-bottom: 0px !important;
+}
+
+md-checkbox p
+{
+    margin-left: 32px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+
+.paperButton
+{    
+    float: left;
+    width: 50%;
+    text-align: center;    
+}
+
+.paperButton p
+{
+    float: left;
+    padding: 12px !important;
+    display: inline;
+    font-family: SkitchRegular;
+    line-height: 36px;
+    font-size: 36px;
+    width: 100%;
+    text-align: center;
+    
+    
+    /*
+    border: 1px solid rgba(0,0,0, .2);
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;
+
+    -webkit-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
+    box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);     
+    */
+    
+    
 }

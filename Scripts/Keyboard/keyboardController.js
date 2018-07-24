@@ -6,7 +6,7 @@
 
 var myApp = angular.module('PLTravers');
 
-myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$mdDialog', function($rootScope, $scope, $routeParams, $mdDialog) 
+myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$location', '$http', function($rootScope, $scope, $routeParams, $location, $http) 
 { 
     $scope.capsLock = false;
     $scope.activeStory = '';
@@ -15,55 +15,155 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$mdDi
     $scope.question = 'No question found';   
     $scope.email = '';
     $scope.nomDePlume = '';
-    
+    $scope.consentGiven = 0;
+    $scope.useEmail = 0;
     $scope.depositStage = 0;
     
-    $scope.createDepost = function(ev)
+    $scope.completeDeposit = function()
+    {        
+        var url = 'http://' + $location.host() + ':'+ $location.port() + 
+                '/Vault/API.php?action=deposit&method=create&email=' + $scope.email 
+                + '&nomDePlume=' + $scope.nomDePlume
+                + '&story=' + $scope.activeStory + '&hasConsent=' + $scope.consentGiven + '&useEmail=' + $scope.useEmail;
+
+        //  Call the login function appropriately
+        $http.get(url).then(
+            function (response)   
+            {
+                if (response.data.length === 0)
+                {
+
+                    $scope.depositStage = 0; // Fail State 
+                    
+                } else {
+
+                    $scope.depositStage = 4; // Fetch consent
+
+                }
+            }, 
+            function(response) 
+            {
+                alert('Failure to connect to StoryVault');
+            });  
+            
+        $scope.activeStory = '';
+        $rootScope.activeStory = $scope.activeStory;
+        $scope.email = '';    
+        $scope.nomDePlume = '';             
+        
+    }
+    
+    $scope.completeConsent = function()
     {
-        $scope.collectDeposit = false;      
+        $scope.depositStage = 3;
+    }
+    
+    $scope.cancelDeposit = function()
+    {
+        $scope.depositStage = 0;
+    }
+    
+    $scope.completeEmail = function()
+    {
+        //  Ok, is it anon or not?
+        if ($scope.email !== '' && $scope.email !== 'anon@storybank.com.au')
+        {
+                //  We're gonna need to check for this emails nom de plume ....
+                var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=deposit&method=nomdeplume&email=' + $scope.email;       
+
+                //  Call the login function appropriately
+                $http.get(url).then(
+                    function (response)   
+                    {
+                        if (response.data.length === 0)
+                        {
+
+                            $scope.depositStage = 2; // Fetch consent
+                            
+                        } else {
+                            
+                            //  Assumed consent
+                            $scope.nomDePlume = response.data[0].NOMDEPLUME;
+                            $scope.depositStage = 3; // Confirm NomDePlume
+                            
+                        }
+                    }, 
+                    function(response) 
+                    {
+                        alert('Failure to connect to StoryVault');
+                    });                    
+            
+        } else {
+            
+            //  It's anon
+            $scope.email = 'anon@storybank.com.au';
+            $scope.nomDePlume = 'Anon';
+            $scope.completeDeposit();
+            
+        }
+        
     }
 
     $scope.keyClick = function($event, keyClicked)
     {
         if (keyClicked === 'SHIFT') 
         {
-                $scope.capsLock = !$scope.capsLock;
-        } else if ($scope.depositStage === 0) {
+            
+            $scope.capsLock = !$scope.capsLock;
+            
+        } else if ($scope.depositStage === 0) { //  Regular writing a story
         
             if (keyClicked === 'BACKSPACE')
             {
+                
                 $scope.activeStory = $scope.activeStory.slice(0, -1);
-            } else if (keyClicked === 'DEPOSIT') {                        
-                $scope.depositStage = 1;
-            } else {     
+                
+            } else if (keyClicked === 'DEPOSIT' && $scope.activeStory.length > 0) {                        
+                
+                $scope.depositStage = 1;    //  Switch stage
+                
+            } else if (keyClicked !== 'DEPOSIT') {                                        
+                
                 $scope.activeStory = $scope.activeStory + keyClicked;
-            }
+                
+            } 
 
             //  SET GLOBAL FOR TRANSITION PROMPTS
             $rootScope.activeStory = $scope.activeStory;
             
-        } else if ($scope.depositStage === 1) {
+        } else if ($scope.depositStage === 1) { //  Time to collect an email address
             
             if (keyClicked === 'BACKSPACE')
             {
+                
                 $scope.email = $scope.email.slice(0, -1);
-            } else if (keyClicked === 'DEPOSIT') {                                        
-                $scope.depositStage = 2;
-                
-                //  We're gonna need to check for this emails nom de plume ....
-                
                 
             } else {     
+                
                 $scope.email = $scope.email + keyClicked;
+                
             }            
             
-        } else if ($scope.depositStage === 2) {
+        } else if ($scope.depositStage === 2) { 
             
+            //  Need to collect consent
+            
+            //  Loading ....
             
         } else if ($scope.depositStage === 3) {
             
+            if (keyClicked === 'BACKSPACE')
+            {
+                
+                $scope.nomDePlume = $scope.nomDePlume.slice(0, -1);
+                
+            }  else {     
+                
+                $scope.nomDePlume = $scope.nomDePlume + keyClicked;
+                
+            }
             
-        }        
+        }   
         
         angular.element($event.currentTarget).addClass("animated pulse");        
     };
