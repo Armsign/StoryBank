@@ -43,10 +43,6 @@ body
     font-weight: normal;
     color: #331100;
     background-color: #FFFFFF;
-    
-    background-image: url("../Images/Common/Background_Pantone454.jpg");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;    
 
     margin: 0;
     padding: 0;
@@ -62,7 +58,7 @@ body
 
 p
 {
-    font-size: 16pt;
+    font-size: 24px;
     margin: 0px;
     padding: 0px; 
 }
@@ -75,15 +71,27 @@ td img
 
 h1
 {
+    margin: 0;
+    padding: 8px;
     font-family: BalfordBase !important;
     display: block;
     font-size: 32pt !important;
-    text-align: left;
+    text-align: center;
+}
+
+.blue
+{
+    color: #005470;
+}
+
+.red
+{
+    color: #862F2C;
 }
 
 h2
 {
-    font-size: 1.2em;
+    font-size: 13px;
     margin-top: 0 !important;
 }
 
@@ -100,23 +108,6 @@ li
     text-align: left;
 }
 
-.container
-{
-    text-align: center;
-    width: 96%;   
-    margin: 0;
-    padding: 2%;
-    border: 1px #663300 solid;    
-    -webkit-border-radius: 24px;
-    -moz-border-radius: 24px;
-    border-radius: 24px;  
-    background-color: rgba(255,255,222, 1);
-    
-    -webkit-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
-    -moz-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
-    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);    
-}
-
 md-whiteframe
 {
     background-color: #FFFFFF;
@@ -125,32 +116,42 @@ md-whiteframe
 
 md-dialog
 {
-
     padding: 24px;
     width: 40%;
-
 }
+
+/*
+**  Let's move into this now
+*/
 
 .grid-container 
 {
+    padding: 0px;
+    margin: 0px;    
     display: grid;
     text-align: center;
 }
 
 .roomDirectory
 {
-    height: 1016px !important;  
-    width: 1856px !important;
-    padding: 32px;
+    height: 1080px !important;  
+    width: 1920px !important;
+    padding: 0px;
+    margin: 0px;
     
-    grid-template-columns: 185px 185px 185px 185px 185px 185px 185px 185px 185px 185px;
-    grid-template-rows: 169px 678px 169px;    
+    background-image: url("../Images/Common/typeWriterBackground.png");   
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    grid-template-columns: 192px 192px 192px 192px 192px 192px 192px 192px 192px 192px;    
+    grid-template-rows: 108px 108px 108px 108px 108px 108px 108px 108px 108px 108px;
 }
 
 .navigationBar ul
 {
     margin: 0;
-    padding: 32px;    
+    margin-left: 32px;
+    padding: 0px;    
     list-style: none;
     display: block;
 }
@@ -158,8 +159,8 @@ md-dialog
 .navigationBar ul li
 {
     margin: 0;
-    padding: 0px 16px 0px 16px;
-    width: 153px;
+    padding: 0;
+    width: 148px;
     float: left;
     text-align: center;
 }
@@ -168,9 +169,14 @@ md-dialog
 { 
     margin: 0;
     padding: 0;    
-    height: 126px;
-    max-width: 120px;
+    height: 108px;
+    max-width: 152px;
     opacity: 1;    
+}
+
+.grid-item img
+{
+    height: 64px;    
 }
 
 .itemDirectory p
@@ -205,10 +211,12 @@ md-dialog
 
 .exposition
 {
-    margin: 128px;
-    padding: 32px;
-    min-height: 528px;
+    margin: 0;
+    padding: 16px;
     overflow-y: hidden;
+    background-color: rgba(255,255,255, 0);    
+    
+    /*
     border: 1px solid rgba(0,0,0, .2);
     -webkit-border-radius: 32px;
     -moz-border-radius: 32px;
@@ -216,43 +224,67 @@ md-dialog
     -webkit-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
     -moz-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
     box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);      
+    */
 }
 
-.exposition h1
+.exposition p
 {
-    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 24px;
+    line-height: 26px;
+    color: black;
+    text-align: justify;
 }
 
 .exposition img
 {
+    display: none;
     margin: 16px 32px 16px 0px;
     width: 128px;
-    float: left;
-    border: 1px solid rgba(0,0,0, .2);
-    -webkit-border-radius: 32px;
-    -moz-border-radius: 32px;
-    border-radius: 32px; 
-    -webkit-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
-    -moz-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
-    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);  
+    float: left;   
 
+    /*
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px; 
+        border: 1px solid rgba(0,0,0, .2);
+        -webkit-border-radius: 32px;
+        -moz-border-radius: 32px;
+        border-radius: 32px; 
+        -webkit-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
+        -moz-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
+        box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);  
+    */
     
 }
 
+
+
 /*
 **  Story Page
+
+margin: top right bottom left;
+
 */
 
-.typeWriter
-{   
-    background-image: url("../Images/RoomC/typeWriterStatic.png");
-    background-repeat: no-repeat;
-    background-size: 928px 1016px;   
+.textEntryZone
+{
+    margin: 0px 172px 0px 172px;
+    height: 440px;
+    padding: 16px;
+    background-color: rgba(255, 255, 255, .8) !important;
+    
+    overflow-y: hidden;    
+    
+    -webkit-border-radius: 32px;
+    -moz-border-radius: 32px;
+    border-radius: 32px;    
 }
 
 .typeWriter tr:first-child td
 {
-    height: 514px;
+    margin: 0;
+    padding: 0;
     vertical-align: bottom;
 }
 
@@ -265,12 +297,10 @@ md-dialog
 {
     width: 550px;
     padding: 16px;
-    margin: 16px;
-    margin-left: 152px;
     border: none;
     resize: none;
     overflow:hidden;
-    text-align: left;
+    text-align: left; 
 }
 
 .typeWriter textarea, .typeWriter input, .typeWriter p
@@ -279,6 +309,8 @@ md-dialog
     font-size: 11px;
     line-height: 16px;
     text-align: left;
+    position:absolute;   
+    bottom:0;    
 }
 
 [disabled] md-input-container .md-input, md-input-container .md-input[disabled]

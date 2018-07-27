@@ -182,11 +182,7 @@ Did you have eccentric neighbours? \n\
 Take a moment to write a small story detailing your childhood home, how a stranger to your neighbourhood might find their way to your very own front-door and the characters they might meet on the way.';
                     break;                        
                 case 2:                
-                    $scope.question = 'We all have peers, people in our life and periphery with whom we feel some kinship. \n\
-\n\
-Perhaps, like Bert in Mary Poppins, this person expresses many of your own qualities in a way that is very different from your own. \n\
-\n\
-Consider writing about yourself from this person\'s perspective. How would your peers describe you?';                           
+                    $scope.question = 'Imagine you are having dinner with your role model, what might happen?';                           
                     break;
                 case 3:
                     $scope.question = 'Some of the first stories we ever told were with our toys. \n\

@@ -4,7 +4,7 @@
     <tr>
         <td>
 
-            <div ng-if="depositStage === 0">
+            <div ng-if="depositStage === 0" class="textEntryZone">                                
                 <md-input-container md-no-float>
                     <textarea ng-disabled="true" max-rows="16" aria-label md-maxlength="1000" md-no-resize ng-model="activeStory" placeholder="{{question}}"></textarea>
                 </md-input-container>
@@ -175,7 +175,7 @@
                     </li>         
 
                     <!-- Line 2 -->
-                    <li class="line1" style="width: 32px;">            
+                    <li class="line1" style="width: 72px;">            
                         &nbsp;
                     </li>
 
@@ -323,7 +323,7 @@
                     </li>  
 
                     <li class="shiftDeposit" ng-click="keyClick($event, 'DEPOSIT')" ng-if="depositStage === 0">           
-                        <img src="Images/Keyboard/Keyboard_Keys_Deposit.svg" />
+                        <img src="Images/Keyboard/Keyboard_Keys_Deposit.png" />
                     </li>         
 
                 </ul>
@@ -381,7 +381,7 @@
                     </li>         
 
                     <!-- Line 2 -->
-                    <li class="line1" style="width: 32px;">            
+                    <li class="line1" style="width: 72px;">            
                         &nbsp;
                     </li>
 
@@ -530,7 +530,7 @@
                     </li>  
 
                     <li class="shiftDeposit" ng-click="keyClick($event, 'DEPOSIT')" ng-if="depositStage === 0">            
-                        <img src="Images/Keyboard/Keyboard_Keys_Deposit.svg" />
+                        <img src="Images/Keyboard/Keyboard_Keys_Deposit.png" />
                     </li>        
 
                 </ul>    
