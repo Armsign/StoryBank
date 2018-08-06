@@ -10,6 +10,7 @@ and open the template in the editor.
 
 /*
 **  Special Fonts
+**  Global Colours
 */
 
 @font-face 
@@ -36,37 +37,38 @@ and open the template in the editor.
     src: url("Fonts/Yellow Design Studio - Skitch.otf");
 }
 
+.blue
+{
+    color: #005470;
+}
+
+.red
+{
+    color: #862F2C;
+}
+
+.gray
+{
+    color: #333333;
+}
+
+/*
+**  Core elements
+*/
+
 body
 {
     font-family: SourceSansProLight, Source Sans, Bookman, Georgia, "Lucida Console", Monaco, monospace !important;
     font-size: 1em;
     font-weight: normal;
-    color: #331100;
+    color: #111111;
     background-color: #FFFFFF;
 
     margin: 0;
     padding: 0;
 
-    /*
-    cursor: none;
-    */
-    
     height: 1080px;
-    width: 1920px;
-    
-}
-
-p
-{
-    font-size: 24px;
-    margin: 0px;
-    padding: 0px; 
-}
-
-td img
-{
-    width: 100%; 
-    opacity: .4;
+    width: 1920px;    
 }
 
 h1
@@ -79,19 +81,9 @@ h1
     text-align: center;
 }
 
-.blue
-{
-    color: #005470;
-}
-
-.red
-{
-    color: #862F2C;
-}
-
 h2
 {
-    font-size: 13px;
+    font-size: 16px !important;
     margin-top: 0 !important;
 }
 
@@ -108,6 +100,21 @@ li
     text-align: left;
 }
 
+p
+{
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 32px;
+    margin: 0px;
+    padding: 0px; 
+    text-align: left;
+}
+
+*:focus 
+{
+    outline: none;
+}
+
 md-whiteframe
 {
     background-color: #FFFFFF;
@@ -116,12 +123,17 @@ md-whiteframe
 
 md-dialog
 {
-    padding: 24px;
+    padding: 32px;
     width: 40%;
 }
 
+md-content
+{
+    background: none;
+}
+
 /*
-**  Let's move into this now
+**  Super Structure
 */
 
 .grid-container 
@@ -132,19 +144,45 @@ md-dialog
     text-align: center;
 }
 
-.roomDirectory
+.roomDirectory, .menuDirectory
 {
     height: 1080px !important;  
     width: 1920px !important;
     padding: 0px;
     margin: 0px;
-    
-    background-image: url("../Images/Common/typeWriterBackground.png");   
+
     background-repeat: no-repeat;
     background-size: cover;
 
     grid-template-columns: 192px 192px 192px 192px 192px 192px 192px 192px 192px 192px;    
     grid-template-rows: 108px 108px 108px 108px 108px 108px 108px 108px 108px 108px;
+}
+
+.roomDirectory
+{
+    background-image: url("../Images/Common/typeWriterBackground.png");       
+}
+
+.menuDirectory
+{
+    background-image: url("../Images/Common/Background_Pantone454.jpg");       
+}
+
+/*
+**  Implementation
+*/      
+
+.menuDirectory .menuItem 
+{
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;   
+    background-color: rgba(255,255,255, .2);
+}
+
+.navigationBar
+{
+    margin: 16px;
 }
 
 .navigationBar ul
@@ -171,22 +209,7 @@ md-dialog
     padding: 0;    
     height: 108px;
     max-width: 152px;
-    opacity: 1;    
-}
-
-.grid-item img
-{
-    height: 64px;    
-}
-
-.itemDirectory p
-{ 
-    text-align: left;
-}
-
-*:focus 
-{
-    outline: none;
+    opacity: 1;   
 }
 
 .selectedImage
@@ -196,256 +219,30 @@ md-dialog
     background-size: 100% 100%;    
 }
 
-.findYourVoice
-{    
-    padding: 32px;
-    font-family: SkitchRegular; 
-    font-size: 3em; 
-    color: red; 
-    text-align: center;    
-    border: 1px dashed #FF0000;
-    -webkit-border-radius: 64px;
-    -moz-border-radius: 64px;
-    border-radius: 64px;   
-}
+/*
+**  Exposition about it all
+*/
 
 .exposition
 {
     margin: 0;
     padding: 16px;
     overflow-y: hidden;
-    background-color: rgba(255,255,255, 0);    
-    
-    /*
-    border: 1px solid rgba(0,0,0, .2);
-    -webkit-border-radius: 32px;
-    -moz-border-radius: 32px;
-    border-radius: 32px;   
-    -webkit-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
-    -moz-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
-    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);      
-    */
 }
 
 .exposition p
 {
     margin-bottom: 16px;
     font-size: 24px;
-    line-height: 26px;
-    color: black;
+    line-height: 32px;
     text-align: justify;
 }
 
-.exposition img
-{
-    display: none;
-    margin: 16px 32px 16px 0px;
-    width: 128px;
-    float: left;   
-
-    /*
-        -webkit-border-radius: 8px;
-        -moz-border-radius: 8px;
-        border-radius: 8px; 
-        border: 1px solid rgba(0,0,0, .2);
-        -webkit-border-radius: 32px;
-        -moz-border-radius: 32px;
-        border-radius: 32px; 
-        -webkit-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
-        -moz-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);
-        box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.6);  
-    */
-    
-}
-
-
-
 /*
-**  Story Page
-
-margin: top right bottom left;
-
+**  Finally let's keep the logos sensible
 */
 
-.textEntryZone
-{
-    margin: 0px 172px 0px 172px;
-    height: 440px;
-    padding: 16px;
-    background-color: rgba(255, 255, 255, .8) !important;
-    
-    overflow-y: hidden;    
-    
-    -webkit-border-radius: 32px;
-    -moz-border-radius: 32px;
-    border-radius: 32px;    
-}
-
-.typeWriter tr:first-child td
-{
-    margin: 0;
-    padding: 0;
-    vertical-align: bottom;
-}
-
-.typeWriter tr:last-child td
-{   
-    vertical-align: top;
-}
-
-.typeWriter md-input-container
-{
-    width: 550px;
-    padding: 16px;
-    border: none;
-    resize: none;
-    overflow:hidden;
-    text-align: left; 
-}
-
-.typeWriter textarea, .typeWriter input, .typeWriter p
-{
-    font-family: Olivetti;
-    font-size: 11px;
-    line-height: 16px;
-    text-align: left;
-    position:absolute;   
-    bottom:0;    
-}
-
-[disabled] md-input-container .md-input, md-input-container .md-input[disabled]
-{
-    color: #333333 !important;
-}
-
-/*
-**  Keyboard CSS
-*/
-
-.keyBoardLayout
-{
-    display: block;
-    margin-top: 164px;
-    text-align: center;
-    float: left;
-}
- 
-.keyBoardLayout ul li
-{    
-    padding: 0 !important;
-    margin-bottom: 6px !important;
-    float: left;
-    text-align: centre;
-    width: 72px;
-}
-
-.keyBoardLayout img
-{
-    opacity: 1;    
-}
-
-.line1
-{
-    animation-duration: 0.3s;
-    -moz-animation-duration: 0.3s;    
-    -webkit-animation-duration: 0.3s;
-}
-
-.line1 img
-{    
-    background-color: black;
-    width: 64px;
-    
-    -webkit-border-radius: 32px;
-    -moz-border-radius: 32px;
-    border-radius: 32px;
-
-    -webkit-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
-    -moz-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
-    box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
-}
-
-.shiftDeposit
-{    
-    width: 128px !important;   
-}
-
-.shiftDeposit img, .spaceBar img
+.logo img
 {
     height: 64px;
-    /* width: 168px; */
-    
-    background-color: black;
-    
-    -webkit-border-radius: 32px;
-    -moz-border-radius: 32px;
-    border-radius: 32px;
-
-    -webkit-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
-    -moz-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
-    box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);    
-}
-
-.spaceBar
-{
-    width: 384px !important; 
-}
-
-/*
-**  Create a deposit
-*/
-
-.createDeposit md-dialog
-{
-    margin: 32px;
-    padding: 32px;
-    width: 667px;
-    background-color: white;
-}
-
-md-checkbox
-{
-    margin-left: 32px !important;
-    margin-bottom: 0px !important;
-}
-
-md-checkbox p
-{
-    margin-left: 32px !important;
-    margin-top: 0px !important;
-    margin-bottom: 0px !important;
-}
-
-
-.paperButton
-{    
-    float: left;
-    width: 50%;
-    text-align: center;    
-}
-
-.paperButton p
-{
-    float: left;
-    padding: 12px !important;
-    display: inline;
-    font-family: SkitchRegular;
-    line-height: 36px;
-    font-size: 36px;
-    width: 100%;
-    text-align: center;
-    
-    
-    /*
-    border: 1px solid rgba(0,0,0, .2);
-    -webkit-border-radius: 16px;
-    -moz-border-radius: 16px;
-    border-radius: 16px;
-
-    -webkit-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
-    -moz-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
-    box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);     
-    */
-    
-    
 }

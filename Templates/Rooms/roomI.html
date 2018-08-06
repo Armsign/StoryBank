@@ -1,18 +1,21 @@
 <div class="grid-container roomDirectory">
     
     <!-- Row 1 Background image -->
-    <div style="grid-column: 1 / span 5; grid-row: 1 / span 2;">
+    <div style="grid-column: 1 / span 5; grid-row: 1;">
          <h1 class="blue">Explore the objects in this room</h1>
-         <h2>
-             <b class="blue">Touch</b> one of the objects below to find out more about her life.
-        </h2>
     </div>
     
     <div style="grid-column: 6 / span 5; grid-row: 1;">
          <h1 class="red">Make a deposit into the Story Bank</h1>
     </div>    
     
-    <div class="grid-item navigationBar" style="grid-column: 1 / span 5; grid-row: 3;">
+    <!--
+    <div style="z-index: -100; opacity: 0.8; margin: 16px; grid-column: 1 / span 5; grid-row: 2; background-image: url('Images/RoomC/topRibbon.svg'); background-repeat: no-repeat;">
+        &nbsp;
+    </div>    
+    -->
+    
+    <div class="grid-item navigationBar" style="grid-column: 1 / span 5; grid-row: 2;">
         
         <ul>
 
@@ -44,19 +47,24 @@
             
     </div>  
     
-    <div class="grid-item" style="grid-column: 6 / span 5; grid-row: 2 / span 8;">
+    <div class="grid-item typeWriter" style="grid-column: 6 / span 5; grid-row: 2 / span 8;">
         <div ng-include src="'Templates/Keyboard/depositCreation.html'" ng-controller="KeyboardCTRL"></div>                                    
     </div>              
 
     <!-- Row 2 -->
 
-    <div class="grid-item itemDirectory exposition" style="grid-column: 2 / span 3; grid-row: 5 / span 4;">
+    <div class="grid-item itemDirectory exposition" style="grid-column: 2 / span 3; grid-row: 4 / span 4;">
 
         <div ng-if="activeArtefact === 0" class="animated fadeIn">
+            <h1>Find out more!</h1>
 
             <p>
-                Each of the artefacts in this room are intimately connected to P.L. Travers life, experience, philosophy and ambition.
+                Each of the artefacts in this room are intimately connected to PL Travers life and ambitions.
             </p>
+
+            <p>
+                Touch one of the objects on the left to find out more about her connection and inspirations.
+            </p>                
 
         </div>
 
@@ -120,9 +128,10 @@
             </p>
             <p>                
                 She was particularly fond of Hanuman, a Hindu divinity known for his enthusiastic efforts to serve and bring joy into the world, inspiring her book Friend Monkey (1971).
+                <img src="Images/RoomC/picHanuman.jpeg" />
             </p>
             <p>
-                PL Travers believed that stories arose from the mysterious places of the soul, bubbling up into the conscious mind during the quiet moments of meditation, reflection and communion.
+                PL Travers believed that stories arose from the mysterious places of the soul, bubbling up into the conscious mind during the quiet moments of meditation and reflection.
             </p>
             
         </div>  
@@ -131,6 +140,7 @@
 
             <p>
                 “<i>Actresses grow old, dancers grow wobbly, whereas <b class="blue">a writer still has a typewriter.</b></i>” P.L. Travers.
+                <!-- <img src="Images/RoomC/picAutoWriting.jpg" /> -->
             </p>
             <p>
                 She believed that handwriting was a more direct connection to her subconscious, a form of automatic writing.
@@ -155,10 +165,29 @@
                 
             </p>
         </div>  
+        
+<!--
+       <div ng-if="activeArtefact === 3" class="animated fadeIn">
+            <h1>Childhood doll</h1>
+
+            <p>
+                PL Travers childhood doll is an example of the Dutch Doll tradition, where lathe-turned lengths of wood are held together by pegs and sold to children undressed.
+                <img src="Images/RoomC/picDutchDoll.jpg" />
+            </p>
+            <p>
+                The owners of these dolls would then create the outfit for the doll themselves.
+            </p>
+            <p>
+                In this, the Dutch Doll resembled an Artist’s Mannequin and was actually used by PL Travers and Mary Shepherd in this role to create the iconic look and feel of Mary Poppins herself.
+            </p>
+            
+        </div>  
+        
+        -->        
 
     </div>
     
-    <div class="grid-item logo" style="grid-column: 2 / span 3; grid-row: 10;" ng-click="switchArtefact($event, 'C', 0);">
+    <div class="grid-item" style="grid-column: 2 / span 3; grid-row: 10;">
         <img src="Images/Common/StoryBanklogo.png" />   
     </div>    
     

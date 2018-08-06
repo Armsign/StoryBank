@@ -456,6 +456,22 @@ myApp.config(['$routeProvider', function($routeProvider)
             templateUrl: 'Templates/Rooms/roomC.html',
             controller: 'RoomCTRL'    
         }).                 
+        when('/Room/View/D/:artefact', { 
+            templateUrl: 'Templates/Rooms/roomD.html',
+            controller: 'RoomCTRL'    
+        }).                 
+        when('/Room/View/E/:artefact', { 
+            templateUrl: 'Templates/Rooms/roomE.html',
+            controller: 'RoomCTRL'    
+        }).                                 
+        when('/Room/View/I/:artefact', { 
+            templateUrl: 'Templates/Rooms/roomI.html',
+            controller: 'RoomCTRL'    
+        }).                  
+        when('/Room/View/L/:artefact', { 
+            templateUrl: 'Templates/Rooms/roomL.html',
+            controller: 'RoomCTRL'    
+        }).                                 
         when('/Record', { 
             templateUrl: 'Templates/Record/record.html',
             controller: 'RecordCTRL'    

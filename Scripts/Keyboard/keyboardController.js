@@ -21,8 +21,8 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
     
     $scope.completeDeposit = function()
     {        
-        var url = 'http://' + $location.host() + ':'+ $location.port() + 
-                '/Vault/API.php?action=deposit&method=create&email=' + $scope.email 
+        var url = 'http://' + $location.host() 
+                + '/Vault/API.php?action=deposit&method=create&email=' + $scope.email 
                 + '&nomDePlume=' + $scope.nomDePlume
                 + '&story=' + $scope.activeStory + '&hasConsent=' + $scope.consentGiven + '&useEmail=' + $scope.useEmail;
 
@@ -63,13 +63,14 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         $scope.depositStage = 0;
     }
     
+    //  Stage Two
     $scope.completeEmail = function()
     {
         //  Ok, is it anon or not?
         if ($scope.email !== '' && $scope.email !== 'anon@storybank.com.au')
         {
                 //  We're gonna need to check for this emails nom de plume ....
-                var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=deposit&method=nomdeplume&email=' + $scope.email;       
+                var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=nomdeplume&email=' + $scope.email;       
 
                 //  Call the login function appropriately
                 $http.get(url).then(
@@ -165,62 +166,44 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
             
         }   
         
+        if ($scope.depositState === 0)
+        {
+            var textarea = document.getElementById('textForStory');
+            textarea.scrollTop = textarea.scrollHeight;            
+        }        
+        
         angular.element($event.currentTarget).addClass("animated pulse");        
     };
     
     $scope.fetchQuestion = function() 
     {
-        if ($scope.artefact > 0)
+        if ($scope.artefact >= 0)
         {
             switch ($scope.artefact)
             {
                 case 1:
-                    $scope.question = 'Consider your own childhood home. \n\
-\n\
-Did you have eccentric neighbours? \n\
-\n\
-Take a moment to write a small story detailing your childhood home, how a stranger to your neighbourhood might find their way to your very own front-door and the characters they might meet on the way.';
+                    $scope.question = 'to take a moment to write a small story detailing your childhood home and the fictional characters that might inhabit it?';
                     break;                        
                 case 2:                
-                    $scope.question = 'Imagine you are having dinner with your role model, what might happen?';                           
+                    $scope.question = 'to imagine you are having dinner with your role model, what might happen?';                           
                     break;
                 case 3:
-                    $scope.question = 'Some of the first stories we ever told were with our toys. \n\
-\n\
-We sat to one side, an invisible puppeteer, breathing imagination into these otherwise inanimate objects, waking them to wonderful life. \n\
-\n\
-What stories did you tell through your childhood toys? ';
+                    $scope.question = 'to relate a story you told through your childhood toys? ';
                     break;
                 case 4:
-                    $scope.question = 'For PL Travers, this initial phase of pouring out her creativity by hand and then moving it to her typewriter was an important part of her process. \n\
-\n\
-As a writer, do you have a creative process? What tools do you use to create?';
+                    $scope.question = 'to write about your creative process? What tools do you use to create?';
                     break;                                        
                 case 5:
-                    $scope.question = 'Many people have a spiritual framework, a set of beliefs, traditions and rituals which form the basis of a personal relationship with the universe and the divine. \n\
-\n\
-Mary Poppins, for example, arrives and leaves with the East Wind … as Hanuman was birthed with help from Vayu, God of the East Wind. \n\
-\n\
-Our beliefs can shape our creativity in ways that we may not consciously realise. Take a moment to write a small story that reflect your own beliefs and how they have shaped the person you are today.';                
+                    $scope.question = 'to reflect upon your own beliefs and how they have shaped the person you are today?';                
                     break;                    
                 case 6: //  Vase of Roses
-                    $scope.question = 'Everybody keeps some things about themselves private.\n\
-\n\
-This secrecy can build mystery, perhaps protect our vulnerabilities, or simply make it possible to walk with confidence in the world. \n\
-\n\
-Those things we never say, never share, which can only be inferred, are a core part of our personality and character. \n\
-\n\
-Perhaps you feel inspired to share a small story that illuminates something otherwise unknown about yourself?';
+                    $scope.question = 'to share a story that illuminates something otherwise unknown about yourself?';
                     break;
                 case 8:
-                    $scope.question = 'The roots of education are bitter, but the fruit is sweet. Aristotle. \n\
-\n\
-Education is the most powerful weapon which you can use to change the world. Nelson Mandela. How did you \n\
-\n\
-learn to read and write? How do you believe that your early educational experiences shaped your creative writing?'; 
+                    $scope.question = 'to tell a tale that you created with your peers in school?'; 
                     break;                                        
                 default:
-                    $scope.question = 'Your story begins here ...';
+                    $scope.question = 'to begin your story ...?';
                     break; 
             }
         }
