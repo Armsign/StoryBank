@@ -1,0 +1,24 @@
+.adminContainer
+{
+    position: absolute;
+    top: 0;
+    left: 0;    
+    width: 100vw;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
+
+    background-image: url("../Images/Common/Background_Pantone454.jpg");       
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    text-align: left;
+    font-size: 16px;    
+}
+
+.loginDialogue
+{    
+    width: 20%;
+    margin: 0 auto;
+    margin-top: 20vh;
+}

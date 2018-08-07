@@ -58,6 +58,26 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         $scope.depositStage = 3;
     }
     
+    $scope.changeConsent = function()
+    {
+        if ($scope.consentGiven === 0)
+        {
+            $scope.consentGiven = 1;
+        } else {
+            $scope.consentGiven = 0;
+        }
+    }
+    
+    $scope.changeEmail = function()
+    {
+        if ($scope.useEmail === 0)
+        {
+            $scope.useEmail = 1;
+        } else {
+            $scope.useEmail = 0;
+        }        
+    }
+    
     $scope.cancelDeposit = function()
     {
         $scope.depositStage = 0;

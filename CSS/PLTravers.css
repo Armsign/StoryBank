@@ -67,8 +67,8 @@ body
     margin: 0;
     padding: 0;
 
-    height: 1080px;
-    width: 1920px;    
+    height: 100vh;
+    width: 100vw;    
 }
 
 h1
@@ -245,4 +245,15 @@ md-content
 .logo img
 {
     height: 64px;
+}
+
+/*
+**  Material Elements
+*/
+
+.md-whiteframe-1dp
+{
+    margin: 8px;
+    padding: 16px;
+    background: white;
 }
