@@ -52,6 +52,17 @@ and open the template in the editor.
     color: #333333;
 }
 
+.underline
+{
+    color: blue;
+    text-decoration: underline;
+}
+
+.center
+{
+    text-align: center;
+}
+
 /*
 **  Core elements
 */
@@ -79,12 +90,14 @@ h1
     display: block;
     font-size: 32pt !important;
     text-align: center;
+    color: #111111;
 }
 
 h2
 {
     font-size: 16px !important;
     margin-top: 0 !important;
+    color: #111111;
 }
 
 ul

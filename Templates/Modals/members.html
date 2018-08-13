@@ -1,1 +1,36 @@
-The lady raking in the chips is gonna be roxy!
+<md-dialog aria-label="List dialog">
+    
+    <md-dialog-content>
+        <h1 class="blue">Staff Record</h1>
+        
+        <br/><br/>
+
+        <md-input-container style="width: 100%;">
+            <label>Name</label>
+            <input class="modalText" md-maxlength="1024" ng-model="staff.PREFERRED_NAME" />
+        </md-input-container>          
+        
+        <md-input-container style="width: 100%;">
+            <label>Email</label>
+            <input class="modalText" md-maxlength="1024" ng-model="staff.EMAIL" />
+        </md-input-container>
+
+        <md-input-container style="width: 100%;">
+            <label>Password</label>
+            <input class="modalText" md-maxlength="1024" ng-model="staff.PASSWORD" />
+        </md-input-container>        
+
+        <md-input-container>
+            <md-checkbox class="modalText" ng-model="staff.IS_ACTIVE" ng-change="changeApproval(staff.IS_ACTIVE)"  ng-true-value="1" ng-false-value="0" aria-label="Is Active?">
+                Is Active?
+            </md-checkbox>            
+        </md-input-container>              
+        
+    </md-dialog-content>
+    
+    <md-dialog-actions>
+        <md-button ng-click="saveDialog()" class="md-primary">Save & Close</md-button>
+        <md-button ng-click="closeDialog()" class="md-primary">Cancel</md-button>
+    </md-dialog-actions>
+    
+</md-dialog>

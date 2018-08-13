@@ -109,66 +109,6 @@ myApp.controller('PlaybackCTRL', function () { });
 
 myApp.controller('MenuCtrl', function () { });
 
-myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, $cookies, $location) 
-{ 
-    $scope.deposit = $rootScope.deposit;
-    $scope.approved = 0;
-    $scope.storyTags = new Array();
-    
-    $scope.loadTags = function(query) 
-    {
-        //  Ok ... but how it actually needs to send these to an api ...        
-        var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=tags&method=fetch';       
-
-        //  Call the login function appropriately
-        $http.get(url).then(
-            function (response)   
-            {
-                $scope.storyTags = response.data;
-            }, 
-            function(response) 
-            {
-                //  That's ok, no tags, we don't even need them.
-            });         
-       return;
-    };    
-    
-    $scope.saveDialog = function()
-    {
-        $mdDialog.hide($scope.deposit);
-    }
-    
-    $scope.closeDialog = function()
-    {
-        $mdDialog.hide($scope.deposit);
-    }
-            
-    angular.element(document).ready(function () 
-    {        
-        var token = $cookies.get('authenticationToken');
-        
-        if (token && token.length > 0)
-        {
-            //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=administer&method=flags&token=' + token + '&deposit=' + $scope.deposit.id;       
-
-            //  Call the login function appropriately
-            $http.get(url).then(
-                function (response)   
-                {
-                   
-                    
-                }, 
-                function(response) 
-                {
-                    
-                });                                   
-        }
-        
-    });      
-    
-});
-
 myApp.controller('MemberCtrl', function ($scope, $mdDialog, dataToPass) 
 { 
     $scope.member = dataToPass.member;

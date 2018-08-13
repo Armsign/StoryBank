@@ -21,6 +21,8 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
     
     $scope.completeDeposit = function()
     {        
+        //  Resolve consent
+        
         var url = 'http://' + $location.host() 
                 + '/Vault/API.php?action=deposit&method=create&email=' + $scope.email 
                 + '&nomDePlume=' + $scope.nomDePlume
@@ -58,24 +60,14 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         $scope.depositStage = 3;
     }
     
-    $scope.changeConsent = function()
+    $scope.changeConsent = function(value)
     {
-        if ($scope.consentGiven === 0)
-        {
-            $scope.consentGiven = 1;
-        } else {
-            $scope.consentGiven = 0;
-        }
+        $scope.consentGiven = value;
     }
     
-    $scope.changeEmail = function()
+    $scope.changeEmail = function(value)
     {
-        if ($scope.useEmail === 0)
-        {
-            $scope.useEmail = 1;
-        } else {
-            $scope.useEmail = 0;
-        }        
+        $scope.useEmail = value;
     }
     
     $scope.cancelDeposit = function()

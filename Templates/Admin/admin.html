@@ -1,7 +1,7 @@
-<!-- Not logged in view -->
 <div class="adminContainer">
 
-    <div class="adminDirectory loginDialogue" ng-if="securedLogin === 0">
+    <!-- Login option -->   
+    <div class="loginDialogue" ng-if="securedLogin === 0">
 
         <div class="md-whiteframe-1dp">
 
@@ -32,119 +32,158 @@
 
     </div>   
 
-    <!-- Logged in view ... yes, this could be abstracted -->
-    <div class="grid-container adminDirectory" ng-if="securedLogin === 1">
+    <!-- Dashboard view -->
+    <div class="adminDirectory" ng-if="securedLogin === 1">
 
-        <div class="md-whiteframe-1dp grid-item" style="grid-column: 2 / span 7; grid-row: 2;">
-            <h1 class="red">Story Bank Curator</h2>   
-        </div>
-
-        <div class="md-whiteframe-1dp grid-item" style="grid-column: 9; grid-row: 2;">        
-            <md-input-container class="md-block" style="text-align: center; float: right;">
-                <md-button class="md-raised" ng-click="logOut()">Logout</md-button>
+        <div class="md-whiteframe-1dp">
+            <h1 class="red">Story Bank Curator</h1>   
+            
+            <md-input-container class="md-block" style="text-align: center;">
+                <md-button class="md-raised" ng-click="addDeposit()">Create a Story</md-button>
+                <md-button class="md-raised" ng-click="addStaff()">Add Staff</md-button>
+                <md-button class="md-raised" ng-click="addTag($event)">Add a Tag</md-button>
+                &nbsp;
+                <md-button class="md-raised" ng-click="logOut()">Logout {{displayName}}</md-button>                
             </md-input-container>   
+            
         </div>
+        
+        <div class="md-whiteframe-1dp" style="padding: 0; min-height: 420px;">
+            <md-content>
+                <md-tabs md-dynamic-height md-border-bottom>
+                    
+                    <md-tab label="New Stories ({{newStoriesCount}})">
+                        <md-content class="md-padding">
 
+                            <div id="newStories" grid-data grid-options="gridNewStoriesOptions" grid-actions="gridNewStoriesActions">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th sortable="ID" class="sortable">#</th>
+                                        <th sortable="STORED_BY" class="sortable">Email</th>                                                            
+                                        <th sortable="STORED_AS" class="sortable">Nom De Plume</th>                                                            
+                                        <th sortable="STORED_ON" class="sortable">Received</th>                                                                                
+                                        <th sortable="TRANSCRIPTION" class="sortable">Story</th>  
+                                        <th>&nbsp;</th>  
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr grid-item>
+                                            <td ng-click="editDeposit(item, $event)" ng-bind="item.ID" class="underline"></td>
+                                            <td ng-bind="item.STORED_BY"></td> 
+                                            <td ng-bind="item.STORED_AS"></td> 
+                                            <td ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
+                                            <td ng-bind="item.TRANSCRIPTION"></td> 
+                                            <td ng-click="deleteDeposit(item, $event)" class="underline centre">
+                                                Delete                                                
+                                            </td> 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>   
+                            
+                        </md-content>
+                    </md-tab>   
+                        
+                    <md-tab label="Reported Stories">
+                         <md-content class="md-padding">
 
-        <div class="md-whiteframe-1dp grid-item" style="grid-column: 2 / span 8; grid-row: 3 / span 2;">
+                            <div id="flaggedStories" grid-data grid-options="gridFlaggedStoriesOptions" grid-actions="gridFlaggedStoriesActions">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th sortable="ID" class="sortable">#</th>
+                                        <th sortable="TITLE" class="sortable">Title</th>                                       
+                                        <th sortable="STORED_BY" class="sortable">Stored By</th>                                                            
+                                        <th sortable="STORED_AT" class="sortable">Stored At</th>                                                            
+                                        <th sortable="STORED_ON" class="sortable">Stored On</th>                                                                                
+                                        <th sortable="AUDIO_TYPE" class="sortable">Audio Type</th>                                                            
+                                        <th sortable="AUDIO_LENGTH" class="sortable">Audio Length</th>                                                            
+                                        <th sortable="RECEIVED_BY" class="sortable">Received By</th>                                                            
+                                        <th sortable="RECEIVED_ON" class="sortable">Received On</th>                                                                                
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr grid-item ng-click="editDeposit(item, $event)">
+                                            <td ng-bind="item.ID"></td>
+                                            <td ng-bind="item.TITLE"></td>
+                                            <td ng-bind="item.STORED_BY"></td> 
+                                            <td ng-bind="item.STORED_AS"></td> 
+                                            <td ng-bind="item.STORED_ON | date:'MM/dd/yyyy'"></td>
+                                            <td ng-bind="item.AUDIO_TYPE"></td> 
+                                            <td ng-bind="item.AUDIO_LENGTH"></td> 
+                                            <td ng-bind="item.RECEIVED_BY"></td> 
+                                            <td ng-bind="item.RECEIVED_ON"></td>                    
+                                        </tr>
+                                    
+                                    </tbody>
+                                </table>
+                            </div>           
+                        </md-content>
+                    </md-tab>     
 
-            <h2>New stories to review!</h2>
+                    <md-tab label="Tags">
+                        <md-content class="md-padding">
 
-            <div id="newStories" grid-data grid-options="gridNewStoriesOptions" grid-actions="gridNewStoriesActions">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th sortable="ID" class="sortable">#</th>
-                        <th sortable="TITLE" class="sortable">Title</th>                                       
-                        <th sortable="STORED_BY" class="sortable">Stored By</th>                                                            
-                        <th sortable="STORED_AT" class="sortable">Stored At</th>                                                            
-                        <th sortable="STORED_ON" class="sortable">Stored On</th>                                                                                
-                        <th sortable="AUDIO_TYPE" class="sortable">Audio Type</th>                                                            
-                        <th sortable="AUDIO_LENGTH" class="sortable">Audio Length</th>                                                            
-                        <th sortable="RECEIVED_BY" class="sortable">Received By</th>                                                            
-                        <th sortable="RECEIVED_ON" class="sortable">Received On</th>                                                                                
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr grid-item ng-click="editDeposit(item)">
-                        <td ng-bind="item.ID"></td>
-                        <td ng-bind="item.TITLE"></td>
-                        <td ng-bind="item.STORED_BY"></td> 
-                        <td ng-bind="item.STORED_AT"></td> 
-                        <td ng-bind="item.STORED_ON | date:'MM/dd/yyyy'"></td>
-                        <td ng-bind="item.AUDIO_TYPE"></td> 
-                        <td ng-bind="item.AUDIO_LENGTH"></td> 
-                        <td ng-bind="item.RECEIVED_BY"></td> 
-                        <td ng-bind="item.RECEIVED_ON"></td>                    
-                    </tr>
-                    </tbody>
-                </table>
-            </div>        
+                            <div id="members" grid-data grid-options="gridTagsOptions" grid-actions="gridMembersActions">
+                               <table class="table table-bordered table-striped">
+                                   <thead>
+                                   <tr>
+                                       <th sortable="ID" class="sortable">#</th>
+                                       <th sortable="TITLE" class="sortable">Title</th>                                       
+                                       <th sortable="DESCRIPTION" class="sortable">Description</th>  
+                                       <th>&nbsp;</th>  
+                                   </tr>
+                                   </thead>
+                                   <tbody>
+                                   <tr grid-item>
+                                       <td ng-bind="item.ID" class="underline" ng-click="editTag(item, $event)"></td>
+                                       <td ng-bind="item.TITLE"></td>
+                                       <td ng-bind="item.DESCRIPTION"></td> 
+                                        <td ng-click="deleteTag(item, $event)" class="underline centre">
+                                            Delete                                                
+                                        </td>                                        
+                                   </tr>
+                                   </tbody>
+                               </table> 
+                                
+                            </div>
+                        </md-content>
+                    </md-tab>   
+                    
+                    <md-tab label="Staff">
+                        <md-content class="md-padding">
 
+                            <div id="members" grid-data grid-options="gridMembersOptions" grid-actions="gridMembersActions">
+                               <table class="table table-bordered table-striped">
+                                   <thead>
+                                   <tr>
+                                        <th sortable="ID" class="sortable">#</th>
+                                        <th sortable="EMAIL" class="sortable">Email</th>                                       
+                                        <th sortable="PREFERRED_NAME" class="sortable">Name</th>                                           
+                                        <th sortable="IS_ACTIVE" class="sortable">Active?</th>                                                                                                    
+                                        <th>&nbsp;</th>  
+                                   </tr>
+                                   </thead>
+                                   <tbody>
+                                   <tr grid-item>
+                                        <td ng-click="editMember(item, $event)" ng-bind="item.ID" class="underline"></td>
+                                        <td ng-bind="item.EMAIL"></td>
+                                        <td ng-bind="item.PREFERRED_NAME"></td>                                                                                
+                                        <td ng-bind="item.IS_ACTIVE"></td>                                        
+                                        <td ng-click="passwordMember(item, $event)" class="underline centre">
+                                             Set Password                                                
+                                        </td>                                           
+                                   </tr>
+                                   </tbody>
+                               </table> 
+                            </div>
+                        </md-content>
+                    </md-tab>                                        
+                    
+                </md-tabs>
+            </md-content>
         </div>
-
-        <div class="md-whiteframe-1dp grid-item" style="grid-column: 2 / span 8; grid-row: 5 / span 2;">
-
-            <h2>Flagged Stories for review!</h2>
-
-            <div id="flaggedStories" grid-data grid-options="gridFlaggedStoriesOptions" grid-actions="gridFlaggedStoriesActions">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th sortable="ID" class="sortable">#</th>
-                        <th sortable="TITLE" class="sortable">Title</th>                                       
-                        <th sortable="STORED_BY" class="sortable">Stored By</th>                                                            
-                        <th sortable="STORED_AT" class="sortable">Stored At</th>                                                            
-                        <th sortable="STORED_ON" class="sortable">Stored On</th>                                                                                
-                        <th sortable="AUDIO_TYPE" class="sortable">Audio Type</th>                                                            
-                        <th sortable="AUDIO_LENGTH" class="sortable">Audio Length</th>                                                            
-                        <th sortable="RECEIVED_BY" class="sortable">Received By</th>                                                            
-                        <th sortable="RECEIVED_ON" class="sortable">Received On</th>                                                                                
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr grid-item ng-click="editDeposit(item, $event)">
-                        <td ng-bind="item.ID"></td>
-                        <td ng-bind="item.TITLE"></td>
-                        <td ng-bind="item.STORED_BY"></td> 
-                        <td ng-bind="item.STORED_AT"></td> 
-                        <td ng-bind="item.STORED_ON | date:'MM/dd/yyyy'"></td>
-                        <td ng-bind="item.AUDIO_TYPE"></td> 
-                        <td ng-bind="item.AUDIO_LENGTH"></td> 
-                        <td ng-bind="item.RECEIVED_BY"></td> 
-                        <td ng-bind="item.RECEIVED_ON"></td>                    
-                    </tr>
-                    </tbody>
-                </table>
-            </div>           
-
-        </div> 
-
-        <div class="md-whiteframe-1dp grid-item" style="grid-column: 2 / span 8; grid-row: 7 / span 2;">
-            <h2>Story Bank members!</h2>
-
-             <div id="members" grid-data grid-options="gridMembersOptions" grid-actions="gridMembersActions">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th sortable="ID" class="sortable">#</th>
-                        <th sortable="EMAIL" class="sortable">Email</th>                                       
-                        <th sortable="IS_ACTIVE" class="sortable">Active?</th>                                                            
-                        <th sortable="PREFERRED_NAME" class="sortable">Name</th>                                                                                                                   
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr grid-item ng-click="editMember(item, $event)">
-                        <td ng-bind="item.ID"></td>
-                        <td ng-bind="item.EMAIL"></td>
-                        <td ng-bind="item.IS_ACTIVE"></td> 
-                        <td ng-bind="item.PREFERRED_NAME"></td>           
-                    </tr>
-                    </tbody>
-                </table> 
-             </div>
-
-        </div> 
 
     </div>  
       
