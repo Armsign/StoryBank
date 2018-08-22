@@ -15,11 +15,6 @@
             <input class="modalText" md-maxlength="1024" ng-model="staff.EMAIL" />
         </md-input-container>
 
-        <md-input-container style="width: 100%;">
-            <label>Password</label>
-            <input class="modalText" md-maxlength="1024" ng-model="staff.PASSWORD" />
-        </md-input-container>        
-
         <md-input-container>
             <md-checkbox class="modalText" ng-model="staff.IS_ACTIVE" ng-change="changeApproval(staff.IS_ACTIVE)"  ng-true-value="1" ng-false-value="0" aria-label="Is Active?">
                 Is Active?

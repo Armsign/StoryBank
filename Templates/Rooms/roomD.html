@@ -1,193 +1,125 @@
 <div class="grid-container roomDirectory">
     
     <!-- Row 1 Background image -->
-    <div style="grid-column: 1 / span 5; grid-row: 1;">
-         <h1 class="blue">Explore the objects in this room</h1>
+    <div style="grid-column: 1 / span 5; grid-row: 1 / span 2;">
+         <h1 class="blue">Explore the characters of PL Travers</h1>
+         <h2>
+             <b class="blue">Touch</b> one of the characters below to find out more about her creations.
+        </h2>
     </div>
     
     <div style="grid-column: 6 / span 5; grid-row: 1;">
          <h1 class="red">Make a deposit into the Story Bank</h1>
     </div>    
     
-    <!--
-    <div style="z-index: -100; opacity: 0.8; margin: 16px; grid-column: 1 / span 5; grid-row: 2; background-image: url('Images/RoomC/topRibbon.svg'); background-repeat: no-repeat;">
-        &nbsp;
-    </div>    
-    -->
-    
-    <div class="grid-item navigationBar" style="grid-column: 1 / span 5; grid-row: 2;">
+    <div class="grid-item navigationBar" style="grid-column: 1 / span 5; grid-row: 3;">
         
         <ul>
 
-            <li ng-click="switchArtefact($event, 'C', 2);">
-                <img id="artefact02" src="Images/RoomC/rockingHorse.svg" />                       
+            <li ng-click="switchArtefact($event, 'D', 10);">
+                <img id="artefact10" src="Images/RoomD/Jane-Banks-Vector.svg" />                       
             </li>
 
-            <li ng-click="switchArtefact($event, 'C', 6);">            
-                <img id="artefact06" src="Images/RoomC/snowGlobe.svg" />
+            <li ng-click="switchArtefact($event, 'D', 11);">            
+                <img id="artefact11" src="Images/RoomD/Miss-Andrews-Vector.svg" />
             </li> 
             
-            <li ng-click="switchArtefact($event, 'C', 1);">
-                <img id="artefact01" src="Images/RoomC/childhoodHome.svg" />                    
+            <li ng-click="switchArtefact($event, 'D', 12);">
+                <img id="artefact12" src="Images/RoomD/Mr-banks-Vector.svg" />                    
             </li>
             
-            <li ng-click="switchArtefact($event, 'C', 4);">
-                <img id="artefact04" src="Images/RoomC/typeWriter.svg" />
+            <li ng-click="switchArtefact($event, 'D', 13);">
+                <img id="artefact13" src="Images/RoomD/Mrs-Bird-Vector.svg" />
             </li>
 
-            <li ng-click="switchArtefact($event, 'C', 5);">            
-                <img id="artefact05" src="Images/RoomC/statueBuddha.svg" />             
-            </li>   
-            
-            <li ng-click="switchArtefact($event, 'C', 8);">            
-                <img id="artefact08" src="Images/RoomC/honoraryDoctorate.svg" />   
-            </li>                             
+            <li ng-click="switchArtefact($event, 'D', 14);">            
+                <img id="artefact14" src="Images/RoomD/Orion-Cherry-Tree-Lane-Vector.svg" />             
+            </li>              
             
         </ul>
             
     </div>  
     
-    <div class="grid-item typeWriter" style="grid-column: 6 / span 5; grid-row: 2 / span 8;">
+    <div class="grid-item" style="grid-column: 6 / span 5; grid-row: 2 / span 8;">
         <div ng-include src="'Templates/Keyboard/depositCreation.html'" ng-controller="KeyboardCTRL"></div>                                    
     </div>              
 
     <!-- Row 2 -->
 
-    <div class="grid-item itemDirectory exposition" style="grid-column: 2 / span 3; grid-row: 4 / span 4;">
+    <div class="grid-item itemDirectory exposition" style="grid-column: 2 / span 3; grid-row: 5 / span 4;">
 
         <div ng-if="activeArtefact === 0" class="animated fadeIn">
-            <h1>Find out more!</h1>
 
             <p>
-                Each of the artefacts in this room are intimately connected to PL Travers life and ambitions.
+                PL Travers created many memorable characters. Touch to explore some of her most famous.
             </p>
-
-            <p>
-                Touch one of the objects on the left to find out more about her connection and inspirations.
-            </p>                
 
         </div>
 
-        <div ng-if="activeArtefact === 2" class="animated fadeIn">
+        <div ng-if="activeArtefact === 10" class="animated fadeIn">
 
             <p>
-                <b class="blue">Mervyn the Rocking Horse</b> was named after Mervyn Peake, an illustrator and story teller famous for his Gormenghast series of novels.
-            </p>
-            
-            <p>
-                In addition to writing his own stories, Mervyn illustrated novels by Lewis Carrol, Quentin Crisp, Robert Louis Stevenson and Balzac.
+                Although we can never say that <b class="blue">Jane Banks</b> is PL Travers as a child, we can certainly imagine she used parts of her own childhood when developing the character of Jane.
             </p>
             <p>
-                The exact reason why PL Travers named her Rocking Horse after him will never be known, but it is known that she kept this whimsical companion close for almost her entire life.                
+                In Mary Poppins Comes Back, Jane Banks calls herself a hen who has just laid “seven lovely white eggs and I am sitting with my wings over them brooding. Cluck-cluck!” 
             </p>
-            
+            <p>
+                When PL Travers was a child she pretended to be a hen laying eggs in the garden and wouldn’t come in for dinner, when her mother called!
+            </p>
+            <p>
+                When creating personalities for a story, you might choose bits and bobs from different people you know, to create a well formed character. 
+            </p>
             
         </div>   
 
-        <div ng-if="activeArtefact === 1" class="animated fadeIn">
+        <div ng-if="activeArtefact === 11" class="animated fadeIn">
 
-            <p>
-                <b class="blue">A Pink Door</b> greeted visitors to the terraced Chelsea residence where P.L. Travers lived for 30 years.
-            </p>
-            
-            <p>
-                This pink door was the same colour of the cover of <i>Mary Poppins in Cherry Tree Lane</i>.                
-            </p>
-            
-            <p>
-                Her study was at the top of the house: a white-walled room, crowded with books and papers, it's austerity relieved by a modern rocking chair.
-            </p>
-            
-            <!--
-            <p>
-                <img src="Images/RoomC/picChildhoodHome.jpg" />
-            </p>     
-            -->
-            
-        </div>       
-
-        <div ng-if="activeArtefact === 8" class="animated fadeIn">
-
-            <p>
-                P. L. Travers was a writer in residence at Radcliffe College in 1965, Smith College in 1966 and the Claremont Colleges in California in 1970. 
-            </p>
-            <p>
-                She was awarded a <b class="blue">Honorary Doctorate from Chatham College</b> in Pittsburgh and lived on a Navajo Indian reservation, studying myth and folklore.
-                <!-- <img src="Images/RoomC/picChatham.jpg" /> -->
-            </p>
-            <p>
-                Travers was appointed <b class="blue">Officer of the Order of the British Empire (OBE)</b> in the 1977 New Year Honours.                
-            </p> 
-
-        </div>           
-
-       <div ng-if="activeArtefact === 5" class="animated fadeIn">
-
-            <p>
-                PL Travers was a student of <b class="blue">Zen philosophy, Buddhism and Hindu teachings</b> … to name but a few of her interests.
-            </p>
             <p>                
-                She was particularly fond of Hanuman, a Hindu divinity known for his enthusiastic efforts to serve and bring joy into the world, inspiring her book Friend Monkey (1971).
-                <img src="Images/RoomC/picHanuman.jpeg" />
+                <b class="blue">Miss Andrew</b> is the large and often frightening former nanny of Mr Banks. She is a recurring character in the Mary Poppins books who is mean and rude. Nearly everyone is afraid of her, except Mary Poppins!
             </p>
+
             <p>
-                PL Travers believed that stories arose from the mysterious places of the soul, bubbling up into the conscious mind during the quiet moments of meditation and reflection.
+                When creating a story, think about including an unlikeable character. Or think about your characters having unlikeable traits. A dirty, rotten scoundrel will often make a story more interesting for the reader!                                
             </p>
             
-        </div>  
-
-       <div ng-if="activeArtefact === 4" class="animated fadeIn">
-
-            <p>
-                “<i>Actresses grow old, dancers grow wobbly, whereas <b class="blue">a writer still has a typewriter.</b></i>” P.L. Travers.
-                <!-- <img src="Images/RoomC/picAutoWriting.jpg" /> -->
-            </p>
-            <p>
-                She believed that handwriting was a more direct connection to her subconscious, a form of automatic writing.
-            </p>
-            
-            <p>                
-                "<i>Nothing I had written before 'Mary Poppins' had anything to do with children, and I have always assumed, when I thought about it at all, that she had come out of the same well of nothingness as the poetry, myth and legend that had absorbed me all my writing life.</i>" P.L. Travers
-            </p>
-            
-        </div>  
-
-       <div ng-if="activeArtefact === 6" class="animated fadeIn">
-
-            <p>
-                Then she picked up a small <b class="blue">glass paperweight</b>. Not the one with the prisoned snowstorm that was used in the film, but a more modest dome with a house inside.
-            </p>
-            <p>
-                The legend on the globe read "<i>Home Sweet Home</i>".                
-            </p>
-            <p>
-                "<i>Some day,</i>" Miss Travers said, "<i>I might write a story about this paperweight, because now-a-days, there are so few people, so few who have that sense of home, a safe place, eternal, hidden in their hearts.</i>"
-                
-            </p>
-        </div>  
+        </div>   
         
-<!--
-       <div ng-if="activeArtefact === 3" class="animated fadeIn">
-            <h1>Childhood doll</h1>
+        <div ng-if="activeArtefact === 12" class="animated fadeIn">
 
             <p>
-                PL Travers childhood doll is an example of the Dutch Doll tradition, where lathe-turned lengths of wood are held together by pegs and sold to children undressed.
-                <img src="Images/RoomC/picDutchDoll.jpg" />
+                <b class="blue">Mr Banks</b> has no copy yet.
             </p>
+
+        </div>          
+
+        <div ng-if="activeArtefact === 13" class="animated fadeIn">
+
             <p>
-                The owners of these dolls would then create the outfit for the doll themselves.
-            </p>
-            <p>
-                In this, the Dutch Doll resembled an Artist’s Mannequin and was actually used by PL Travers and Mary Shepherd in this role to create the iconic look and feel of Mary Poppins herself.
+                <b class="blue">The Bird Woman</b> is an elderly woman who sits on the steps of St Paul's Cathedral in London and feeds the birds. She sells bags of crumbs to passers-by for tuppence a bag and is good friends with Mary.
             </p>
             
-        </div>  
-        
-        -->        
+            <p>
+                The Bird Woman has conversations with the children about Mary and the nature of shadows. Although she may not look it at first, she proves to be very wise.
+            </p>            
 
+        </div>     
+        
+        <div ng-if="activeArtefact === 14" class="animated fadeIn">
+
+            <p>
+                <b class="blue">Orion</b> appears in Mary Poppins in Cherry Tree Lane when he comes down to earth from the stars above.  He is a friend of Mary’s.
+            </p>
+            
+            <p>
+                In Greek mythology, he was a giant huntsman whom Zeus, King of the Gods,  placed among the stars as the constellation of Orion.
+            </p>            
+
+        </div>         
+      
     </div>
     
-    <div class="grid-item" style="grid-column: 2 / span 3; grid-row: 10;">
+    <div class="grid-item logo" style="grid-column: 2 / span 3; grid-row: 10;" ng-click="switchArtefact($event, 'D', 0);">
         <img src="Images/Common/StoryBanklogo.png" />   
     </div>    
     

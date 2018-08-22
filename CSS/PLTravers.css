@@ -196,15 +196,18 @@ md-content
 .navigationBar
 {
     margin: 16px;
+    text-align: center;
 }
 
 .navigationBar ul
 {
+    float: left;
     margin: 0;
     margin-left: 32px;
     padding: 0px;    
     list-style: none;
     display: block;
+    text-align: center;
 }
 
 .navigationBar ul li
@@ -220,14 +223,14 @@ md-content
 { 
     margin: 0;
     padding: 0;    
-    height: 108px;
+    height: 152px;
     max-width: 152px;
     opacity: 1;   
 }
 
 .selectedImage
 {        
-    background-image: url("../Images/RoomC/itemHighlight.svg");
+    background-image: url("../Images/Common/itemHighlight.svg");
     background-repeat: no-repeat;
     background-size: 100% 100%;    
 }
@@ -269,4 +272,11 @@ md-content
     margin: 8px;
     padding: 16px;
     background: white;
+}
+
+md-tabs .md-tab 
+{
+    color: #111111 !important;
+    font-weight: bold !important;
+    font-family: SourceSansProLight !important;
 }

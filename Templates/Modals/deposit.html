@@ -1,9 +1,19 @@
 <md-dialog aria-label="List dialog">
     
     <md-dialog-content>
-        <h1 class="blue">Edit a Story</h1>
+        <h1 class="blue">Story Record</h1>
         
         <br/><br/>
+        
+        <md-input-container style="width: 100%;">
+            <label>Email</label>
+            <input class="modalText" md-maxlength="1024" ng-model="deposit.STORED_BY" />
+        </md-input-container>         
+        
+        <md-input-container style="width: 100%;">
+            <label>Nom De Plume</label>
+            <input class="modalText" md-maxlength="1024" ng-model="deposit.STORED_AS" />
+        </md-input-container>        
 
         <md-input-container style="width: 100%;">
             <label>Title</label>

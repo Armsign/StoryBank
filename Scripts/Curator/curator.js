@@ -24,7 +24,7 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
         if ($scope.token && $scope.token.length > 0)
         {
             //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=administer&method=newStories&token=' + $scope.token;       
+            var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=newStories&token=' + $scope.token;       
             
             //  Call the login function appropriately
             $http.get(url).then(
@@ -44,7 +44,7 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
         if (token && token.length > 0)
         {
             //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=administer&method=flaggedStories&token=' + token;       
+            var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=deposit&method=flaggedStories&token=' + token;       
             
             //  Call the login function appropriately
             $http.get(url).then(
@@ -99,9 +99,23 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
         }
     };     
 
-    $scope.addDeposit = function()
+    $scope.addDeposit = function(ev)
     {
+        $rootScope.deposit = undefined;
         
+        $mdDialog.show({
+            controller: 'DepositCtrl',    
+            templateUrl: 'Templates/Modals/deposit.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: false,
+        })
+        .then(function() 
+        {
+            //  Load up teh data grids!
+            $scope.getServerData();
+        });            
         
     }
 
@@ -162,9 +176,25 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
         }
     }
     
-    $scope.addStaff = function()
+    $scope.addStaff = function(ev)
     {
+        $rootScope.staff = undefined;
         
+        $mdDialog.show({
+            controller: 'MemberCtrl',    
+            templateUrl: 'Templates/Modals/members.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: false,
+        })
+        .then(function() 
+        {
+            
+            //  Load up teh data grids!
+            $scope.getMemberServerData();
+ 
+        });             
     }
 
     $scope.editMember = function(member, ev)
@@ -338,6 +368,7 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
 
                         $scope.securedLogin = 1;                        
                         $scope.displayName = response.data.PREFERRED_NAME;
+                        $scope.token = response.data.SESSION;
                         
                         //  Load up teh data grids!
                         $scope.getServerData();
@@ -464,9 +495,6 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
                 //  That's ok, no tags, we don't even need them.
             });         
         
-        
-        
-        
         $mdDialog.hide($scope.deposit);
     }
     
@@ -479,6 +507,29 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
     {        
         //  Nothing on load
         $scope.token = $cookies.get('authenticationToken');
+        
+        //  Did we get a tag? if not we need to instanciate one.
+        if (typeof $scope.deposit === "undefined")
+        {
+            $scope.deposit = {
+                ID:"0", 
+                TITLE: "Title", 
+                STORED_BY: "anon@storybank.com.au",
+                STORED_AS:"Anon",
+                STORED_AT:"N/A",
+                STORED_ON: new Date(),
+                AUDIO_TYPE:"",
+                AUDIO_LENGTH:0,
+                IS_PLAYABLE:0,
+                IS_TRANSCRIBED:1,
+                TRANSCRIPTION:"Story",
+                HAS_CONSENT:0,
+                USE_EMAIL:0,                
+                REVIEWED_BY:0,
+                REVIEWED_ON:new Date(),                
+            };        
+            
+        }        
         
     });      
     
@@ -543,10 +594,11 @@ myApp.controller('MemberCtrl', function ($rootScope, $scope, $http, $mdDialog, $
     {                        
         //  That's easy, but we need an update here ...
         var url = 'http://' + $location.host() 
-                + '/Vault/API.php?action=tags&method=update&token=' + $scope.token
-                + '&id=' + $scope.tag.ID
-                + '&title=' + $scope.tag.TITLE 
-                + '&description=' + $scope.tag.DESCRIPTION; 
+                + '/Vault/API.php?action=members&method=update&token=' + $scope.token
+                + '&id=' + $scope.staff.ID
+                + '&email=' + $scope.staff.EMAIL 
+                + '&preferredName=' + $scope.staff.PREFERRED_NAME 
+                + '&isActive=' + $scope.staff.IS_ACTIVE; 
 
         //  Call the tags function appropriately
         $http.get(url).then(

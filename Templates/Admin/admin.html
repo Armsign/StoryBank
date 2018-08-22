@@ -36,11 +36,16 @@
     <div class="adminDirectory" ng-if="securedLogin === 1">
 
         <div class="md-whiteframe-1dp">
+            
+            <div style="float: left;">
+                <a href="Images/Common/StoryBanklogo.svg"></a>
+            </div>
+            
             <h1 class="red">Story Bank Curator</h1>   
             
             <md-input-container class="md-block" style="text-align: center;">
                 <md-button class="md-raised" ng-click="addDeposit()">Create a Story</md-button>
-                <md-button class="md-raised" ng-click="addStaff()">Add Staff</md-button>
+                <md-button class="md-raised" ng-click="addStaff($event)">Add Staff</md-button>
                 <md-button class="md-raised" ng-click="addTag($event)">Add a Tag</md-button>
                 &nbsp;
                 <md-button class="md-raised" ng-click="logOut()">Logout {{displayName}}</md-button>                

@@ -161,12 +161,15 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
     
     angular.element(document).ready(function () 
     {                       
-        $scope.activeArtefact = ($routeParams.artefact) * 1;               
-        $scope.timeOut();
+        $scope.activeArtefact = "00000" + $routeParams.artefact;               
+        $scope.activeArtefact =  $scope.activeArtefact.substring($scope.activeArtefact.length - 2, $scope.activeArtefact.length);
 
         //  Add new one
-        angular.element( document.querySelector( '#artefact0' + $scope.activeArtefact ) ).addClass("animated tada selectedImage");
+        angular.element( document.querySelector( '#artefact' + $scope.activeArtefact ) ).addClass("animated tada selectedImage");
         
+        $scope.activeArtefact *= 1;
+        
+        $scope.timeOut();
         $scope.$digest();
     });  
 

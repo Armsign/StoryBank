@@ -213,7 +213,14 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
                     break;
                 case 8:
                     $scope.question = 'to tell a tale that you created with your peers in school?'; 
-                    break;                                        
+                    break; 
+                case 10:
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+                    $scope.question = 'Can you think of a person in your life who would make a good character in a story? Describe your character with 3 words';
+                    break;
                 default:
                     $scope.question = 'to begin your story ...?';
                     break; 
