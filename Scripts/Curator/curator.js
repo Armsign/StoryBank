@@ -12,92 +12,15 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
     $scope.password = '';    
     $scope.displayName = '';
     $scope.newStoriesCount = 0;
+    $scope.flaggedStoriesCount = 0;    
+    $scope.tagCount = 0;    
+    $scope.staffCount = 0;    
     $scope.token = '';
     
     $scope.gridNewStoriesOptions = { data: [] };        
     $scope.gridFlaggedStoriesOptions = { data: [] };       
     $scope.gridMembersOptions = { data: [] };     
     $scope.gridTagsOptions = { data: [] };         
-    
-    $scope.getServerData = function() 
-    {
-        if ($scope.token && $scope.token.length > 0)
-        {
-            //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=newStories&token=' + $scope.token;       
-            
-            //  Call the login function appropriately
-            $http.get(url).then(
-                function (response)   
-                {
-                    $scope.gridNewStoriesOptions.data = response.data;
-                    $scope.newStoriesCount = response.data.length;
-                });   
-
-        }
-    };      
-
-    $scope.getFlaggedServerData = function() 
-    {
-       var token = $cookies.get('authenticationToken');
-        
-        if (token && token.length > 0)
-        {
-            //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=deposit&method=flaggedStories&token=' + token;       
-            
-            //  Call the login function appropriately
-            $http.get(url).then(
-                function (response)   
-                {
-                    $scope.gridFlaggedStoriesOptions.data = response.data;                    
-                });   
-
-        }
-    }; 
-
-    $scope.getMemberServerData = function() 
-    {
-       var token = $cookies.get('authenticationToken');
-        
-        if (token && token.length > 0)
-        {
-            //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=members&method=fetch&token=' + token;       
-            
-            //  Call the login function appropriately
-            $http.get(url).then(
-                function (response)   
-                {
-                    $scope.gridMembersOptions.data = response.data;                    
-                });   
-
-        }
-    }; 
-    
-    $scope.getTagServerData = function() 
-    {
-       var token = $cookies.get('authenticationToken');
-        
-        if (token && token.length > 0)
-        {
-            //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=tags&method=fetch';       
-
-            //  Call the tags function appropriately
-            $http.get(url).then(
-                function (response)   
-                {
-                    $scope.gridTagsOptions.data = response.data;
-                }, 
-                function(response) 
-                {
-                    //  That's ok, no tags, we don't even need them.
-                });         
-           return; 
-
-        }
-    };     
 
     $scope.addDeposit = function(ev)
     {
@@ -176,6 +99,8 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
         }
     }
     
+    //  ok        
+    
     $scope.addStaff = function(ev)
     {
         $rootScope.staff = undefined;
@@ -217,7 +142,7 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
  
         });               
     }
-    
+
     $scope.passwordMember = function(member, ev)
     {
   
@@ -394,17 +319,100 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
                 });   
         } 
     };
-    
-    $scope.backToMenu = function(ev)
-    {
-        $location.path('');
-    }
-    
+        
     $scope.logOut = function()
     {
         $cookies.remove("authenticationToken");
         location.reload();
     }
+        
+    $scope.goHome = function()
+    {
+        $location.path("/");    
+    }
+    
+    $scope.getServerData = function() 
+    {
+        if ($scope.token && $scope.token.length > 0)
+        {
+            //  Ok ... but how it actually needs to send these to an api ...        
+            var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=newStories&token=' + $scope.token;       
+            
+            //  Call the login function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    $scope.gridNewStoriesOptions.data = response.data;
+                    $scope.newStoriesCount = response.data.length;
+                });   
+
+        }
+    };      
+
+    $scope.getFlaggedServerData = function() 
+    {
+       var token = $cookies.get('authenticationToken');
+        
+        if (token && token.length > 0)
+        {
+            //  Ok ... but how it actually needs to send these to an api ...        
+            var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=deposit&method=flaggedStories&token=' + token;       
+            
+            //  Call the login function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    $scope.gridFlaggedStoriesOptions.data = response.data;   
+                    $scope.flaggedStoriesCount = response.data.length;
+                });   
+
+        }
+    }; 
+
+    $scope.getMemberServerData = function() 
+    {
+       var token = $cookies.get('authenticationToken');
+        
+        if (token && token.length > 0)
+        {
+            //  Ok ... but how it actually needs to send these to an api ...        
+            var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=members&method=fetch&token=' + token;       
+            
+            //  Call the login function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    $scope.gridMembersOptions.data = response.data;  
+                    $scope.staffCount = response.data.length;
+                });   
+
+        }
+    }; 
+    
+    $scope.getTagServerData = function() 
+    {
+       var token = $cookies.get('authenticationToken');
+        
+        if (token && token.length > 0)
+        {
+            //  Ok ... but how it actually needs to send these to an api ...        
+            var url = 'http://' + $location.host() + '/Vault/API.php?action=tags&method=fetch';       
+
+            //  Call the tags function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    $scope.gridTagsOptions.data = response.data;
+                    $scope.tagCount = response.data.length;
+                }, 
+                function(response) 
+                {
+                    //  That's ok, no tags, we don't even need them.
+                });         
+           return; 
+
+        }
+    };      
     
     angular.element(document).ready(function () 
     {        
@@ -477,11 +485,15 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
     {        
         //  That's easy, but we need an update here ...
         var url = 'http://' + $location.host() 
-                + '/Vault/API.php?action=administer&method=update&token=' + $scope.token
+                + '/Vault/API.php?action=deposit&method=update&token=' + $scope.token
                 + '&id=' + $scope.deposit.ID
+                + '&promptId=' + $scope.deposit.PROMPT_ID
                 + '&nomDePlume=' + $scope.deposit.STORED_AS
                 + '&isPlayable=' + $scope.deposit.IS_PLAYABLE        
-                + '&title=' + $scope.deposit.TITLE 
+                + '&title=' + $scope.deposit.TITLE         
+                + '&email=' + $scope.deposit.STORED_BY 
+                + '&hasConsent=' + $scope.deposit.HAS_CONSENT 
+                + '&useEmail=' + $scope.deposit.USE_EMAIL 
                 + '&story=' + $scope.deposit.TRANSCRIPTION; 
 
         //  Call the tags function appropriately
@@ -513,6 +525,7 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
         {
             $scope.deposit = {
                 ID:"0", 
+                PROMPT_ID:0,
                 TITLE: "Title", 
                 STORED_BY: "anon@storybank.com.au",
                 STORED_AS:"Anon",
@@ -617,7 +630,7 @@ myApp.controller('MemberCtrl', function ($rootScope, $scope, $http, $mdDialog, $
     
     $scope.closeDialog = function()
     {
-        $mdDialog.hide($scope.tag);
+        $mdDialog.hide($scope.staff);
     }
     
     $scope.changeApproval = function(value)

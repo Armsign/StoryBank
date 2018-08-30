@@ -5,7 +5,7 @@
 
         <div class="md-whiteframe-1dp">
 
-                <h1 class="red">Story Bank Curator</h1>
+                <h1 class="red" style="display: block; text-align: center;">Story Bank Curator</h1>
 
                 <br/><br/>
                 
@@ -37,16 +37,12 @@
 
         <div class="md-whiteframe-1dp">
             
-            <div style="float: left;">
-                <a href="Images/Common/StoryBanklogo.svg"></a>
-            </div>
-            
-            <h1 class="red">Story Bank Curator</h1>   
+            <h1 class="red" style="display: block; text-align: center;">Story Bank Curator</h1> 
             
             <md-input-container class="md-block" style="text-align: center;">
                 <md-button class="md-raised" ng-click="addDeposit()">Create a Story</md-button>
-                <md-button class="md-raised" ng-click="addStaff($event)">Add Staff</md-button>
-                <md-button class="md-raised" ng-click="addTag($event)">Add a Tag</md-button>
+                <md-button class="md-raised" ng-click="addStaff($event)">Create Staff</md-button>
+                <md-button class="md-raised" ng-click="addTag($event)">Create a Tag</md-button>
                 &nbsp;
                 <md-button class="md-raised" ng-click="logOut()">Logout {{displayName}}</md-button>                
             </md-input-container>   
@@ -90,7 +86,7 @@
                         </md-content>
                     </md-tab>   
                         
-                    <md-tab label="Reported Stories">
+                    <md-tab label="Reported Stories ({{flaggedStoriesCount}})">
                          <md-content class="md-padding">
 
                             <div id="flaggedStories" grid-data grid-options="gridFlaggedStoriesOptions" grid-actions="gridFlaggedStoriesActions">
@@ -127,7 +123,7 @@
                         </md-content>
                     </md-tab>     
 
-                    <md-tab label="Tags">
+                    <md-tab label="Tags ({{tagCount}})">
                         <md-content class="md-padding">
 
                             <div id="members" grid-data grid-options="gridTagsOptions" grid-actions="gridMembersActions">
@@ -156,7 +152,7 @@
                         </md-content>
                     </md-tab>   
                     
-                    <md-tab label="Staff">
+                    <md-tab label="Staff ({{staffCount}})">
                         <md-content class="md-padding">
 
                             <div id="members" grid-data grid-options="gridMembersOptions" grid-actions="gridMembersActions">
@@ -191,5 +187,11 @@
         </div>
 
     </div>  
+    
+    <br/><br/>
+    
+    <div style="display: block; text-align: center;" class="logo" ng-click="goHome()">
+        <img src="Images/Common/StoryBanklogo.png" />   
+    </div>        
       
 </div>

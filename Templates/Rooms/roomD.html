@@ -2,47 +2,52 @@
     
     <!-- Row 1 Background image -->
     <div style="grid-column: 1 / span 5; grid-row: 1 / span 2;">
-         <h1 class="blue">Explore the characters of PL Travers</h1>
+        
+        <img class="letterAccent" src="Images/Common/letterAccent_Left.svg" />
+        
+         <h1 class="blue">Inspiration Station</h1>
+         
+        <img class="letterAccent" src="Images/Common/letterAccent_Right.svg" />
+         
          <h2>
-             <b class="blue">Touch</b> one of the characters below to find out more about her creations.
+            <b class="blue">Touch</b> one of the characters below to find out more about PL Travers' creations.
         </h2>
     </div>
     
     <div style="grid-column: 6 / span 5; grid-row: 1;">
          <h1 class="red">Make a deposit into the Story Bank</h1>
     </div>    
-    
-    <div class="grid-item navigationBar" style="grid-column: 1 / span 5; grid-row: 3;">
-        
-        <ul>
 
-            <li ng-click="switchArtefact($event, 'D', 10);">
-                <img id="artefact10" src="Images/RoomD/Jane-Banks-Vector.svg" />                       
-            </li>
-
-            <li ng-click="switchArtefact($event, 'D', 11);">            
-                <img id="artefact11" src="Images/RoomD/Miss-Andrews-Vector.svg" />
-            </li> 
-            
-            <li ng-click="switchArtefact($event, 'D', 12);">
-                <img id="artefact12" src="Images/RoomD/Mr-banks-Vector.svg" />                    
-            </li>
-            
-            <li ng-click="switchArtefact($event, 'D', 13);">
-                <img id="artefact13" src="Images/RoomD/Mrs-Bird-Vector.svg" />
-            </li>
-
-            <li ng-click="switchArtefact($event, 'D', 14);">            
-                <img id="artefact14" src="Images/RoomD/Orion-Cherry-Tree-Lane-Vector.svg" />             
-            </li>              
-            
-        </ul>
-            
-    </div>  
-    
     <div class="grid-item" style="grid-column: 6 / span 5; grid-row: 2 / span 8;">
         <div ng-include src="'Templates/Keyboard/depositCreation.html'" ng-controller="KeyboardCTRL"></div>                                    
+    </div>          
+
+    <!-- Nav Elements -->
+    
+    <!--
+        grid-template-columns: 192px 192px 192px 192px 192px 192px 192px 192px 192px 192px;    
+        grid-template-rows: 108px 108px 108px - 108px 108px 108px 108px 108px 108px 108px;    
+    -->
+
+    <div class="grid-item navigationBar" style="grid-column: 1 / span 2; grid-row: 2 / span 2;" ng-click="switchArtefact($event, 'D', 14);">        
+        <img class="largeNavImage" id="artefact14" src="Images/RoomD/Orion-Cherry-Tree-Lane-Vector.svg" />             
     </div>              
+
+    <div class="grid-item navigationBar" style="grid-column: 2 / span 3; grid-row: 2 / span 2;" ng-click="switchArtefact($event, 'D', 11);">        
+        <img class="largeNavImage" id="artefact11" src="Images/RoomD/Miss-Andrews-Vector.svg" />                      
+    </div>
+
+    <div class="grid-item navigationBar" style="grid-column: 4 / span 2; grid-row: 2 / span 2;" ng-click="switchArtefact($event, 'D', 13);">        
+        <img class="largeNavImage" id="artefact13" src="Images/RoomD/Mrs-Bird-Vector.svg" />
+    </div>
+    
+    <div class="grid-item navigationBar" style="grid-column: 1; grid-row: 5 / span 2;" ng-click="switchArtefact($event, 'D', 10);">        
+        <img class="largeNavImage" id="artefact10" src="Images/RoomD/Jane-Banks-Vector.svg" />                       
+    </div>
+
+    <div class="grid-item navigationBar" style="grid-column: 5; grid-row: 5 / span 2;" ng-click="switchArtefact($event, 'D', 12);">        
+        <img class="largeNavImage" id="artefact12" src="Images/RoomD/Mr-banks-Vector.svg" />  
+    </div>    
 
     <!-- Row 2 -->
 
@@ -50,19 +55,16 @@
 
         <div ng-if="activeArtefact === 0" class="animated fadeIn">
 
-            <p>
-                PL Travers created many memorable characters. Touch to explore some of her most famous.
-            </p>
-
+            <div>
+                <img class="centreNavImage" src="Images/RoomD/Explore-the-characters-text.svg" />                       
+            </div>
+            
         </div>
 
         <div ng-if="activeArtefact === 10" class="animated fadeIn">
 
             <p>
-                Although we can never say that <b class="blue">Jane Banks</b> is PL Travers as a child, we can certainly imagine she used parts of her own childhood when developing the character of Jane.
-            </p>
-            <p>
-                In Mary Poppins Comes Back, Jane Banks calls herself a hen who has just laid “seven lovely white eggs and I am sitting with my wings over them brooding. Cluck-cluck!” 
+                In Mary Poppins Comes Back, <b class="blue">Jane Banks</b> calls herself a hen who has just laid “seven lovely white eggs and I am sitting with my wings over them brooding. Cluck-cluck!” 
             </p>
             <p>
                 When PL Travers was a child she pretended to be a hen laying eggs in the garden and wouldn’t come in for dinner, when her mother called!

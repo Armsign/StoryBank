@@ -85,10 +85,10 @@ body
 h1
 {
     margin: 0;
-    padding: 8px;
+    padding: 12px !important;    
     font-family: BalfordBase !important;
-    display: block;
-    font-size: 32pt !important;
+    display: inline !important;
+    font-size: 42px !important;
     text-align: center;
     color: #111111;
 }
@@ -183,7 +183,14 @@ md-content
 
 /*
 **  Implementation
-*/      
+*/ 
+
+.letterAccent
+{
+    height: 64px;  
+    margin-top: -12px;
+}
+
 
 .menuDirectory .menuItem 
 {
@@ -196,6 +203,7 @@ md-content
 .navigationBar
 {
     margin: 16px;
+    margin-top: 0px;
     text-align: center;
 }
 
@@ -226,6 +234,22 @@ md-content
     height: 152px;
     max-width: 152px;
     opacity: 1;   
+}
+
+.largeNavImage
+{
+    margin: 0;
+    padding: 0;    
+    height: 256px;
+    opacity: 1;     
+}
+
+.centreNavImage
+{
+    margin: 0;
+    padding: 0;    
+    height: 180px;
+    opacity: 1;     
 }
 
 .selectedImage
