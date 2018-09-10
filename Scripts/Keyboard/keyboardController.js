@@ -24,7 +24,8 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         //  Resolve consent
         
         var url = 'http://' + $location.host() 
-                + '/Vault/API.php?action=deposit&method=create&email=' + $scope.email 
+                + '/Vault/API.php?action=deposit&method=create&promptId=' + $scope.artefact
+                + '&email=' + $scope.email 
                 + '&nomDePlume=' + $scope.nomDePlume
                 + '&story=' + $scope.activeStory + '&hasConsent=' + $scope.consentGiven + '&useEmail=' + $scope.useEmail;
 

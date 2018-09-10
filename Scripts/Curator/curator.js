@@ -15,10 +15,12 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
     $scope.flaggedStoriesCount = 0;    
     $scope.tagCount = 0;    
     $scope.staffCount = 0;    
+    $scope.approvedStoriesCount = 0;
     $scope.token = '';
     
-    $scope.gridNewStoriesOptions = { data: [] };        
-    $scope.gridFlaggedStoriesOptions = { data: [] };       
+    $scope.gridNewStoriesOptions = { data: [] };            
+    $scope.gridFlaggedStoriesOptions = { data: [] };   
+    $scope.gridApprovedStoriesOptions = { data: [] };            
     $scope.gridMembersOptions = { data: [] };     
     $scope.gridTagsOptions = { data: [] };         
 
@@ -80,7 +82,7 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
                 {
                                 //  Ok ... but how it actually needs to send these to an api ...        
                     var url = 'http://' + $location.host() 
-                        + '/Vault/API.php?action=administer&method=delete&token=' + $scope.token
+                        + '/Vault/API.php?action=deposit&method=delete&token=' + $scope.token
                         + '&id=' + deposit.ID;
 
                     //  Call the login function appropriately
@@ -347,7 +349,25 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
                 });   
 
         }
-    };      
+    };   
+    
+    $scope.getApprovedStoryData = function() 
+    {
+        if ($scope.token && $scope.token.length > 0)
+        {
+            //  Ok ... but how it actually needs to send these to an api ...        
+            var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=oldStories&token=' + $scope.token;       
+            
+            //  Call the login function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    $scope.gridApprovedStoriesOptions.data = response.data;
+                    $scope.approvedStoriesCount = response.data.length;
+                });   
+
+        }
+    };    
 
     $scope.getFlaggedServerData = function() 
     {
@@ -438,6 +458,8 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
                         $scope.getFlaggedServerData();   
                         $scope.getMemberServerData();
                         $scope.getTagServerData();
+                        $scope.getApprovedStoryData();
+                        
                     }   
                     
                 }, 
