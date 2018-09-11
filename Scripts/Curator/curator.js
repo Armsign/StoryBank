@@ -16,11 +16,13 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
     $scope.tagCount = 0;    
     $scope.staffCount = 0;    
     $scope.approvedStoriesCount = 0;
+    $scope.deadStoriesCount = 0;    
     $scope.token = '';
     
     $scope.gridNewStoriesOptions = { data: [] };            
     $scope.gridFlaggedStoriesOptions = { data: [] };   
     $scope.gridApprovedStoriesOptions = { data: [] };            
+    $scope.gridDeadStoriesOptions = { data: [] };                
     $scope.gridMembersOptions = { data: [] };     
     $scope.gridTagsOptions = { data: [] };         
 
@@ -60,6 +62,8 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
         {
             //  Load up teh data grids!
             $scope.getServerData();
+            $scope.getApprovedStoryData();
+            $scope.getDeadStoryData();            
  
         });              
     }
@@ -367,7 +371,25 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
                 });   
 
         }
-    };    
+    };   
+    
+    $scope.getDeadStoryData = function() 
+    {
+        if ($scope.token && $scope.token.length > 0)
+        {
+            //  Ok ... but how it actually needs to send these to an api ...        
+            var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=deadStories&token=' + $scope.token;       
+            
+            //  Call the login function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    $scope.gridDeadStoriesOptions.data = response.data;
+                    $scope.deadStoriesCount = response.data.length;
+                });   
+
+        }
+    };       
 
     $scope.getFlaggedServerData = function() 
     {
@@ -459,6 +481,7 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
                         $scope.getMemberServerData();
                         $scope.getTagServerData();
                         $scope.getApprovedStoryData();
+                        $scope.getDeadStoryData();
                         
                     }   
                     
@@ -501,6 +524,7 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
     $scope.changeApproval = function(value)
     {
         $scope.approved = value;
+        $scope.deposit.IS_PLAYABLE = value;
     }
     
     $scope.saveDialog = function()
@@ -564,7 +588,11 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
                 REVIEWED_ON:new Date(),                
             };        
             
-        }        
+        } else {
+            
+            $scope.approved = $scope.deposit.IS_PLAYABLE * 1;   // Reset to integral
+            
+        } 
         
     });      
     
