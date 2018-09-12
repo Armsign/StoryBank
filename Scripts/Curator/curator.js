@@ -501,12 +501,50 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
     $scope.deposit = $rootScope.deposit;
     $scope.approved = 0;
     $scope.storyTags = new Array();
+    $scope.storyTagsSuperSet = new Array();
     $scope.token = '';
     
     $scope.loadTags = function(query) 
+    {       
+        var returnArray = new Array();
+        
+        for (var i=0; i < $scope.storyTagsSuperSet.length; i++)
+        {
+            
+            if ($scope.storyTagsSuperSet[i].TITLE.toUpperCase().includes(query.toUpperCase()))
+            {
+                returnArray.push($scope.storyTagsSuperSet[i]);
+            }
+            
+        }
+        
+        return returnArray;
+    };    
+    
+    $scope.fetchTags = function()
     {
         //  Ok ... but how it actually needs to send these to an api ...        
         var url = 'http://' + $location.host() + '/Vault/API.php?action=tags&method=fetch';       
+
+        //  Call the tags function appropriately
+        $http.get(url).then(
+            function (response)   
+            {
+                $scope.storyTagsSuperSet = response.data;
+            }, 
+            function(response) 
+            {
+                //  That's ok, no tags, we don't even need them.
+            });         
+       return;        
+        
+    }
+    
+    $scope.fetchStoryTags = function()
+    {
+        //  Ok ... but how it actually needs to send these to an api ...        
+        var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=storyTags&token=' + $scope.token
+                + '&id=' + $scope.deposit.ID;
 
         //  Call the tags function appropriately
         $http.get(url).then(
@@ -518,8 +556,8 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
             {
                 //  That's ok, no tags, we don't even need them.
             });         
-       return;
-    };    
+       return;        
+    }
     
     $scope.changeApproval = function(value)
     {
@@ -545,8 +583,16 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
         //  Call the tags function appropriately
         $http.get(url).then(
             function (response)   
-            {
-                //  Should probably make a big deal out of it ...
+            {               
+                //  A big deal about it because we need to save the tags now too ... so we ought to get an id back at least right?
+                if (response.data > 0)
+                {
+                    //  Successful save, let's save the tags if they're about
+                    $scope.saveStoryTags(response.data);
+                    
+                    
+                }
+                
             }, 
             function(response) 
             {
@@ -556,6 +602,28 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
         $mdDialog.hide($scope.deposit);
     }
     
+    $scope.saveStoryTags = function(id)
+    {
+        
+        for (var i=0; i < $scope.storyTags.length; i++)
+        {
+
+            //  That's easy, but we need an update here ...
+            var url = 'http://' + $location.host() 
+                    + '/Vault/API.php?action=deposit&method=updateTags&token=' + $scope.token
+                    + '&depostID=' + id
+                    + '&tagID=' + $scope.storyTags[i].ID;
+            
+            
+            
+            
+            
+        }
+        
+       
+        
+    }
+    
     $scope.closeDialog = function()
     {
         $mdDialog.hide($scope.deposit);
@@ -563,7 +631,8 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
             
     angular.element(document).ready(function () 
     {        
-        //  Nothing on load
+        $scope.fetchTags();
+        
         $scope.token = $cookies.get('authenticationToken');
         
         //  Did we get a tag? if not we need to instanciate one.
@@ -591,6 +660,7 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
         } else {
             
             $scope.approved = $scope.deposit.IS_PLAYABLE * 1;   // Reset to integral
+            $scope.fetchStoryTags();
             
         } 
         

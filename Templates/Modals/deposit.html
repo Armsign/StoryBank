@@ -4,6 +4,9 @@
         <h1 class="blue">Story Record</h1>
         
         <br/><br/>
+        <tags-input ng-model="storyTags" display-property="TITLE" key-property="ID" add-from-autocomplete-only="true">
+            <auto-complete source="loadTags($query)"></auto-complete>
+        </tags-input>        
         
         <md-input-container style="width: 100%;">
             <label>Email</label>
@@ -24,10 +27,6 @@
             <label>Transcription</label>
             <textarea class="modalText" md-maxlength="8192" ng-model="deposit.TRANSCRIPTION"></textarea>
         </md-input-container>            
-
-        <tags-input ng-model="storyTags">                
-            <auto-complete source="loadTags($query)"></auto-complete>
-        </tags-input>
 
         <md-input-container>
             <md-checkbox class="modalText" ng-model="approved" ng-change="changeApproval(approved)"  ng-true-value="1" ng-false-value="0" aria-label="Approved?">
