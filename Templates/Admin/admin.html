@@ -60,11 +60,59 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th sortable="ID" class="sortable">#</th>
-                                        <th sortable="STORED_BY" class="sortable">Email</th>                                                            
-                                        <th sortable="STORED_AS" class="sortable">Nom De Plume</th>                                                            
-                                        <th sortable="STORED_ON" class="sortable">Received</th>                                                                                
-                                        <th sortable="TRANSCRIPTION" class="sortable">Story</th>  
+                                        <th sortable="ID" class="sortable">#
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="ID"
+                                                filter-by="ID"
+                                                filter-type="text">                                            
+                                        
+                                        
+                                        </th>
+                                        <th sortable="STORED_BY" class="sortable">Email
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="STORED_BY"
+                                                filter-by="STORED_BY"
+                                                filter-type="text">
+                                        
+                                        </th>                                                            
+                                        <th sortable="STORED_AS" class="sortable">Nom De Plume
+                                        
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="STORED_AS"
+                                                filter-by="STORED_AS"
+                                                filter-type="text">
+                                                                                
+                                        
+                                        </th>                                                            
+                                        <th sortable="STORED_ON" class="sortable">Received
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="STORED_ON"
+                                                filter-by="STORED_ON"
+                                                filter-type="text">                                           
+                                            
+                                        </th>                                                                                
+                                        <th sortable="TRANSCRIPTION" class="sortable">Story
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="TRANSCRIPTION"
+                                                filter-by="TRANSCRIPTION"
+                                                filter-type="text">                                        
+                                        
+                                        </th>  
                                         <th>&nbsp;</th>  
                                     </tr>
                                     </thead>
@@ -92,27 +140,72 @@
                             <div id="flaggedStories" grid-data grid-options="gridFlaggedStoriesOptions" grid-actions="gridFlaggedStoriesActions">
                                 <table class="table table-bordered table-striped">
                                     <thead>
-                                    <tr>
-                                        <th sortable="ID" class="sortable">#</th>
-                                        <th sortable="TITLE" class="sortable">Title</th>                                       
-                                        <th sortable="STORED_BY" class="sortable">Stored By</th>                                                            
-                                        <th sortable="STORED_AT" class="sortable">Stored At</th>                                                            
-                                        <th sortable="STORED_ON" class="sortable">Stored On</th>                                                                                
-                                        <th sortable="AUDIO_TYPE" class="sortable">Audio Type</th>                                                            
-                                        <th sortable="AUDIO_LENGTH" class="sortable">Audio Length</th>                                                            
-                                        <th sortable="RECEIVED_BY" class="sortable">Received By</th>                                                            
-                                        <th sortable="RECEIVED_ON" class="sortable">Received On</th>                                                                                
+                                        <th sortable="ID" class="sortable">#
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="ID"
+                                                filter-by="ID"
+                                                filter-type="text">                                            
+                                        
+                                        
+                                        </th>
+                                        <th sortable="STORED_BY" class="sortable">Email
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="STORED_BY"
+                                                filter-by="STORED_BY"
+                                                filter-type="text">
+                                        
+                                        </th>                                                            
+                                        <th sortable="STORED_AS" class="sortable">Nom De Plume
+                                        
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="STORED_AS"
+                                                filter-by="STORED_AS"
+                                                filter-type="text">
+                                                                                
+                                        
+                                        </th>                                                            
+                                        <th sortable="STORED_ON" class="sortable">Received
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="STORED_ON"
+                                                filter-by="STORED_ON"
+                                                filter-type="text">                                           
+                                            
+                                        </th>                                                                                
+                                        <th sortable="TRANSCRIPTION" class="sortable">Story
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="TRANSCRIPTION"
+                                                filter-by="TRANSCRIPTION"
+                                                filter-type="text">                                        
+                                        
+                                        </th>  
+                                        <th>&nbsp;</th>                                                                                 
                                     </tr>
                                     </thead>
                                     <tbody>
                                         <tr grid-item ng-click="editDeposit(item, $event)">
-                                            <td ng-bind="item.ID"></td>
-                                            <td ng-bind="item.TITLE"></td>
+                                           <td ng-click="editDeposit(item, $event)" ng-bind="item.ID" class="underline"></td>
                                             <td ng-bind="item.STORED_BY"></td> 
                                             <td ng-bind="item.STORED_AS"></td> 
-                                            <td ng-bind="item.STORED_ON | date:'MM/dd/yyyy'"></td>
-                                            <td ng-bind="item.RECEIVED_BY"></td> 
-                                            <td ng-bind="item.RECEIVED_ON"></td>                    
+                                            <td ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
+                                            <td ng-bind="item.TRANSCRIPTION"></td> 
+                                            <td ng-click="deleteDeposit(item, $event)" class="underline centre">
+                                                Delete                                                
+                                            </td>                   
                                         </tr>
                                     
                                     </tbody>
@@ -128,12 +221,60 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th sortable="ID" class="sortable">#</th>
-                                        <th sortable="STORED_BY" class="sortable">Email</th>                                                            
-                                        <th sortable="STORED_AS" class="sortable">Nom De Plume</th>                                                            
-                                        <th sortable="STORED_ON" class="sortable">Received</th>                                                                                
-                                        <th sortable="TRANSCRIPTION" class="sortable">Story</th>  
-                                        <th>&nbsp;</th>  
+                                        <th sortable="ID" class="sortable">#
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="ID"
+                                                filter-by="ID"
+                                                filter-type="text">                                            
+                                        
+                                        
+                                        </th>
+                                        <th sortable="STORED_BY" class="sortable">Email
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="STORED_BY"
+                                                filter-by="STORED_BY"
+                                                filter-type="text">
+                                        
+                                        </th>                                                            
+                                        <th sortable="STORED_AS" class="sortable">Nom De Plume
+                                        
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="STORED_AS"
+                                                filter-by="STORED_AS"
+                                                filter-type="text">
+                                                                                
+                                        
+                                        </th>                                                            
+                                        <th sortable="STORED_ON" class="sortable">Received
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="STORED_ON"
+                                                filter-by="STORED_ON"
+                                                filter-type="text">                                           
+                                            
+                                        </th>                                                                                
+                                        <th sortable="TRANSCRIPTION" class="sortable">Story
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="TRANSCRIPTION"
+                                                filter-by="TRANSCRIPTION"
+                                                filter-type="text">                                        
+                                        
+                                        </th>  
+                                        <th>&nbsp;</th> 
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -161,12 +302,60 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th sortable="ID" class="sortable">#</th>
-                                        <th sortable="STORED_BY" class="sortable">Email</th>                                                            
-                                        <th sortable="STORED_AS" class="sortable">Nom De Plume</th>                                                            
-                                        <th sortable="STORED_ON" class="sortable">Received</th>                                                                                
-                                        <th sortable="TRANSCRIPTION" class="sortable">Story</th>  
-                                        <th>&nbsp;</th>  
+                                        <th sortable="ID" class="sortable">#
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="ID"
+                                                filter-by="ID"
+                                                filter-type="text">                                            
+                                        
+                                        
+                                        </th>
+                                        <th sortable="STORED_BY" class="sortable">Email
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="STORED_BY"
+                                                filter-by="STORED_BY"
+                                                filter-type="text">
+                                        
+                                        </th>                                                            
+                                        <th sortable="STORED_AS" class="sortable">Nom De Plume
+                                        
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="STORED_AS"
+                                                filter-by="STORED_AS"
+                                                filter-type="text">
+                                                                                
+                                        
+                                        </th>                                                            
+                                        <th sortable="STORED_ON" class="sortable">Received
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="STORED_ON"
+                                                filter-by="STORED_ON"
+                                                filter-type="text">                                           
+                                            
+                                        </th>                                                                                
+                                        <th sortable="TRANSCRIPTION" class="sortable">Story
+                                        
+                                             <input type="text" class="form-control"
+                                                placeholder="Search ..."
+                                                ng-change="gridNewStoriesActions.filter()"
+                                                ng-model="TRANSCRIPTION"
+                                                filter-by="TRANSCRIPTION"
+                                                filter-type="text">                                        
+                                        
+                                        </th>  
+                                        <th>&nbsp;</th>   
                                     </tr>
                                     </thead>
                                     <tbody>

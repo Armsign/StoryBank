@@ -18,6 +18,7 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
     $scope.approvedStoriesCount = 0;
     $scope.deadStoriesCount = 0;    
     $scope.token = '';
+    $scope.searchText = '';
     
     $scope.gridNewStoriesOptions = { data: [] };            
     $scope.gridFlaggedStoriesOptions = { data: [] };   
@@ -303,9 +304,11 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
                         
                         //  Load up teh data grids!
                         $scope.getServerData();
-                        $scope.getFlaggedServerData();  
+                        $scope.getFlaggedServerData();   
                         $scope.getMemberServerData();
                         $scope.getTagServerData();
+                        $scope.getApprovedStoryData();
+                        $scope.getDeadStoryData();
                         
                     } else {
                         
@@ -585,12 +588,10 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
             function (response)   
             {               
                 //  A big deal about it because we need to save the tags now too ... so we ought to get an id back at least right?
-                if (response.data > 0)
+                if ((response.data * 1) > 0)
                 {
                     //  Successful save, let's save the tags if they're about
                     $scope.saveStoryTags(response.data);
-                    
-                    
                 }
                 
             }, 
@@ -610,18 +611,20 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
 
             //  That's easy, but we need an update here ...
             var url = 'http://' + $location.host() 
-                    + '/Vault/API.php?action=deposit&method=updateTags&token=' + $scope.token
-                    + '&depostID=' + id
+                    + '/Vault/API.php?action=tags&method=bridge&token=' + $scope.token
+                    + '&storyID=' + id
                     + '&tagID=' + $scope.storyTags[i].ID;
             
-            
-            
-            
-            
-        }
-        
-       
-        
+            $http.get(url).then(
+                function (response)   
+                {               
+                    //  That's ok, tags are a on-way street.
+                }, 
+                function(response) 
+                {
+                    //  That's ok, no tags, we don't even need them.
+                });                          
+        }        
     }
     
     $scope.closeDialog = function()
