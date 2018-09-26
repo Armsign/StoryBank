@@ -185,8 +185,22 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
             textarea.scrollTop = textarea.scrollHeight;            
         }        
         
-        angular.element($event.currentTarget).addClass("animated pulse");        
+        //  This is the animated section ... once animation is added, run it needs to be removed ...        
+        angular.element($event.currentTarget).addClass("animated zoomIn");    
+        
+        //  Let's test this one huh
+        //  window.setTimeout(function() { $scope.removeClasses(); }, 250);
+        
     };
+    
+    $scope.removeClasses = function()
+    {
+        var result = document.getElementsByClassName("animated zoomIn");
+        
+        angular.element(result).removeClass("animated zoomIn");    
+        
+        // alert('trying to remove classes');
+    }
     
     $scope.fetchQuestion = function() 
     {

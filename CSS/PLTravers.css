@@ -259,6 +259,19 @@ md-content
     background-size: 100% 100%;    
 }
 
+.charSelector
+{
+    border: 1px dashed red;
+    border-radius: 8px;    
+}
+
+
+.charSelector img
+{   
+    width: 128px;
+    height: 64px;
+}
+
 /*
 **  Exposition about it all
 */

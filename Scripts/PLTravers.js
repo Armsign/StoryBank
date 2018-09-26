@@ -175,6 +175,54 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
 
 });
 
+myApp.controller('ChargenCTRL', function ($rootScope, $scope, $routeParams, $location) 
+{ 
+    $scope.activeStory = '';
+    $scope.activeArtefact = -1;
+    $scope.minutes = 0;
+    $scope.imageEncoded = {
+                ACCESSORY: 0, 
+                ARM: 0,
+                FACE: 0, 
+                FEET: 0,
+                HAIR: 0,
+                HAND: 0,
+                HAT: 0,
+                HEAD: 0,
+                LEG: 0,
+                PANT: 0,
+                SHOE: 0,
+                SLEEVE: 0,
+                TORSO: 0     
+            };        
+            
+
+    $scope.triggerChange = function()
+    {
+        
+        var result = document.getElementsByClassName("grid-item charSelector");
+        
+        angular.element(result).addClass("animated fadeOut");    
+        
+        window.setTimeout(function() { $scope.removeClasses(); }, 300);
+        
+    };
+    
+    $scope.removeClasses = function()
+    {
+        var result = document.getElementsByClassName("animated fadeOut");
+        
+        angular.element(result).removeClass("animated fadeOut");    
+    }
+            
+    
+    angular.element(document).ready(function () 
+    {                       
+        
+    });  
+
+});
+
 myApp.config(['$routeProvider', function($routeProvider) 
 {      
     
@@ -201,7 +249,7 @@ myApp.config(['$routeProvider', function($routeProvider)
         }).                 
         when('/Room/View/E/:artefact', { 
             templateUrl: 'Templates/Rooms/roomE.html',
-            controller: 'RoomCTRL'    
+            controller: 'ChargenCTRL'    
         }).                                 
         when('/Room/View/I/:artefact', { 
             templateUrl: 'Templates/Rooms/roomI.html',
