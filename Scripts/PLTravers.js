@@ -109,17 +109,6 @@ myApp.controller('PlaybackCTRL', function () { });
 
 myApp.controller('MenuCtrl', function () { });
 
-myApp.controller('MemberCtrl', function ($scope, $mdDialog, dataToPass) 
-{ 
-    $scope.member = dataToPass.member;
-    
-    angular.element(document).ready(function () 
-    {        
-       return;
-    });     
-    
-});
-
 myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $location) 
 { 
     $scope.activeStory = '';
@@ -175,7 +164,7 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
 
 });
 
-myApp.controller('ChargenCTRL', function ($rootScope, $scope, $routeParams, $location) 
+myApp.controller('ChargenCTRL', function ($rootScope, $scope, $mdDialog) 
 { 
     $scope.activeStory = '';
     $scope.activeArtefact = -1;
@@ -196,15 +185,50 @@ myApp.controller('ChargenCTRL', function ($rootScope, $scope, $routeParams, $loc
                 TORSO: 0     
             };        
             
+            
+    //  Should I manage this with semophores or modals?
 
-    $scope.triggerChange = function()
-    {
-        
-        var result = document.getElementsByClassName("grid-item charSelector");
-        
-        angular.element(result).addClass("animated fadeOut");    
-        
-        window.setTimeout(function() { $scope.removeClasses(); }, 300);
+    $scope.triggerChange = function(ev, modalToLoad)
+    {       
+        $mdDialog.show({
+            controller: 'CharSelectCTRL',    
+            templateUrl: 'Templates/Modals/CharGen/' + modalToLoad + '.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: false,
+        })
+        .then(function(response) 
+        {
+            //  set it up yeah.
+            switch (modalToLoad)
+            {
+                case 'Hair':
+                    document.getElementById("hairSelected").src="Images/CharacterAssets/Hair/" + response;                    
+                    break;
+                case 'Arms':
+                    document.getElementById("armsSelected").src="Images/CharacterAssets/Arms/" + response;                    
+                    break;
+                case 'Hands':
+                    document.getElementById("handsSelected").src="Images/CharacterAssets/Hands/" + response;                                    
+                    break;
+                case 'Faces':
+                    document.getElementById("facesSelected").src="Images/CharacterAssets/Faces/" + response;                                    
+                    break;                                        
+                case 'Torso':
+                    document.getElementById("torsoSelected").src="Images/CharacterAssets/Torso/" + response;                                    
+                    break;                                 
+                case 'Legs':
+                    document.getElementById("legsSelected").src="Images/CharacterAssets/Legs/" + response;                                    
+                    break;                                                 
+                case 'Feet':
+                    document.getElementById("feetSelected").src="Images/CharacterAssets/Feet/" + response;                                    
+                    break;                     
+                default:
+                    break;
+            }
+       
+        });         
         
     };
     

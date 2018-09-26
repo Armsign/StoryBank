@@ -138,6 +138,8 @@ md-dialog
 {
     padding: 32px;
     width: 40%;
+    background-image: url("../Images/Common/DialogBackground.jpg");      
+    background-size:cover;
 }
 
 md-content
@@ -259,12 +261,24 @@ md-content
     background-size: 100% 100%;    
 }
 
-.charSelector
+.charSelector, .charDisplay
 {
-    border: 1px dashed red;
-    border-radius: 8px;    
+    padding: 16px;
+    background-color: rgba(255, 255, 255, .4) !important;
+    
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;      
 }
 
+h3
+{
+    margin: 0;
+    font-family: BalfordBase !important;
+    display: inline !important;
+    text-align: center;    
+    font-size: 24px;    
+}
 
 .charSelector img
 {   
@@ -316,4 +330,33 @@ md-tabs .md-tab
     color: #111111 !important;
     font-weight: bold !important;
     font-family: SourceSansProLight !important;
+}
+
+/*
+**  Character Selector
+*/
+
+.styleSelector
+{
+    padding-top: 16px;
+    text-align: center;
+}
+
+.styleSelector ul
+{
+    list-style: none;
+    margin: 16px;
+}
+
+.styleSelector ul li
+{
+    float: left;
+    padding: 8px;
+    margin: 0;
+}
+
+.styleSelector ul li img
+{
+    width: 128px;
+    height: 64px;
 }
