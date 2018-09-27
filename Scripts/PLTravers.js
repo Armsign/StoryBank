@@ -164,29 +164,11 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
 
 });
 
-myApp.controller('ChargenCTRL', function ($rootScope, $scope, $mdDialog) 
+myApp.controller('ChargenCTRL', function ($scope, $mdDialog) 
 { 
     $scope.activeStory = '';
     $scope.activeArtefact = -1;
     $scope.minutes = 0;
-    $scope.imageEncoded = {
-                ACCESSORY: 0, 
-                ARM: 0,
-                FACE: 0, 
-                FEET: 0,
-                HAIR: 0,
-                HAND: 0,
-                HAT: 0,
-                HEAD: 0,
-                LEG: 0,
-                PANT: 0,
-                SHOE: 0,
-                SLEEVE: 0,
-                TORSO: 0     
-            };        
-            
-            
-    //  Should I manage this with semophores or modals?
 
     $scope.triggerChange = function(ev, modalToLoad)
     {       
@@ -232,19 +214,6 @@ myApp.controller('ChargenCTRL', function ($rootScope, $scope, $mdDialog)
         
     };
     
-    $scope.removeClasses = function()
-    {
-        var result = document.getElementsByClassName("animated fadeOut");
-        
-        angular.element(result).removeClass("animated fadeOut");    
-    }
-            
-    
-    angular.element(document).ready(function () 
-    {                       
-        
-    });  
-
 });
 
 myApp.config(['$routeProvider', function($routeProvider) 

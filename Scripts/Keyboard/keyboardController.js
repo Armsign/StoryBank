@@ -18,16 +18,50 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
     $scope.consentGiven = 0;
     $scope.useEmail = 0;
     $scope.depositStage = 0;
+    $scope.charGen = {
+                ARM: '',
+                FACE: '', 
+                FEET: '',
+                HAIR: '',
+                HAND: '',
+                LEG: '',
+                TORSO: ''     
+            };  
     
     $scope.completeDeposit = function()
     {        
-        //  Resolve consent
+        var jsonCharGen = '';
+
+        if ($scope.artefact === 15)
+        {
+            jsonCharGen = $scope.collateChargen();
+                        
+            //  http://192.168.1.2/Vault/API.php?
+            //  action=deposit&
+            //  method=create&
+            //  promptId=15&
+            //  email=anon@storybank.com.au&
+            //  nomDePlume=Anon&
+            //  story=jmko&
+            //  charDesign={%22ARM%22:%22http://192.168.1.2/StoryBank/Images/CharacterAssets/Arms/Arms0001.png%22,%22
+            //  FACE%22:%22http://192.168.1.2/StoryBank/Images/CharacterAssets/Faces/Faces0003.png%22,%22
+            //  FEET%22:%22http://192.168.1.2/StoryBank/Images/CharacterAssets/Feet/Feet0001.png%22,%22
+            //  HAIR%22:%22http://192.168.1.2/StoryBank/Images/CharacterAssets/Hair/Hair0004.png%22,%22
+            //  HAND%22:%22http://192.168.1.2/StoryBank/Images/CharacterAssets/Hands/Hands0001.png%22,%22
+            //  LEG%22:%22http://192.168.1.2/StoryBank/Images/CharacterAssets/Legs/Legs0001.png%22,%22
+            //  TORSO%22:%22http://192.168.1.2/StoryBank/Images/CharacterAssets/Torso/Torso0001.png%22}&
+            //  hasConsent=0&
+            //  useEmail=0
+            
+        }
         
         var url = 'http://' + $location.host() 
                 + '/Vault/API.php?action=deposit&method=create&promptId=' + $scope.artefact
                 + '&email=' + $scope.email 
                 + '&nomDePlume=' + $scope.nomDePlume
-                + '&story=' + $scope.activeStory + '&hasConsent=' + $scope.consentGiven + '&useEmail=' + $scope.useEmail;
+                + '&story=' + $scope.activeStory 
+                + '&charDesign=' + jsonCharGen 
+                + '&hasConsent=' + $scope.consentGiven + '&useEmail=' + $scope.useEmail;
 
         //  Call the login function appropriately
         $http.get(url).then(
@@ -36,7 +70,7 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
                 if (response.data.length === 0)
                 {
 
-                    $scope.depositStage = 0; // Fail State 
+                    $scope.depositStage = 0; // Fail State
                     
                 } else {
 
@@ -54,6 +88,19 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         $scope.email = '';    
         $scope.nomDePlume = '';             
         
+    }
+    
+    $scope.collateChargen = function()
+    {
+        $scope.charGen.ARM = document.getElementById("armsSelected").src;
+        $scope.charGen.FACE = document.getElementById("facesSelected").src;
+        $scope.charGen.FEET = document.getElementById("feetSelected").src;
+        $scope.charGen.HAIR = document.getElementById("hairSelected").src;
+        $scope.charGen.HAND = document.getElementById("handsSelected").src;
+        $scope.charGen.LEG = document.getElementById("legsSelected").src;
+        $scope.charGen.TORSO = document.getElementById("torsoSelected").src; 
+        
+        return JSON.stringify($scope.charGen);
     }
     
     $scope.completeConsent = function()
@@ -235,6 +282,9 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
                 case 13:
                 case 14:
                     $scope.question = 'Can you think of a person in your life who would make a good character in a story? Describe your character with 3 words';
+                    break;
+                case 15:
+                    $scope.question = 'to write a story about your character?';
                     break;
                 default:
                     $scope.question = 'to begin your story ...?';

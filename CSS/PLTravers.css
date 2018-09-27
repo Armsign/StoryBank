@@ -264,8 +264,8 @@ md-content
 .charSelector, .charDisplay
 {
     padding: 16px;
-    background-color: rgba(255, 255, 255, .4) !important;
-    
+    margin: 16px;
+    background-color: rgba(255, 255, 255, .4) !important;    
     -webkit-border-radius: 16px;
     -moz-border-radius: 16px;
     border-radius: 16px;      
@@ -280,10 +280,71 @@ h3
     font-size: 24px;    
 }
 
+.charSelector
+{
+    margin: 36px;
+}
+
+.charDisplay img
+{
+    width: 256px;
+    margin: 0px;
+}
+
 .charSelector img
 {   
-    width: 128px;
-    height: 64px;
+    width: 88px; 
+}
+
+
+#hairSelected 
+{
+    position: relative;
+    margin-top: 118px;
+    z-index: 50;
+}
+
+#facesSelected 
+{
+    position: relative;    
+    margin-top: -274px;
+    margin-left: 22px; 
+    z-index: 40;
+}
+
+#torsoSelected 
+{
+    position: relative;    
+    margin-top: -148px;
+    margin-left: 46px;     
+    z-index: 20;    
+}
+
+#armsSelected 
+{
+    position: relative;    
+    margin-top: -284px;
+    margin-left: 28px;     
+    z-index: 30;    
+}
+#handsSelected 
+{
+    position: relative;    
+    margin-top: -236px;
+    margin-left: 0px;    
+    z-index: 50;     
+}
+#legsSelected 
+{
+    position: relative;    
+    margin-top: -216px;
+    z-index: 10;        
+}
+#feetSelected 
+{
+    position: relative;    
+    margin-top: -200px;
+    z-index: 20;        
 }
 
 /*
@@ -358,5 +419,4 @@ md-tabs .md-tab
 .styleSelector ul li img
 {
     width: 128px;
-    height: 64px;
 }
