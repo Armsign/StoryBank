@@ -169,7 +169,7 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
 
 });
 
-myApp.controller('ChargenCTRL', function ($scope, $mdDialog) 
+myApp.controller('ChargenCTRL', function ($rootScope, $scope, $mdDialog) 
 { 
     $scope.activeStory = '';
     $scope.activeArtefact = -1;
