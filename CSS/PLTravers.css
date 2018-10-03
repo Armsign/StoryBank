@@ -73,7 +73,7 @@ body
     font-size: 1em;
     font-weight: normal;
     color: #111111;
-    background-color: #FFFFFF;
+    background-color: rgb(248, 214, 166);
 
     margin: 0;
     padding: 0;
@@ -89,6 +89,7 @@ h1
     font-family: BalfordBase !important;
     display: inline !important;
     font-size: 42px !important;
+    line-height: 42px;
     text-align: center;
     color: #111111;
 }
@@ -159,7 +160,7 @@ md-content
     text-align: center;
 }
 
-.roomDirectory, .menuDirectory
+.roomDirectory, .menuDirectory, .screenSaver
 {
     height: 1080px !important;  
     width: 1920px !important;
@@ -183,6 +184,11 @@ md-content
     background-image: url("../Images/Common/Background_Pantone454.jpg");       
 }
 
+.screenSaver
+{
+    background-image: url("../Images/Common/ScreenSaverBackground.jpg");       
+}
+
 /*
 **  Implementation
 */ 
@@ -193,6 +199,11 @@ md-content
     margin-top: -12px;
 }
 
+.screenSaveAccent
+{
+    height: 128px;  
+    margin-top: -24px;
+}
 
 .menuDirectory .menuItem 
 {
@@ -301,6 +312,7 @@ h3
 {
     position: relative;
     margin-top: 118px;
+    margin-left: 6px; 
     z-index: 50;
 }
 
@@ -323,27 +335,29 @@ h3
 #armsSelected 
 {
     position: relative;    
-    margin-top: -284px;
-    margin-left: 28px;     
+    margin-top: -304px;
+    margin-left: 14px;     
     z-index: 30;    
 }
 #handsSelected 
 {
     position: relative;    
-    margin-top: -236px;
-    margin-left: 0px;    
+    margin-top: -246px;
+    margin-left: -10px;    
     z-index: 50;     
 }
 #legsSelected 
 {
-    position: relative;    
-    margin-top: -216px;
+    position: relative;
+    margin-left: 46px;
+    margin-top: -218px;
     z-index: 10;        
 }
 #feetSelected 
 {
     position: relative;    
-    margin-top: -200px;
+    margin-top: -211px;
+    margin-left: 40px;    
     z-index: 20;        
 }
 
@@ -419,4 +433,22 @@ md-tabs .md-tab
 .styleSelector ul li img
 {
     width: 128px;
+}
+
+/*
+**  Screen Saver
+*/
+
+h1.screenSaverTitle
+{
+    font-size: 64px !important;
+    margin: 16px;   
+}
+
+.callToAction
+{
+    padding: 16px;
+    background-image: url("../Images/Common/CallToAction.png");           
+    background-repeat: no-repeat;
+    background-size: contain;
 }

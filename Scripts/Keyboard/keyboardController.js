@@ -35,24 +35,6 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         if ($scope.artefact === 15)
         {
             jsonCharGen = $scope.collateChargen();
-                        
-            //  http://192.168.1.2/Vault/API.php?
-            //  action=deposit&
-            //  method=create&
-            //  promptId=15&
-            //  email=anon@storybank.com.au&
-            //  nomDePlume=Anon&
-            //  story=jmko&
-            //  charDesign={%22ARM%22:%22http://192.168.1.2/StoryBank/Images/CharacterAssets/Arms/Arms0001.png%22,%22
-            //  FACE%22:%22http://192.168.1.2/StoryBank/Images/CharacterAssets/Faces/Faces0003.png%22,%22
-            //  FEET%22:%22http://192.168.1.2/StoryBank/Images/CharacterAssets/Feet/Feet0001.png%22,%22
-            //  HAIR%22:%22http://192.168.1.2/StoryBank/Images/CharacterAssets/Hair/Hair0004.png%22,%22
-            //  HAND%22:%22http://192.168.1.2/StoryBank/Images/CharacterAssets/Hands/Hands0001.png%22,%22
-            //  LEG%22:%22http://192.168.1.2/StoryBank/Images/CharacterAssets/Legs/Legs0001.png%22,%22
-            //  TORSO%22:%22http://192.168.1.2/StoryBank/Images/CharacterAssets/Torso/Torso0001.png%22}&
-            //  hasConsent=0&
-            //  useEmail=0
-            
         }
         
         var url = 'http://' + $location.host() 
@@ -165,8 +147,15 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         
     }
 
+
     $scope.keyClick = function($event, keyClicked)
     {
+        var myDate = new Date();
+        $rootScope.lastKeyPress = myDate.getTime();
+        
+        //  clearTimeout($rootScope.screenSaverTimeout);
+        //  $rootScope.screenSaverTimeout = setTimeout(function(){ $rootScope.timeOut(); }, $rootScope.timeInMilliSeconds); 
+        
         if (keyClicked === 'SHIFT') 
         {
             
@@ -236,7 +225,7 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         angular.element($event.currentTarget).addClass("animated zoomIn");    
         
         //  Let's test this one huh
-        //  window.setTimeout(function() { $scope.removeClasses(); }, 250);
+        window.setTimeout(function() { $scope.removeClasses(); }, 250);
         
     };
     
@@ -245,8 +234,6 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         var result = document.getElementsByClassName("animated zoomIn");
         
         angular.element(result).removeClass("animated zoomIn");    
-        
-        // alert('trying to remove classes');
     }
     
     $scope.fetchQuestion = function() 

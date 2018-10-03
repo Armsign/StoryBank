@@ -107,18 +107,20 @@ myApp.controller('RecordCTRL', [ '$scope', '$timeout', function ($scope, $timeou
 
 myApp.controller('PlaybackCTRL', function () { });
 
-myApp.controller('MenuCtrl', function () { });
-
 myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $location) 
 { 
     $scope.activeStory = '';
     $scope.activeArtefact = -1;
-    $scope.minutes = 0;
+    $scope.screenSaverTimeout = '';
+    
+    $rootScope.timeInMilliSeconds = 360000;
+    $rootScope.lastKeyPress = undefined;
     
     $scope.switchArtefact = function($event, room, artefact)
     {
         //  Something happened ...
-        $scope.minutes = 0; 
+        clearTimeout($scope.screenSaverTimeout);
+        $scope.screenSaverTimeout = setTimeout(function(){ $scope.timeOut(); }, $rootScope.timeInMilliSeconds); 
         
         if ((artefact !== ($routeParams.artefact) * 1) && ( $rootScope.activeStory.length === 0 || ($rootScope.activeStory.length > 0 && confirm('Abandon this story?'))))
         {
@@ -129,27 +131,31 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
     }; 
     
     $scope.timeOut = function()
-    {        
-        if($scope.minutes < 3) 
-        {
-            $scope.minutes++;
-            window.setTimeout($scope.timeOut, 6000); /* this checks the flag every 6000 milliseconds*/
-        } else { 
-            //  Empty out the story ... 
-
-            // $location.path('/Room/ScreenSaver');
-        }
-        
-        $scope.$digest();         
-    };
-    
-    $scope.keyClick = function(keyClicked)
     {
-        $scope.activeStory = $scope.activeStory + keyClicked;
-    };    
+        var myDate = new Date();
+        if (myDate.getTime() - $rootScope.lastKeyPress >= $rootScope.timeInMilliSeconds)
+        {
+            $location.path('/Room/ScreenSaver');
+            $scope.$apply();        
+        } else {
+            //  Reschedule, someone is using the keyboard
+            $scope.screenSaverTimeout = setTimeout(function(){ $scope.timeOut(); }, $rootScope.timeInMilliSeconds);             
+        }
+    }    
     
+    $scope.restoreSession = function()
+    {
+        window.history.back();                
+    }
+   
     angular.element(document).ready(function () 
-    {                       
+    {                
+        var myDate = new Date();
+        $rootScope.lastKeyPress = myDate.getTime();
+        
+        clearTimeout($scope.screenSaverTimeout);
+        $scope.screenSaverTimeout = setTimeout(function(){ $scope.timeOut(); }, $rootScope.timeInMilliSeconds); 
+        
         $scope.activeArtefact = "00000" + $routeParams.artefact;               
         $scope.activeArtefact =  $scope.activeArtefact.substring($scope.activeArtefact.length - 2, $scope.activeArtefact.length);
 
@@ -157,8 +163,7 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
         angular.element( document.querySelector( '#artefact' + $scope.activeArtefact ) ).addClass("animated tada selectedImage");
         
         $scope.activeArtefact *= 1;
-        
-        $scope.timeOut();
+
         $scope.$digest();
     });  
 
@@ -170,8 +175,33 @@ myApp.controller('ChargenCTRL', function ($scope, $mdDialog)
     $scope.activeArtefact = -1;
     $scope.minutes = 0;
 
+    $scope.randomiseFigure = function()
+    {
+        var myDate = new Date();
+        $rootScope.lastKeyPress = myDate.getTime();        
+        
+        var srcHair = "Hair000" + Math.ceil(Math.random() * 8) + ".png";        
+        var srcArms = "Arms000" + Math.ceil(Math.random() * 8) + ".png";        
+        var srcHands = "Hands000" + Math.ceil(Math.random() * 8) + ".png";        
+        var srcFaces = "Faces000" + Math.ceil(Math.random() * 8) + ".png";        
+        var srcTorso = "Torso000" + Math.ceil(Math.random() * 8) + ".png";        
+        var srcLegs = "Legs000" + Math.ceil(Math.random() * 8) + ".png";       
+        var srcFeet = "Feet000" + Math.ceil(Math.random() * 8) + ".png";        
+        
+        document.getElementById("hairSelected").src="Images/CharacterAssets/Hair/" + srcHair;        
+        document.getElementById("armsSelected").src="Images/CharacterAssets/Arms/" + srcArms;        
+        document.getElementById("handsSelected").src="Images/CharacterAssets/Hands/" + srcHands;          
+        document.getElementById("facesSelected").src="Images/CharacterAssets/Faces/" + srcFaces;            
+        document.getElementById("torsoSelected").src="Images/CharacterAssets/Torso/" + srcTorso;               
+        document.getElementById("legsSelected").src="Images/CharacterAssets/Legs/" + srcLegs;            
+        document.getElementById("feetSelected").src="Images/CharacterAssets/Feet/" + srcFeet;                   
+    }
+
     $scope.triggerChange = function(ev, modalToLoad)
     {       
+        var myDate = new Date();
+        $rootScope.lastKeyPress = myDate.getTime();                
+        
         $mdDialog.show({
             controller: 'CharSelectCTRL',    
             templateUrl: 'Templates/Modals/CharGen/' + modalToLoad + '.html',
@@ -222,7 +252,7 @@ myApp.config(['$routeProvider', function($routeProvider)
     $routeProvider.  
         when('/', {                     
             templateUrl: 'Templates/Menu/menu.html',
-            controller:'MenuCtrl'
+            controller:''
         }).
         when('/Admin', { 
             templateUrl: 'Templates/Admin/admin.html',
