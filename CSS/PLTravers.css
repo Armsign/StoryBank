@@ -413,7 +413,9 @@ md-tabs .md-tab
 
 .styleSelector
 {
-    padding-top: 16px;
+    margin: 0;
+    padding: 0;
+    padding-top: 8px;
     text-align: center;
 }
 
@@ -426,8 +428,12 @@ md-tabs .md-tab
 .styleSelector ul li
 {
     float: left;
-    padding: 8px;
-    margin: 0;
+    padding: 16px;
+    margin: 16px;
+    background-color: rgba(255, 255, 255, .4) !important;    
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;            
 }
 
 .styleSelector ul li img
