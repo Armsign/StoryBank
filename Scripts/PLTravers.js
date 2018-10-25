@@ -142,11 +142,6 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
             $scope.screenSaverTimeout = setTimeout(function(){ $scope.timeOut(); }, $rootScope.timeInMilliSeconds);             
         }
     }    
-    
-    $scope.restoreSession = function()
-    {
-        window.history.back();                
-    }
    
     angular.element(document).ready(function () 
     {                
@@ -246,6 +241,108 @@ myApp.controller('ChargenCTRL', function ($rootScope, $scope, $mdDialog)
     
 });
 
+myApp.controller('ScreenSaverCTRL', function ($scope) 
+{ 
+
+    $scope.restoreSession = function()
+    {
+        window.history.back();                
+    }
+    
+    $scope.spawnAnimation = function()
+    {
+        
+        //  Which animation to spawn?
+        var animationToPlay = Math.ceil(4 * Math.random());
+        
+        switch (animationToPlay)
+        {
+            case 1:     //  Mary Float                              
+                angular.element(document.querySelector("#maryFloat")).addClass("maryFloat");
+                
+                angular.element(document.querySelector("#maryFloat")).on('animationend webkitAnimationEnd oAnimationEnd', function() 
+                {
+                    angular.element(document.querySelector("#maryFloat")).removeClass("maryFloat");
+                });                 
+                
+                break;
+            case 2:     //  Mary Go Round
+                angular.element(document.querySelector("#maryGoRound")).addClass("maryGoRound");
+                
+                angular.element(document.querySelector("#maryGoRound")).on('animationend webkitAnimationEnd oAnimationEnd', function() 
+                {
+                    angular.element(document.querySelector("#maryGoRound")).removeClass("maryGoRound");
+                });                 
+                
+                break;
+            case 3:     //  Mary Left
+                angular.element(document.querySelector("#maryWindLeft")).addClass("maryWindLeft");
+                
+                angular.element(document.querySelector("#maryWindLeft")).on('animationend webkitAnimationEnd oAnimationEnd', function() 
+                {
+                    angular.element(document.querySelector("#maryWindLeft")).removeClass("maryWindLeft");
+                });    
+                
+                angular.element(document.querySelector("#maryWindPoppinsLeft")).addClass("maryWindPoppinsLeft");
+                
+                angular.element(document.querySelector("#maryWindPoppinsLeft")).on('animationend webkitAnimationEnd oAnimationEnd', function() 
+                {
+                    angular.element(document.querySelector("#maryWindPoppinsLeft")).removeClass("maryWindPoppinsLeft");
+                });                 
+
+                break;
+            case 4:     //  Mary Right
+                angular.element(document.querySelector("#maryWindRight")).addClass("maryWindRight");
+                
+                angular.element(document.querySelector("#maryWindRight")).on('animationend webkitAnimationEnd oAnimationEnd', function() 
+                {
+                    angular.element(document.querySelector("#maryWindRight")).removeClass("maryWindRight");
+                });    
+                
+                angular.element(document.querySelector("#maryWindPoppinsRight")).addClass("maryWindPoppinsRight");
+                
+                angular.element(document.querySelector("#maryWindPoppinsRight")).on('animationend webkitAnimationEnd oAnimationEnd', function() 
+                {
+                    angular.element(document.querySelector("#maryWindPoppinsRight")).removeClass("maryWindPoppinsRight");
+                });                 
+                
+                break;
+            default:
+                break;
+            
+        }        
+        
+        //  Tada on button  callToActionButton
+        angular.element(document.querySelector("#callToActionButton")).addClass("animated pulse");
+                
+        angular.element(document.querySelector("#callToActionButton")).on('animationend webkitAnimationEnd oAnimationEnd', function() 
+        {
+            angular.element(document.querySelector("#callToActionButton")).removeClass("animated pulse");
+        });    
+                        
+        
+        //  Schedule next animation
+        $scope.scheduleAnimation();      
+        
+    }
+    
+    $scope.scheduleAnimation = function()
+    {
+        //  General timing algorithm    15 - 45      
+        var timeToSpawn = Math.ceil(10000 + (Math.random() * 10000));
+        
+        //  We ought to play one every cycle ...
+        setTimeout(function(){ $scope.spawnAnimation(); }, timeToSpawn);                 
+    }
+    
+    angular.element(document).ready(function () 
+    {   
+        $scope.scheduleAnimation();        
+    });      
+        
+});
+
+
 myApp.config(['$routeProvider', function($routeProvider) 
 {      
     
@@ -260,7 +357,7 @@ myApp.config(['$routeProvider', function($routeProvider)
         }). 
         when('/Room/ScreenSaver', { 
             templateUrl: 'Templates/Rooms/screenSaver.html',
-            controller: 'RoomCTRL'    
+            controller: 'ScreenSaverCTRL'    
         }).                 
         when('/Room/View/C/:artefact', { 
             templateUrl: 'Templates/Rooms/roomC.html',

@@ -458,3 +458,98 @@ h1.screenSaverTitle
     background-repeat: no-repeat;
     background-size: contain;
 }
+
+ .maryWindLeft, .maryWindRight
+ {
+    height: 256px;
+    opacity: 0.0;  
+    animation-name: maryWindAnim;
+    animation-duration: 10s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-play-state: initial;     
+ }
+
+.maryFloat
+{
+    height: 256px;
+    opacity: 0.0;  
+    animation-name: maryUmbrellaFlightAnim;
+    animation-duration: 10s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-play-state: initial;        
+}
+
+.maryGoRound
+{
+    margin-top: 32px;
+    height: 256px;
+    opacity: 0.0;  
+    animation-name: maryGoRoundAnim;
+    animation-duration: 10s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-play-state: initial;        
+}
+
+.maryWindPoppinsLeft, .maryWindPoppinsRight
+{
+    height: 256px;
+    opacity: 0.0;  
+    animation-name: maryWindPoppinsLeftAnim;
+    animation-duration: 10s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-play-state: initial;        
+}
+
+/* Standard syntax */
+@keyframes maryUmbrellaFlightAnim 
+{
+    
+    0%   { opacity: 0; margin-top: 100px; }
+    17%  { opacity: .6; }
+    66%  { opacity: .4; }
+    83%  { opacity: .2; }
+    100% { opacity: 0; margin-top: -720px; }
+    
+}
+
+
+@keyframes maryGoRoundAnim 
+{
+    
+    0%   { opacity: 0; }
+    17%  { opacity: .6; }
+    66%  { opacity: .4; }
+    83%  { opacity: .2; }
+    100% { opacity: 0; margin-left: -1600px; }
+
+}
+
+@keyframes maryWindPoppinsLeftAnim 
+{
+    
+    0%   { opacity: 0; }
+    17%  { opacity: .6; }
+    66%  { opacity: .4; }
+    83%  { opacity: .2; }
+    100% { opacity: 0; margin-left: -200px; }    
+
+}
+
+@keyframes maryWindAnim 
+{
+    
+    0%   { opacity: 0; }
+    17%  { opacity: .1; }
+    66%  { opacity: .2; }
+    83%  { opacity: .1; }
+    100% { opacity: 0; } 
+    
+}

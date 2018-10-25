@@ -153,9 +153,6 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         var myDate = new Date();
         $rootScope.lastKeyPress = myDate.getTime();
         
-        //  clearTimeout($rootScope.screenSaverTimeout);
-        //  $rootScope.screenSaverTimeout = setTimeout(function(){ $rootScope.timeOut(); }, $rootScope.timeInMilliSeconds); 
-        
         if (keyClicked === 'SHIFT') 
         {
             
@@ -222,19 +219,14 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         }        
         
         //  This is the animated section ... once animation is added, run it needs to be removed ...        
-        angular.element($event.currentTarget).addClass("animated zoomIn");    
+        angular.element($event.currentTarget).addClass("animated pulse"); 
         
-        //  Let's test this one huh
-        window.setTimeout(function() { $scope.removeClasses(); }, 250);
+        angular.element($event.currentTarget).on('animationend webkitAnimationEnd oAnimationEnd', function() 
+        {
+            angular.element($event.currentTarget).removeClass("animated pulse");
+        });          
         
     };
-    
-    $scope.removeClasses = function()
-    {
-        var result = document.getElementsByClassName("animated zoomIn");
-        
-        angular.element(result).removeClass("animated zoomIn");    
-    }
     
     $scope.fetchQuestion = function() 
     {
