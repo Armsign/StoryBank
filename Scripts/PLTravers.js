@@ -315,16 +315,19 @@ myApp.controller('ScreenSaverCTRL', function ($scope)
         //  Tada on button  callToActionButton
         angular.element(document.querySelector("#callToActionButton")).addClass("animated pulse");
                 
-        angular.element(document.querySelector("#callToActionButton")).on('animationend webkitAnimationEnd oAnimationEnd', function() 
-        {
-            angular.element(document.querySelector("#callToActionButton")).removeClass("animated pulse");
-        });    
-                        
+        window.setTimeout(function() { $scope.removeClasses(); }, 250);
         
         //  Schedule next animation
         $scope.scheduleAnimation();      
         
     }
+    
+    $scope.removeClasses = function()
+    {
+        var result = document.getElementsByClassName("animated pulse");
+        
+        angular.element(result).removeClass("animated pulse");    
+    }    
     
     $scope.scheduleAnimation = function()
     {
