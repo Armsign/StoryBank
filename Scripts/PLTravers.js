@@ -107,7 +107,7 @@ myApp.controller('RecordCTRL', [ '$scope', '$timeout', function ($scope, $timeou
 
 myApp.controller('PlaybackCTRL', function () { });
 
-myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $location) 
+myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $location, $mdDialog) 
 { 
     $scope.activeStory = '';
     $scope.activeArtefact = -1;
@@ -121,11 +121,36 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
         //  Something happened ...
         clearTimeout($scope.screenSaverTimeout);
         $scope.screenSaverTimeout = setTimeout(function(){ $scope.timeOut(); }, $rootScope.timeInMilliSeconds); 
-        
-        if ((artefact !== ($routeParams.artefact) * 1) && ( $rootScope.activeStory.length === 0 || ($rootScope.activeStory.length > 0 && confirm('Abandon this story?'))))
+
+        //  Should we allow it?
+        if (artefact !== ($routeParams.artefact) * 1)                 
         {
-            $scope.activeArtefact = artefact;
-            $location.path('/Room/View/' + room + '/' + artefact);
+            if ($rootScope.activeStory.length > 0)
+            {
+                // Appending dialog to document.body to cover sidenav in docs app
+                var confirm = $mdDialog.confirm()
+                      .title('Abandon your story?')
+                      .textContent('Clicking yes will delete your story and you will not be able to restore it.')
+                      .ariaLabel('Lucky day')
+                      .targetEvent($event)
+                      .ok('Yes!')
+                      .cancel('No');
+
+                $mdDialog.show(confirm).then(function() {
+
+                    $scope.activeArtefact = artefact;
+                    $location.path('/Room/View/' + room + '/' + artefact);
+
+                }, function() {
+                    //  Do nothing
+                });                
+                
+            } else {            
+            
+                $scope.activeArtefact = artefact;
+                $location.path('/Room/View/' + room + '/' + artefact);
+            
+            }
         }
         
     }; 
@@ -135,6 +160,7 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
         var myDate = new Date();
         if (myDate.getTime() - $rootScope.lastKeyPress >= $rootScope.timeInMilliSeconds)
         {
+            clearTimeout($scope.screenSaverTimeout);
             $location.path('/Room/ScreenSaver');
             $scope.$apply();        
         } else {
@@ -164,11 +190,14 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
 
 });
 
-myApp.controller('ChargenCTRL', function ($rootScope, $scope, $mdDialog) 
+myApp.controller('ChargenCTRL', function ($rootScope, $scope, $location) 
 { 
     $scope.activeStory = '';
     $scope.activeArtefact = -1;
-    $scope.minutes = 0;
+    $scope.screenSaverTimeout = '';
+    
+    $rootScope.timeInMilliSeconds = 360000;
+    $rootScope.lastKeyPress = undefined;
 
     $scope.randomiseFigure = function()
     {
@@ -239,6 +268,33 @@ myApp.controller('ChargenCTRL', function ($rootScope, $scope, $mdDialog)
         
     };
     
+    $scope.timeOut = function()
+    {
+        var myDate = new Date();
+        if (myDate.getTime() - $rootScope.lastKeyPress >= $rootScope.timeInMilliSeconds)
+        {
+            clearTimeout($scope.screenSaverTimeout);
+            $location.path('/Room/ScreenSaver');
+            $scope.$apply();        
+        } else {
+            //  Reschedule, someone is using the keyboard
+            $scope.screenSaverTimeout = setTimeout(function(){ $scope.timeOut(); }, $rootScope.timeInMilliSeconds);             
+        }
+    }      
+    
+    angular.element(document).ready(function () 
+    {                
+        var myDate = new Date();
+        $rootScope.lastKeyPress = myDate.getTime();
+        
+        clearTimeout($scope.screenSaverTimeout);
+        $scope.screenSaverTimeout = setTimeout(function(){ $scope.timeOut(); }, $rootScope.timeInMilliSeconds); 
+
+        $scope.randomiseFigure();
+
+        $scope.$digest();
+    });      
+    
 });
 
 myApp.controller('ScreenSaverCTRL', function ($scope) 
@@ -246,6 +302,7 @@ myApp.controller('ScreenSaverCTRL', function ($scope)
 
     $scope.restoreSession = function()
     {
+        clearTimeout($scope.spawnAnimation);
         window.history.back();                
     }
     
