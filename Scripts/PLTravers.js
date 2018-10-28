@@ -190,7 +190,7 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
 
 });
 
-myApp.controller('ChargenCTRL', function ($rootScope, $scope, $location) 
+myApp.controller('ChargenCTRL', function ($rootScope, $scope, $location, $mdDialog) 
 { 
     $scope.activeStory = '';
     $scope.activeArtefact = -1;
@@ -372,7 +372,7 @@ myApp.controller('ScreenSaverCTRL', function ($scope)
         //  Tada on button  callToActionButton
         angular.element(document.querySelector("#callToActionButton")).addClass("animated pulse");
                 
-        window.setTimeout(function() { $scope.removeClasses(); }, 250);
+        window.setTimeout(function() { $scope.removeClasses(); }, 1000);
         
         //  Schedule next animation
         $scope.scheduleAnimation();      
@@ -401,7 +401,6 @@ myApp.controller('ScreenSaverCTRL', function ($scope)
     });      
         
 });
-
 
 myApp.config(['$routeProvider', function($routeProvider) 
 {      

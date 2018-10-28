@@ -6,7 +6,7 @@
 
 var myApp = angular.module('PLTravers');
 
-myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$location', '$http', function($rootScope, $scope, $routeParams, $location, $http) 
+myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$location', '$http', '$mdDialog', function($rootScope, $scope, $routeParams, $location, $http, $mdDialog) 
 { 
     $scope.capsLock = false;
     $scope.activeStory = '';
