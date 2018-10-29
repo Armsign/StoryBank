@@ -15,32 +15,6 @@
 
     </div>
 
-    <div ng-if="depositStage === 1" class="stageTwo">
-
-        <md-content md-no-float>  
-            <p style="font-family: Olivetti; font-size: 11px;"><b class="red" style="font-family: BalfordBase; font-size: 24px;">Ready</b> to deposit your story?<br/><br/>
-                Please enter your <b class="red">email address</b> so we can find your <b class="red">account</b>.<br/><br/>
-                Or leave it <b class="blue">blank</b> if you'd like to remain <b class="blue">anonymous</b>.<br/><br/>
-            </p>
-        </md-content>
-
-        <md-input-container md-no-float class="paperButton">                 
-            <input ng-disabled="true" type="email" ng-model="email" placeholder="anon@storybank.com.au" />
-        </md-input-container>
-
-        <md-input-container md-no-float class="paperButton">    
-
-            <div class="red animated tada" ng-click="completeEmail();">
-                <p>Next!</p>
-            </div>
-
-            <div class="blue" ng-click="cancelDeposit();">
-                <p>Cancel!</p>
-            </div>
-
-        </md-input-container>                      
-
-    </div>
 
     <div ng-if="depositStage === 2" class="stageThree">
 

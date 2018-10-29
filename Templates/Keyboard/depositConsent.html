@@ -1,0 +1,49 @@
+<md-dialog aria-label="Deposit Story">
+  <form ng-cloak>
+
+    <md-dialog-content>
+        <div class="md-dialog-content">        
+
+            <md-content md-no-float>   
+                <p style="font-family: Olivetti; font-size: 11px;"><b class="red" style="font-family: BalfordBase; font-size: 24px;">First</b> time here? Before we can process your deposit, please confirm the following:</p>
+            </md-content>  
+
+            <md-input-container md-no-float>    
+
+                <md-checkbox ng-model="consentGiven" aria-label="StoryBank Consent" ng-true-value="1" ng-false-value="0" ng-change="changeConsent(consentGiven)">
+                    <p style="font-family: Olivetti; font-size: 9px;"> I would like my story to be available for others to enjoy;</p>
+                </md-checkbox>
+
+            </md-input-container>    
+
+            <md-input-container md-no-float>    
+
+                <md-checkbox ng-model="useEmail" aria-label="StoryBank Consent" ng-true-value="1" ng-false-value="0" ng-change="changeEmail(useEmail)">
+                    <p style="font-family: Olivetti; font-size: 9px;">I would like to be contacted via email for updates about my stories and the P.L. Travers Building.</p>
+                </md-checkbox>
+
+            </md-input-container>  
+
+            <br/><br/>
+
+            <md-input-container md-no-float class="paperButton">    
+
+                <div class="red animated tada" ng-click="completeConsent();">
+
+                    <p>Next!</p>
+
+                </div>
+
+                <div ng-click="cancelDeposit();">
+
+                    <p>Cancel!</p>
+
+                </div>
+
+            </md-input-container>                    
+
+        </div>                  
+    </md-dialog-content>
+
+  </form>
+</md-dialog>

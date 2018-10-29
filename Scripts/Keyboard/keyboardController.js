@@ -70,6 +70,13 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         $scope.email = '';    
         $scope.nomDePlume = '';             
         
+        window.setTimeout(function() { $scope.reopenStoryTeller(); }, 10000);
+    }
+    
+    $scope.reopenStoryTeller = function()
+    {
+        $scope.depositStage = 0;        
+        $scope.$digest();
     }
     
     $scope.collateChargen = function()
@@ -98,11 +105,6 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
     $scope.changeEmail = function(value)
     {
         $scope.useEmail = value;
-    }
-    
-    $scope.cancelDeposit = function()
-    {
-        $scope.depositStage = 0;
     }
     
     //  Stage Two
@@ -136,17 +138,68 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
                         alert('Failure to connect to StoryVault');
                     });                    
             
-        } else {
+        } 
+        
+    }
+    
+    $scope.collectVisitorID = function(ev)
+    {
+        
+        //  Abstract the deposit into a dialog ... templated, yes.
+        $mdDialog.show({
+            templateUrl: 'Templates/Keyboard/depositCollectID.html',
+            controller: 'DepositCTRL',         
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true
+        })
+        .then(function(answer) {
             
-            //  It's anon
-            $scope.email = 'anon@storybank.com.au';
-            $scope.nomDePlume = 'Anon';
-            $scope.completeDeposit();
+            //  No action yet
+  
+        }, function() {
             
-        }
+            //    No action
+          
+        });         
         
     }
 
+    $scope.beginDepositProcess = function(ev)
+    {
+        
+        //  Abstract the deposit into a dialog ... templated, yes.
+        $mdDialog.show({
+            templateUrl: 'Templates/Keyboard/depositProcess.html',
+            controller: 'DepositCTRL',         
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true
+        })
+        .then(function(answer) {
+            
+            switch (answer)
+            {
+                case 'ANON':
+                    //  It's anon
+                    $scope.email = 'anon@storybank.com.au';
+                    $scope.nomDePlume = 'Anon';
+                    $scope.completeDeposit();                                    
+                    break;
+                case 'FULLID':
+                    $scope.collectVisitorID(ev);
+                    break;
+                default:
+                    break;
+            }
+  
+        }, function() {
+            
+          //    No action
+          
+        });        
+        
+    }
 
     $scope.keyClick = function($event, keyClicked)
     {
@@ -170,7 +223,10 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
                 
             } else if (keyClicked === 'DEPOSIT' && $scope.activeStory.length > 0) {                        
                 
-                $scope.depositStage = 1;    //  Switch stage
+                //  This should do the popup instead of the state change
+                
+                //  $scope.depositStage = 1;    //  Switch stage
+                $scope.beginDepositProcess($event);
                 
             } else if (keyClicked !== 'DEPOSIT') {                                        
                 
@@ -291,5 +347,25 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         
         $scope.fetchQuestion();
     });      
+    
+}]);
+
+myApp.controller('DepositCTRL', ['$rootScope', '$scope', '$routeParams', '$location', '$http', '$mdDialog', function($rootScope, $scope, $routeParams, $location, $http, $mdDialog) 
+{
+    
+    $scope.anonymousDeposit = function()
+    {
+        $mdDialog.hide('ANON');
+    }
+    
+    $scope.fullDeposit = function()
+    {        
+        $mdDialog.hide('FULLID');
+    }    
+    
+    $scope.cancelDeposit = function()
+    {
+        $mdDialog.hide();
+    }    
     
 }]);

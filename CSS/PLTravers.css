@@ -81,7 +81,7 @@ body
     height: 100vh;
     width: 100vw;    
     
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 h1
@@ -567,7 +567,7 @@ h1.screenSaverTitle
 **  Angular Material overrides
 */
 
-.md-title
+.md-title, .md-dialog-content h1
 {
     margin: 0 !important;
     padding: 0 !important;    
@@ -610,4 +610,24 @@ h1.screenSaverTitle
 .md-dialog-content-body
 {
     padding-top: 24px !important;    
+}
+
+
+.md-dialog-content
+{
+    padding: 0 !important;
+}
+
+.dialogButton
+{
+    font-family: SourceSansProLight !important;
+    display: inline !important;
+    font-size: 24px !important;
+    line-height: 24px;
+    text-align: center;        
+}
+
+.paperButton
+{
+    overflow: hidden;
 }

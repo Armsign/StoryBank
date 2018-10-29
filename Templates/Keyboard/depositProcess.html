@@ -1,0 +1,45 @@
+<md-dialog aria-label="Deposit Story">
+  <form ng-cloak>
+
+    <md-dialog-content>
+        <div class="md-dialog-content">          
+            <p style="font-family: Olivetti; font-size: 11px;">
+                
+                <b class="red" style="font-family: BalfordBase; font-size: 24px;">Ready</b> to deposit your story?<br/><br/>
+
+                Please choose your <b class="red">deposit method</b>.<br/><br/>
+
+                You can deposit <b class="blue">anonymously</b>, or you can use your <b class="red">visitor id</b> to sign and withdraw your stories at the end of your visit.<br/><br/>
+
+            </p>          
+        </div>
+        
+        <md-input-container md-no-float class="paperButton">    
+
+            <br/>
+            <br/>  
+            
+            <div class="blue animated tada" ng-click="anonymousDeposit();">
+                <p>Anonymous!</p>
+            </div>
+            
+            <br/>
+            <br/>             
+            
+            <div class="red animated tada" ng-click="fullDeposit();">
+                <p>Signed Deposit!</p>
+            </div>            
+            
+            <br/>
+            <br/> 
+
+            <div style="display: block;" ng-click="cancelDeposit();">
+                <p>Cancel!</p>
+            </div>
+
+        </md-input-container>         
+        
+    </md-dialog-content>
+
+  </form>
+</md-dialog>
