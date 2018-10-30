@@ -160,8 +160,15 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
         var myDate = new Date();
         if (myDate.getTime() - $rootScope.lastKeyPress >= $rootScope.timeInMilliSeconds)
         {
+            if ($rootScope.openDialog && $rootScope.openDialog != false)
+            {
+                $mdDialog.hide($rootScope.openDialog, '');
+                $rootScope.openDialog = false;
+            }
+            
             clearTimeout($scope.screenSaverTimeout);
             $location.path('/Room/ScreenSaver');
+            
             $scope.$apply();        
         } else {
             //  Reschedule, someone is using the keyboard
@@ -193,7 +200,7 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
 myApp.controller('ChargenCTRL', function ($rootScope, $scope, $location, $mdDialog) 
 { 
     $scope.activeStory = '';
-    $scope.activeArtefact = -1;
+    $scope.activeArtefact = 15;
     $scope.screenSaverTimeout = '';
     
     $rootScope.timeInMilliSeconds = 360000;
@@ -226,7 +233,7 @@ myApp.controller('ChargenCTRL', function ($rootScope, $scope, $location, $mdDial
         var myDate = new Date();
         $rootScope.lastKeyPress = myDate.getTime();                
         
-        $mdDialog.show({
+        $rootScope.openDialog = $mdDialog.show({
             controller: 'CharSelectCTRL',    
             templateUrl: 'Templates/Modals/CharGen/' + modalToLoad + '.html',
             parent: angular.element(document.body),
@@ -273,6 +280,13 @@ myApp.controller('ChargenCTRL', function ($rootScope, $scope, $location, $mdDial
         var myDate = new Date();
         if (myDate.getTime() - $rootScope.lastKeyPress >= $rootScope.timeInMilliSeconds)
         {
+            
+            if ($rootScope.openDialog && $rootScope.openDialog != false)
+            {
+                $mdDialog.hide($rootScope.openDialog, '');
+                $rootScope.openDialog = false;
+            }
+            
             clearTimeout($scope.screenSaverTimeout);
             $location.path('/Room/ScreenSaver');
             $scope.$apply();        

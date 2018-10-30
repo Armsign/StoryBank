@@ -11,6 +11,7 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
     $scope.capsLock = false;
     $scope.activeStory = '';
     $rootScope.activeStory = $scope.activeStory;
+    $rootScope.openDialog = false;
     $scope.artefact = 0;
     $scope.question = 'No question found';   
     $scope.email = '';
@@ -107,46 +108,13 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         $scope.useEmail = value;
     }
     
-    //  Stage Two
-    $scope.completeEmail = function()
-    {
-        //  Ok, is it anon or not?
-        if ($scope.email !== '' && $scope.email !== 'anon@storybank.com.au')
-        {
-                //  We're gonna need to check for this emails nom de plume ....
-                var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=nomdeplume&email=' + $scope.email;       
 
-                //  Call the login function appropriately
-                $http.get(url).then(
-                    function (response)   
-                    {
-                        if (response.data.length === 0)
-                        {
-
-                            $scope.depositStage = 2; // Fetch consent
-                            
-                        } else {
-                            
-                            //  Assumed consent
-                            $scope.nomDePlume = response.data[0].NOMDEPLUME;
-                            $scope.depositStage = 3; // Confirm NomDePlume
-                            
-                        }
-                    }, 
-                    function(response) 
-                    {
-                        alert('Failure to connect to StoryVault');
-                    });                    
-            
-        } 
-        
-    }
     
     $scope.collectVisitorID = function(ev)
     {
         
         //  Abstract the deposit into a dialog ... templated, yes.
-        $mdDialog.show({
+        $rootScope.openDialog = $mdDialog.show({
             templateUrl: 'Templates/Keyboard/depositCollectID.html',
             controller: 'DepositCTRL',         
             parent: angular.element(document.body),
@@ -169,7 +137,7 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
     {
         
         //  Abstract the deposit into a dialog ... templated, yes.
-        $mdDialog.show({
+        $rootScope.openDialog = $mdDialog.show({
             templateUrl: 'Templates/Keyboard/depositProcess.html',
             controller: 'DepositCTRL',         
             parent: angular.element(document.body),
@@ -367,5 +335,56 @@ myApp.controller('DepositCTRL', ['$rootScope', '$scope', '$routeParams', '$locat
     {
         $mdDialog.hide();
     }    
+    
+    //  Stage Two
+    $scope.completeEmail = function()
+    {
+        //  Ok, is it anon or not?
+        if ($scope.email !== '' && $scope.email !== 'anon@storybank.com.au')
+        {
+                //  We're gonna need to check for this emails nom de plume ....
+                var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=nomdeplume&email=' + $scope.email;       
+
+                //  Call the login function appropriately
+                $http.get(url).then(
+                    function (response)   
+                    {
+                        if (response.data.length === 0)
+                        {
+
+                            $scope.depositStage = 2; // Fetch consent
+                            
+                        } else {
+                            
+                            //  Assumed consent
+                            $scope.nomDePlume = response.data[0].NOMDEPLUME;
+                            $scope.depositStage = 3; // Confirm NomDePlume
+                            
+                        }
+                    }, 
+                    function(response) 
+                    {
+                        alert('Failure to connect to StoryVault');
+                    });                    
+            
+        } 
+        
+    }   
+    
+    /*
+    $scope.playMyselfOut = function()
+    {
+        
+        $mdDialog.hide();        
+        
+    }
+    
+    angular.element(document).ready(function () 
+    {        
+
+        window.setTimeout(function() { $scope.playMyselfOut(); }, 60000);
+
+    }); 
+     */        
     
 }]);
