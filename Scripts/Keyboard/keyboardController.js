@@ -124,10 +124,12 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         .then(function(answer) {
             
             //  No action yet
+            $rootScope.openDialog = false;
   
         }, function() {
             
             //    No action
+            $rootScope.openDialog = false;
           
         });         
         
@@ -160,10 +162,12 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
                 default:
                     break;
             }
+            
+            $rootScope.openDialog = false;
   
         }, function() {
             
-          //    No action
+            $rootScope.openDialog = false;
           
         });        
         
@@ -268,31 +272,32 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
             {
                 case 1:
                     $scope.question = 'to take a moment to write a small story detailing your childhood home and the fictional characters that might inhabit it?';
-                    break;                        
+                    //  break;                        
                 case 2:                
                     $scope.question = 'to imagine you are having dinner with your role model, what might happen?';                           
-                    break;
+                    //  break;
                 case 3:
                     $scope.question = 'to relate a story you told through your childhood toys? ';
-                    break;
+                    //  break;
                 case 4:
                     $scope.question = 'to write about your creative process? What tools do you use to create?';
-                    break;                                        
+                    //  break;                                        
                 case 5:
                     $scope.question = 'to reflect upon your own beliefs and how they have shaped the person you are today?';                
-                    break;                    
+                    //  break;                    
                 case 6: //  Vase of Roses
                     $scope.question = 'to share a story that illuminates something otherwise unknown about yourself?';
-                    break;
+                    //  break;
                 case 8:
-                    $scope.question = 'to tell a tale that you created with your peers in school?'; 
+                    $scope.question = 'to think of a magical moment, special place or person related to Maryborough and share your story to the Story Bank. The bond of people to Maryborough and their powerful sense of place and community, is bound by stories. Share yours to the Story Bank.'; 
                     break; 
                 case 10:
                 case 11:
                 case 12:
                 case 13:
                 case 14:
-                    $scope.question = 'Can you think of a person in your life who would make a good character in a story? Describe your character with 3 words';
+                    //  $scope.question = 'Can you think of a person in your life who would make a good character in a story? Describe your character with 3 words';
+                    $scope.question = 'to start to think about a story you would like to write. Who is the main character? Write one or two sentences describing them. You might include their appearance as well as their personality; their goals or their fears.';
                     break;
                 case 15:
                     $scope.question = 'to write a story about your character?';

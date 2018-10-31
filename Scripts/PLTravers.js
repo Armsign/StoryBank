@@ -128,7 +128,7 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
             if ($rootScope.activeStory.length > 0)
             {
                 // Appending dialog to document.body to cover sidenav in docs app
-                var confirm = $mdDialog.confirm()
+                $rootScope.openDialog = $mdDialog.confirm()
                       .title('Abandon your story?')
                       .textContent('Clicking yes will delete your story and you will not be able to restore it.')
                       .ariaLabel('Lucky day')
@@ -136,13 +136,17 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
                       .ok('Yes!')
                       .cancel('No');
 
-                $mdDialog.show(confirm).then(function() {
+                $mdDialog.show($rootScope.openDialog).then(function() {
 
                     $scope.activeArtefact = artefact;
                     $location.path('/Room/View/' + room + '/' + artefact);
+                    
+                    $rootScope.openDialog = false;
 
                 }, function() {
                     //  Do nothing
+                    
+                    $rootScope.openDialog = false;
                 });                
                 
             } else {            
@@ -162,7 +166,7 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
         {
             if ($rootScope.openDialog && $rootScope.openDialog != false)
             {
-                $mdDialog.hide($rootScope.openDialog, '');
+                $mdDialog.cancel();
                 $rootScope.openDialog = false;
             }
             
@@ -199,6 +203,7 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
 
 myApp.controller('ChargenCTRL', function ($rootScope, $scope, $location, $mdDialog) 
 { 
+    
     $scope.activeStory = '';
     $scope.activeArtefact = 15;
     $scope.screenSaverTimeout = '';
@@ -270,7 +275,13 @@ myApp.controller('ChargenCTRL', function ($rootScope, $scope, $location, $mdDial
                 default:
                     break;
             }
+            
+            $rootScope.openDialog = false;
        
+        }, function() {
+            
+            $rootScope.openDialog = false;
+          
         });         
         
     };
@@ -283,7 +294,7 @@ myApp.controller('ChargenCTRL', function ($rootScope, $scope, $location, $mdDial
             
             if ($rootScope.openDialog && $rootScope.openDialog != false)
             {
-                $mdDialog.hide($rootScope.openDialog, '');
+                $mdDialog.cancel();
                 $rootScope.openDialog = false;
             }
             
@@ -411,7 +422,7 @@ myApp.controller('ScreenSaverCTRL', function ($scope)
     
     angular.element(document).ready(function () 
     {   
-        $scope.scheduleAnimation();        
+        $scope.scheduleAnimation();   
     });      
         
 });
