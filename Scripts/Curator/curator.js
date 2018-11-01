@@ -61,6 +61,7 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
         })
         .then(function() 
         {
+            
             //  Load up teh data grids!
             $scope.getServerData();
             $scope.getApprovedStoryData();

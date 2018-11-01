@@ -5,28 +5,97 @@
         <div class="md-dialog-content">        
 
             <md-content md-no-float>  
-                <p style="font-family: Olivetti; font-size: 11px;"><b class="red" style="font-family: BalfordBase; font-size: 24px;">Ready</b> to deposit your story?<br/><br/>
-                    Please enter your <b class="red">visitor id</b> so we can find your <b class="red">account</b>.<br/><br/>
-                </p>
+                
+                <p style="font-family: Olivetti; font-size: 11px;">
+                    <b class="red" style="font-family: BalfordBase; font-size: 24px;">Ready</b> to deposit your story?
+                </p>  
+                
             </md-content>
+            
+            <br/>
+            <br/>
+            
+            <md-input-container md-no-float class="numPad">                 
 
-            <md-input-container md-no-float class="paperButton">                 
-                <input ng-disabled="true" type="email" ng-model="email" placeholder="anon@storybank.com.au" />
+                <div>
+                
+                    <p style="font-family: Olivetti; font-size: 11px;">
+                        Please enter your <b class="red">visitor id</b> so we can find your <b class="red">account</b>.<br/><br/>
+                    </p>                
+
+                    <p style="display: block; text-align: center; margin-top: 32px;">
+                        <b>STORY-{{collectedID}}</b>
+                    </p>
+                
+                </div>
+                
+            </md-input-container>            
+
+            <md-input-container md-no-float class="numPad">                 
+
+                <ul>
+
+                    <li class="line1" ng-click="keyClick($event, '1')">            
+                        <img src="Images/Keyboard/Keyboard_Keys_1_a.svg" />
+                    </li>
+                    <li class="line1" ng-click="keyClick($event, '2')">            
+                        <img src="Images/Keyboard/Keyboard_Keys_2_a.svg" />
+                    </li>        
+                    <li class="line1" ng-click="keyClick($event, '3')">            
+                        <img src="Images/Keyboard/Keyboard_Keys_3_a.svg" />
+                    </li>        
+
+                    <li class="line1" ng-click="keyClick($event, '4')">            
+                        <img src="Images/Keyboard/Keyboard_Keys_4_a.svg" />
+                    </li>                
+
+                    <li class="line1" ng-click="keyClick($event, '5')">            
+                        <img src="Images/Keyboard/Keyboard_Keys_5_a.svg" />
+                    </li>       
+
+                    <li class="line1" ng-click="keyClick($event, '6')">            
+                        <img src="Images/Keyboard/Keyboard_Keys_6_a.svg" />
+                    </li>
+                    <li class="line1" ng-click="keyClick($event, '7')">            
+                        <img src="Images/Keyboard/Keyboard_Keys_7_a.svg" />
+                    </li>        
+                    <li class="line1" ng-click="keyClick($event, '8')">            
+                        <img src="Images/Keyboard/Keyboard_Keys_8_a.svg" />
+                    </li>        
+
+                    <li class="line1" ng-click="keyClick($event, '9')">            
+                        <img src="Images/Keyboard/Keyboard_Keys_9_a.svg" />
+                    </li>                
+
+                    <li class="line1">
+                        &nbsp;
+                    </li>                           
+
+                    <li class="line1" ng-click="keyClick($event, '0')">            
+                        <img src="Images/Keyboard/Keyboard_Keys_0_a.svg" />
+                    </li>  
+
+                    <li class="line1" ng-click="keyClick($event, 'BACKSPACE')">            
+                        <img src="Images/Keyboard/Keyboard_Keys_Backspace.svg" />
+                    </li>                                
+
+                </ul>
+                
             </md-input-container>
+            <br/>
+            <br/>
+            <br/>
+            <br/>            
+            <md-input-container md-no-float class="paperButton" style="padding-top: 34px;">    
 
-            <md-input-container md-no-float class="paperButton">    
-
-                <div class="red animated tada" ng-click="completeEmail();">
-                    <p>Next!</p>
+                <div ng-click="cancelDeposit();" style="display: inline; width: 50%; margin: 0; padding: 0;">
+                    <p style="width: 200px; display: inline; text-align: center; width: 50%;">Cancel!</p>
                 </div>
                 
-                <br/>
-                <br/> 
-                
-                <div ng-click="cancelDeposit();">
-                    <p>Cancel!</p>
-                </div>
-
+                <div id="readyGoNext" class="red" ng-click="completeEmail();" style="width: 50%; margin: 0; padding: 0;">
+                    <p  style="width: 200px; display: inline; text-align: center; width: 50%;">Next!</p>
+                </div>                              
+                                
             </md-input-container>                      
       
             <br/><br/>

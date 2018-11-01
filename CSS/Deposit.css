@@ -49,6 +49,7 @@ and open the template in the editor.
     margin-bottom: 16px;
     color: #111111;   
     height: 92px;
+    letter-spacing: -1px;
 }
 
 .stageOne md-input-container
@@ -208,3 +209,44 @@ md-checkbox p
     width: 384px !important; 
 }
 
+/*
+**  Numpad
+*/
+
+
+.numPad
+{
+    display: block;
+    padding: 0px;
+    margin: 5%;
+    text-align: center;
+    float: left;
+    width: 40%;  
+    height: 332px;
+    background-color: rgba(255, 255, 255, .4) !important;    
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;                
+    
+}
+
+.numPad ul, .numPad div
+{
+    display: block;
+    padding: 32px;
+    float: left
+}
+
+.numPad ul li
+{    
+    padding: 0 !important;
+    margin-bottom: 6px !important;
+    float: left;
+    text-align: centre;
+    width: 72px;
+}
+
+#readyGoNext
+{
+    display: none; 
+}

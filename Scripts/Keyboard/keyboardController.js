@@ -13,7 +13,8 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
     $rootScope.activeStory = $scope.activeStory;
     $rootScope.openDialog = false;
     $scope.artefact = 0;
-    $scope.question = 'No question found';   
+    $scope.question = 'No question found'; 
+    $scope.visitorID = '';
     $scope.email = '';
     $scope.nomDePlume = '';
     $scope.consentGiven = 0;
@@ -40,6 +41,8 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         
         var url = 'http://' + $location.host() 
                 + '/Vault/API.php?action=deposit&method=create&promptId=' + $scope.artefact
+                + '&$promptId=' + $scope.artefact
+                + '&visitorID=' + $scope.visitorID   
                 + '&email=' + $scope.email 
                 + '&nomDePlume=' + $scope.nomDePlume
                 + '&story=' + $scope.activeStory 
@@ -66,6 +69,7 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
                 alert('Failure to connect to StoryVault');
             });  
             
+        $scope.visitorID = '';
         $scope.activeStory = '';
         $rootScope.activeStory = $scope.activeStory;
         $scope.email = '';    
@@ -108,8 +112,6 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         $scope.useEmail = value;
     }
     
-
-    
     $scope.collectVisitorID = function(ev)
     {
         
@@ -123,7 +125,12 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         })
         .then(function(answer) {
             
-            //  No action yet
+            //  It's anon
+            $scope.visitorID = answer;            
+            $scope.email = 'anon@storybank.com.au';
+            $scope.nomDePlume = 'Anon';
+            $scope.completeDeposit();      
+    
             $rootScope.openDialog = false;
   
         }, function() {
@@ -157,7 +164,7 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
                     $scope.completeDeposit();                                    
                     break;
                 case 'FULLID':
-                    $scope.collectVisitorID(ev);
+                    window.setTimeout(function() { $scope.collectVisitorID(ev); }, 6);
                     break;
                 default:
                     break;
@@ -177,9 +184,6 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
     {
         var myDate = new Date();
         $rootScope.lastKeyPress = myDate.getTime();
-        
-        //  clearTimeout($rootScope.screenSaverTimeout);
-        //  $rootScope.screenSaverTimeout = setTimeout(function(){ $rootScope.timeOut(); }, $rootScope.timeInMilliSeconds); 
         
         if (keyClicked === 'SHIFT') 
         {
@@ -289,7 +293,7 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
                     $scope.question = 'to share a story that illuminates something otherwise unknown about yourself?';
                     //  break;
                 case 8:
-                    $scope.question = 'to think of a magical moment, special place or person related to Maryborough and share your story to the Story Bank. The bond of people to Maryborough and their powerful sense of place and community, is bound by stories. Share yours to the Story Bank.'; 
+                    $scope.question = 'to think of a magical moment, special place or person related to Maryborough and share your story to the Story Bank?'; 
                     break; 
                 case 10:
                 case 11:
@@ -297,7 +301,7 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
                 case 13:
                 case 14:
                     //  $scope.question = 'Can you think of a person in your life who would make a good character in a story? Describe your character with 3 words';
-                    $scope.question = 'to start to think about a story you would like to write. Who is the main character? Write one or two sentences describing them. You might include their appearance as well as their personality; their goals or their fears.';
+                    $scope.question = 'to think about a character? You might include their appearance, or their personality; their goals or their fears.';
                     break;
                 case 15:
                     $scope.question = 'to write a story about your character?';
@@ -323,8 +327,10 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
     
 }]);
 
-myApp.controller('DepositCTRL', ['$rootScope', '$scope', '$routeParams', '$location', '$http', '$mdDialog', function($rootScope, $scope, $routeParams, $location, $http, $mdDialog) 
+myApp.controller('DepositCTRL', ['$rootScope', '$scope', '$location', '$http', '$mdDialog', function($rootScope, $scope, $location, $http, $mdDialog) 
 {
+    $scope.collectedID = 'XXXXX';
+    $scope.validID = false;
     
     $scope.anonymousDeposit = function()
     {
@@ -338,58 +344,67 @@ myApp.controller('DepositCTRL', ['$rootScope', '$scope', '$routeParams', '$locat
     
     $scope.cancelDeposit = function()
     {
-        $mdDialog.hide();
+        $mdDialog.cancel();
     }    
     
-    //  Stage Two
     $scope.completeEmail = function()
     {
-        //  Ok, is it anon or not?
-        if ($scope.email !== '' && $scope.email !== 'anon@storybank.com.au')
-        {
-                //  We're gonna need to check for this emails nom de plume ....
-                var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=nomdeplume&email=' + $scope.email;       
-
-                //  Call the login function appropriately
-                $http.get(url).then(
-                    function (response)   
-                    {
-                        if (response.data.length === 0)
-                        {
-
-                            $scope.depositStage = 2; // Fetch consent
-                            
-                        } else {
-                            
-                            //  Assumed consent
-                            $scope.nomDePlume = response.data[0].NOMDEPLUME;
-                            $scope.depositStage = 3; // Confirm NomDePlume
-                            
-                        }
-                    }, 
-                    function(response) 
-                    {
-                        alert('Failure to connect to StoryVault');
-                    });                    
-            
-        } 
-        
-    }   
+        $mdDialog.hide($scope.collectedID);
+    }        
     
-    /*
-    $scope.playMyselfOut = function()
+    $scope.keyClick = function($event, keyClicked)
     {
+        var myDate = new Date();
+        $rootScope.lastKeyPress = myDate.getTime();
+
+        if (keyClicked === 'BACKSPACE')
+        {
+            
+            if ($scope.collectedID !== 'XXXXX')
+            {
+                $scope.collectedID = $scope.collectedID.slice(0, -1);
+            }
+            
+            if ($scope.collectedID === '')
+            {
+                $scope.collectedID = 'XXXXX';
+            } 
+            
+            $scope.validID = false;
+            angular.element(document.getElementById("readyGoNext")).css("display", "none");            
+
+        } else if ($scope.collectedID.length < 5 || $scope.collectedID === 'XXXXX') {
+
+            if ($scope.collectedID === 'XXXXX')
+            {
+                $scope.collectedID = '';
+            }
+
+            $scope.collectedID = $scope.collectedID + keyClicked;
+            
+            if ($scope.collectedID.length === 5)
+            {
+                $scope.validID = true;                
+                
+                angular.element(document.getElementById("readyGoNext")).css("display", "inline");
+                
+            }
+            
+        }
+
+        //  This is the animated section ... once animation is added, run it needs to be removed ...        
+        angular.element($event.currentTarget).addClass("animated pulse"); 
         
-        $mdDialog.hide();        
+        //  Let's test this one huh
+        window.setTimeout(function() { $scope.removeClasses(); }, 250);
         
-    }
+    };
     
-    angular.element(document).ready(function () 
-    {        
-
-        window.setTimeout(function() { $scope.playMyselfOut(); }, 60000);
-
-    }); 
-     */        
+    $scope.removeClasses = function()
+    {
+        var result = document.getElementsByClassName("animated pulse");
+        
+        angular.element(result).removeClass("animated pulse");    
+    }
     
 }]);
