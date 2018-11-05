@@ -12,5 +12,10 @@ myApp.controller('CharSelectCTRL', ['$scope', '$mdDialog', function($scope, $mdD
     {        
         $mdDialog.hide(imageToReturn);
     }
+    
+    $scope.hideModal = function()
+    {
+        $mdDialog.cancel();
+    }    
 
 }]);
