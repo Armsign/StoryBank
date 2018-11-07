@@ -4,8 +4,8 @@
 
     <div ng-if="depositStage === 0" class="stageOne">  
 
-        <md-content md-no-float>
-            <p style="font-family: Olivetti; font-size: 11px;"><b class="red" style="font-family: BalfordBase; font-size: 24px;">Inspired</b> {{question}}</p>
+        <md-content md-no-float ng-cloak>
+            <p style="font-family: Olivetti; font-size: 11px; line-height: 24px;"><b class="red" style="font-family: BalfordBase; font-size: 24px;">Inspired</b> {{question}}</p>
         </md-content>
 
 
@@ -289,7 +289,7 @@
             &nbsp;
         </li>  
 
-        <li class="actualDeposit" ng-click="keyClick($event, 'DEPOSIT')" ng-if="depositStage === 0">           
+        <li class="actualDeposit" ng-click="keyClick($event, 'DEPOSIT')">           
             <img src="Images/Keyboard/Keyboard_Keys_Deposit.svg" />
         </li>         
 
@@ -495,7 +495,7 @@
             &nbsp;
         </li>  
 
-        <li class="actualDeposit" ng-click="keyClick($event, 'DEPOSIT')" ng-if="depositStage === 0">            
+        <li class="actualDeposit" ng-click="keyClick($event, 'DEPOSIT')">            
             <img src="Images/Keyboard/Keyboard_Keys_Deposit.svg" />
         </li>        
 

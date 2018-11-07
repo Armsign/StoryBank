@@ -62,6 +62,11 @@ and open the template in the editor.
     width: 536px;
 }
 
+#textForStory
+{
+    max-height: 240px !important;
+}
+
 .stageOne textarea
 {
     display: block;
@@ -69,7 +74,7 @@ and open the template in the editor.
     padding: 0;  
     overflow:hidden;  
     color: #111111;
-    height: 300px;    
+    height: 260px;    
 }
 
 [disabled] md-input-container .md-input, md-input-container .md-input[disabled]
@@ -250,3 +255,18 @@ md-checkbox p
 {
     display: none; 
 }
+
+/*
+
+http://192.168.1.2/Vault/API.php?action=deposit
+&method=create
+&promptId=13
+&visitorID=0
+&email=anon@storybank.com.au
+&nomDePlume=Anon
+&story=tgyh
+&charDesign=
+&hasConsent=0
+&useEmail=0
+
+*/

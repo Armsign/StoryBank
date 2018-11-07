@@ -34,20 +34,21 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
     {        
         var jsonCharGen = '';
 
-        if ($scope.artefact === 15)
+        if ($scope.artefact === 15) //  Handle the Character generator special case
         {
             jsonCharGen = $scope.collateChargen();
         }
         
         var url = 'http://' + $location.host() 
-                + '/Vault/API.php?action=deposit&method=create&promptId=' + $scope.artefact
-                + '&$promptId=' + $scope.artefact
+                + '/Vault/API.php?action=deposit&method=create'
+                + '&promptId=' + $scope.artefact
                 + '&visitorID=' + $scope.visitorID   
                 + '&email=' + $scope.email 
                 + '&nomDePlume=' + $scope.nomDePlume
                 + '&story=' + $scope.activeStory 
                 + '&charDesign=' + jsonCharGen 
-                + '&hasConsent=' + $scope.consentGiven + '&useEmail=' + $scope.useEmail;
+                + '&hasConsent=' + $scope.consentGiven 
+                + '&useEmail=' + $scope.useEmail;
 
         //  Call the login function appropriately
         $http.get(url).then(
@@ -159,6 +160,7 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
             {
                 case 'ANON':
                     //  It's anon
+                    $scope.visitorID = 0;
                     $scope.email = 'anon@storybank.com.au';
                     $scope.nomDePlume = 'Anon';
                     $scope.completeDeposit();                                    
@@ -274,34 +276,21 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         {
             switch ($scope.artefact)
             {
-                case 1:
-                    $scope.question = 'to take a moment to write a small story detailing your childhood home and the fictional characters that might inhabit it?';
-                    //  break;                        
+                case 1:               
                 case 2:                
-                    $scope.question = 'to imagine you are having dinner with your role model, what might happen?';                           
-                    //  break;
                 case 3:
-                    $scope.question = 'to relate a story you told through your childhood toys? ';
-                    //  break;
                 case 4:
-                    $scope.question = 'to write about your creative process? What tools do you use to create?';
-                    //  break;                                        
-                case 5:
-                    $scope.question = 'to reflect upon your own beliefs and how they have shaped the person you are today?';                
-                    //  break;                    
-                case 6: //  Vase of Roses
-                    $scope.question = 'to share a story that illuminates something otherwise unknown about yourself?';
-                    //  break;
+                case 5:         
+                case 6: 
                 case 8:
-                    $scope.question = 'to think of a magical moment, special place or person related to Maryborough and share your story to the Story Bank?'; 
+                    $scope.question = 'to think of a magical moment, special place or person related to Maryborough? The bond of people to Maryborough and their powerful sense of place and community, is bound by stories. Share your story of Maryborough to the Story Bank.'; 
                     break; 
                 case 10:
                 case 11:
                 case 12:
                 case 13:
                 case 14:
-                    //  $scope.question = 'Can you think of a person in your life who would make a good character in a story? Describe your character with 3 words';
-                    $scope.question = 'to think about a character? You might include their appearance, or their personality; their goals or their fears.';
+                    $scope.question = 'to start to think about a story you would like to write. Who is the main character? Write one or two sentences describing them. You might include their appearance as well as their personality; their goals or their fears.';
                     break;
                 case 15:
                     $scope.question = 'to write a story about your character?';
@@ -310,9 +299,7 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
                     $scope.question = 'to begin your story ...?';
                     break; 
             }
-        }
-        
-        $scope.$digest();
+        }        
     }
     
     angular.element(document).ready(function () 
