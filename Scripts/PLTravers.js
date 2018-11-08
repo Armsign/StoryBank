@@ -4,7 +4,7 @@
  *      Story Bank
  */
 
-var myApp = angular.module('PLTravers', ['ngRoute', 'ngMaterial', 'ngAria', 'ngAnimate', 'ngCookies', 'dataGrid', 'pagination', 'ngTagsInput']);
+var myApp = angular.module('PLTravers', ['ngRoute', 'ngMaterial', 'ngAria', 'ngAnimate', 'ngCookies', 'dataGrid', 'pagination', 'ngTagsInput', 'textAngular']);
 
 myApp.controller('ContainerCTRL', ['$scope', '$location', function($scope, $location) 
 { 

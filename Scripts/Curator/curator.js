@@ -24,7 +24,7 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
     $scope.gridFlaggedStoriesOptions = { data: [] };   
     $scope.gridApprovedStoriesOptions = { data: [] };            
     $scope.gridDeadStoriesOptions = { data: [] };                
-    $scope.gridMembersOptions = { data: [] };     
+    $scope.gridMembersOptions = { data: [] };      
     $scope.gridTagsOptions = { data: [] };         
 
     $scope.addDeposit = function(ev)
@@ -95,10 +95,13 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
                     $http.get(url).then(
                         function (response)   
                         {                        
-                            //  ReLoad up teh data grids!
+                            
+                            //  Load up teh data grids!
                             $scope.getServerData();
-                            $scope.getFlaggedServerData();   
-                            $scope.getMemberServerData();                            
+                            $scope.getFlaggedServerData();
+                            $scope.getApprovedStoryData();
+                            $scope.getDeadStoryData();                            
+                            
                         }); 
                     }, function() {
                         //  Do nothing
@@ -428,6 +431,18 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
             $http.get(url).then(
                 function (response)   
                 {
+                    for (var i = 0; i < response.data.length; i++)
+                    {
+
+                        if (response.data[i].IS_ACTIVE === '1')
+                        {
+                            response.data[i].ACTIVE = 'Yes';
+                        } else {
+                            response.data[i].ACTIVE = 'No';                            
+                        }
+                        
+                    }
+                    
                     $scope.gridMembersOptions.data = response.data;  
                     $scope.staffCount = response.data.length;
                 });   
@@ -507,6 +522,7 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
     $scope.storyTags = new Array();
     $scope.storyTagsSuperSet = new Array();
     $scope.token = '';
+    $scope.reflectStory = '';
     
     $scope.loadTags = function(query) 
     {       
@@ -582,7 +598,7 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
                 + '&email=' + $scope.deposit.STORED_BY 
                 + '&hasConsent=' + $scope.deposit.HAS_CONSENT 
                 + '&useEmail=' + $scope.deposit.USE_EMAIL 
-                + '&story=' + $scope.deposit.TRANSCRIPTION; 
+                + '&story=' + encodeURIComponent($scope.reflectStory); 
 
         //  Call the tags function appropriately
         $http.get(url).then(
@@ -646,6 +662,7 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
                 ID:"0", 
                 PROMPT_ID:0,
                 TITLE: "Title", 
+                VISITOR_ID: 0,
                 STORED_BY: "anon@storybank.com.au",
                 STORED_AS:"Anon",
                 STORED_AT:"N/A",
@@ -663,6 +680,7 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
             
         } else {
             
+            $scope.reflectStory = $scope.deposit.TRANSCRIPTION;
             $scope.approved = $scope.deposit.IS_PLAYABLE * 1;   // Reset to integral
             $scope.fetchStoryTags();
             
@@ -779,3 +797,20 @@ myApp.controller('MemberCtrl', function ($rootScope, $scope, $http, $mdDialog, $
     });      
     
 });
+
+
+myApp.config(['$provide', function($provide)
+{
+    // this demonstrates how to register a new tool and add it to the default toolbar
+    $provide.decorator('taOptions', ['$delegate', function(taOptions){
+            // $delegate is the taOptions we are decorating
+            // here we override the default toolbars and classes specified in taOptions.
+            taOptions.toolbar = [
+                    ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre', 'quote'],
+                    ['bold', 'italics', 'underline', 'ul', 'ol', 'clear'],
+                    ['justifyLeft','justifyCenter','justifyRight', 'justifyFull'],
+                    ['html', 'insertLink', 'wordcount', 'charcount']
+            ];
+            return taOptions; // whatever you return will be the taOptions
+    }]);
+}]);

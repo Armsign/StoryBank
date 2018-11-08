@@ -45,7 +45,7 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
                 + '&visitorID=' + $scope.visitorID   
                 + '&email=' + $scope.email 
                 + '&nomDePlume=' + $scope.nomDePlume
-                + '&story=' + $scope.activeStory 
+                + '&story=' + '<p>' + $scope.activeStory + '</p>'
                 + '&charDesign=' + jsonCharGen 
                 + '&hasConsent=' + $scope.consentGiven 
                 + '&useEmail=' + $scope.useEmail;

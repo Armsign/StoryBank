@@ -1,38 +1,44 @@
-<md-dialog aria-label="List dialog">
+<md-dialog aria-label="List dialog" class="depositModal">
     
     <md-dialog-content>
-        <h1 class="blue">Story Record</h1>
+        <h1 class="blue" style="width: 45%;">Story Record</h1>
+        
+        <p style="float: right; text-align: right; width: 45%;">Visitor ID: <b>{{deposit.VISITOR_ID}}</b></p>                    
         
         <br/><br/>
         <tags-input ng-model="storyTags" display-property="TITLE" key-property="ID" add-from-autocomplete-only="true">
             <auto-complete source="loadTags($query)"></auto-complete>
-        </tags-input>        
+        </tags-input>                
         
-        <md-input-container style="width: 100%;">
+        <md-input-container style="width: 48%;">
             <label>Email</label>
             <input class="modalText" md-maxlength="1024" ng-model="deposit.STORED_BY" />
         </md-input-container>         
         
-        <md-input-container style="width: 100%;">
+        <md-input-container style="width: 48%;">
             <label>Nom De Plume</label>
             <input class="modalText" md-maxlength="1024" ng-model="deposit.STORED_AS" />
         </md-input-container>        
 
-        <md-input-container style="width: 100%;">
+        <md-input-container style="width: 48%;">
             <label>Title</label>
             <input class="modalText" md-maxlength="1024" ng-model="deposit.TITLE" />
         </md-input-container>
 
+        <md-input-container style="width: 48%; margin-top: -16px;">
+            <md-checkbox class="modalText" ng-model="approved" ng-change="changeApproval(approved)"  ng-true-value="1" ng-false-value="0" aria-label="Approved?">
+                Approved for public?
+            </md-checkbox>            
+        </md-input-container>          
+        
+        <text-angular ng-model="reflectStory"></text-angular>
+        
+        <!--
         <md-input-container style="width: 100%;">
             <label>Transcription</label>
             <textarea class="modalText" md-maxlength="8192" ng-model="deposit.TRANSCRIPTION"></textarea>
         </md-input-container>            
-
-        <md-input-container>
-            <md-checkbox class="modalText" ng-model="approved" ng-change="changeApproval(approved)"  ng-true-value="1" ng-false-value="0" aria-label="Approved?">
-                Approved for public?
-            </md-checkbox>            
-        </md-input-container>              
+        -->
         
     </md-dialog-content>
     
