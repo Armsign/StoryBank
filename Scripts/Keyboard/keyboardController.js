@@ -295,6 +295,9 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
                 case 15:
                     $scope.question = 'to write a story about your character?';
                     break;
+                case 16:
+                    $scope.question = 'to write a story about your selections?';
+                    break;                                        
                 default:
                     $scope.question = 'to begin your story ...?';
                     break; 

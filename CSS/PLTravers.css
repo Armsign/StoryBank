@@ -641,16 +641,21 @@ h1.screenSaverTitle
 }
 
 /*
-
-http://192.168.1.2/Vault/API.php?action=deposit
-&method=create
-&promptId=13
-&visitorID=0
-&email=anon@storybank.com.au
-&nomDePlume=Anon
-&story=edcft
-&charDesign=
-&hasConsent=0
-&useEmail=0
-
+**  Room I
 */
+
+.cloudSelecter
+{
+    background-repeat: no-repeat;
+    background-position: center;         
+    width: 384px;
+    height: 216px;
+    padding: 0;
+    margin: 0;
+}
+
+.cloudSelecter h3
+{
+    font-size: 42px;
+    line-height: 42px;
+}

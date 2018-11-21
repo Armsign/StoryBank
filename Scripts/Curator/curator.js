@@ -80,7 +80,7 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
                   .textContent('This is a permanent action.')
                   .ariaLabel('Delete')
                   .targetEvent(ev)
-                  .ok('Yaaaasssss!')
+                  .ok('Yes!')
                   .cancel('No!');
 
             $mdDialog.show(confirm).then(
