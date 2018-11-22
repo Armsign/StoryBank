@@ -125,6 +125,7 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
         //  Should we allow it?
         if (artefact !== ($routeParams.artefact) * 1)                 
         {
+            
             if ($rootScope.activeStory.length > 0)
             {
                 // Appending dialog to document.body to cover sidenav in docs app
@@ -155,9 +156,58 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
                 $location.path('/Room/View/' + room + '/' + artefact);
             
             }
-        }
-        
+            
+        } 
     }; 
+    
+    /*
+    <div style="z-index: 1; grid-column: 1; grid-row: 2 / span 3;" class="grid-item navigationBar cloudSelecter">                
+        <div class="cloudContainer">        
+            <img src="Images/RoomI/Cloud_01_OutLine.png" alt="" ng-click="triggerCloud($event, 'Books')" />        
+            <h3 class="blue">Books</h3>                        
+        </div>        
+        <div class="gifContainer" ng-click="triggerCloudGif($event, 'Books')">        
+            <img src="Images/RoomI/Books.gif" alt=""/>            
+        </div>                 
+    </div>     
+    */
+    
+    $scope.triggerCloud = function($event, inspireToLoad)
+    {       
+        var myDate = new Date();
+        $rootScope.lastKeyPress = myDate.getTime();                        
+        
+        var childrens = angular.element($event.currentTarget).parent().parent().children();
+        
+        angular.element(childrens[0]).addClass("animated fadeOut"); 
+        
+        angular.element(childrens[1]).css('display', 'inline'); 
+        angular.element(childrens[1]).addClass("animated fadeIn"); 
+        
+    };  
+    
+    $scope.triggerCloudGif = function($event, inspireToLoad)
+    {       
+        var myDate = new Date();
+        $rootScope.lastKeyPress = myDate.getTime();                        
+        
+        var childrens = angular.element($event.currentTarget).parent().children();
+        
+        angular.element(childrens[0]).removeClass("animated fadeOut")
+        angular.element(childrens[0]).addClass("animated fadeIn"); 
+                
+        angular.element(childrens[1]).removeClass("animated fadeIn"); 
+        angular.element(childrens[1]).addClass("animated fadeOut"); 
+        
+        window.setTimeout(function() { $scope.hideGif(childrens[1]); }, 1000);
+        
+    };  
+    
+    $scope.hideGif = function(el)
+    {
+        angular.element(el).removeClass("animated fadeOut"); 
+        angular.element(el).css('display', 'none'); 
+    }
     
     $scope.timeOut = function()
     {
