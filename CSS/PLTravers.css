@@ -671,6 +671,7 @@ h1.screenSaverTitle
     line-height: 42px;
     margin: 0;
     padding: 0;
+    pointer-events: none;    
 }
 
 .gifContainer 
@@ -690,4 +691,3 @@ h1.screenSaverTitle
     height: 216px;
     opacity: .8;
 }
-

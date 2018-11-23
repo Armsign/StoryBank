@@ -29,6 +29,18 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
                 LEG: '',
                 TORSO: ''     
             };  
+            
+    $scope.inspiredBy = {
+                BOOKS: false,
+                MUSIC: false, 
+                NATURE: false,
+                HISTORY: false,
+                TRAVEL: false,
+                DREAMS: false,
+                FOOD: false,
+                ART: false,
+                PEOPLE: false
+            };              
     
     $scope.completeDeposit = function()
     {        
@@ -37,7 +49,9 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         if ($scope.artefact === 15) //  Handle the Character generator special case
         {
             jsonCharGen = $scope.collateChargen();
-        }
+        } else if ($scope.artefact === 16) {
+            jsonCharGen = $scope.collateInspirations();            
+        }            
         
         var url = 'http://' + $location.host() 
                 + '/Vault/API.php?action=deposit&method=create'
@@ -96,6 +110,52 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
         $scope.charGen.TORSO = document.getElementById("torsoSelected").src; 
         
         return JSON.stringify($scope.charGen);
+    }
+    
+    $scope.collateInspirations = function()
+    {
+        //  How am I gonna check this one ...
+        var gifs = document.getElementsByClassName("gifContainer");
+        var displayState = '';
+        var style = '';
+        var imageInQuestion = '';
+       
+        for (var i = 0; i < gifs.length; i++)
+        {
+            style = window.getComputedStyle(gifs[i]);
+            displayState = style.getPropertyValue('display');    
+            
+            if (displayState !== 'none')
+            {
+                //  Something is on? Hooray ...
+                imageInQuestion = angular.element(gifs[i]).children();
+                
+                if (imageInQuestion.attr('src').includes('Books')) 
+                {
+                    $scope.inspiredBy.BOOKS = true;
+                } else if (imageInQuestion.attr('src').includes('Music')) {
+                    $scope.inspiredBy.MUSIC = true;
+                } else if (imageInQuestion.attr('src').includes('Nature')) {
+                    $scope.inspiredBy.NATURE = true;
+                } else if (imageInQuestion.attr('src').includes('History')) {
+                    $scope.inspiredBy.HISTORY = true;
+                } else if (imageInQuestion.attr('src').includes('Travel')) {
+                    $scope.inspiredBy.TRAVEL = true;
+                } else if (imageInQuestion.attr('src').includes('Dreams')) {
+                    $scope.inspiredBy.DREAMS = true;
+                } else if (imageInQuestion.attr('src').includes('Food')) {
+                    $scope.inspiredBy.FOOD = true;
+                } else if (imageInQuestion.attr('src').includes('Art')) {
+                    $scope.inspiredBy.ART = true;
+                } else if (imageInQuestion.attr('src').includes('People')) {
+                    $scope.inspiredBy.PEOPLE = true;
+                }
+                    
+            }
+        }
+        
+        return JSON.stringify($scope.inspiredBy);
+        
     }
     
     $scope.completeConsent = function()

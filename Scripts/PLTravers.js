@@ -116,6 +116,17 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
     $rootScope.timeInMilliSeconds = 360000;
     $rootScope.lastKeyPress = undefined;
     
+    //  Influences room disablement disappointment ... bleh.
+    $scope.booksDisabled = false;
+    $scope.musicDisabled = false;
+    $scope.natureDisabled = false;
+    $scope.historyDisabled = false;
+    $scope.travelDisabled = false;    
+    $scope.dreamsDisabled = false;
+    $scope.foodDisabled = false;
+    $scope.artDisabled = false;    
+    $scope.peopleDisabled = false;    
+    
     $scope.switchArtefact = function($event, room, artefact)
     {
         //  Something happened ...
@@ -171,40 +182,133 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
         </div>                 
     </div>     
     */
+    $scope.switchEnablements = function(inspireToLoad)
+    {
+        switch (inspireToLoad)
+        {
+            case'Books':
+                if ($scope.booksDisabled) return true;
+                $scope.booksDisabled = true;     
+                break;
+            case 'Music':
+                if ($scope.musicDisabled) return true;
+                $scope.musicDisabled = true;                   
+                break;
+            case 'Nature':
+                if ($scope.natureDisabled) return true;
+                $scope.natureDisabled = true;                   
+                break;
+            case 'History':
+                if ($scope.historyDisabled) return true;
+                $scope.historyDisabled = true;                   
+                break;
+            case 'Travel':
+                if ($scope.travelDisabled) return true;
+                $scope.travelDisabled = true;                   
+                break;
+            case 'Dreams':
+                if ($scope.dreamsDisabled) return true;
+                $scope.dreamsDisabled = true;                   
+                break;
+            case 'Food':
+                if ($scope.foodDisabled) return true;
+                $scope.foodDisabled = true;                   
+                break;
+            case 'Art':
+                if ($scope.artDisabled) return true;
+                $scope.artDisabled = true;                   
+                break;
+            case 'People':                
+                if ($scope.peopleDisabled) return true;
+                $scope.peopleDisabled = true;                   
+                break;
+            default:
+                break;
+        }   
+        
+        return false;
+    }
+
+    $scope.switchEnablementsOff = function(inspireToLoad)
+    {
+        switch (inspireToLoad)
+        {
+            case'Books':
+                $scope.booksDisabled = false;     
+                break;
+            case 'Music':
+                $scope.musicDisabled = false;                   
+                break;
+            case 'Nature':
+                $scope.natureDisabled = false;                   
+                break;
+            case 'History':
+                $scope.historyDisabled = false;                   
+                break;
+            case 'Travel':
+                $scope.travelDisabled = false;                   
+                break;
+            case 'Dreams':
+                $scope.dreamsDisabled = false;                   
+                break;
+            case 'Food':
+                $scope.foodDisabled = false;                   
+                break;
+            case 'Art':
+                $scope.artDisabled = false;                   
+                break;
+            case 'People':                
+                $scope.peopleDisabled = false;                   
+                break;
+            default:
+                break;
+        }   
+        
+        return false;
+    }
     
     $scope.triggerCloud = function($event, inspireToLoad)
     {       
         var myDate = new Date();
-        $rootScope.lastKeyPress = myDate.getTime();                        
+        $rootScope.lastKeyPress = myDate.getTime();  
         
+        if ($scope.switchEnablements(inspireToLoad)) return;
+
         var childrens = angular.element($event.currentTarget).parent().parent().children();
         
+        angular.element(childrens[0]).removeClass("animated fadeIn");         
         angular.element(childrens[0]).addClass("animated fadeOut"); 
         
         angular.element(childrens[1]).css('display', 'inline'); 
-        angular.element(childrens[1]).addClass("animated fadeIn"); 
+        angular.element(childrens[1]).addClass("animated fadeIn");
+        
+        window.setTimeout(function() { $scope.hideGif(childrens[0], inspireToLoad); }, 600);
         
     };  
     
     $scope.triggerCloudGif = function($event, inspireToLoad)
     {       
         var myDate = new Date();
-        $rootScope.lastKeyPress = myDate.getTime();                        
+        $rootScope.lastKeyPress = myDate.getTime();      
         
-        var childrens = angular.element($event.currentTarget).parent().children();
+        if ($scope.switchEnablements(inspireToLoad)) return;     
         
-        angular.element(childrens[0]).removeClass("animated fadeOut")
+        var childrens = angular.element($event.currentTarget).parent().parent().children();
+        
+        angular.element(childrens[0]).css('display', 'inline'); 
         angular.element(childrens[0]).addClass("animated fadeIn"); 
                 
         angular.element(childrens[1]).removeClass("animated fadeIn"); 
         angular.element(childrens[1]).addClass("animated fadeOut"); 
         
-        window.setTimeout(function() { $scope.hideGif(childrens[1]); }, 1000);
+        window.setTimeout(function() { $scope.hideGif(childrens[1], inspireToLoad); }, 600);
         
     };  
     
-    $scope.hideGif = function(el)
+    $scope.hideGif = function(el, inspireToLoad)
     {
+        $scope.switchEnablementsOff(inspireToLoad);
+        
         angular.element(el).removeClass("animated fadeOut"); 
         angular.element(el).css('display', 'none'); 
     }

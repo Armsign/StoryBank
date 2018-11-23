@@ -255,18 +255,3 @@ md-checkbox p
 {
     display: none; 
 }
-
-/*
-
-http://192.168.1.2/Vault/API.php?action=deposit
-&method=create
-&promptId=13
-&visitorID=0
-&email=anon@storybank.com.au
-&nomDePlume=Anon
-&story=tgyh
-&charDesign=
-&hasConsent=0
-&useEmail=0
-
-*/
