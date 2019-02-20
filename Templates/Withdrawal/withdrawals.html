@@ -1,0 +1,74 @@
+<div class="grid-container storyDirectory" md-swipe-left="leftSwipe();" md-swipe-right="rightSwipe();">
+    
+    <!-- Row 1 Background image -->
+    <div style="grid-column: 2 / span 8; grid-row: 2;" class="center">
+        
+        <img class="letterAccent" src="Images/Common/letterAccent_Left.svg" />        
+        <h1 class="blue">Choose a {{activeCategory}} Story</h1>         
+        <img class="letterAccent" src="Images/Common/letterAccent_Right.svg" />        
+        
+         <h2>
+             <b class="blue">Touch</b> one of the categories below to explore our collection.
+        </h2>
+        
+    </div>
+    
+    <!-- My Account -->
+    <div class="grid-item center myAccount" style="grid-column: 9 / span 2; grid-row: 1 / span 2;">    
+        <img src="Images/RoomL/MyAccount_Button.svg" />            
+    </div>    
+
+    <!-- Stories -->
+    <div class="grid-item left" style="grid-column: 2 / span 6; grid-row: 3;">    
+
+        <h3 class="red headerUnderline">Newest</h3>
+        <h3 class="blue">Popular</h3>
+        <h3 class="blue">Author</h3>
+        <h3 class="blue">A-Z</h3>
+        
+    </div>    
+    
+    
+    <div class="grid-item left storyList" style="grid-column: 2 / span 6; grid-row: 3 / span 6;">    
+        
+        <div style="display: block;">Story Choice</div>
+        
+    </div>        
+    
+    
+  
+    <div class="grid-item center" style="grid-column: 8; grid-row: 3 / span 6;">    
+        
+        <img class="thermometer" src="Images/RoomL/Thermometer.svg" />
+        
+    </div>
+
+    <div class="grid-item left" style="grid-column: 9; grid-row: 4 / span 2;">    
+        
+        <img class="gestures" src="Images/RoomL/Gestures01.svg" />
+        <br/>
+        <h3 class="instructions blue">Swipe left or right to sort stories.</h3>        
+        
+    </div>    
+    
+    <div class="grid-item left" style="grid-column: 9; grid-row: 6 / span 2;">    
+
+        <img class="gestures" src="Images/RoomL/Gestures02.svg" />
+        <br/>
+        <h3 class="instructions blue">Swipe up or down to scroll through stories.</h3>
+        
+    </div>    
+    
+    <div class="grid-item center" style="grid-column: 9; grid-row: 9;" ng-click="backToCategories();">    
+
+        <img class="backButton" src="Images/RoomL/BackButton.svg" />
+        
+    </div>       
+  
+    <!-- Finish it off -->
+    
+    <div class="grid-item logo center" style="grid-column: 1 / span 10; grid-row: 9;" ng-click="backToCategories();">
+        <img src="Images/Common/StoryBanklogo.png" />   
+    </div>     
+    
+</div>    

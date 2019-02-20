@@ -171,6 +171,17 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
         } 
     }; 
     
+    $scope.switchCategory = function($event, artefact)
+    {
+        //  Something happened ...
+        clearTimeout($scope.screenSaverTimeout);
+        $scope.screenSaverTimeout = setTimeout(function(){ $scope.timeOut(); }, $rootScope.timeInMilliSeconds); 
+
+        //  Ok, switch to withdrawal mode
+        $location.path('/Room/View/L/Story/' + artefact);
+      
+    };     
+    
     /*
     <div style="z-index: 1; grid-column: 1; grid-row: 2 / span 3;" class="grid-item navigationBar cloudSelecter">                
         <div class="cloudContainer">        
@@ -349,6 +360,56 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
         angular.element( document.querySelector( '#artefact' + $scope.activeArtefact ) ).addClass("animated tada selectedImage");
         
         $scope.activeArtefact *= 1;
+
+        $scope.$digest();
+    });  
+
+});
+
+myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, $location, $mdDialog) 
+{ 
+    $scope.activeCategory = '';
+    $scope.sortBy = 'Newest';
+   
+    $scope.leftSwipe = function()
+    {
+        
+        alert('Left swipe');
+        
+        $scope.resetHeadings();
+        
+        
+    }
+   
+    $scope.rightSwipe = function()
+    {
+        
+        alert('Right swipe');
+        
+        $scope.resetHeadings();
+        
+    }
+    
+    $scope.resetHeadings = function()
+    {
+        
+        var result = document.getElementsByTagName('h3');
+        angular.element(result).removeClass('headerUnderline');
+        angular.element(result).removeClass('red');         
+        angular.element(result).addClass('blue');         
+        
+    }
+    
+    $scope.backToCategories = function()
+    {
+        $location.path('Room/View/L/0');        
+        
+    }
+   
+    angular.element(document).ready(function () 
+    {                
+        //  This here        
+        $scope.activeCategory = $routeParams.category;               
 
         $scope.$digest();
     });  
@@ -616,7 +677,11 @@ myApp.config(['$routeProvider', function($routeProvider)
         when('/Room/View/L/:artefact', { 
             templateUrl: 'Templates/Rooms/roomL.html',
             controller: 'RoomCTRL'    
-        }).                                 
+        }).                                                 
+        when('/Room/View/L/Story/:category', { 
+            templateUrl: 'Templates/Withdrawal/withdrawals.html',
+            controller: 'WithdrawalsCTRL'    
+        }).                                                                 
         when('/Record', { 
             templateUrl: 'Templates/Record/record.html',
             controller: 'RecordCTRL'    

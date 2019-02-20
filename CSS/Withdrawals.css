@@ -1,0 +1,115 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Feb 20, 2019, 9:27:00 AM
+    Author     : PaulDunn
+*/
+
+h3
+{
+    margin-top: 24px !important;
+    margin-right: 24px !important;   
+    font-family: BalfordBase !important;
+    display: inline !important;
+    font-size: 32px !important;
+    line-height: 36px;
+    text-align: left;
+    color: #111111;    
+}
+
+.myAccount
+{
+    margin-top: -32px;
+    
+}
+
+.myAccount img
+{
+    width: 80%;    
+}
+
+.storyDirectory
+{
+    background-image: url("../Images/Common/ScreenSaverBackground.jpg");           
+    
+    height: 100vh;
+    width: 100vw;     
+    
+    padding: 0px;
+    margin: 0px;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    grid-template-columns: 2% 12% 12% 12% 12% 12% 12% 12% 12% 2%;    
+    grid-template-rows: 2% 12% 12% 12% 12% 12% 12% 12% 12% 2%;    
+    
+    overflow: hidden;
+}
+
+@media only screen and (max-width: 1080px) 
+{
+    
+    .category img
+    {
+        height: 30%;    
+    }   
+    
+}
+
+.gestures
+{
+    width: 80%;
+    
+}
+
+.headerUnderline
+{
+    text-decoration: underline;
+}
+
+.instructions
+{
+    margin-top: 46px;        
+    font-size: 24px !important;
+    line-height: 28px !important;
+}
+
+.thermometer
+{
+    margin-top: 50px;    
+    margin-bottom: 16px;    
+    height: calc(100% - 66px);    
+}
+
+.backButton
+{
+    width: 100%;
+    max-width: 160px;
+}
+
+.storyList
+{
+    margin-top: 50px;
+    margin-bottom: 16px;
+    padding: 16px;
+    background-color: rgba(255, 255, 255, .4) !important;
+    
+    overflow: hidden;    
+    
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;  
+    
+    font-family: Olivetti !important;
+    font-size: 11px !important;
+    font-weight: normal !important;
+    line-height: 16px !important;
+    color: #111111;
+    
+    text-align: left;      
+    
+}
