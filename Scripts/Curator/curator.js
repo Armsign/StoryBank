@@ -522,7 +522,19 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
     $scope.storyTags = new Array();
     $scope.storyTagsSuperSet = new Array();
     $scope.token = '';
-    $scope.reflectStory = '';
+    $scope.reflectStory = '';    
+    $scope.jsonDeposit = {
+                TOKEN: '',
+                ID: '', 
+                PROMPTID: '',
+                NOMDEPLUME: '',
+                ISPLAYABLE: '',
+                TITLE: '',
+                EMAIL: '',
+                HASCONSENT: '',
+                USEEMAIL: '',
+                STORY: ''
+            };    
     
     $scope.loadTags = function(query) 
     {       
@@ -588,20 +600,25 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
     $scope.saveDialog = function()
     {        
         //  That's easy, but we need an update here ...
-        var url = 'http://' + $location.host() 
-                + '/Vault/API.php?action=deposit&method=update&token=' + $scope.token
-                + '&id=' + $scope.deposit.ID
-                + '&promptId=' + $scope.deposit.PROMPT_ID
-                + '&nomDePlume=' + $scope.deposit.STORED_AS
-                + '&isPlayable=' + $scope.deposit.IS_PLAYABLE        
-                + '&title=' + $scope.deposit.TITLE         
-                + '&email=' + $scope.deposit.STORED_BY 
-                + '&hasConsent=' + $scope.deposit.HAS_CONSENT 
-                + '&useEmail=' + $scope.deposit.USE_EMAIL 
-                + '&story=' + encodeURIComponent($scope.reflectStory); 
+        var url = 'http://' + $location.host() + '/Vault/API.php'; 
 
-        //  Call the tags function appropriately
-        $http.get(url).then(
+        //  Compile data
+        $scope.jsonDeposit.TOKEN = $scope.token;
+        $scope.jsonDeposit.ID = $scope.deposit.ID;
+        $scope.jsonDeposit.PROMPTID = $scope.deposit.PROMPT_ID;
+        $scope.jsonDeposit.NOMDEPLUME = $scope.deposit.STORED_AS;
+        $scope.jsonDeposit.ISPLAYABLE = $scope.deposit.IS_PLAYABLE;
+        $scope.jsonDeposit.TITLE = $scope.deposit.TITLE;
+        $scope.jsonDeposit.EMAIL = $scope.deposit.STORED_BY;
+        $scope.jsonDeposit.HASCONSENT = $scope.deposit.HAS_CONSENT;
+        $scope.jsonDeposit.USEEMAIL = $scope.deposit.USE_EMAIL;
+        $scope.jsonDeposit.STORY = $scope.reflectStory;        
+        
+        //  Compile json
+        var payload= JSON.stringify($scope.jsonDeposit);
+
+        //  Call the tags function appropriately        
+        $http.post(url, payload).then(
             function (response)   
             {               
                 //  A big deal about it because we need to save the tags now too ... so we ought to get an id back at least right?
@@ -618,6 +635,7 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
             });         
         
         $mdDialog.hide($scope.deposit);
+        
     }
     
     $scope.saveStoryTags = function(id)

@@ -58,6 +58,11 @@ h3
         height: 30%;    
     }   
     
+    .myAccount img
+    {
+        width: 100%;    
+    }    
+    
 }
 
 .gestures
