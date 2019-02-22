@@ -99,8 +99,8 @@ h3
 .storyList
 {
     margin-top: 50px;
-    margin-bottom: 16px;
-    padding: 16px;
+    margin-bottom: 16px;   
+    padding: 0;
     background-color: rgba(255, 255, 255, .4) !important;
     
     overflow: hidden;    
@@ -109,12 +109,52 @@ h3
     -moz-border-radius: 16px;
     border-radius: 16px;  
     
-    font-family: Olivetti !important;
-    font-size: 11px !important;
+    font-family: BalfordBase !important;
+    font-size: 28px !important;
     font-weight: normal !important;
-    line-height: 16px !important;
-    color: #111111;
+    line-height: 32px !important;
+    color: #333333;
     
     text-align: left;      
     
+}
+
+.storyList ul
+{
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;     
+}
+
+.storyList li
+{
+    float: left;
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 0;
+    padding: 0px;
+    width: 96%;    
+}
+
+.storyList li
+{
+    border-bottom: 1px solid rgba(51, 51, 51, .8);
+    padding-bottom: 12px;
+}
+
+.storyList div:first-child
+{
+    float: left;
+    width: 70%;
+    display: inline;
+}
+
+.storyList div:last-child
+{
+    text-align: right;
+    float: right;
+    width: 30%;
+    display: inline;    
 }

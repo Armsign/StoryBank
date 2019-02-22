@@ -46,6 +46,11 @@
     color: #862F2C;
 }
 
+.hoverCursor
+{
+    cursor: pointer;
+}
+
 .gray
 {
     color: #333333;

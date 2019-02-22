@@ -366,27 +366,98 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
 
 });
 
-myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, $location, $mdDialog) 
+myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, $location, $mdDialog, $http) 
 { 
     $scope.activeCategory = '';
-    $scope.sortBy = 'Newest';
+    $scope.sortBy = 'NEWEST';
+    $scope.withdrawals = undefined;
+    $scope.withdrawalsCount = 0;
+   
+   
+    $scope.loadStory = function(storyId)
+    {
+        
+        $location.path("/Room/View/L/Story/Display/" + storyId);
+        
+    }
+   
+    $scope.loadWithdrawals = function()
+    {
+ 
+        //  Ok ... but how it actually needs to send these to an api ...        
+        var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=withdrawal&tag=' + $scope.activeCategory + '&orderBy=' + $scope.sortBy;       
+
+        //  Call the login function appropriately
+        $http.get(url).then(
+            function (response)   
+            {
+                $scope.withdrawals = response.data;
+                $scope.withdrawalsCount = response.data.length;
+            });   
+        
+    }    
    
     $scope.leftSwipe = function()
     {
-        
-        alert('Left swipe');
-        
+        var result = undefined;
+
         $scope.resetHeadings();
+
+        switch ($scope.sortBy)
+        {
+            case "POPULAR":
+                result = document.getElementById('newestStory');
+                $scope.sortBy = "NEWEST";
+                break;
+            case "AUTHOR":
+                result = document.getElementById('popularStory');                               
+                $scope.sortBy = "POPULAR";
+                break;
+            case "TITLE":
+                result = document.getElementById('authorStory');                
+                $scope.sortBy = "AUTHOR";
+                break;
+            default:    //  Newest
+                result = document.getElementById('azStory');                
+                $scope.sortBy = "TITLE";
+                break;            
+        }     
         
-        
+        angular.element(result).addClass("headerUnderline red");
+
+        $scope.loadWithdrawals();
     }
    
     $scope.rightSwipe = function()
     {
-        
-        alert('Right swipe');
-        
+        var result = undefined;
+
+        //  NEWEST POPULAR AUTHOR TITLE 
         $scope.resetHeadings();
+        
+        switch ($scope.sortBy)
+        {
+            case "POPULAR":
+                result = document.getElementById('authorStory');
+                $scope.sortBy = "AUTHOR";
+                break;
+            case "AUTHOR":
+                result = document.getElementById('azStory');                               
+                $scope.sortBy = "TITLE";
+                break;
+            case "TITLE":
+                result = document.getElementById('newestStory');                
+                $scope.sortBy = "NEWEST";
+                break;
+            default:    //  Newest
+                result = document.getElementById('popularStory');                
+                $scope.sortBy = "POPULAR";
+                break;            
+        }     
+        
+        angular.element(result).addClass("headerUnderline red");
+
+        $scope.loadWithdrawals();
         
     }
     
@@ -402,6 +473,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     
     $scope.backToCategories = function()
     {
+        
         $location.path('Room/View/L/0');        
         
     }
@@ -410,6 +482,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     {                
         //  This here        
         $scope.activeCategory = $routeParams.category;               
+        $scope.loadWithdrawals();
 
         $scope.$digest();
     });  
@@ -681,7 +754,11 @@ myApp.config(['$routeProvider', function($routeProvider)
         when('/Room/View/L/Story/:category', { 
             templateUrl: 'Templates/Withdrawal/withdrawals.html',
             controller: 'WithdrawalsCTRL'    
-        }).                                                                 
+        }).     
+        when('/Room/View/L/Story/Display/:id', { 
+            templateUrl: 'Templates/Withdrawal/story.html',
+            controller: 'WithdrawalsCTRL'    
+        }).                   
         when('/Record', { 
             templateUrl: 'Templates/Record/record.html',
             controller: 'RecordCTRL'    
