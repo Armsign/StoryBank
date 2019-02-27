@@ -181,18 +181,7 @@ myApp.controller('RoomCTRL', function ($rootScope, $scope, $routeParams, $locati
         $location.path('/Room/View/L/Story/' + artefact);
       
     };     
-    
-    /*
-    <div style="z-index: 1; grid-column: 1; grid-row: 2 / span 3;" class="grid-item navigationBar cloudSelecter">                
-        <div class="cloudContainer">        
-            <img src="Images/RoomI/Cloud_01_OutLine.png" alt="" ng-click="triggerCloud($event, 'Books')" />        
-            <h3 class="blue">Books</h3>                        
-        </div>        
-        <div class="gifContainer" ng-click="triggerCloudGif($event, 'Books')">        
-            <img src="Images/RoomI/Books.gif" alt=""/>            
-        </div>                 
-    </div>     
-    */
+
     $scope.switchEnablements = function(inspireToLoad)
     {
         switch (inspireToLoad)
@@ -372,13 +361,10 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     $scope.sortBy = 'NEWEST';
     $scope.withdrawals = undefined;
     $scope.withdrawalsCount = 0;
-   
-   
-    $scope.loadStory = function(storyId)
+    
+    $scope.loadStory = function(story)
     {
-        
-        $location.path("/Room/View/L/Story/Display/" + storyId);
-        
+        $location.path("/Room/View/L/Story/Display/" + story);   
     }
    
     $scope.loadWithdrawals = function()
@@ -459,6 +445,105 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
 
         $scope.loadWithdrawals();
         
+    };
+    
+    $scope.resetHeadings = function()
+    {
+        
+        var result = document.getElementsByTagName('h3');
+        angular.element(result).removeClass('headerUnderline');
+        angular.element(result).removeClass('red');         
+        angular.element(result).addClass('blue');         
+        
+    }
+    
+    $scope.switchCategory = function(category)
+    {
+      var result = undefined;
+
+        $scope.resetHeadings();
+
+        switch (category)
+        {
+            case "POPULAR":
+                result = document.getElementById('popularStory');
+                $scope.sortBy = "POPULAR";
+                break;
+            case "AUTHOR":
+                result = document.getElementById('authorStory');                               
+                $scope.sortBy = "AUTHOR";
+                break;
+            case "TITLE":
+                result = document.getElementById('azStory');                
+                $scope.sortBy = "TITLE";
+                break;
+            default:    //  Newest
+                result = document.getElementById('newestStory');                
+                $scope.sortBy = "NEWEST";
+                break;            
+        }     
+        
+        angular.element(result).addClass("headerUnderline red");
+
+        $scope.loadWithdrawals();   
+        
+    }
+    
+    $scope.openAccount = function()
+    {
+        alert('Account open');
+        
+    }
+    
+    $scope.backToCategories = function()
+    {
+        
+        $location.path('Room/View/L/0');        
+        
+    }
+   
+    angular.element(document).ready(function () 
+    {                
+        //  This here        
+        $scope.activeCategory = $routeParams.category;               
+        $scope.loadWithdrawals();
+
+        $scope.$digest();
+    });  
+
+});
+
+myApp.controller('StoryReaderCTRL', function ($rootScope, $scope, $routeParams, $location, $mdDialog, $http) 
+{ 
+    $scope.activeStory = undefined;
+    $scope.showStory = 1;
+   
+    $scope.leftSwipe = function()
+    {
+        $scope.resetHeadings();
+        
+        if ($scope.showStory === 1)
+        {                    
+            angular.element(document.getElementById("daDiscussion")).addClass("headerUnderline red");
+            $scope.showStory = 0;
+        } else {            
+            angular.element(document.getElementById("daStory")).addClass("headerUnderline red");                        
+            $scope.showStory = 1;
+        }
+    }
+   
+    $scope.rightSwipe = function()
+    {
+        $scope.resetHeadings();
+        
+        if ($scope.showStory === 1)
+        {                    
+            angular.element(document.getElementById("daDiscussion")).addClass("headerUnderline red");
+            $scope.showStory = 0;
+        } else {            
+            angular.element(document.getElementById("daStory")).addClass("headerUnderline red");                        
+            $scope.showStory = 1;
+        }       
     }
     
     $scope.resetHeadings = function()
@@ -478,11 +563,45 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
         
     }
    
+    $scope.loadStory = function(id)
+    {
+        
+        //  Ok ... but how it actually needs to send these to an api ...        
+        var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=storyID&id=' + id;       
+
+        //  Call the login function appropriately
+        $http.get(url).then(
+            function (response)   
+            {
+                if (response.data.length === 1)
+                {
+                        $scope.activeStory = response.data[0];
+                }
+
+            });           
+        
+    }
+    
+    $scope.changeStory = function(shower)
+    {        
+        $scope.resetHeadings();
+        
+        $scope.showStory = shower;
+        
+        if ($scope.showStory === 1)
+        {                    
+            angular.element(document.getElementById("daStory")).addClass("headerUnderline red");            
+        } else {
+            
+            angular.element(document.getElementById("daDiscussion")).addClass("headerUnderline red");
+        }
+
+    }
+   
     angular.element(document).ready(function () 
     {                
-        //  This here        
-        $scope.activeCategory = $routeParams.category;               
-        $scope.loadWithdrawals();
+        //  This here  
+        $scope.loadStory($routeParams.id);
 
         $scope.$digest();
     });  
@@ -757,7 +876,7 @@ myApp.config(['$routeProvider', function($routeProvider)
         }).     
         when('/Room/View/L/Story/Display/:id', { 
             templateUrl: 'Templates/Withdrawal/story.html',
-            controller: 'WithdrawalsCTRL'    
+            controller: 'StoryReaderCTRL'    
         }).                   
         when('/Record', { 
             templateUrl: 'Templates/Record/record.html',

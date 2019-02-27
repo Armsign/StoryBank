@@ -22,13 +22,21 @@ h3
 
 .myAccount
 {
-    margin-top: -32px;
+    /* margin-top: -32px; */
     
 }
 
 .myAccount img
 {
-    width: 80%;    
+    margin-top: -4%;
+    width: 100%;    
+    max-width: 160px;
+}
+
+.backButton
+{
+    width: 100%;
+    max-width: 160px;
 }
 
 .storyDirectory
@@ -78,9 +86,11 @@ h3
 
 .instructions
 {
-    margin-top: 46px;        
-    font-size: 24px !important;
-    line-height: 28px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-top: 46px !important;        
+    font-size: 18px !important;
+    line-height: 24px !important;
 }
 
 .thermometer
@@ -90,34 +100,41 @@ h3
     height: calc(100% - 66px);    
 }
 
-.backButton
-{
-    width: 100%;
-    max-width: 160px;
-}
-
-.storyList
+.storyList, .storyDisplay
 {
     margin-top: 50px;
-    margin-bottom: 16px;   
+    margin-bottom: 24px;
+    margin-right: 24px;    
     padding: 0;
     background-color: rgba(255, 255, 255, .4) !important;
+
+    overflow-x: hidden;
+    overflow-y: auto;
     
-    overflow: hidden;    
+    border-radius: 16px 0px 0px 16px;
     
-    -webkit-border-radius: 16px;
-    -moz-border-radius: 16px;
-    border-radius: 16px;  
-    
-    font-family: BalfordBase !important;
-    font-size: 28px !important;
+    font-family: Olivetti !important;
+    font-size: 14px !important;
     font-weight: normal !important;
-    line-height: 32px !important;
+    line-height: 22px !important;
     color: #333333;
     
     text-align: left;      
     
 }
+
+.storyDisplay div
+{
+    padding: 24px;    
+}
+
+.storyDisplay p
+{
+    font-size: 14px !important;
+    font-weight: normal !important;
+    line-height: 22px !important; 
+}
+
 
 .storyList ul
 {
@@ -157,4 +174,34 @@ h3
     float: right;
     width: 30%;
     display: inline;    
+}
+
+.storyHeart
+{
+    margin-top: 50px;
+    width: 33%;
+}
+
+/*
+**  Scrollbar
+*/
+
+/* width */
+::-webkit-scrollbar {
+  width: 2%;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background-image: url("../Images/RoomL/Thermometer.svg");      
+    background-size: cover;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    
+    background: rgba(114, 32, 33, 1);
+    
+    /* background-image: url("../Images/RoomL/ThermometerRed.svg");      
+    background-size: 100%; */
 }

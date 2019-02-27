@@ -14,46 +14,30 @@
     </div>
     
     <!-- My Account -->
-    <div class="grid-item center myAccount" style="grid-column: 9 / span 2; grid-row: 1 / span 2;">    
-        <img src="Images/RoomL/MyAccount_Button.svg" />            
-    </div>    
+    <div class="grid-item center myAccount" style="grid-column: 9; grid-row: 1 / span 2;">    
+        <img src="Images/RoomL/MyAccount_Button.svg" ng-click="openAccount()" />            
+    </div>   
 
     <!-- Stories -->
     <div class="grid-item left" style="grid-column: 2 / span 6; grid-row: 3;">    
 
-        <h3 id="newestStory" class="red headerUnderline">Newest</h3>
-        <h3 id="popularStory" class="blue">Popular</h3>
-        <h3 id="authorStory" class="blue">Author</h3>
-        <h3 id="azStory" class="blue">A-Z</h3>
+        <h3 id="newestStory" class="red headerUnderline" ng-click="switchCategory('NEWEST');">Newest</h3>
+        <h3 id="popularStory" class="blue" ng-click="switchCategory('POPULAR');">Popular</h3>
+        <h3 id="authorStory" class="blue" ng-click="switchCategory('AUTHOR');">Author</h3>
+        <h3 id="azStory" class="blue" ng-click="switchCategory('TITLE');">A-Z</h3>
         
     </div>    
     
-    
-    <div class="grid-item left storyList" style="grid-column: 2 / span 6; grid-row: 3 / span 6;">    
-        
-        <ul>
-            
-            <li class="hoverCursor" ng-repeat="deposit in withdrawals" ng-click="loadStory(deposit.ID);">
-                
+    <div id="storyDisplay" class="grid-item left storyList" style="grid-column: 2 / span 7; grid-row: 3 / span 6;">    
+        <ul>            
+            <li id="deposit{{deposit.ID}}" class="hoverCursor" ng-repeat="deposit in withdrawals" ng-click="loadStory(deposit.ID);">                
                 <div>{{deposit.TITLE}}</div>
                 <div>{{deposit.STORED_AS}}</div>
-            
-            
             </li>
-            
         </ul>
-        
     </div>        
-    
-    
-  
-    <div class="grid-item center" style="grid-column: 8; grid-row: 3 / span 6;">    
-        
-        <img class="thermometer" src="Images/RoomL/Thermometer.svg" />
-        
-    </div>
 
-    <div class="grid-item left" style="grid-column: 9; grid-row: 4 / span 2;">    
+    <div class="grid-item center" style="grid-column: 9; grid-row: 5 / span 2;">    
         
         <img class="gestures" src="Images/RoomL/Gestures01.svg" />
         <br/>
@@ -61,7 +45,7 @@
         
     </div>    
     
-    <div class="grid-item left" style="grid-column: 9; grid-row: 6 / span 2;">    
+    <div class="grid-item center" style="grid-column: 9; grid-row: 7 / span 2;">    
 
         <img class="gestures" src="Images/RoomL/Gestures02.svg" />
         <br/>

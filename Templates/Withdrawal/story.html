@@ -4,64 +4,47 @@
     <div style="grid-column: 2 / span 8; grid-row: 2;" class="center">
         
         <img class="letterAccent" src="Images/Common/letterAccent_Left.svg" />        
-        <h1 class="blue">Choose a {{activeCategory}} Story</h1>         
+        <h1 class="blue">Read a Story</h1>         
         <img class="letterAccent" src="Images/Common/letterAccent_Right.svg" />        
-        
-         <h2>
-             <b class="blue">Touch</b> one of the categories below to explore our collection.
-        </h2>
-        
+
     </div>
     
     <!-- My Account -->
-    <div class="grid-item center myAccount" style="grid-column: 9 / span 2; grid-row: 1 / span 2;">    
-        <img src="Images/RoomL/MyAccount_Button.svg" />            
-    </div>    
+    <div class="grid-item center myAccount" style="grid-column: 9; grid-row: 1 / span 2;">    
+        <img src="Images/RoomL/MyAccount_Button.svg" ng-click="openAccount()" />            
+    </div> 
 
     <!-- Stories -->
     <div class="grid-item left" style="grid-column: 2 / span 6; grid-row: 3;">    
-
-        <h3 id="newestStory" class="red headerUnderline">Newest</h3>
-        <h3 id="popularStory" class="blue">Popular</h3>
-        <h3 id="authorStory" class="blue">Author</h3>
-        <h3 id="azStory" class="blue">A-Z</h3>
-        
+        <h3 id="daStory" class="red headerUnderline" ng-click="changeStory(1)">{{activeStory.TITLE}} by {{activeStory.STORED_AS}}</h3>
+        <h3 id="daDiscussion" class="blue" ng-click="changeStory(0)">Discussion</h3>
     </div>    
     
-    
-    <div class="grid-item left storyList" style="grid-column: 2 / span 6; grid-row: 3 / span 6;">    
+    <div class="grid-item left storyDisplay" style="grid-column: 2 / span 7; grid-row: 3 / span 6;">    
+
+        <div ng-if="showStory" ng-bind-html="activeStory.TRANSCRIPTION"></div>
         
-        <ul>
-            
-            <li class="hoverCursor" ng-repeat="deposit in withdrawals" ng-click="loadStory(deposit.ID);">
-                
-                <div>{{deposit.TITLE}}</div>
-                <div>{{deposit.STORED_AS}}</div>
-            
-            
-            </li>
-            
-        </ul>
+        <div ng-if="!showStory">
+            Discussions            
+        </div>
         
     </div>        
     
-    
-  
-    <div class="grid-item center" style="grid-column: 8; grid-row: 3 / span 6;">    
-        
-        <img class="thermometer" src="Images/RoomL/Thermometer.svg" />
-        
-    </div>
+    <div class="grid-item center" style="grid-column: 9; grid-row: 3 / span 2;">    
+        <img class="storyHeart" src="Images/RoomL/Heart_Unselected.svg" />
+        <br/>        
+        <h3 class="instructions red">Love it.</h3>        
+    </div>     
 
-    <div class="grid-item left" style="grid-column: 9; grid-row: 4 / span 2;">    
+    <div class="grid-item center" style="grid-column: 9; grid-row: 5 / span 2;">    
         
         <img class="gestures" src="Images/RoomL/Gestures01.svg" />
         <br/>
-        <h3 class="instructions blue">Swipe left or right to sort stories.</h3>        
+        <h3 class="instructions blue">Swipe left or right to see discussion about this story.</h3>        
         
     </div>    
     
-    <div class="grid-item left" style="grid-column: 9; grid-row: 6 / span 2;">    
+    <div class="grid-item center" style="grid-column: 9; grid-row: 7 / span 2;">    
 
         <img class="gestures" src="Images/RoomL/Gestures02.svg" />
         <br/>
@@ -69,9 +52,10 @@
         
     </div>    
     
-    <div class="grid-item center" style="grid-column: 9; grid-row: 9;" ng-click="backToCategories();">    
-
-        <img class="backButton" src="Images/RoomL/BackButton.svg" />
+    <div class="grid-item center" style="grid-column: 9; grid-row: 9;">    
+        
+        <img ng-if="!showStory" class="backButton" src="Images/RoomL/CommentButton.svg" />
+        <img class="backButton" src="Images/RoomL/BackButton.svg" ng-click="backToCategories();"/>
         
     </div>       
   
