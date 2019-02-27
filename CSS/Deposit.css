@@ -248,7 +248,7 @@ md-checkbox p
     margin-bottom: 6px !important;
     float: left;
     text-align: centre;
-    width: 72px;
+    width: 33%;    /*  this */
 }
 
 #readyGoNext

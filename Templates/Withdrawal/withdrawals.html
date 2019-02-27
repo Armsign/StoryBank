@@ -15,7 +15,7 @@
     
     <!-- My Account -->
     <div class="grid-item center myAccount" style="grid-column: 9; grid-row: 1 / span 2;">    
-        <img src="Images/RoomL/MyAccount_Button.svg" ng-click="openAccount()" />            
+        <img src="Images/RoomL/MyAccount_Button.svg" ng-click="openAccount($event)" />            
     </div>   
 
     <!-- Stories -->
@@ -31,8 +31,8 @@
     <div id="storyDisplay" class="grid-item left storyList" style="grid-column: 2 / span 7; grid-row: 3 / span 6;">    
         <ul>            
             <li id="deposit{{deposit.ID}}" class="hoverCursor" ng-repeat="deposit in withdrawals" ng-click="loadStory(deposit.ID);">                
-                <div>{{deposit.TITLE}}</div>
-                <div>{{deposit.STORED_AS}}</div>
+                <div md-truncate>{{deposit.TITLE}}</div>
+                <div md-truncate>{{deposit.STORED_AS}}</div>
             </li>
         </ul>
     </div>        

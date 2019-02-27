@@ -489,9 +489,33 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
         
     }
     
-    $scope.openAccount = function()
+    $scope.openAccount = function(ev)
     {
-        alert('Account open');
+
+        //  Abstract the deposit into a dialog ... templated, yes.
+        $rootScope.openDialog = $mdDialog.show({
+            templateUrl: 'Templates/Keyboard/depositCollectID.html',
+            controller: 'DepositCTRL',         
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true
+        })
+        .then(function(answer) {
+            
+            //  It's anon
+            $scope.visitorID = answer;            
+            $scope.email = 'anon@storybank.com.au';
+            $scope.nomDePlume = 'Anon';
+            $scope.completeDeposit();      
+    
+            $rootScope.openDialog = false;
+  
+        }, function() {
+            
+            //    No action
+            $rootScope.openDialog = false;
+          
+        }); 
         
     }
     
@@ -576,6 +600,10 @@ myApp.controller('StoryReaderCTRL', function ($rootScope, $scope, $routeParams, 
                 if (response.data.length === 1)
                 {
                         $scope.activeStory = response.data[0];
+                        if ($scope.activeStory.TITLE.length > 60)
+                        {
+                            $scope.activeStory.TITLE = $scope.activeStory.TITLE.substring(0,40);
+                        }
                 }
 
             });           

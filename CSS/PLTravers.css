@@ -152,11 +152,27 @@ md-whiteframe
 
 md-dialog
 {
-    padding: 32px;
-    width: 40%;
+    padding: 24px;
+    width: 80%;
+
     background-image: url("../Images/Common/DialogBackground.jpg");      
     background-size:cover;
+    
 }
+
+@media only screen and (min-width: 1920px) 
+{
+    
+    md-dialog
+    {
+        padding: 32px;
+        width: 40%;
+        background-image: url("../Images/Common/DialogBackground.jpg");      
+        background-size:cover;
+    }
+    
+}
+
 
 md-content
 {
