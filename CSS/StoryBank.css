@@ -1,0 +1,218 @@
+/* 
+    Created on : Feb 28, 2019, 10:37:21 AM
+    Author     : PaulDunn
+*/
+
+/*
+**  Special Fonts
+**  Global Colours and attributes
+*/
+
+@font-face 
+{
+    font-family: BalfordBase;
+    src: url("Fonts/Balford-Base.otf");
+}
+
+@font-face 
+{
+    font-family: Olivetti;
+    src: url("Fonts/zai_Olivetti-UnderwoodStudio21Typewriter.otf");
+}
+
+@font-face 
+{
+    font-family: SourceSansProLight;
+    src: url("Fonts/SourceSansPro-Light.otf");
+}
+
+@font-face 
+{
+    font-family: SkitchRegular;
+    src: url("Fonts/Yellow Design Studio - Skitch.otf");
+}
+
+.blue
+{
+    color: #005470 !important;
+}
+
+.red
+{
+    color: #862F2C  !important;
+}
+
+.hoverCursor
+{
+    cursor: pointer;
+}
+
+.underline
+{
+    text-decoration: underline;
+}
+
+.center
+{
+    text-align: center;
+}
+
+.left
+{
+    text-align: left;
+}
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
+/*
+**  Global tag overrides
+*/
+
+body
+{
+    font-family: SourceSansProLight, Source Sans, Bookman, Georgia, "Lucida Console", Monaco, monospace !important;
+    font-size: 1em;
+    font-weight: normal;
+    color: #333333;
+    
+    background-color: rgb(248, 214, 166);
+
+    margin: 0;
+    padding: 0;
+
+    height: 100vh;
+    width: 100vw;        
+}
+
+h1, h2, h3
+{
+    margin: 0 !important;
+    padding: 0 !important;    
+    font-family: BalfordBase !important;
+    display: block !important;
+    font-size: 4em !important;
+    text-align: center !important;
+    color: #333333 !important;
+}
+
+h2
+{
+    font-size: 2em !important;
+}
+
+h3
+{
+    font-size: 1em !important;
+}
+
+ul
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+li
+{
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+p
+{    
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 32px;
+    
+    margin: 0;
+    padding: 0; 
+    text-align: left;
+}
+
+*:focus 
+{
+    outline: none;
+}
+
+md-whiteframe
+{
+    background-color: #EEEEEE;
+    padding: 1em;
+}
+
+md-dialog
+{
+    padding: 1em;
+    width: 66%;
+
+    background-image: url("../Images/Common/DialogBackground.jpg");      
+    background-size:cover;    
+}
+
+.grid-container 
+{
+    padding: 0;
+    margin: 0;    
+    display: grid;
+}
+
+/*
+**  High Level Containers, standardise grid layout
+*/  
+
+.deposits, .withdrawals, .curation, .screenSaver, .menu
+{
+    background-image: url("../Images/Common/ScreenSaverBackground.jpg");           
+    
+    height: 100vh;
+    width: 100vw;     
+    
+    padding: 0px;
+    margin: 0px;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    grid-template-columns: 2% 6% 6% 6% 6% 6% 6% 6% 6% 6% 6% 6% 6% 6% 6% 6% 6% 2%;
+    grid-template-rows: 2% 6% 6% 6% 6% 6% 6% 6% 6% 6% 6% 6% 6% 6% 6% 6% 6% 2%;
+    
+}
+
+.deposits
+{
+    background-image: url("../Images/Common/typeWriterBackground.png"); 
+}
+
+
+
+/*
+**  Menu
+*/
+
+.menuItem 
+{
+    padding: 1em;
+    border-radius: 1em;   
+    background-color: rgba(255,255,255, .2);
+}
+
+
+
+
+/*
+**  Common to all pages
+*/
+
+.letterAccent
+{
+    height: 3em;  
+}
+
+.logo img
+{
+    max-width: 100%;
+    max-height: 100%;
+}

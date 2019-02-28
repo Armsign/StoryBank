@@ -7,22 +7,21 @@
         <link rel="icon" type="image/png" href="Images/Common/logo_full_white.png"/>        
         
         <!-- CSS -->
-        <link href="CSS/animate.min.css" rel="stylesheet" type="text/css"/>
-        <link href="CSS/angular-material.min.css" rel="stylesheet" type="text/css"/>
-        <link href="CSS/fixed-header.css" rel="stylesheet" type="text/css"/>        
-        <link href="CSS/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="CSS/ng-tags-input.min.css" rel="stylesheet" type="text/css"/>
-        <link href="CSS/all.min.css" rel="stylesheet" type="text/css"/>        
-        <link href="CSS/textAngular.css" rel="stylesheet" type="text/css"/>                
-        <link href="CSS/PLTravers.css" rel="stylesheet" type="text/css"/>
-        <link href="CSS/Deposit.css" rel="stylesheet" type="text/css"/>
-        <link href="CSS/Curator.css" rel="stylesheet" type="text/css"/>        
-        <link href="CSS/Withdrawals.css" rel="stylesheet" type="text/css"/>
-
+        <link href="CSS/3rdParty/animate.min.css" rel="stylesheet" type="text/css"/>
+        <link href="CSS/3rdParty/angular-material.min.css" rel="stylesheet" type="text/css"/>
+        <link href="CSS/3rdParty/fixed-header.css" rel="stylesheet" type="text/css"/>        
+        <link href="CSS/3rdParty/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="CSS/3rdParty/ng-tags-input.min.css" rel="stylesheet" type="text/css"/>
+        <link href="CSS/3rdParty/all.min.css" rel="stylesheet" type="text/css"/>        
+        <link href="CSS/3rdParty/textAngular.css" rel="stylesheet" type="text/css"/>  
+        
+        <!-- Core CSS -->
+        <link href="CSS/StoryBank.css" rel="stylesheet" type="text/css"/>        
+        
         <!-- Setup routing -->
         <base href="/StoryBank/">
     </head>
-    <body ng-controller="ContainerCTRL" ng-cloak >
+    <body ng-cloak >
 
         <!-- Would I prefer to be using $location instead of the href -->
         <div ng-view></div>
@@ -48,10 +47,14 @@
         <script src="Scripts/3rdParty/all.min.js" type="text/javascript"></script>
         
         <!-- Core controller -->
-        <script src="Scripts/PLTravers.js" type="text/javascript"></script>        
+        <script src="Scripts/StoryBank.js" type="text/javascript"></script>                
+        
+        <!--
+        <script src="Scripts/PLTravers.js" type="text/javascript"></script>                
         <script src="Scripts/Keyboard/keyboardController.js" type="text/javascript"></script>        
         <script src="Scripts/Curator/curator.js" type="text/javascript"></script>        
         <script src="Scripts/CharGen/charSelect.js" type="text/javascript"></script>        
+        -->
         
     </body>
 </html>

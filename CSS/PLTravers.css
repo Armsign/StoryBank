@@ -1,164 +1,11 @@
 /*
-    To change this license header, choose License Headers in Project Properties.
-    To change this template file, choose Tools | Templates
-    and open the template in the editor.
-
     Created on : Feb 5, 2018, 10:30:25 AM
     Author     : PaulDunn
+
+    Core elements
 */
 
-/*
-**  Special Fonts
-**  Global Colours
-*/
 
-@font-face 
-{
-    font-family: BalfordBase;
-    src: url("Fonts/Balford-Base.otf");
-}
-
-@font-face 
-{
-    font-family: Olivetti;
-    src: url("Fonts/zai_Olivetti-UnderwoodStudio21Typewriter.otf");
-}
-
-@font-face 
-{
-    font-family: SourceSansProLight;
-    src: url("Fonts/SourceSansPro-Light.otf");
-}
-
-@font-face 
-{
-    font-family: SkitchRegular;
-    src: url("Fonts/Yellow Design Studio - Skitch.otf");
-}
-
-.blue
-{
-    color: #005470;
-}
-
-.red
-{
-    color: #862F2C;
-}
-
-.hoverCursor
-{
-    cursor: pointer;
-}
-
-.gray
-{
-    color: #333333;
-}
-
-.underline
-{
-    color: blue;
-    text-decoration: underline;
-}
-
-.center
-{
-    text-align: center;
-}
-
-.left
-{
-    text-align: left;
-}
-
-[ng\:cloak], [ng-cloak], .ng-cloak {
-  display: none !important;
-}
-
-/*
-**  Core elements
-*/
-
-body
-{
-    font-family: SourceSansProLight, Source Sans, Bookman, Georgia, "Lucida Console", Monaco, monospace !important;
-    font-size: 1em;
-    font-weight: normal;
-    color: #111111;
-    background-color: rgb(248, 214, 166);
-
-    margin: 0;
-    padding: 0;
-
-    height: 100vh;
-    width: 100vw;    
-    
-    overflow: hidden;
-}
-
-h1
-{
-    margin: 0;
-    padding: 12px !important;    
-    font-family: BalfordBase !important;
-    display: inline !important;
-    font-size: 42px !important;
-    line-height: 42px;
-    text-align: center;
-    color: #111111;
-}
-
-h2
-{
-    font-size: 16px !important;
-    margin-top: 0 !important;
-    color: #111111;
-}
-
-ul
-{
-    list-style: none;
-    margin-bottom: 24px;
-}
-
-li
-{
-    padding-left: 24px;
-    margin-bottom: 24px;
-    text-align: left;
-}
-
-p
-{
-    font-size: 24px;
-    font-weight: normal;
-    line-height: 32px;
-    margin: 0px;
-    padding: 0px; 
-    text-align: left;
-}
-
-*:focus 
-{
-    outline: none;
-}
-
-md-whiteframe
-{
-    background-color: #FFFFFF;
-    padding: 24px;
-}
-
-md-dialog
-{
-    padding: 24px;
-    width: 80%;
-
-    background-image: url("../Images/Common/DialogBackground.jpg");      
-    background-size:cover;
-    
-}
 
 @media only screen and (min-width: 1920px) 
 {
@@ -174,62 +21,11 @@ md-dialog
 }
 
 
-md-content
-{
-    background: none !important;    
-}
-
 .stageOne md-content, .stageFive md-content
 {
     overflow: visible !important;    
 }
 
-/*
-**  Super Structure
-*/
-
-.grid-container 
-{
-    padding: 0px;
-    margin: 0px;    
-    display: grid;
-    text-align: center;
-}
-
-.roomDirectory, .menuDirectory, .screenSaver
-{
-    height: 1080px !important;  
-    width: 1920px !important;
-    padding: 0px;
-    margin: 0px;
-
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    grid-template-columns: 192px 192px 192px 192px 192px 192px 192px 192px 192px 192px;    
-    grid-template-rows: 108px 108px 108px 108px 108px 108px 108px 108px 108px 108px;
-    
-    overflow: hidden;
-}
-
-.roomDirectory
-{
-    background-image: url("../Images/Common/typeWriterBackground.png");       
-}
-
-.menuDirectory
-{
-    background-image: url("../Images/Common/Background_Pantone454.jpg");       
-}
-
-.screenSaver
-{
-    background-image: url("../Images/Common/ScreenSaverBackground.jpg");       
-}
-
-/*
-**  Implementation
-*/ 
 
 .letterAccent
 {
@@ -241,14 +37,6 @@ md-content
 {
     height: 128px;  
     margin-top: -24px;
-}
-
-.menuDirectory .menuItem 
-{
-    -webkit-border-radius: 16px;
-    -moz-border-radius: 16px;
-    border-radius: 16px;   
-    background-color: rgba(255,255,255, .2);
 }
 
 .navigationBar
@@ -424,7 +212,8 @@ h3
 
 .logo img
 {
-    height: 64px;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 /*
