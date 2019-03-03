@@ -6,8 +6,11 @@
 
 var myApp = angular.module('PLTravers', ['ngRoute', 'ngMaterial', 'ngAria', 'ngAnimate', 'ngCookies', 'dataGrid', 'pagination', 'ngTagsInput', 'textAngular']);
 
-myApp.controller('ContainerCTRL', ['$scope', '$location', function($scope, $location) 
+myApp.controller('ContainerCTRL', function($rootScope, $scope, $location) 
 { 
+    
+    $rootScope.timeInMilliSeconds = 360000;
+    $rootScope.lastKeyPress = undefined;
 
     $scope.changeLocation = function(location)
     {        
@@ -19,7 +22,7 @@ myApp.controller('ContainerCTRL', ['$scope', '$location', function($scope, $loca
         //  Nothing good to go in here ;p
     });   
 
-}]);
+});
 
 myApp.controller('RecordCTRL', [ '$scope', '$timeout', function ($scope, $timeout) 
 {

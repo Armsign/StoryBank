@@ -11,7 +11,6 @@ myApp.controller('KeyboardCTRL', ['$rootScope', '$scope', '$routeParams', '$loca
     $scope.capsLock = false;
     $scope.activeStory = '';
     $rootScope.activeStory = $scope.activeStory;
-    $rootScope.openDialog = false;
     $scope.artefact = 0;
     $scope.question = 'No question found'; 
     $scope.visitorID = '';
