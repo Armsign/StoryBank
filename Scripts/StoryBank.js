@@ -55,7 +55,7 @@ myApp.controller('DepositsCTRL', function($rootScope, $scope, $location, $routeP
     $scope.switchArtefact = function($event, room, artefact)
     {
         clearTimeout($rootScope.screenSaverTimeout);
-        $rootScope.screenSaverTimeout = setTimeout(function(){ $rootScope.timeOut(); }, $rootScope.timeInMilliSeconds);         
+        $rootScope.screenSaverTimeout = setTimeout(function() { $rootScope.timeOut(); }, $rootScope.timeInMilliSeconds);         
         
         //  Should we allow it?
         if (artefact !== $scope.activeArtefact)              
@@ -92,7 +92,66 @@ myApp.controller('DepositsCTRL', function($rootScope, $scope, $location, $routeP
 
 myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $location, $http, $mdDialog) 
 { 
+    $scope.capsLock = false;
+    $scope.question = 'No question found'; 
+    $scope.activeStory = '';    
+       
+    $scope.keyClick = function($event, keyClicked)
+    {
+        var myDate = new Date();
+        $rootScope.lastKeyPress = myDate.getTime();
+        
+        if (keyClicked === 'SHIFT') 
+        {
+            
+            $scope.capsLock = !$scope.capsLock;
+            
+        } else {
+        
+            if (keyClicked === 'BACKSPACE')
+            {
+                
+                $scope.activeStory = $scope.activeStory.slice(0, -1);
+                
+            } else if (keyClicked === 'DEPOSIT' && $scope.activeStory.length > 0) {                        
+                
+                //  This should do the popup instead of the state change
+                
+                //  $scope.depositStage = 1;    //  Switch stage
+                //  $scope.beginDepositProcess($event);
+                
+            } else if (keyClicked !== 'DEPOSIT') {                                        
+                
+                $scope.activeStory = $scope.activeStory + keyClicked;
+                
+            } 
+
+            //  SET GLOBAL FOR TRANSITION PROMPTS
+            $rootScope.activeStory = $scope.activeStory;
+            
+        }
+        
+        if ($scope.depositState === 0)
+        {
+            var textarea = document.getElementById('textForStory');
+            textarea.scrollTop = textarea.scrollHeight;            
+        }        
+        
+        //  This is the animated section ... once animation is added, run it needs to be removed ...        
+        angular.element($event.currentTarget).addClass("animated pulse"); 
+        
+        //  Let's test this one huh
+        window.setTimeout(function() { $scope.removeClasses(); }, 250);
+        
+    };
     
+    $scope.removeClasses = function()
+    {
+        var result = document.getElementsByClassName("animated pulse");
+        
+        angular.element(result).removeClass("animated pulse");    
+    }    
+       
     $scope.fetchQuestion = function() 
     {
         if ($scope.artefact >= 0)
