@@ -194,7 +194,7 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
             $scope.artefact = 1 * ($routeParams.artefact);                  
         }
         
-        $scope.fetchQuestion();
+        $scope.fetchQuestion();        
     });   
 
 });

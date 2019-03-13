@@ -203,17 +203,19 @@ md-dialog
 **  Keyboard
 */
 
+.typeWriter
+{
+    width: 100%;
+    
+    grid-template-columns: 1% 8% 8% 8% 8% 8% 8% 1% 1% 8% 8% 8% 8% 8% 8% 1%;    
+    grid-template-rows: 1% 8% 8% 8% 8% 8% 8% 1% 1% 8% 8% 8% 8% 8% 8% 1%;    
+}
+
 .keyBoardPage
 {
     position: relative;
-    
-    margin: 0px 180px 0px 180px;
-    height: 440px;
-    width: 600px;
     padding: 16px;
-    
     background-color: rgba(255, 255, 255, .4) !important;
-    
     overflow: hidden;    
     
     -webkit-border-radius: 16px;
@@ -226,31 +228,28 @@ md-dialog
     line-height: 16px !important;
     color: #111111;
     
-    text-align: left;        
+    text-align: left;   
+    
+    height: calc((100vh / 12) * 5);
 }
 
-.keyBoardLayout
+.keyBoardPage md-content
 {
-    display: block;
-    margin-top: 164px;
-    margin-left: 48px;
-    text-align: center;
-    float: left;
-    width: 864px;
+    background-color: transparent;    
 }
 
-
-.keyBoardLayout
+.keyBoardPage md-input-container
 {
+    position: absolute;
+    bottom: 0;    
     display: block;
-    margin-top: 164px;
-    margin-left: 48px;
-    text-align: center;
-    float: left;
-    width: 864px;
+    width: 100%;
+    margin: 0;
+    padding: 0;   
+    color: #666666 !important;
 }
 
-.keyBoardLayout ul
+.keyBoardLayout, .keyBoardLayout ul
 {
     display: block;
     margin: 0;
@@ -259,11 +258,26 @@ md-dialog
 
 .keyBoardLayout ul li
 {    
-    padding: 0 !important;
-    margin-bottom: 6px !important;
     float: left;
-    text-align: centre;
-    width: 72px;
+    margin: 0;    
+    width: calc(100% / 12);  
+    padding: .2%;
+    text-align: center;
+}
+
+.shiftDeposit, .actualDeposit
+{   
+    margin-top: 16px !important;    
+    width: calc(100% / 6) !important;  
+}
+
+.spaceBar
+{
+    margin-top: 16px !important;
+    margin-left: calc(100% / 12) !important;  
+    margin-right: calc(100% / 12) !important;  
+    width: calc(100% / 2) !important; 
+    
 }
 
 .keyBoardLayout img
@@ -271,7 +285,7 @@ md-dialog
     opacity: 1;    
 }
 
-.line1
+.line1, .shiftDeposit, .actualDeposit, .spaceBar
 {
     animation-duration: 0.15s;
     -moz-animation-duration: 0.15s;    
@@ -280,10 +294,10 @@ md-dialog
     text-align: center;
 }
 
-.line1 img
+.line1 img, .shiftDeposit img, .spaceBar img, .actualDeposit img
 {    
     background-color: black;
-    width: 64px;
+    width: 100%;
     
     -webkit-border-radius: 32px;
     -moz-border-radius: 32px;
@@ -294,39 +308,11 @@ md-dialog
     box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
 }
 
-.shiftDeposit, .actualDeposit
-{    
-    width: 128px !important;     
-}
-
-.shiftDeposit img, .spaceBar img, .actualDeposit img
-{
-    margin-top: 12px;
-    height: 64px;
-    /* width: 168px; */
-    
-    background-color: black;
-    
-    -webkit-border-radius: 32px;
-    -moz-border-radius: 32px;
-    border-radius: 32px;
-
-    -webkit-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
-    -moz-box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);
-    box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.4);    
-}
-
 .actualDeposit img
 {
     background-color: #862F2C;
     
 }
-
-.spaceBar
-{
-    width: 384px !important; 
-}
-
 
 /*
 **  Common to all pages
