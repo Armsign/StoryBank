@@ -115,27 +115,42 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
                 
             } else if (keyClicked === 'DEPOSIT' && $scope.activeStory.length > 0) {                        
                 
-                //  This should do the popup instead of the state change
-                
-                //  $scope.depositStage = 1;    //  Switch stage
-                //  $scope.beginDepositProcess($event);
+                //  Collect their id
+                 $rootScope.openDialog = $mdDialog.show({
+                     templateUrl: 'Templates/Keyboard/numberPad.html',
+                     controller: 'NumPadCTRL',         
+                     parent: angular.element(document.body),
+                     targetEvent: $event,
+                     clickOutsideToClose:true
+                 })
+                 .then(function(answer) {
+
+                     //  It's anon
+                     $scope.visitorID = answer;            
+                     $scope.email = 'anon@storybank.com.au';
+                     $scope.nomDePlume = 'Anon';
+                     $scope.completeDeposit();      
+
+                     $rootScope.openDialog = false;
+
+                 }, function() {
+
+                     //    No action
+                     $rootScope.openDialog = false;
+
+                 });                  
                 
             } else if (keyClicked !== 'DEPOSIT') {                                        
                 
                 $scope.activeStory = $scope.activeStory + keyClicked;
                 
             } 
-
-            //  SET GLOBAL FOR TRANSITION PROMPTS
-            $rootScope.activeStory = $scope.activeStory;
             
         }
-        
-        if ($scope.depositState === 0)
-        {
-            var textarea = document.getElementById('textForStory');
-            textarea.scrollTop = textarea.scrollHeight;            
-        }        
+
+        //  Keep it visible please
+        var textarea = document.getElementById('textForStory');
+        textarea.scrollTop = textarea.scrollHeight;            
         
         //  This is the animated section ... once animation is added, run it needs to be removed ...        
         angular.element($event.currentTarget).addClass("animated pulse"); 
@@ -199,6 +214,69 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
 
 });
 
+myApp.controller('NumPadCTRL', function($rootScope, $scope, $routeParams, $location, $http, $mdDialog) 
+{
+    $scope.collectedID = 'XXXXX';
+    $scope.validID = false;    
+    
+    $scope.keyClick = function($event, keyClicked)
+    {
+        var myDate = new Date();
+        $rootScope.lastKeyPress = myDate.getTime();
+
+        if (keyClicked === 'BACKSPACE')
+        {
+            
+            if ($scope.collectedID !== 'XXXXX')
+            {
+                $scope.collectedID = $scope.collectedID.slice(0, -1);
+            }
+            
+            if ($scope.collectedID === '')
+            {
+                $scope.collectedID = 'XXXXX';
+            } 
+            
+            $scope.validID = false;
+            angular.element(document.getElementById("readyGoNext")).css("display", "none");            
+
+        } else if ($scope.collectedID.length < 5 || $scope.collectedID === 'XXXXX') {
+
+            if ($scope.collectedID === 'XXXXX')
+            {
+                $scope.collectedID = '';
+            }
+
+            $scope.collectedID = $scope.collectedID + keyClicked;
+            
+            if ($scope.collectedID.length === 5)
+            {
+                $scope.validID = true;                
+                
+                angular.element(document.getElementById("readyGoNext")).css("display", "inline");
+                
+            }
+            
+        }
+
+        //  This is the animated section ... once animation is added, run it needs to be removed ...        
+        angular.element($event.currentTarget).addClass("animated pulse"); 
+        
+        //  Let's test this one huh
+        window.setTimeout(function() { $scope.removeClasses(); }, 250);
+        
+    };
+    
+   
+    $scope.removeClasses = function()
+    {
+        var result = document.getElementsByClassName("animated pulse");
+        
+        angular.element(result).removeClass("animated pulse");    
+    }    
+    
+});
+
 myApp.config(['$routeProvider', function($routeProvider) 
 {      
     
@@ -212,15 +290,13 @@ myApp.config(['$routeProvider', function($routeProvider)
             controller: 'AdminCTRL'    
         }). 
         when('/Room/ScreenSaver', { 
-            templateUrl: 'Templates/Rooms/screenSaver.html',
+            templateUrl: 'Templates/Menu/screenSaver.html',
             controller: 'ScreenSaverCTRL'    
-        }).       
-                
+        }).                       
         when('/Room/View/C/:artefact', { 
             templateUrl: 'Templates/Deposits/roomC.html',
             controller: 'DepositsCTRL'    
-        }).                 
-                
+        }).                                 
         when('/Room/View/D/:artefact', { 
             templateUrl: 'Templates/Rooms/roomD.html',
             controller: 'RoomCTRL'    

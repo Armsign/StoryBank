@@ -1,0 +1,102 @@
+<md-dialog aria-label="Deposit Story">
+  <form ng-cloak>
+
+    <md-dialog-content>
+        <div class="md-dialog-content">                    
+            <md-input-container md-no-float class="numPad">                 
+
+                <div>
+                
+                    <p>
+                        Please enter your <b class="red">visitor id</b> so we can find your <b class="red">account</b>.
+                    </p>                
+
+                    <p>
+                        STORY-{{collectedID}}
+                    </p>
+                
+                </div>
+                
+                <div>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="line1" ng-click="keyClick($event, '1')">
+                                    <img src="Images/Keyboard/Keyboard_Keys_1_a.svg" />
+                                </td>                                
+                                
+                                <td class="line1" ng-click="keyClick($event, '2')">
+                                    <img src="Images/Keyboard/Keyboard_Keys_2_a.svg" />
+                                </td>                                 
+                                
+                                <td class="line1" ng-click="keyClick($event, '3')">
+                                    <img src="Images/Keyboard/Keyboard_Keys_3_a.svg" />
+                                </td>                                                                 
+                            </tr>
+                            <tr>
+                               <td class="line1" ng-click="keyClick($event, '4')">
+                                    <img src="Images/Keyboard/Keyboard_Keys_4_a.svg" />
+                                </td>                                
+                                
+                                <td class="line1" ng-click="keyClick($event, '5')">
+                                    <img src="Images/Keyboard/Keyboard_Keys_5_a.svg" />
+                                </td>                                 
+                                
+                                <td class="line1" ng-click="keyClick($event, '6')">
+                                    <img src="Images/Keyboard/Keyboard_Keys_6_a.svg" />
+                                </td>                                 
+                            </tr>
+                            <tr>
+                               <td class="line1" ng-click="keyClick($event, '7')">
+                                    <img src="Images/Keyboard/Keyboard_Keys_7_a.svg" />
+                                </td>                                
+                                
+                                <td class="line1" ng-click="keyClick($event, '8')">
+                                    <img src="Images/Keyboard/Keyboard_Keys_8_a.svg" />
+                                </td>                                 
+                                
+                                <td class="line1" ng-click="keyClick($event, '9')">
+                                    <img src="Images/Keyboard/Keyboard_Keys_9_a.svg" />
+                                </td>                                 
+                            </tr>                                            
+                            
+                            <tr>
+                                <td class="line1">
+                                    &nbsp;
+                                </td>                                
+
+                                <td class="line1" ng-click="keyClick($event, '8')">
+                                    <img src="Images/Keyboard/Keyboard_Keys_0_a.svg" />
+                                </td>                                 
+                                
+                                <td class="line1" ng-click="keyClick($event, '9')">
+                                    <img src="Images/Keyboard/Keyboard_Keys_Backspace.svg" />
+                                </td>                                 
+                                
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+                <div>
+                
+                    <p class="paperButton" ng-click="cancelDeposit();">
+                        <b class="blue">Cancel!</b>
+                    </p>                
+
+                    <p id="readyGoNext" class="paperButton" ng-click="completeEmail();">
+                        <b class="red">Next!</b>
+                    </p>                    
+                    
+                </div>
+                
+            </md-input-container>
+
+        </div>          
+        
+    </md-dialog-content>
+
+  </form>
+</md-dialog>
+

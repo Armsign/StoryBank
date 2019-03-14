@@ -147,10 +147,15 @@ md-whiteframe
 md-dialog
 {
     padding: 1em;
-    width: 66%;
+    width: 50%;
 
     background-image: url("../Images/Common/DialogBackground.jpg");      
     background-size:cover;    
+}
+
+[disabled] md-input-container .md-input, md-input-container .md-input[disabled]
+{
+    color: #333333 !important;
 }
 
 .grid-container 
@@ -205,16 +210,20 @@ md-dialog
 
 .typeWriter
 {
-    width: 100%;
     
-    grid-template-columns: 1% 8% 8% 8% 8% 8% 8% 1% 1% 8% 8% 8% 8% 8% 8% 1%;    
-    grid-template-rows: 1% 8% 8% 8% 8% 8% 8% 1% 1% 8% 8% 8% 8% 8% 8% 1%;    
+    height: 90vh;
+    width: 50vw;
+    
+    grid-template-columns: 8% 8% 68% 8% 8%;
+    grid-template-rows: 50% 50%;
+
 }
 
 .keyBoardPage
 {
     position: relative;
     padding: 16px;
+    margin-bottom: 16px;
     background-color: rgba(255, 255, 255, .4) !important;
     overflow: hidden;    
     
@@ -227,10 +236,6 @@ md-dialog
     font-weight: normal !important;
     line-height: 16px !important;
     color: #111111;
-    
-    text-align: left;   
-    
-    height: calc((100vh / 12) * 5);
 }
 
 .keyBoardPage md-content
@@ -249,7 +254,12 @@ md-dialog
     color: #666666 !important;
 }
 
-.keyBoardLayout, .keyBoardLayout ul
+.keyBoardLayout
+{
+    margin-top: 48px;   
+}
+
+.keyBoardLayout ul
 {
     display: block;
     margin: 0;
@@ -280,11 +290,6 @@ md-dialog
     
 }
 
-.keyBoardLayout img
-{
-    opacity: 1;    
-}
-
 .line1, .shiftDeposit, .actualDeposit, .spaceBar
 {
     animation-duration: 0.15s;
@@ -296,6 +301,8 @@ md-dialog
 
 .line1 img, .shiftDeposit img, .spaceBar img, .actualDeposit img
 {    
+    opacity: 1;        
+    
     background-color: black;
     width: 100%;
     
@@ -327,4 +334,181 @@ md-dialog
 {
     max-width: 100%;
     max-height: 100%;
+}
+
+/*
+**  Screen saver
+*/  
+
+h1.screenSaverTitle
+{
+    font-size: 64px !important;
+    margin: 16px;   
+}
+
+.callToAction
+{
+    padding: 16px;
+    background-image: url("../Images/Common/CallToAction.png");           
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+ .maryWindLeft, .maryWindRight
+ {
+    position: absolute;
+    height: 256px;
+    opacity: 0.0;  
+    animation-name: maryWindAnim;
+    animation-duration: 10s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-play-state: initial;     
+ }
+
+.maryFloat
+{
+    position: absolute;
+    height: 256px;
+    opacity: 0.0;  
+    animation-name: maryUmbrellaFlightAnim;
+    animation-duration: 10s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-play-state: initial;        
+}
+
+.maryGoRound
+{
+    position: absolute;
+    margin-top: 32px;
+    height: 256px;
+    opacity: 0.0;  
+    animation-name: maryGoRoundAnim;
+    animation-duration: 10s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-play-state: initial;        
+}
+
+.maryWindPoppinsLeft, .maryWindPoppinsRight
+{
+    position: absolute;
+    height: 256px;
+    opacity: 0.0;  
+    animation-name: maryWindPoppinsLeftAnim;
+    animation-duration: 10s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-play-state: initial;        
+}
+
+/* Standard syntax */
+@keyframes maryUmbrellaFlightAnim 
+{
+    
+    0%   { opacity: 0; margin-top: 100px; }
+    17%  { opacity: .6; }
+    66%  { opacity: .4; }
+    83%  { opacity: .2; }
+    100% { opacity: 0; margin-top: -720px; }
+    
+}
+
+
+@keyframes maryGoRoundAnim 
+{
+    
+    0%   { opacity: 0; }
+    17%  { opacity: .6; }
+    66%  { opacity: .4; }
+    83%  { opacity: .2; }
+    100% { opacity: 0; margin-left: -1600px; }
+
+}
+
+@keyframes maryWindPoppinsLeftAnim 
+{
+    
+    0%   { opacity: 0; }
+    17%  { opacity: .6; }
+    66%  { opacity: .4; }
+    83%  { opacity: .2; }
+    100% { opacity: 0; margin-left: -200px; }    
+
+}
+
+@keyframes maryWindAnim 
+{
+    
+    0%   { opacity: 0; }
+    17%  { opacity: .1; }
+    66%  { opacity: .2; }
+    83%  { opacity: .1; }
+    100% { opacity: 0; } 
+    
+}
+
+/*
+**  Number Pad
+*/
+
+.numPad
+{
+    display: block;
+    padding: 2%;
+    margin: 2%;
+    text-align: center;
+    float: left;
+    width: 96%;  
+
+    background-color: rgba(255, 255, 255, .4) !important;    
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;                
+    
+}
+
+.numPad div, .numPad div p
+{
+    width: 100%;
+    display: block;
+    text-align: center;      
+    font-family: Olivetti;
+    font-size: 1em;
+}
+
+.numPad div p:last-child
+{
+    font-size: 2em;
+}
+
+.numPad table
+{
+    margin: auto;
+}
+
+.numPad td img
+{    
+    padding: 0 !important;
+    margin: 3px !important;
+    max-width: 64px;
+}
+
+#readyGoNext
+{
+    display: none; 
+}
+
+.paperButton
+{
+    width: 50% !important;
+    font-family: SkitchRegular !important;
+    font-weight: bold !important;
+    line-height: 36px !important;
+    font-size: 36px !important;
 }
