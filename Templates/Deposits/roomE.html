@@ -1,0 +1,94 @@
+<div class="grid-container deposits">
+    
+    
+    <div class="grid-item center" style="grid-column: 1 / span 8; grid-row: 1 / span 3;">
+        <h1 class="blue">
+            <img class="letterAccent" src="Images/Common/letterAccent_Left.svg" />        
+            Inspiration Station
+            <img class="letterAccent" src="Images/Common/letterAccent_Right.svg" />     
+        </h1>
+        <h2>
+             <b class="blue">Build</b> a character from the options available.
+        </h2>
+    </div>    
+    
+    <div class="grid-item center " style="grid-column: 9 / span 8; grid-row: 1 / span 3;">
+        <h1 class="red">
+            <img class="letterAccent" src="Images/Common/letterAccent_LeftRed.svg" />        
+            Story Deposit
+            <img class="letterAccent" src="Images/Common/letterAccent_RightRed.svg" />     
+        </h1>         
+    </div>       
+ 
+    <div class="grid-item charSelector center" style="grid-column: 2; grid-row: 4 / span 2;" ng-click="triggerChange(ev, 'Hair')">        
+        <h3 class="blue">Hair</h3>
+        <br/>        
+        <img src="Images/CharacterAssets/Hair/Hair0002.png" />                
+    </div>    
+    
+    <div class="grid-item charDisplay center" style="grid-column: 3 / span 4; grid-row: 4 / span 8;">        
+        <h3 class="blue">Your Character</h3>
+        <br/>
+        
+        <!-- Positioning bleh -->        
+        <img id="hairSelected" src="Images/CharacterAssets/Hair/Hair0002.png" />
+        <img id="facesSelected" src="Images/CharacterAssets/Faces/Faces0001.png" />                
+        <img id="torsoSelected" src="Images/CharacterAssets/Torso/Torso0001.png" />                
+        <img id="armsSelected" src="Images/CharacterAssets/Arms/Arms0001.png" />
+        <img id="handsSelected" src="Images/CharacterAssets/Hands/Hands0001.png" />        
+        <img id="legsSelected" src="Images/CharacterAssets/Legs/Legs0001.png" />      
+        <img id="feetSelected" src="Images/CharacterAssets/Feet/Feet0001.png" />              
+        
+    </div>                  
+
+    <div class="grid-item charSelector center" style="grid-column: 7; grid-row: 4 / span 2;" ng-click="triggerChange(ev, 'Faces')">        
+        <h3 class="blue">Face</h3>
+        <br/>
+        <img src="Images/CharacterAssets/Faces/Faces0001.png" />
+    </div>           
+    
+    <div class="grid-item charSelector center" style="grid-column: 2; grid-row: 6 / span 2;" ng-click="triggerChange(ev, 'Arms')">        
+        <h3 class="blue">Arms</h3>
+        <br/>
+        <img src="Images/CharacterAssets/Arms/Arms0001.png" />        
+    </div>    
+    
+    <div class="grid-item charSelector center" style="grid-column: 7; grid-row: 6 / span 2;" ng-click="triggerChange(ev, 'Torso')">        
+        <h3 class="blue">Torso</h3>   
+        <br/>
+        <img src="Images/CharacterAssets/Torso/Torso0001.png" />        
+    </div>      
+    
+    <div class="grid-item charSelector center" style="grid-column: 2; grid-row: 8 / span 2;" ng-click="triggerChange(ev, 'Hands')">        
+        <h3 class="blue">Hands</h3>        
+        <img src="Images/CharacterAssets/Hands/Hands0001.png" />        
+        <br/>
+    </div>    
+
+    <div class="grid-item charSelector center" style="grid-column: 7; grid-row: 8 / span 2;" ng-click="triggerChange(ev, 'Legs')">        
+        <h3 class="blue">Legs</h3>  
+        <br/>        
+        <img src="Images/CharacterAssets/Legs/Legs0001.png" />   
+    </div>     
+    
+    <div class="grid-item charSelector center" style="grid-column: 2; grid-row: 10 / span 2;" ng-click="randomiseFigure()">        
+        <h3 class="blue">Random</h3>      
+        <br/>        
+        <img src="Images/CharacterAssets/QuestionMark.png" />
+    </div>    
+
+    <div class="grid-item charSelector center" style="grid-column: 7; grid-row: 10 / span 2;" ng-click="triggerChange(ev, 'Feet')">        
+        <h3 class="blue">Feet</h3> 
+        <br/>        
+        <img src="Images/CharacterAssets/Feet/Feet0001.png" />   
+    </div>    
+    
+    <!-- Deposit Section -->    
+    <div ng-include src="'Templates/Keyboard/typeWriter.html'" ng-controller="KeyboardCTRL" class="grid-item" style="grid-column: 9 / span 8; grid-row: 3 / span 11;"></div>                                    
+
+    <!-- Sign Off -->    
+    <div class="grid-item center logo" style="grid-column: 1 / span 8; grid-row: 13;">
+        <img src="Images/Common/StoryBanklogo.png" />   
+    </div>      
+    
+</div>    

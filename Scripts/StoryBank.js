@@ -48,7 +48,7 @@ myApp.controller('ContainerCTRL', function($rootScope, $scope, $location)
 
 });
 
-myApp.controller('DepositsCTRL', function($rootScope, $scope, $location, $routeParams) 
+myApp.controller('DepositsCTRL', function($rootScope, $scope, $location, $routeParams, $mdDialog) 
 { 
     $scope.activeArtefact = -1;
     
@@ -65,12 +65,84 @@ myApp.controller('DepositsCTRL', function($rootScope, $scope, $location, $routeP
         } 
     }     
 
+    $scope.randomiseFigure = function()
+    {
+        clearTimeout($rootScope.screenSaverTimeout);
+        $rootScope.screenSaverTimeout = setTimeout(function() { $rootScope.timeOut(); }, $rootScope.timeInMilliSeconds);       
+        
+        var srcHair = "Hair000" + Math.ceil(Math.random() * 8) + ".png";        
+        var srcArms = "Arms000" + Math.ceil(Math.random() * 8) + ".png";        
+        var srcHands = "Hands000" + Math.ceil(Math.random() * 8) + ".png";        
+        var srcFaces = "Faces000" + Math.ceil(Math.random() * 8) + ".png";        
+        var srcTorso = "Torso000" + Math.ceil(Math.random() * 8) + ".png";        
+        var srcLegs = "Legs000" + Math.ceil(Math.random() * 8) + ".png";       
+        var srcFeet = "Feet000" + Math.ceil(Math.random() * 8) + ".png";        
+        
+        document.getElementById("hairSelected").src="Images/CharacterAssets/Hair/" + srcHair;        
+        document.getElementById("armsSelected").src="Images/CharacterAssets/Arms/" + srcArms;        
+        document.getElementById("handsSelected").src="Images/CharacterAssets/Hands/" + srcHands;          
+        document.getElementById("facesSelected").src="Images/CharacterAssets/Faces/" + srcFaces;            
+        document.getElementById("torsoSelected").src="Images/CharacterAssets/Torso/" + srcTorso;               
+        document.getElementById("legsSelected").src="Images/CharacterAssets/Legs/" + srcLegs;            
+        document.getElementById("feetSelected").src="Images/CharacterAssets/Feet/" + srcFeet;                   
+    }
+    
+    $scope.triggerChange = function(ev, modalToLoad)
+    {       
+        clearTimeout($rootScope.screenSaverTimeout);
+        $rootScope.screenSaverTimeout = setTimeout(function() { $rootScope.timeOut(); }, $rootScope.timeInMilliSeconds); 
+        
+        $rootScope.openDialog = $mdDialog.show({
+            controller: 'DepositsCTRL',    
+            templateUrl: 'Templates/Modals/CharGen/' + modalToLoad + '.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: false,
+        })
+        .then(function(response) 
+        {
+            //  set it up yeah.
+            switch (modalToLoad)
+            {
+                case 'Hair':
+                    document.getElementById("hairSelected").src="Images/CharacterAssets/Hair/" + response;                    
+                    break;
+                case 'Arms':
+                    document.getElementById("armsSelected").src="Images/CharacterAssets/Arms/" + response;                    
+                    break;
+                case 'Hands':
+                    document.getElementById("handsSelected").src="Images/CharacterAssets/Hands/" + response;                                    
+                    break;
+                case 'Faces':
+                    document.getElementById("facesSelected").src="Images/CharacterAssets/Faces/" + response;                                    
+                    break;                                        
+                case 'Torso':
+                    document.getElementById("torsoSelected").src="Images/CharacterAssets/Torso/" + response;                                    
+                    break;                                 
+                case 'Legs':
+                    document.getElementById("legsSelected").src="Images/CharacterAssets/Legs/" + response;                                    
+                    break;                                                 
+                case 'Feet':
+                    document.getElementById("feetSelected").src="Images/CharacterAssets/Feet/" + response;                                    
+                    break;                     
+                default:
+                    break;
+            }
+            
+            $rootScope.openDialog = false;
+       
+        }, function() {
+            
+            $rootScope.openDialog = false;
+          
+        });         
+        
+    };    
+
     angular.element(document).ready(function () 
     {        
         //  Handle timeout stuff
-        var myDate = new Date();
-        $rootScope.lastKeyPress = myDate.getTime();
-        
         clearTimeout($rootScope.screenSaverTimeout);
         $rootScope.screenSaverTimeout = setTimeout(function(){ $rootScope.timeOut(); }, $rootScope.timeInMilliSeconds);        
         
@@ -84,6 +156,12 @@ myApp.controller('DepositsCTRL', function($rootScope, $scope, $location, $routeP
         //  Make sure the arctiveArtefact is in the correct data type
         $scope.activeArtefact *= 1;        
         
+        //  Randomise for chargen if appropes
+        if ($location.path().includes("View/E/"))
+        {
+            $scope.randomiseFigure();
+        }
+        
         $scope.$digest();
         
     });   
@@ -96,7 +174,29 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
     $scope.question = 'No question found'; 
     $scope.activeStory = '';    
     $scope.email = 'anon@storybank.com.au';
-    $scope.nomDePlume = 'Anon';    
+    $scope.nomDePlume = 'Anon';  
+    $scope.charGen = {
+                ARM: '',
+                FACE: '', 
+                FEET: '',
+                HAIR: '',
+                HAND: '',
+                LEG: '',
+                TORSO: ''     
+            };    
+       
+    $scope.collateChargen = function()
+    {
+        $scope.charGen.ARM = document.getElementById("armsSelected").src;
+        $scope.charGen.FACE = document.getElementById("facesSelected").src;
+        $scope.charGen.FEET = document.getElementById("feetSelected").src;
+        $scope.charGen.HAIR = document.getElementById("hairSelected").src;
+        $scope.charGen.HAND = document.getElementById("handsSelected").src;
+        $scope.charGen.LEG = document.getElementById("legsSelected").src;
+        $scope.charGen.TORSO = document.getElementById("torsoSelected").src; 
+        
+        return JSON.stringify($scope.charGen);
+    }       
        
     $scope.completeDeposit = function()
     {        
@@ -263,7 +363,7 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
 
 });
 
-myApp.controller('NumPadCTRL', function($rootScope, $scope, $routeParams, $location, $http, $mdDialog) 
+myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog) 
 {
     $scope.collectedID = 'XXXXX';
     $scope.validID = false;    
@@ -361,8 +461,8 @@ myApp.config(['$routeProvider', function($routeProvider)
             controller: 'DepositsCTRL'    
         }).                 
         when('/Room/View/E/:artefact', { 
-            templateUrl: 'Templates/Rooms/roomE.html',
-            controller: 'ChargenCTRL'    
+            templateUrl: 'Templates/Deposits/roomE.html',
+            controller: 'DepositsCTRL'    
         }).                                 
         when('/Room/View/I/:artefact', { 
             templateUrl: 'Templates/Rooms/roomI.html',

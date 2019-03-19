@@ -520,3 +520,122 @@ div.paperButton p
     line-height: 36px !important;
     font-size: 36px !important;
 }
+
+/*
+**  Character Generator
+*/
+
+.charSelector, .charDisplay
+{
+    padding: 1em;
+    margin: 1em;
+    background-color: rgba(255, 255, 255, .4) !important;    
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;      
+}
+
+.charSelector h3, .charDisplay h3
+{
+    margin: 0 !important;
+    font-family: BalfordBase !important;
+    display: inline !important;
+    text-align: center  !important;    
+    font-size: 2em  !important;  
+    margin-bottom: 1em  !important;
+}
+
+.charSelector img
+{   
+    width: 100%; 
+}
+
+/*
+**  Ok, now this is ... all wrong, but it'll do ... boo.
+*/  
+
+
+#hairSelected 
+{
+    position: relative;
+    margin-top: 42px;
+    margin-left: 6px; 
+    z-index: 50;
+}
+
+#facesSelected 
+{
+    position: relative;    
+    margin-top: -274px;
+    margin-left: 22px; 
+    z-index: 40;
+}
+
+#torsoSelected 
+{
+    position: relative;    
+    margin-top: -148px;
+    margin-left: 46px;     
+    z-index: 20;    
+}
+
+#armsSelected 
+{
+    position: relative;    
+    margin-top: -304px;
+    margin-left: 14px;     
+    z-index: 30;    
+}
+#handsSelected 
+{
+    position: relative;    
+    margin-top: -246px;
+    margin-left: -10px;    
+    z-index: 50;     
+}
+#legsSelected 
+{
+    position: relative;
+    margin-left: 46px;
+    margin-top: -218px;
+    z-index: 10;        
+}
+#feetSelected 
+{
+    position: relative;    
+    margin-top: -211px;
+    margin-left: 32px;    
+    z-index: 20;        
+}
+
+.styleSelector
+{
+    margin: 0;
+    padding: 0;
+    padding-top: 8px;
+    text-align: center;
+}
+
+.styleSelector ul
+{
+    list-style: none;
+    margin: 1em;
+}
+
+.styleSelector ul li
+{
+    float: left;
+    padding: 1em;
+    margin: 1em;
+    background-color: rgba(255, 255, 255, .4) !important;    
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;            
+}
+
+/*
+.styleSelector ul li img
+{
+    width: 128px;
+}
+*/

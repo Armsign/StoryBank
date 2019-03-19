@@ -21,18 +21,6 @@
 }
 
 
-.stageOne md-content, .stageFive md-content
-{
-    overflow: visible !important;    
-}
-
-
-.letterAccent
-{
-    height: 64px;  
-    margin-top: -12px;
-}
-
 .screenSaveAccent
 {
     height: 128px;  
