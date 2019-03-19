@@ -65,11 +65,11 @@
                                     &nbsp;
                                 </td>                                
 
-                                <td class="line1" ng-click="keyClick($event, '8')">
+                                <td class="line1" ng-click="keyClick($event, '0')">
                                     <img src="Images/Keyboard/Keyboard_Keys_0_a.svg" />
                                 </td>                                 
                                 
-                                <td class="line1" ng-click="keyClick($event, '9')">
+                                <td class="line1" ng-click="keyClick($event, 'BACKSPACE')">
                                     <img src="Images/Keyboard/Keyboard_Keys_Backspace.svg" />
                                 </td>                                 
                                 
@@ -78,15 +78,15 @@
                         </tbody>
                     </table>
                 </div>
-
-                <div>
                 
-                    <p class="paperButton" ng-click="cancelDeposit();">
+                <div class="paperButton">
+                
+                    <p ng-click="cancelDeposit();">
                         <b class="blue">Cancel!</b>
                     </p>                
 
-                    <p id="readyGoNext" class="paperButton" ng-click="completeEmail();">
-                        <b class="red">Next!</b>
+                    <p id="readyGoNext" ng-click="completeDeposit();">
+                        <b class="red">Save!</b>
                     </p>                    
                     
                 </div>

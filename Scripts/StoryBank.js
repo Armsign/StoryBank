@@ -95,7 +95,54 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
     $scope.capsLock = false;
     $scope.question = 'No question found'; 
     $scope.activeStory = '';    
+    $scope.email = 'anon@storybank.com.au';
+    $scope.nomDePlume = 'Anon';    
        
+    $scope.completeDeposit = function()
+    {        
+        var jsonCharGen = '';
+
+        if ($scope.artefact === 15) //  Handle the Character generator special case
+        {
+            jsonCharGen = $scope.collateChargen();
+        } else if ($scope.artefact === 16) {    /// Handle inspirations special case ... boooo
+            jsonCharGen = $scope.collateInspirations();            
+        }            
+        
+        var url = 'http://' + $location.host() 
+                + '/Vault/API.php?action=deposit&method=create'
+                + '&promptId=' + $scope.artefact
+                + '&visitorID=' + $scope.visitorID   
+                + '&email=' + $scope.email 
+                + '&nomDePlume=' + $scope.nomDePlume
+                + '&story=' + '<p>' + $scope.activeStory + '</p>'
+                + '&charDesign=' + jsonCharGen 
+                + '&hasConsent=' + $scope.consentGiven 
+                + '&useEmail=' + $scope.useEmail;
+
+        //  Call the login function appropriately
+        $http.get(url).then(
+            function (response)   
+            {               
+
+                //  What do I care if the save failed or not?
+                
+            }, 
+            function(response) 
+            {
+                alert('Failure to connect to StoryVault');
+            });  
+            
+        //  Resets ;p
+        $scope.visitorID = '';
+        $scope.activeStory = '';
+        $rootScope.activeStory = $scope.activeStory;
+        $scope.email = '';    
+        $scope.nomDePlume = '';             
+
+        $scope.$digest();
+    }       
+
     $scope.keyClick = function($event, keyClicked)
     {
         var myDate = new Date();
@@ -125,10 +172,12 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
                  })
                  .then(function(answer) {
 
-                     //  It's anon
+                     //  It's always anon
                      $scope.visitorID = answer;            
                      $scope.email = 'anon@storybank.com.au';
                      $scope.nomDePlume = 'Anon';
+                     
+                     // Make deposit
                      $scope.completeDeposit();      
 
                      $rootScope.openDialog = false;
@@ -219,6 +268,16 @@ myApp.controller('NumPadCTRL', function($rootScope, $scope, $routeParams, $locat
     $scope.collectedID = 'XXXXX';
     $scope.validID = false;    
     
+    $scope.cancelDeposit = function()
+    {        
+        $mdDialog.cancel();
+    }    
+    
+    $scope.completeDeposit = function()
+    {
+        $mdDialog.hide($scope.collectedID);
+    }         
+    
     $scope.keyClick = function($event, keyClicked)
     {
         var myDate = new Date();
@@ -298,8 +357,8 @@ myApp.config(['$routeProvider', function($routeProvider)
             controller: 'DepositsCTRL'    
         }).                                 
         when('/Room/View/D/:artefact', { 
-            templateUrl: 'Templates/Rooms/roomD.html',
-            controller: 'RoomCTRL'    
+            templateUrl: 'Templates/Deposits/roomD.html',
+            controller: 'DepositsCTRL'    
         }).                 
         when('/Room/View/E/:artefact', { 
             templateUrl: 'Templates/Rooms/roomE.html',

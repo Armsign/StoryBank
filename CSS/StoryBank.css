@@ -504,8 +504,16 @@ h1.screenSaverTitle
     display: none; 
 }
 
-.paperButton
+div.paperButton
 {
+    padding: 4%;
+    display: block;
+}
+
+div.paperButton p
+{
+    margin: 4%;
+    display: inline;
     width: 50% !important;
     font-family: SkitchRegular !important;
     font-weight: bold !important;
