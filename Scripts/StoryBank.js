@@ -51,6 +51,16 @@ myApp.controller('ContainerCTRL', function($rootScope, $scope, $location)
 myApp.controller('DepositsCTRL', function($rootScope, $scope, $location, $routeParams, $mdDialog) 
 { 
     $scope.activeArtefact = -1;
+        //  Influences room disablement disappointment ... bleh.
+    $scope.booksDisabled = false;
+    $scope.musicDisabled = false;
+    $scope.natureDisabled = false;
+    $scope.historyDisabled = false;
+    $scope.travelDisabled = false;    
+    $scope.dreamsDisabled = false;
+    $scope.foodDisabled = false;
+    $scope.artDisabled = false;    
+    $scope.peopleDisabled = false; 
     
     $scope.switchArtefact = function($event, room, artefact)
     {
@@ -91,6 +101,8 @@ myApp.controller('DepositsCTRL', function($rootScope, $scope, $location, $routeP
     {       
         clearTimeout($rootScope.screenSaverTimeout);
         $rootScope.screenSaverTimeout = setTimeout(function() { $rootScope.timeOut(); }, $rootScope.timeInMilliSeconds); 
+        
+        $rootScope.openDialog = true;
         
         $rootScope.openDialog = $mdDialog.show({
             controller: 'DepositsCTRL',    
@@ -139,6 +151,148 @@ myApp.controller('DepositsCTRL', function($rootScope, $scope, $location, $routeP
         });         
         
     };    
+    
+    $scope.returnImage = function(imageToReturn)
+    {        
+        $mdDialog.hide(imageToReturn);
+    }
+    
+    $scope.hideModal = function()
+    {
+        $mdDialog.cancel();
+        $rootScope.openDialog = false;
+    }
+    
+    $scope.triggerCloud = function($event, inspireToLoad)
+    {       
+        clearTimeout($rootScope.screenSaverTimeout);
+        $rootScope.screenSaverTimeout = setTimeout(function(){ $rootScope.timeOut(); }, $rootScope.timeInMilliSeconds);        
+        
+        if ($scope.switchEnablements(inspireToLoad)) return;
+
+        var childrens = angular.element($event.currentTarget).parent().parent().children();
+        
+        angular.element(childrens[0]).removeClass("animated fadeIn");         
+        angular.element(childrens[0]).addClass("animated fadeOut"); 
+        
+        angular.element(childrens[1]).css('display', 'inline'); 
+        angular.element(childrens[1]).addClass("animated fadeIn");
+        
+        window.setTimeout(function() { $scope.hideGif(childrens[0], inspireToLoad); }, 600);
+        
+    };  
+    
+    $scope.triggerCloudGif = function($event, inspireToLoad)
+    {       
+        clearTimeout($rootScope.screenSaverTimeout);
+        $rootScope.screenSaverTimeout = setTimeout(function(){ $rootScope.timeOut(); }, $rootScope.timeInMilliSeconds);        
+        
+        if ($scope.switchEnablements(inspireToLoad)) return;     
+        
+        var childrens = angular.element($event.currentTarget).parent().parent().children();
+        
+        angular.element(childrens[0]).css('display', 'inline'); 
+        angular.element(childrens[0]).addClass("animated fadeIn"); 
+                
+        angular.element(childrens[1]).removeClass("animated fadeIn"); 
+        angular.element(childrens[1]).addClass("animated fadeOut"); 
+        
+        window.setTimeout(function() { $scope.hideGif(childrens[1], inspireToLoad); }, 600);
+        
+    };    
+    
+    $scope.switchEnablements = function(inspireToLoad)
+    {
+        switch (inspireToLoad)
+        {
+            case'Books':
+                if ($scope.booksDisabled) return true;
+                $scope.booksDisabled = true;     
+                break;
+            case 'Music':
+                if ($scope.musicDisabled) return true;
+                $scope.musicDisabled = true;                   
+                break;
+            case 'Nature':
+                if ($scope.natureDisabled) return true;
+                $scope.natureDisabled = true;                   
+                break;
+            case 'History':
+                if ($scope.historyDisabled) return true;
+                $scope.historyDisabled = true;                   
+                break;
+            case 'Travel':
+                if ($scope.travelDisabled) return true;
+                $scope.travelDisabled = true;                   
+                break;
+            case 'Dreams':
+                if ($scope.dreamsDisabled) return true;
+                $scope.dreamsDisabled = true;                   
+                break;
+            case 'Food':
+                if ($scope.foodDisabled) return true;
+                $scope.foodDisabled = true;                   
+                break;
+            case 'Art':
+                if ($scope.artDisabled) return true;
+                $scope.artDisabled = true;                   
+                break;
+            case 'People':                
+                if ($scope.peopleDisabled) return true;
+                $scope.peopleDisabled = true;                   
+                break;
+            default:
+                break;
+        }   
+        
+        return false;
+    }    
+    
+    $scope.switchEnablementsOff = function(inspireToLoad)
+    {
+        switch (inspireToLoad)
+        {
+            case'Books':
+                $scope.booksDisabled = false;     
+                break;
+            case 'Music':
+                $scope.musicDisabled = false;                   
+                break;
+            case 'Nature':
+                $scope.natureDisabled = false;                   
+                break;
+            case 'History':
+                $scope.historyDisabled = false;                   
+                break;
+            case 'Travel':
+                $scope.travelDisabled = false;                   
+                break;
+            case 'Dreams':
+                $scope.dreamsDisabled = false;                   
+                break;
+            case 'Food':
+                $scope.foodDisabled = false;                   
+                break;
+            case 'Art':
+                $scope.artDisabled = false;                   
+                break;
+            case 'People':                
+                $scope.peopleDisabled = false;                   
+                break;
+            default:
+                break;
+        }   
+        
+        return false;
+    }    
+    
+    $scope.hideGif = function(el, inspireToLoad)
+    {
+        $scope.switchEnablementsOff(inspireToLoad);
+        
+        angular.element(el).removeClass("animated fadeOut"); 
+        angular.element(el).css('display', 'none'); 
+    }    
 
     angular.element(document).ready(function () 
     {        
@@ -157,7 +311,7 @@ myApp.controller('DepositsCTRL', function($rootScope, $scope, $location, $routeP
         $scope.activeArtefact *= 1;        
         
         //  Randomise for chargen if appropes
-        if ($location.path().includes("View/E/"))
+        if ($location.path().includes("View/E/") && $rootScope.openDialog === false)
         {
             $scope.randomiseFigure();
         }
@@ -184,6 +338,17 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
                 LEG: '',
                 TORSO: ''     
             };    
+    $scope.inspiredBy = {
+                BOOKS: false,
+                MUSIC: false, 
+                NATURE: false,
+                HISTORY: false,
+                TRAVEL: false,
+                DREAMS: false,
+                FOOD: false,
+                ART: false,
+                PEOPLE: false
+            };               
        
     $scope.collateChargen = function()
     {
@@ -196,7 +361,53 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
         $scope.charGen.TORSO = document.getElementById("torsoSelected").src; 
         
         return JSON.stringify($scope.charGen);
-    }       
+    }  
+    
+    $scope.collateInspirations = function()
+    {
+        //  How am I gonna check this one ...
+        var gifs = document.getElementsByClassName("gifContainer");
+        var displayState = '';
+        var style = '';
+        var imageInQuestion = '';
+       
+        for (var i = 0; i < gifs.length; i++)
+        {
+            style = window.getComputedStyle(gifs[i]);
+            displayState = style.getPropertyValue('display');    
+            
+            if (displayState !== 'none')
+            {
+                //  Something is on? Hooray ...
+                imageInQuestion = angular.element(gifs[i]).children();
+                
+                if (imageInQuestion.attr('src').includes('Books')) 
+                {
+                    $scope.inspiredBy.BOOKS = true;
+                } else if (imageInQuestion.attr('src').includes('Music')) {
+                    $scope.inspiredBy.MUSIC = true;
+                } else if (imageInQuestion.attr('src').includes('Nature')) {
+                    $scope.inspiredBy.NATURE = true;
+                } else if (imageInQuestion.attr('src').includes('History')) {
+                    $scope.inspiredBy.HISTORY = true;
+                } else if (imageInQuestion.attr('src').includes('Travel')) {
+                    $scope.inspiredBy.TRAVEL = true;
+                } else if (imageInQuestion.attr('src').includes('Dreams')) {
+                    $scope.inspiredBy.DREAMS = true;
+                } else if (imageInQuestion.attr('src').includes('Food')) {
+                    $scope.inspiredBy.FOOD = true;
+                } else if (imageInQuestion.attr('src').includes('Art')) {
+                    $scope.inspiredBy.ART = true;
+                } else if (imageInQuestion.attr('src').includes('People')) {
+                    $scope.inspiredBy.PEOPLE = true;
+                }
+                    
+            }
+        }
+        
+        return JSON.stringify($scope.inspiredBy);
+        
+    }    
        
     $scope.completeDeposit = function()
     {        
@@ -465,8 +676,8 @@ myApp.config(['$routeProvider', function($routeProvider)
             controller: 'DepositsCTRL'    
         }).                                 
         when('/Room/View/I/:artefact', { 
-            templateUrl: 'Templates/Rooms/roomI.html',
-            controller: 'RoomCTRL'    
+            templateUrl: 'Templates/Deposits/roomI.html',
+            controller: 'DepositsCTRL'    
         }).                  
         when('/Room/View/L/:artefact', { 
             templateUrl: 'Templates/Rooms/roomL.html',

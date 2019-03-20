@@ -1,42 +1,31 @@
-<div class="grid-container roomDirectory">
+<div class="grid-container deposits">
     
-    <!-- Row 1 Background image -->
-    <div style="grid-column: 1 / span 5; grid-row: 1 / span 2;">
-        
-        <img class="letterAccent" src="Images/Common/letterAccent_Left.svg" />
-        
-         <h1 class="blue">Inspiration Station</h1>
-         
-        <img class="letterAccent" src="Images/Common/letterAccent_Right.svg" />
-         
-         <h2>
-            <b class="blue">Tap</b> on the things that inspire you.
+    <div class="grid-item center" style="grid-column: 1 / span 8; grid-row: 1 / span 3;">
+        <h1 class="blue">
+            <img class="letterAccent" src="Images/Common/letterAccent_Left.svg" />        
+            Story Bank Teller
+            <img class="letterAccent" src="Images/Common/letterAccent_Right.svg" />     
+        </h1>
+        <h2>
+             <b class="blue">Tap</b> on the things that inspire you.
         </h2>
-        
-    </div>
-    
-    <div style="grid-column: 6 / span 5; grid-row: 1;">
-         <h1 class="red">Make a deposit into the Story Bank</h1>
     </div>    
-
-    <div class="grid-item" style="grid-column: 6 / span 5; grid-row: 2 / span 8;">
-        <div ng-include src="'Templates/Keyboard/depositCreation.html'" ng-controller="KeyboardCTRL"></div>                                    
-    </div>          
-
-    <!-- Nav Elements -->
     
-    <!--
+    <div class="grid-item center" style="grid-column: 9 / span 8; grid-row: 1 / span 3;">
+        <h1 class="red">
+            <img class="letterAccent" src="Images/Common/letterAccent_LeftRed.svg" />        
+            Story Deposit
+            <img class="letterAccent" src="Images/Common/letterAccent_RightRed.svg" />     
+        </h1>         
+    </div>      
     
-        grid-template-columns: 192px 192px 192px 192px 192px 192px 192px 192px 192px 192px;    
-        grid-template-rows: 108px 108px 108px 108px 108px 108px 108px 108px 108px 108px;    
+    <!-- margin-left: 92px; -->
     
-    -->
-    
-    <div style="background-image: url('Images/RoomI/Stars.png'); grid-column: 4 / span 2; grid-row: 1 / span 3; margin-left: 92px;" class="grid-item navigationBar cloudSelecter">        
-        &nbsp;
+    <div style="grid-column: 6 / span 3; grid-row: 2 / span 2;" class="grid-item">        
+        <img src="Images/RoomI/Stars.png" style="width: 100%;" alt="" />        
     </div>     
 
-    <div style="z-index: 1; grid-column: 1; grid-row: 2 / span 3;" class="grid-item navigationBar cloudSelecter">        
+    <div style="z-index: 1; grid-column: 2 / span 2; grid-row: 4 / span 3;" class="grid-item cloudSelecter">        
         
         <div class="cloudContainer">        
             <img src="Images/RoomI/Cloud_01_OutLine.png" alt="" ng-click="triggerCloud($event, 'Books')"/>        
@@ -49,7 +38,7 @@
         
     </div>    
 
-    <div class="grid-item navigationBar cloudSelecter" style="margin-left: -96px; z-index: 2; grid-column: 3; grid-row: 2 / span 3;">        
+    <div class="grid-item cloudSelecter" style="z-index: 2; grid-column: 4 / span 2; grid-row: 4 / span 3;">        
         
         <div class="cloudContainer">        
             <img src="Images/RoomI/Cloud_02_OutLine.png" alt="" ng-click="triggerCloud($event, 'Music')"/>        
@@ -62,7 +51,7 @@
 
     </div>           
     
-    <div class="grid-item navigationBar cloudSelecter" style="z-index: 1; grid-column: 4; grid-row: 2 / span 3;">
+    <div class="grid-item cloudSelecter" style="z-index: 1; grid-column: 6 / span 2; grid-row: 4 / span 3;">
         
         <div class="cloudContainer">        
             <img src="Images/RoomI/Cloud_03_OutLine.png" alt="" ng-click="triggerCloud($event, 'Nature')"/>        
@@ -75,7 +64,7 @@
 
     </div>   
     
-    <div class="grid-item navigationBar cloudSelecter" style="z-index: 1; margin-top: 54px; grid-column: 1; grid-row: 4;" >        
+    <div class="grid-item cloudSelecter" style="z-index: 1; grid-column: 2 / span 2; grid-row: 7 / span 3;" >        
         
         <div class="cloudContainer">        
             <img src="Images/RoomI/Cloud_04_OutLine.png" alt="" ng-click="triggerCloud($event, 'History')"/>        
@@ -88,7 +77,7 @@
                 
     </div>    
 
-    <div class="grid-item navigationBar cloudSelecter" style="z-index: 2; margin-top: 54px; margin-left: -96px; grid-column: 3; grid-row: 4 / span 3;">
+    <div class="grid-item cloudSelecter" style="z-index: 2; grid-column: 4 / span 2; grid-row: 7 / span 3;">
         
         <div class="cloudContainer">        
             <img src="Images/RoomI/Cloud_05_OutLine.png" alt="" ng-click="triggerCloud($event, 'Travel')"/>        
@@ -101,7 +90,7 @@
         
     </div>           
     
-    <div class="grid-item navigationBar cloudSelecter" style="z-index: 1; margin-top: 54px; grid-column: 4; grid-row: 4 / span 3;">
+    <div class="grid-item cloudSelecter" style="z-index: 1; grid-column: 6 / span 2; grid-row: 7 / span 3;">
         
         <div class="cloudContainer">        
             <img src="Images/RoomI/Cloud_06_OutLine.png" alt="" ng-click="triggerCloud($event, 'Dreams')"/>        
@@ -114,7 +103,7 @@
 
     </div>          
     
-    <div class="grid-item navigationBar cloudSelecter" style="z-index: 1; grid-column: 1; grid-row: 7 / span 3;">        
+    <div class="grid-item cloudSelecter" style="z-index: 1; grid-column: 2 / span 2; grid-row: 10 / span 3;">        
         
         <div class="cloudContainer">        
             <img src="Images/RoomI/Cloud_07_OutLine.png" alt="" ng-click="triggerCloud($event, 'Food')"/>        
@@ -127,7 +116,7 @@
 
     </div>    
 
-    <div class="grid-item navigationBar cloudSelecter" style="z-index: 2; margin-left: 96px; grid-column: 2; grid-row: 7 / span 3;">        
+    <div class="grid-item cloudSelecter" style="z-index: 2; grid-column: 4 / span 2; grid-row: 10 / span 3;">        
         
         <div class="cloudContainer">        
             <img src="Images/RoomI/Cloud_08_OutLine.png" alt="" ng-click="triggerCloud($event, 'Art')"/>        
@@ -140,7 +129,7 @@
 
     </div>           
     
-    <div class="grid-item navigationBar cloudSelecter" style="z-index: 1; grid-column: 4; grid-row: 7 / span 3;">        
+    <div class="grid-item cloudSelecter" style="z-index: 1; grid-column: 6 / span 2; grid-row: 10 / span 3;">        
         
         <div class="cloudContainer">        
             <img src="Images/RoomI/Cloud_09_OutLine.png" alt="" ng-click="triggerCloud($event, 'People')"/>        
@@ -153,8 +142,12 @@
 
     </div>          
     
-    <div class="grid-item logo" style="grid-column: 2 / span 3; grid-row: 10;">
+    <!-- Deposit Section -->    
+    <div ng-include src="'Templates/Keyboard/typeWriter.html'" ng-controller="KeyboardCTRL" class="grid-item" style="grid-column: 9 / span 8; grid-row: 3 / span 11;"></div>                                    
+
+    <!-- Sign Off -->    
+    <div class="grid-item center logo" style="grid-column: 1 / span 8; grid-row: 13;">
         <img src="Images/Common/StoryBanklogo.png" />   
-    </div>       
+    </div>      
     
 </div>    

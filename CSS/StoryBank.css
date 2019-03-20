@@ -196,12 +196,24 @@ md-dialog
 **  Menu
 */
 
+.deposits img
+{
+    max-height: 192px;
+}
+
 .menuItem 
 {
     margin: 1em;
     padding: 1em;
     border-radius: 1em;   
     background-color: rgba(255,255,255, .2);
+}
+
+.selectedImage
+{        
+    background-image: url("../Images/Common/itemHighlight.svg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;    
 }
 
 /*
@@ -319,6 +331,17 @@ md-dialog
 {
     background-color: #862F2C;
     
+}
+
+#textForStory
+{
+    display: block;
+    margin: 0;
+    padding: 0;  
+    overflow:hidden;  
+    color: #111111;
+    width: calc(100% - 32px);
+    margin-bottom: 16px;
 }
 
 /*
@@ -557,14 +580,15 @@ div.paperButton p
 
 #hairSelected 
 {
+    max-height: 100%;
     position: relative;
-    margin-top: 42px;
-    margin-left: 6px; 
+    margin-top: 64px;
     z-index: 50;
 }
 
 #facesSelected 
 {
+    max-height: 100%;
     position: relative;    
     margin-top: -274px;
     margin-left: 22px; 
@@ -573,21 +597,24 @@ div.paperButton p
 
 #torsoSelected 
 {
+    max-height: 100%;
     position: relative;    
     margin-top: -148px;
-    margin-left: 46px;     
+    margin-left: 42px;     
     z-index: 20;    
 }
 
 #armsSelected 
 {
+    max-height: 100%;
     position: relative;    
     margin-top: -304px;
-    margin-left: 14px;     
+    margin-left: 22px;     
     z-index: 30;    
 }
 #handsSelected 
 {
+    max-height: 100%;
     position: relative;    
     margin-top: -246px;
     margin-left: -10px;    
@@ -595,6 +622,7 @@ div.paperButton p
 }
 #legsSelected 
 {
+    max-height: 100%;
     position: relative;
     margin-left: 46px;
     margin-top: -218px;
@@ -602,9 +630,10 @@ div.paperButton p
 }
 #feetSelected 
 {
+    max-height: 100%;
     position: relative;    
     margin-top: -211px;
-    margin-left: 32px;    
+    margin-left: 36px;    
     z-index: 20;        
 }
 
@@ -633,9 +662,65 @@ div.paperButton p
     border-radius: 16px;            
 }
 
-/*
 .styleSelector ul li img
 {
-    width: 128px;
+    max-width: 128px;
 }
+
+.imageHolder
+{
+    max-width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+/*
+**  Room I
 */
+
+.cloudSelecter
+{
+    position: relative;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.cloudContainer img
+{        
+    width: 100%;
+}
+
+.cloudContainer h3
+{        
+    position: absolute;
+    top: 66px;
+    text-align: center;
+    display: block !important;  
+    width: 100%;
+    font-size: 3em !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    pointer-events: none;    
+}
+
+.gifContainer 
+{
+    position: absolute;
+    top: 0;      
+    left: 0;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    display: none;
+}
+
+.gifContainer img
+{
+    /*
+    height: 216px;
+    */
+    
+    opacity: .8;
+}
