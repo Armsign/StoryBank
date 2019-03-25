@@ -1,6 +1,7 @@
 /* 
-    Created on : Feb 28, 2019, 10:37:21 AM
-    Author     : PaulDunn
+    Created on  : Feb 28, 2019, 10:37:21 AM
+    Author      : PaulDunn
+    Notes       : This file was consolidated to simplify releases.
 */
 
 /*
@@ -183,13 +184,17 @@ md-dialog
     background-size: cover;
 
     grid-template-columns: 1% 8% 8% 8% 8% 8% 8% 1% 1% 8% 8% 8% 8% 8% 8% 1%;    
-    grid-template-rows: 2% 8% 8% 8% 8% 8% 8% 8% 8% 8% 8% 8% 8% 2%;
-    
+    grid-template-rows: 2% 8% 8% 8% 8% 8% 8% 8% 8% 8% 8% 8% 8% 2%;    
 }
 
 .deposits
 {
     background-image: url("../Images/Common/typeWriterBackground.png"); 
+}
+
+.curation md-input-container
+{
+    font-size: 2em;
 }
 
 /*
@@ -723,4 +728,49 @@ div.paperButton p
     */
     
     opacity: .8;
+}
+
+/*
+**  Admin section
+*/
+
+#loginForm
+{
+    padding: 2em;
+}
+
+.md-whiteframe-1dp
+{
+    background-color: white;
+}
+
+.toolBar
+{
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+
+.md-button
+{   
+    float: left;
+    /* width: 100%; */
+}
+
+/*
+**  Withdrawals
+*/
+
+.myAccount img
+{
+    margin-top: -4%;
+    width: 100%;        
+}
+
+.category img
+{
+    width: 96%;
+    margin: 2%;
 }

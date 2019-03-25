@@ -1,22 +1,20 @@
-<div class="grid-container storyDirectory" md-swipe-left="leftSwipe();" md-swipe-right="rightSwipe();">
+<div class="grid-container withdrawals" md-swipe-left="leftSwipe();" md-swipe-right="rightSwipe();">
     
-    <!-- Row 1 Background image -->
-    <div style="grid-column: 2 / span 8; grid-row: 2;" class="center">
-        
-        <img class="letterAccent" src="Images/Common/letterAccent_Left.svg" />        
-        <h1 class="blue">Choose a {{activeCategory}} Story</h1>         
-        <img class="letterAccent" src="Images/Common/letterAccent_Right.svg" />        
-        
-         <h2>
+    <div class="grid-item center" style="grid-column: 1 / span 16; grid-row: 1 / span 3;">
+        <h1 class="blue">
+            <img class="letterAccent" src="Images/Common/letterAccent_Left.svg" />        
+            Choose a {{activeCategory}} Story
+            <img class="letterAccent" src="Images/Common/letterAccent_Right.svg" />     
+        </h1>
+        <h2>
              <b class="blue">Touch</b> one of the categories below to explore our collection.
         </h2>
-        
-    </div>
+    </div>    
     
     <!-- My Account -->
-    <div class="grid-item center myAccount" style="grid-column: 9; grid-row: 1 / span 2;">    
-        <img src="Images/RoomL/MyAccount_Button.svg" ng-click="openAccount($event)" />            
-    </div>   
+    <div class="grid-item center myAccount" style="grid-column: 14 / span 2; grid-row: 1 / span 2;">    
+        <img src="Images/RoomL/MyAccount_Button.svg" ng-click="openAccount($event)"/>            
+    </div>      
 
     <!-- Stories -->
     <div class="grid-item left" style="grid-column: 2 / span 6; grid-row: 3;">    
@@ -59,9 +57,8 @@
         
     </div>       
   
-    <!-- Finish it off -->
-    
-    <div class="grid-item logo center" style="grid-column: 1 / span 10; grid-row: 9;" ng-click="backToCategories();">
+    <!-- Sign Off -->    
+    <div class="grid-item center logo" style="grid-column: 1 / span 16; grid-row: 13;">
         <img src="Images/Common/StoryBanklogo.png" />   
     </div>     
     

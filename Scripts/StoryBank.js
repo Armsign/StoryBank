@@ -647,6 +647,441 @@ myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog)
     
 });
 
+myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $cookies, $location)
+{ 
+    $scope.securedLogin = 0;    
+    $scope.email = '';
+    $scope.password = '';    
+    $scope.displayName = '';
+    $scope.newStoriesCount = 0;
+    $scope.flaggedStoriesCount = 0;    
+    $scope.tagCount = 0;    
+    $scope.staffCount = 0;    
+    $scope.approvedStoriesCount = 0;
+    $scope.deadStoriesCount = 0;    
+    $scope.token = '';
+    $scope.searchText = '';
+    
+    $scope.gridNewStoriesOptions = { data: [], pagination: { itemsPerPage: '10' } };            
+    $scope.gridFlaggedStoriesOptions = { data: [], pagination: { itemsPerPage: '10' } };
+    $scope.gridApprovedStoriesOptions = { data: [], pagination: { itemsPerPage: '10' } };
+    $scope.gridDeadStoriesOptions = { data: [], pagination: { itemsPerPage: '10' } };
+    $scope.gridMembersOptions = { data: [], pagination: { itemsPerPage: '10' } };
+    $scope.gridTagsOptions = { data: [], pagination: { itemsPerPage: '10' } };
+
+    $scope.getServerData = function() 
+    {
+        if ($scope.token && $scope.token.length > 0)
+        {
+            //  Ok ... but how it actually needs to send these to an api ...        
+            var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=newStories&token=' + $scope.token;       
+            
+            //  Call the login function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    $scope.gridNewStoriesOptions.data = response.data;
+                    $scope.newStoriesCount = response.data.length;
+                });   
+
+        }
+    };   
+    
+    $scope.getApprovedStoryData = function() 
+    {
+        if ($scope.token && $scope.token.length > 0)
+        {
+            //  Ok ... but how it actually needs to send these to an api ...        
+            var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=oldStories&token=' + $scope.token;       
+            
+            //  Call the login function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    $scope.gridApprovedStoriesOptions.data = response.data;
+                    $scope.approvedStoriesCount = response.data.length;
+                });   
+
+        }
+    };   
+    
+    $scope.getDeadStoryData = function() 
+    {
+        if ($scope.token && $scope.token.length > 0)
+        {
+            //  Ok ... but how it actually needs to send these to an api ...        
+            var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=deadStories&token=' + $scope.token;       
+            
+            //  Call the login function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    $scope.gridDeadStoriesOptions.data = response.data;
+                    $scope.deadStoriesCount = response.data.length;
+                });   
+
+        }
+    };       
+
+    $scope.getFlaggedServerData = function() 
+    {
+       var token = $cookies.get('authenticationToken');
+        
+        if (token && token.length > 0)
+        {
+            //  Ok ... but how it actually needs to send these to an api ...        
+            var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=deposit&method=flaggedStories&token=' + token;       
+            
+            //  Call the login function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    $scope.gridFlaggedStoriesOptions.data = response.data;   
+                    $scope.flaggedStoriesCount = response.data.length;
+                });   
+
+        }
+    }; 
+
+    $scope.getMemberServerData = function() 
+    {
+       var token = $cookies.get('authenticationToken');
+        
+        if (token && token.length > 0)
+        {
+            //  Ok ... but how it actually needs to send these to an api ...        
+            var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=members&method=fetch&token=' + token;       
+            
+            //  Call the login function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    for (var i = 0; i < response.data.length; i++)
+                    {
+
+                        if (response.data[i].IS_ACTIVE === '1')
+                        {
+                            response.data[i].ACTIVE = 'Yes';
+                        } else {
+                            response.data[i].ACTIVE = 'No';                            
+                        }
+                        
+                    }
+                    
+                    $scope.gridMembersOptions.data = response.data;  
+                    $scope.staffCount = response.data.length;
+                });   
+
+        }
+    }; 
+    
+    $scope.getTagServerData = function() 
+    {
+       var token = $cookies.get('authenticationToken');
+        
+        if (token && token.length > 0)
+        {
+            //  Ok ... but how it actually needs to send these to an api ...        
+            var url = 'http://' + $location.host() + '/Vault/API.php?action=tags&method=fetch';       
+
+            //  Call the tags function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    $scope.gridTagsOptions.data = response.data;
+                    $scope.tagCount = response.data.length;
+                }, 
+                function(response) 
+                {
+                    //  That's ok, no tags, we don't even need them.
+                });         
+           return; 
+
+        }
+    }; 
+    
+    $scope.authenticate = function(ev)
+    {
+        if (this.email.length > 0 && this.password.length > 0)
+        {        
+            $scope.securedLogin = -1;
+            
+            var url = 'http://' + $location.host() + '/Vault/API.php?action=administer&method=login&email=' + this.email + '&password=' + this.password;       
+
+            //  Call the login function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    if (response.data.ID > 0)
+                    {
+                        //  We have a real person, let's setup the token ..
+                        var expireDate = new Date();
+                        expireDate.setDate(expireDate.getDate() + 1);
+                        $cookies.put('authenticationToken', response.data.SESSION, { expires: expireDate } );                           
+
+                        $scope.securedLogin = 1;                        
+                        $scope.displayName = response.data.PREFERRED_NAME;
+                        $scope.token = response.data.SESSION;
+                        
+                        //  Load up teh data grids!
+                        $scope.getServerData();
+                        $scope.getFlaggedServerData();   
+                        $scope.getMemberServerData();
+                        $scope.getTagServerData();
+                        $scope.getApprovedStoryData();
+                        $scope.getDeadStoryData();
+                        
+                    } else {
+                        
+                        $scope.securedLogin = 0;
+                        
+                         $mdDialog.show(
+                            $mdDialog.alert()
+                              .parent(angular.element(document.querySelector('#popupContainer')))
+                              .clickOutsideToClose(true)
+                              .title('Login error')
+                              .textContent('The email address or password you have supplied are not recognised.')
+                              .ariaLabel('Login alert!')
+                              .ok('Awww!')
+                              .targetEvent(ev)
+                          );
+                    }                              
+                });   
+        } 
+    };
+    
+    angular.element(document).ready(function () 
+    {        
+        $scope.token = $cookies.get('authenticationToken');
+        
+        if ($scope.token && $scope.token.length > 0)
+        {
+            //  Ok ... but how it actually needs to send these to an api ...        
+            var url = 'http://' + $location.host() + '/Vault/API.php?action=administer&method=relogin&token=' + $scope.token;       
+
+            //  Call the login function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    if (response.data.ID > 0)
+                    {
+                        $scope.securedLogin = 1;     
+                        
+                        $scope.displayName = response.data.PREFERRED_NAME;
+                        
+                        //  Load up teh data grids!
+                        $scope.getServerData();
+                        $scope.getFlaggedServerData();   
+                        $scope.getMemberServerData();
+                        $scope.getTagServerData();
+                        $scope.getApprovedStoryData();
+                        $scope.getDeadStoryData();
+                        
+                    }   
+                    
+                }, 
+                function(response) 
+                {
+                    $cookies.remove("authenticationToken");
+                });                                   
+        }
+    });   
+
+});
+
+myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, $location, $mdDialog, $http) 
+{ 
+    $scope.activeCategory = '';
+    $scope.sortBy = 'NEWEST';
+    $scope.withdrawals = undefined;
+    $scope.withdrawalsCount = 0;
+    
+    $scope.loadStory = function(story)
+    {
+        $location.path("/Room/View/L/Story/Display/" + story);   
+    }
+   
+    $scope.loadWithdrawals = function()
+    {
+ 
+        //  Ok ... but how it actually needs to send these to an api ...        
+        var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=withdrawal&tag=' + $scope.activeCategory + '&orderBy=' + $scope.sortBy;       
+
+        //  Call the login function appropriately
+        $http.get(url).then(
+            function (response)   
+            {
+                $scope.withdrawals = response.data;
+                $scope.withdrawalsCount = response.data.length;
+            });   
+        
+    }    
+   
+    $scope.leftSwipe = function()
+    {
+        var result = undefined;
+
+        $scope.resetHeadings();
+
+        switch ($scope.sortBy)
+        {
+            case "POPULAR":
+                result = document.getElementById('newestStory');
+                $scope.sortBy = "NEWEST";
+                break;
+            case "AUTHOR":
+                result = document.getElementById('popularStory');                               
+                $scope.sortBy = "POPULAR";
+                break;
+            case "TITLE":
+                result = document.getElementById('authorStory');                
+                $scope.sortBy = "AUTHOR";
+                break;
+            default:    //  Newest
+                result = document.getElementById('azStory');                
+                $scope.sortBy = "TITLE";
+                break;            
+        }     
+        
+        angular.element(result).addClass("headerUnderline red");
+
+        $scope.loadWithdrawals();
+    }
+   
+    $scope.rightSwipe = function()
+    {
+        var result = undefined;
+
+        //  NEWEST POPULAR AUTHOR TITLE 
+        $scope.resetHeadings();
+        
+        switch ($scope.sortBy)
+        {
+            case "POPULAR":
+                result = document.getElementById('authorStory');
+                $scope.sortBy = "AUTHOR";
+                break;
+            case "AUTHOR":
+                result = document.getElementById('azStory');                               
+                $scope.sortBy = "TITLE";
+                break;
+            case "TITLE":
+                result = document.getElementById('newestStory');                
+                $scope.sortBy = "NEWEST";
+                break;
+            default:    //  Newest
+                result = document.getElementById('popularStory');                
+                $scope.sortBy = "POPULAR";
+                break;            
+        }     
+        
+        angular.element(result).addClass("headerUnderline red");
+
+        $scope.loadWithdrawals();
+        
+    };
+    
+    $scope.resetHeadings = function()
+    {
+        
+        var result = document.getElementsByTagName('h3');
+        angular.element(result).removeClass('headerUnderline');
+        angular.element(result).removeClass('red');         
+        angular.element(result).addClass('blue');         
+        
+    }
+    
+    $scope.switchCategory = function($event, artefact)
+    {
+        //  Something happened ...
+        clearTimeout($scope.screenSaverTimeout);
+        $scope.screenSaverTimeout = setTimeout(function(){ $scope.timeOut(); }, $rootScope.timeInMilliSeconds); 
+
+        //  Ok, switch to withdrawal mode
+        $location.path('/Room/View/L/Story/' + artefact);
+      
+    };       
+    
+    $scope.switchOrderBy = function(category)
+    {
+        var result = undefined;
+
+        $scope.resetHeadings();
+
+        switch (category)
+        {
+            case "POPULAR":
+                result = document.getElementById('popularStory');
+                $scope.sortBy = "POPULAR";
+                break;
+            case "AUTHOR":
+                result = document.getElementById('authorStory');                               
+                $scope.sortBy = "AUTHOR";
+                break;
+            case "TITLE":
+                result = document.getElementById('azStory');                
+                $scope.sortBy = "TITLE";
+                break;
+            default:    //  Newest
+                result = document.getElementById('newestStory');                
+                $scope.sortBy = "NEWEST";
+                break;            
+        }     
+        
+        angular.element(result).addClass("headerUnderline red");
+
+        $scope.loadWithdrawals();   
+        
+    }
+    
+    $scope.openAccount = function(ev)
+    {
+
+        //  Abstract the deposit into a dialog ... templated, yes.
+        $rootScope.openDialog = $mdDialog.show({
+            templateUrl: 'Templates/Keyboard/depositCollectID.html',
+            controller: 'DepositCTRL',         
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true
+        })
+        .then(function(answer) {
+            
+            //  It's anon
+            $scope.visitorID = answer;            
+            $scope.email = 'anon@storybank.com.au';
+            $scope.nomDePlume = 'Anon';
+            $scope.completeDeposit();      
+    
+            $rootScope.openDialog = false;
+  
+        }, function() {
+            
+            //    No action
+            $rootScope.openDialog = false;
+          
+        }); 
+        
+    }
+    
+    $scope.backToCategories = function()
+    {
+        
+        $location.path('Room/View/L/0');        
+        
+    }
+   
+    angular.element(document).ready(function () 
+    {                
+        //  This here        
+        $scope.activeCategory = $routeParams.category;               
+        $scope.loadWithdrawals();
+
+        $scope.$digest();
+    });  
+
+});
+
 myApp.config(['$routeProvider', function($routeProvider) 
 {      
     
@@ -656,7 +1091,7 @@ myApp.config(['$routeProvider', function($routeProvider)
             controller:''
         }).
         when('/Admin', { 
-            templateUrl: 'Templates/Admin/admin.html',
+            templateUrl: 'Templates/Curation/admin.html',
             controller: 'AdminCTRL'    
         }). 
         when('/Room/ScreenSaver', { 
@@ -680,8 +1115,8 @@ myApp.config(['$routeProvider', function($routeProvider)
             controller: 'DepositsCTRL'    
         }).                  
         when('/Room/View/L/:artefact', { 
-            templateUrl: 'Templates/Rooms/roomL.html',
-            controller: 'RoomCTRL'    
+            templateUrl: 'Templates/Withdrawal/roomL.html',
+            controller: 'WithdrawalsCTRL'    
         }).                                                 
         when('/Room/View/L/Story/:category', { 
             templateUrl: 'Templates/Withdrawal/withdrawals.html',
@@ -690,14 +1125,22 @@ myApp.config(['$routeProvider', function($routeProvider)
         when('/Room/View/L/Story/Display/:id', { 
             templateUrl: 'Templates/Withdrawal/story.html',
             controller: 'StoryReaderCTRL'    
-        }).                   
-        when('/Record', { 
-            templateUrl: 'Templates/Record/record.html',
-            controller: 'RecordCTRL'    
-        }).                 
-        when('/Playback', { 
-            templateUrl: 'Templates/Playback/playback.html',
-            controller: 'PlaybackCTRL'      
         });                
     
+}]);
+
+myApp.config(['$provide', function($provide)
+{
+    // this demonstrates how to register a new tool and add it to the default toolbar
+    $provide.decorator('taOptions', ['$delegate', function(taOptions){
+            // $delegate is the taOptions we are decorating
+            // here we override the default toolbars and classes specified in taOptions.
+            taOptions.toolbar = [
+                    ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre', 'quote'],
+                    ['bold', 'italics', 'underline', 'ul', 'ol', 'clear'],
+                    ['justifyLeft','justifyCenter','justifyRight', 'justifyFull'],
+                    ['html', 'insertLink', 'wordcount', 'charcount']
+            ];
+            return taOptions; // whatever you return will be the taOptions
+    }]);
 }]);

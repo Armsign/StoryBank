@@ -1,0 +1,61 @@
+<div class="grid-container withdrawals">
+    
+    <div class="grid-item center" style="grid-column: 1 / span 16; grid-row: 1 / span 3;">
+        <h1 class="blue">
+            <img class="letterAccent" src="Images/Common/letterAccent_Left.svg" />        
+            Choose a Story
+            <img class="letterAccent" src="Images/Common/letterAccent_Right.svg" />     
+        </h1>
+        <h2>
+             <b class="blue">Touch</b> one of the categories below to explore our collection.
+        </h2>
+    </div>    
+    
+    <!-- My Account -->
+    <div class="grid-item center myAccount" style="grid-column: 14 / span 2; grid-row: 1 / span 2;">    
+        <img src="Images/RoomL/MyAccount_Button.svg" ng-click="openAccount($event)"/>            
+    </div>    
+    
+    <!-- Categories -->
+    <div class="grid-item center category" style="grid-column: 1 / span 5; grid-row: 4 / span 3;">    
+        <img src="Images/RoomL/Category_Maryborough.svg" ng-click="switchCategory($event, 'Maryborough');"/>            
+    </div>
+
+    <div class="grid-item center category" style="grid-column: 6 / span 6; grid-row: 4 / span 3;">    
+        <img src="Images/RoomL/Category_Romance.svg" ng-click="switchCategory($event, 'Romance');"/>
+    </div>    
+    
+    <div class="grid-item center category" style="grid-column: 12 / span 5; grid-row: 4 / span 3;">    
+        <img src="Images/RoomL/Category_Adventure.svg" ng-click="switchCategory($event, 'Adventure');"/>
+    </div>    
+
+    <div class="grid-item center category" style="grid-column: 1 / span 5; grid-row: 7 / span 3;">    
+        <img src="Images/RoomL/Category_Fantasy.svg" ng-click="switchCategory($event, 'Fantasy');"/>
+    </div>    
+    
+    <div class="grid-item center category" style="grid-column: 6 / span 6; grid-row: 7 / span 3;">    
+        <img src="Images/RoomL/Category_Horror.svg" ng-click="switchCategory($event, 'Horror');"/>
+    </div>      
+    
+    <div class="grid-item center category" style="grid-column: 12 / span 5; grid-row: 7 / span 3;">    
+        <img src="Images/RoomL/Category_Drama.svg" ng-click="switchCategory($event, 'Drama');"/>
+    </div>          
+    
+    <div class="grid-item center category" style="grid-column: 1 / span 5; grid-row: 10 / span 3;">    
+        <img src="Images/RoomL/Category_Thriller.svg" ng-click="switchCategory($event, 'Thriller');"/>
+    </div>    
+    
+    <div class="grid-item center category" style="grid-column: 6 / span 6; grid-row: 10 / span 3;">    
+        <img src="Images/RoomL/Category_Comedy.svg" ng-click="switchCategory($event, 'Comedy');" />
+    </div>      
+    
+    <div class="grid-item center category" style="grid-column: 12 / span 5; grid-row: 10 / span 3;">    
+        <img src="Images/RoomL/Category_ScienceFiction.svg" ng-click="switchCategory($event, 'Science Fiction');"/>
+    </div>     
+    
+    <!-- Sign Off -->    
+    <div class="grid-item center logo" style="grid-column: 1 / span 16; grid-row: 13;">
+        <img src="Images/Common/StoryBanklogo.png" />   
+    </div>       
+    
+</div>    

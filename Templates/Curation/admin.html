@@ -1,465 +1,605 @@
-<div class="adminContainer">
+<div class="grid-container curation">
 
+    <div class="grid-item center" style="grid-column: 1 / span 16; grid-row: 1 / span 3;">
+        <h1 class="blue">
+            <img class="letterAccent" src="Images/Common/letterAccent_Left.svg" />        
+            Story Bank Curator
+            <img class="letterAccent" src="Images/Common/letterAccent_Right.svg" />     
+        </h1>
+    </div>       
+    
     <!-- Login option -->   
-    <div class="loginDialogue" ng-if="securedLogin === 0">
-
-        <div class="md-whiteframe-1dp">
-
-                <h1 class="red" style="display: block; text-align: center;">Story Bank Curator</h1>
-
-                <br/><br/>
+    <div ng-if="securedLogin === 0" style="grid-column: 6 / span 6; grid-row: 6 / span 4;" class="md-whiteframe-1dp">
                 
-                <form name="loginForm">
-                    <md-input-container class="md-block">
-                        <label>Email</label>
-                        <input id="storyEmail" required type="email" ng-model="email" placeholder="Email">
-                    </md-input-container>        
+        <form id="loginForm" name="loginForm">
 
-                    <md-input-container class="md-block">
-                        <label>Password</label>
-                        <input id="storyPassword" required type="password" ng-model="password" placeholder="Password">
-                    </md-input-container>  
+            <md-input-container class="md-block">
+                <label>Email</label>
+                <input id="storyEmail" required type="email" ng-model="email" placeholder="Email">
+            </md-input-container>        
 
-                    <md-input-container class="md-block" style="text-align: center;">
-                        <md-button class="md-raised" ng-click="authenticate(ev)">Submit</md-button>
-                        <md-button class="md-raised" ng-click="backToMenu(ev)">Cancel</md-button>
-                    </md-input-container>              
+            <md-input-container class="md-block">
+                <label>Password</label>
+                <input id="storyPassword" required type="password" ng-model="password" placeholder="Password">
+            </md-input-container>  
 
-                </form>
+            <md-input-container class="md-block" style="text-align: center;">
+                <md-button class="md-raised" ng-click="authenticate(ev)">Login</md-button>
+            </md-input-container>              
 
-        </div>
+        </form>
 
     </div>   
 
     <!-- Dashboard view -->
-    <div class="adminDirectory" ng-if="securedLogin === 1">
-
-        <div class="md-whiteframe-1dp">
-            
-            <h1 class="red" style="display: inline; text-align: left; margin-right: 64px; padding-top:16px;">Story Bank Curator</h1> 
-            
-            <md-input-container class="md-block" style="text-align: center; display: inline;">
-                <md-button class="md-raised" ng-click="addDeposit()">Create a Story</md-button>
-                <md-button class="md-raised" ng-click="addStaff($event)">Create Staff</md-button>
-                <md-button class="md-raised" ng-click="addTag($event)">Create a Tag</md-button>
-                &nbsp;
-                <md-button class="md-raised" ng-click="logOut()">Logout {{displayName}}</md-button>                
-            </md-input-container>   
-            
-        </div>
+    <div ng-if="securedLogin === 1" style="grid-column: 11 / span 4; grid-row: 3;">
         
-        <div class="md-whiteframe-1dp" style="padding: 0; min-height: 420px;">
-            <md-content>
-                <md-tabs md-dynamic-height md-border-bottom>
-                    
-                    <md-tab label="New Stories ({{newStoriesCount}})">
-                        <md-content class="md-padding">
+        <md-input-container class="md-block">
+            <md-button class="md-raised" ng-click="addDeposit()" style="grid-column: 13; grid-row: 3;">Create a Story</md-button>
+            <md-button class="md-raised" ng-click="addStaff($event)" style="grid-column: 14; grid-row: 3;">Create Staff</md-button>
+            <md-button class="md-raised" ng-click="addTag($event)" style="grid-column: 15; grid-row: 3;">Create a Tag</md-button>
+            <md-button class="md-raised" ng-click="logOut()" style="grid-column: 16; grid-row: 3;">Logout</md-button>                
+        </md-input-container>   
+        
+    </div>
+        
+    <div ng-if="securedLogin === 1" class="md-whiteframe-1dp" style="grid-column: 3 / span 12; grid-row: 4 / span 12;">        
 
-                            <div id="newStories" grid-data grid-options="gridNewStoriesOptions" grid-actions="gridNewStoriesActions">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th sortable="ID" class="sortable">#
-                                        
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="ID"
-                                                filter-by="ID"
-                                                filter-type="text" />                                            
-                                                                                
-                                        </th>
-                                        
-                                        <th sortable="STORED_BY" class="sortable">Email
-                                        
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="STORED_BY"
-                                                filter-by="STORED_BY"
-                                                filter-type="text" />
-                                        
-                                        </th>                                                            
-                                        <th sortable="STORED_AS" class="sortable">Nom De Plume
-                                        
-                                        
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="STORED_AS"
-                                                filter-by="STORED_AS"
-                                                filter-type="text" />
-                                                                                
-                                        
-                                        </th>                                                            
-                                        <th sortable="STORED_ON" class="sortable">Received
-                                        
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="STORED_ON"
-                                                filter-by="STORED_ON"
-                                                filter-type="text">                                           
-                                            
-                                        </th>                                                                                
-                                        <th sortable="TRANSCRIPTION" class="sortable">Story
-                                            <!--
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="TRANSCRIPTION"
-                                                filter-by="TRANSCRIPTION"
-                                                filter-type="text" />  
-                                            -->
-                                        
-                                        </th>  
-                                        <th>&nbsp;</th>  
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr grid-item>
-                                            <td ng-click="editDeposit(item, $event)" ng-bind="item.ID" class="underline"></td>
-                                            <td ng-bind="item.STORED_BY"></td> 
-                                            <td ng-bind="item.STORED_AS"></td> 
-                                            <td ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
-                                            <!--
-                                            <td ng-bind="item.TRANSCRIPTION">
-                                                Hello there! {{item.TRANSCRIPTION}}
-                                            </td>
-                                            -->
-                                            
-                                            <td>
-                                                <p ng-bind-html="item.TRANSCRIPTION"></p>                                                
-                                            </td>                                            
-                                            
-                                            <td ng-click="deleteDeposit(item, $event)" class="underline centre">
-                                                Delete                                                
-                                            </td> 
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>   
-                            
-                        </md-content>
-                    </md-tab>   
+        <md-content>
+            <md-tabs md-dynamic-height md-border-bottom>
 
-                    <md-tab label="Approved Stories ({{approvedStoriesCount}})">
-                        <md-content class="md-padding">
+                <md-tab label="New Stories ({{newStoriesCount}})">
+                    <md-content class="md-padding">
 
-                            <div id="newStories" grid-data grid-options="gridApprovedStoriesOptions" grid-actions="gridNewStoriesActions">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th sortable="ID" class="sortable">#
-                                        
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="ID"
-                                                filter-by="ID"
-                                                filter-type="text">                                            
-                                        
-                                        
-                                        </th>
-                                        <th sortable="STORED_BY" class="sortable">Email
-                                        
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="STORED_BY"
-                                                filter-by="STORED_BY"
-                                                filter-type="text">
-                                        
-                                        </th>                                                            
-                                        <th sortable="STORED_AS" class="sortable">Nom De Plume
-                                        
-                                        
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="STORED_AS"
-                                                filter-by="STORED_AS"
-                                                filter-type="text">
-                                                                                
-                                        
-                                        </th>                                                            
-                                        <th sortable="STORED_ON" class="sortable">Received
-                                        
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="STORED_ON"
-                                                filter-by="STORED_ON"
-                                                filter-type="text">                                           
-                                            
-                                        </th>                                                                                
-                                        <th sortable="TRANSCRIPTION" class="sortable">Story
-                                            <!--
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="TRANSCRIPTION"
-                                                filter-by="TRANSCRIPTION"
-                                                filter-type="text">                                        
-                                            -->
-                                        </th>  
-                                        <th>&nbsp;</th> 
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr grid-item>
-                                            <td ng-click="editDeposit(item, $event)" ng-bind="item.ID" class="underline"></td>
-                                            <td ng-bind="item.STORED_BY"></td> 
-                                            <td ng-bind="item.STORED_AS"></td> 
-                                            <td ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
-                                            <td>
-                                                <p ng-bind-html="item.TRANSCRIPTION"></p>                                                
-                                            </td> 
-                                            <td ng-click="deleteDeposit(item, $event)" class="underline centre">
-                                                Delete                                                
-                                            </td> 
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>   
-                            
-                        </md-content>
-                    </md-tab>  
-                    
-                    <md-tab label="Unapproved Stories ({{deadStoriesCount}})">
-                        <md-content class="md-padding">
+                        <div id="newStories" grid-data grid-options="gridNewStoriesOptions" grid-actions="gridNewStoriesActions">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th sortable="ID" class="sortable">#
 
-                            <div id="newStories" grid-data grid-options="gridDeadStoriesOptions" grid-actions="gridNewStoriesActions">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th sortable="ID" class="sortable">#
-                                        
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="ID"
-                                                filter-by="ID"
-                                                filter-type="text">                                            
-                                        
-                                        
-                                        </th>
-                                        <th sortable="STORED_BY" class="sortable">Email
-                                        
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="STORED_BY"
-                                                filter-by="STORED_BY"
-                                                filter-type="text">
-                                        
-                                        </th>                                                            
-                                        <th sortable="STORED_AS" class="sortable">Nom De Plume
-                                        
-                                        
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="STORED_AS"
-                                                filter-by="STORED_AS"
-                                                filter-type="text">
-                                                                                
-                                        
-                                        </th>                                                            
-                                        <th sortable="STORED_ON" class="sortable">Received
-                                        
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="STORED_ON"
-                                                filter-by="STORED_ON"
-                                                filter-type="text">                                           
-                                            
-                                        </th>                                                                                
-                                        <th sortable="TRANSCRIPTION" class="sortable">Story
-                                            <!--
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="TRANSCRIPTION"
-                                                filter-by="TRANSCRIPTION"
-                                                filter-type="text">                                        
-                                            -->
-                                        </th>  
-                                        <th>&nbsp;</th>   
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr grid-item>
-                                            <td ng-click="editDeposit(item, $event)" ng-bind="item.ID" class="underline"></td>
-                                            <td ng-bind="item.STORED_BY"></td> 
-                                            <td ng-bind="item.STORED_AS"></td> 
-                                            <td ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
-                                            <td>
-                                                <p ng-bind-html="item.TRANSCRIPTION"></p>                                                
-                                            </td> 
-                                            <td ng-click="deleteDeposit(item, $event)" class="underline centre">
-                                                Delete                                                
-                                            </td> 
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>   
-                            
-                        </md-content>
-                    </md-tab>                        
-                    
-                    <md-tab label="Commented Stories ({{flaggedStoriesCount}})">
-                         <md-content class="md-padding">
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="ID"
+                                            filter-by="ID"
+                                            filter-type="text" />                                            
 
-                            <div id="flaggedStories" grid-data grid-options="gridFlaggedStoriesOptions" grid-actions="gridFlaggedStoriesActions">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <th sortable="ID" class="sortable">#
-                                        
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="ID"
-                                                filter-by="ID"
-                                                filter-type="text">                                            
-                                        
-                                        
-                                        </th>
-                                        <th sortable="STORED_BY" class="sortable">Email
-                                        
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="STORED_BY"
-                                                filter-by="STORED_BY"
-                                                filter-type="text">
-                                        
-                                        </th>                                                            
-                                        <th sortable="STORED_AS" class="sortable">Nom De Plume
-                                        
-                                        
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="STORED_AS"
-                                                filter-by="STORED_AS"
-                                                filter-type="text">
-                                                                                
-                                        
-                                        </th>                                                            
-                                        <th sortable="STORED_ON" class="sortable">Received
-                                        
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="STORED_ON"
-                                                filter-by="STORED_ON"
-                                                filter-type="text">                                           
-                                            
-                                        </th>                                                                                
-                                        <th sortable="TRANSCRIPTION" class="sortable">Story
-                                            <!--
-                                             <input type="text" class="form-control"
-                                                placeholder="Search ..."
-                                                ng-change="gridNewStoriesActions.filter()"
-                                                ng-model="TRANSCRIPTION"
-                                                filter-by="TRANSCRIPTION"
-                                                filter-type="text">                                        
-                                            -->
-                                        </th>  
-                                        <th>&nbsp;</th>                                                                                 
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr grid-item ng-click="editDeposit(item, $event)">
-                                           <td ng-click="editDeposit(item, $event)" ng-bind="item.ID" class="underline"></td>
-                                            <td ng-bind="item.STORED_BY"></td> 
-                                            <td ng-bind="item.STORED_AS"></td> 
-                                            <td ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
-                                            <td>
-                                                <p ng-bind-html="item.TRANSCRIPTION"></p>                                                
-                                            </td> 
-                                            <td ng-click="deleteDeposit(item, $event)" class="underline centre">
-                                                Delete                                                
-                                            </td>                   
-                                        </tr>
-                                    
-                                    </tbody>
-                                </table>
-                            </div>           
-                        </md-content>
-                    </md-tab>   
+                                    </th>
 
-                    <md-tab label="Tags ({{tagCount}})">
-                        <md-content class="md-padding">
+                                    <th sortable="STORED_BY" class="sortable">Email
 
-                            <div id="members" grid-data grid-options="gridTagsOptions" grid-actions="gridMembersActions">
-                               <table class="table table-bordered table-striped">
-                                   <thead>
-                                   <tr>
-                                       <th sortable="ID" class="sortable">#</th>
-                                       <th sortable="TITLE" class="sortable">Title</th>                                       
-                                       <th sortable="DESCRIPTION" class="sortable">Description</th>  
-                                       <th>&nbsp;</th>  
-                                   </tr>
-                                   </thead>
-                                   <tbody>
-                                   <tr grid-item>
-                                       <td ng-bind="item.ID" class="underline" ng-click="editTag(item, $event)"></td>
-                                       <td ng-bind="item.TITLE"></td>
-                                       <td ng-bind="item.DESCRIPTION"></td> 
-                                        <td ng-click="deleteTag(item, $event)" class="underline centre">
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="STORED_BY"
+                                            filter-by="STORED_BY"
+                                            filter-type="text" />
+
+                                    </th>                                                            
+                                    <th sortable="STORED_AS" class="sortable">Nom De Plume
+
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="STORED_AS"
+                                            filter-by="STORED_AS"
+                                            filter-type="text" />
+
+
+                                    </th>                                                            
+                                    <th sortable="STORED_ON" class="sortable">Received
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="STORED_ON"
+                                            filter-by="STORED_ON"
+                                            filter-type="text">                                           
+
+                                    </th>                                                                                
+                                    <th sortable="TRANSCRIPTION" class="sortable">Story
+                                        <!--
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="TRANSCRIPTION"
+                                            filter-by="TRANSCRIPTION"
+                                            filter-type="text" />  
+                                        -->
+
+                                    </th>  
+                                    <th>&nbsp;</th>  
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr grid-item>
+                                        <td ng-click="editDeposit(item, $event)" ng-bind="item.ID" class="underline"></td>
+                                        <td ng-bind="item.STORED_BY"></td> 
+                                        <td ng-bind="item.STORED_AS"></td> 
+                                        <td ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
+                                        <!--
+                                        <td ng-bind="item.TRANSCRIPTION">
+                                            Hello there! {{item.TRANSCRIPTION}}
+                                        </td>
+                                        -->
+
+                                        <td>
+                                            <p md-truncate ng-bind-html="item.TRANSCRIPTION"></p>                                                
+                                        </td>                                            
+
+                                        <td ng-click="deleteDeposit(item, $event)" class="underline centre">
                                             Delete                                                
-                                        </td>                                        
-                                   </tr>
-                                   </tbody>
-                               </table> 
-                                
-                            </div>
-                        </md-content>
-                    </md-tab>   
-                    
-                    <md-tab label="Staff ({{staffCount}})">
-                        <md-content class="md-padding">
+                                        </td> 
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <form class="form-inline pull-right margin-bottom-basic">
+                                <div class="form-group">
+                                    <grid-pagination max-size="5"
+                                                     boundary-links="true"
+                                                     class="pagination-sm"
+                                                     total-items="paginationOptions.totalItems"
+                                                     ng-model="paginationOptions.currentPage"
+                                                     ng-change="reloadGrid()"
+                                                     items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                                </div>
+                                <div class="form-group items-per-page">
+                                    <label for="itemsOnPageSelect2">Items per page:</label>
+                                    <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                            ng-init="paginationOptions.itemsPerPage = '10'"
+                                            ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                        <option>10</option>
+                                        <option>25</option>
+                                        <option>50</option>
+                                        <option>75</option>
+                                    </select>
+                                </div>
+                            </form>
+                            
+                        </div>   
 
-                            <div id="members" grid-data grid-options="gridMembersOptions" grid-actions="gridMembersActions">
-                               <table class="table table-bordered table-striped">
-                                   <thead>
-                                   <tr>
-                                        <th sortable="ID" class="sortable">#</th>
-                                        <th sortable="EMAIL" class="sortable">Email</th>                                       
-                                        <th sortable="PREFERRED_NAME" class="sortable">Name</th>                                           
-                                        <th sortable="IS_ACTIVE" class="sortable">Active?</th>                                                                                                    
-                                        <th>&nbsp;</th>  
-                                   </tr>
-                                   </thead>
-                                   <tbody>
-                                   <tr grid-item>
-                                        <td ng-click="editMember(item, $event)" ng-bind="item.ID" class="underline"></td>
-                                        <td ng-bind="item.EMAIL"></td>
-                                        <td ng-bind="item.PREFERRED_NAME"></td>                                                                                
-                                        <td ng-bind="item.ACTIVE"></td>                                        
-                                        <td ng-click="passwordMember(item, $event)" class="underline centre">
-                                             Set Password                                                
-                                        </td>                                           
-                                   </tr>
-                                   </tbody>
-                               </table> 
-                            </div>
-                        </md-content>
-                    </md-tab>                                        
-                    
-                </md-tabs>
-            </md-content>
-        </div>
+                    </md-content>
+                </md-tab>   
+
+                <md-tab label="Approved Stories ({{approvedStoriesCount}})">
+                    <md-content class="md-padding">
+
+                        <div id="newStories" grid-data grid-options="gridApprovedStoriesOptions" grid-actions="gridNewStoriesActions">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th sortable="ID" class="sortable">#
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="ID"
+                                            filter-by="ID"
+                                            filter-type="text">                                            
+
+
+                                    </th>
+                                    <th sortable="STORED_BY" class="sortable">Email
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="STORED_BY"
+                                            filter-by="STORED_BY"
+                                            filter-type="text">
+
+                                    </th>                                                            
+                                    <th sortable="STORED_AS" class="sortable">Nom De Plume
+
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="STORED_AS"
+                                            filter-by="STORED_AS"
+                                            filter-type="text">
+
+
+                                    </th>                                                            
+                                    <th sortable="STORED_ON" class="sortable">Received
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="STORED_ON"
+                                            filter-by="STORED_ON"
+                                            filter-type="text">                                           
+
+                                    </th>                                                                                
+                                    <th sortable="TRANSCRIPTION" class="sortable">Story
+                                        <!--
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="TRANSCRIPTION"
+                                            filter-by="TRANSCRIPTION"
+                                            filter-type="text">                                        
+                                        -->
+                                    </th>  
+                                    <th>&nbsp;</th> 
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr grid-item>
+                                        <td ng-click="editDeposit(item, $event)" ng-bind="item.ID" class="underline"></td>
+                                        <td ng-bind="item.STORED_BY"></td> 
+                                        <td ng-bind="item.STORED_AS"></td> 
+                                        <td ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
+                                        <td>
+                                            <p md-truncate ng-bind-html="item.TRANSCRIPTION"></p>                                                
+                                        </td> 
+                                        <td ng-click="deleteDeposit(item, $event)" class="underline centre">
+                                            Delete                                                
+                                        </td> 
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <form class="form-inline pull-right margin-bottom-basic">
+                                <div class="form-group">
+                                    <grid-pagination max-size="5"
+                                                     boundary-links="true"
+                                                     class="pagination-sm"
+                                                     total-items="paginationOptions.totalItems"
+                                                     ng-model="paginationOptions.currentPage"
+                                                     ng-change="reloadGrid()"
+                                                     items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                                </div>
+                                <div class="form-group items-per-page">
+                                    <label for="itemsOnPageSelect2">Items per page:</label>
+                                    <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                            ng-init="paginationOptions.itemsPerPage = '10'"
+                                            ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                        <option>10</option>
+                                        <option>25</option>
+                                        <option>50</option>
+                                        <option>75</option>
+                                    </select>
+                                </div>
+                            </form>                            
+                            
+                        </div>   
+
+                    </md-content>
+                </md-tab>  
+
+                <md-tab label="Unapproved Stories ({{deadStoriesCount}})">
+                    <md-content class="md-padding">
+
+                        <div id="newStories" grid-data grid-options="gridDeadStoriesOptions" grid-actions="gridNewStoriesActions">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th sortable="ID" class="sortable">#
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="ID"
+                                            filter-by="ID"
+                                            filter-type="text">                                            
+
+
+                                    </th>
+                                    <th sortable="STORED_BY" class="sortable">Email
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="STORED_BY"
+                                            filter-by="STORED_BY"
+                                            filter-type="text">
+
+                                    </th>                                                            
+                                    <th sortable="STORED_AS" class="sortable">Nom De Plume
+
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="STORED_AS"
+                                            filter-by="STORED_AS"
+                                            filter-type="text">
+
+
+                                    </th>                                                            
+                                    <th sortable="STORED_ON" class="sortable">Received
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="STORED_ON"
+                                            filter-by="STORED_ON"
+                                            filter-type="text">                                           
+
+                                    </th>                                                                                
+                                    <th sortable="TRANSCRIPTION" class="sortable">Story
+                                        <!--
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="TRANSCRIPTION"
+                                            filter-by="TRANSCRIPTION"
+                                            filter-type="text">                                        
+                                        -->
+                                    </th>  
+                                    <th>&nbsp;</th>   
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr grid-item>
+                                        <td ng-click="editDeposit(item, $event)" ng-bind="item.ID" class="underline"></td>
+                                        <td ng-bind="item.STORED_BY"></td> 
+                                        <td ng-bind="item.STORED_AS"></td> 
+                                        <td ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
+                                        <td>
+                                            <p ng-bind-html="item.TRANSCRIPTION"></p>                                                
+                                        </td> 
+                                        <td ng-click="deleteDeposit(item, $event)" class="underline centre">
+                                            Delete                                                
+                                        </td> 
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <form class="form-inline pull-right margin-bottom-basic">
+                                <div class="form-group">
+                                    <grid-pagination max-size="5"
+                                                     boundary-links="true"
+                                                     class="pagination-sm"
+                                                     total-items="paginationOptions.totalItems"
+                                                     ng-model="paginationOptions.currentPage"
+                                                     ng-change="reloadGrid()"
+                                                     items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                                </div>
+                                <div class="form-group items-per-page">
+                                    <label for="itemsOnPageSelect2">Items per page:</label>
+                                    <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                            ng-init="paginationOptions.itemsPerPage = '10'"
+                                            ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                        <option>10</option>
+                                        <option>25</option>
+                                        <option>50</option>
+                                        <option>75</option>
+                                    </select>
+                                </div>
+                            </form>                            
+                            
+                        </div>   
+
+                    </md-content>
+                </md-tab>                        
+
+                <md-tab label="Commented Stories ({{flaggedStoriesCount}})">
+                     <md-content class="md-padding">
+
+                        <div id="flaggedStories" grid-data grid-options="gridFlaggedStoriesOptions" grid-actions="gridFlaggedStoriesActions">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <th sortable="ID" class="sortable">#
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="ID"
+                                            filter-by="ID"
+                                            filter-type="text">                                            
+
+
+                                    </th>
+                                    <th sortable="STORED_BY" class="sortable">Email
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="STORED_BY"
+                                            filter-by="STORED_BY"
+                                            filter-type="text">
+
+                                    </th>                                                            
+                                    <th sortable="STORED_AS" class="sortable">Nom De Plume
+
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="STORED_AS"
+                                            filter-by="STORED_AS"
+                                            filter-type="text">
+
+
+                                    </th>                                                            
+                                    <th sortable="STORED_ON" class="sortable">Received
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="STORED_ON"
+                                            filter-by="STORED_ON"
+                                            filter-type="text">                                           
+
+                                    </th>                                                                                
+                                    <th sortable="TRANSCRIPTION" class="sortable">Story
+                                        <!--
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="TRANSCRIPTION"
+                                            filter-by="TRANSCRIPTION"
+                                            filter-type="text">                                        
+                                        -->
+                                    </th>  
+                                    <th>&nbsp;</th>                                                                                 
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr grid-item ng-click="editDeposit(item, $event)">
+                                       <td ng-click="editDeposit(item, $event)" ng-bind="item.ID" class="underline"></td>
+                                        <td ng-bind="item.STORED_BY"></td> 
+                                        <td ng-bind="item.STORED_AS"></td> 
+                                        <td ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
+                                        <td>
+                                            <p ng-bind-html="item.TRANSCRIPTION"></p>                                                
+                                        </td> 
+                                        <td ng-click="deleteDeposit(item, $event)" class="underline centre">
+                                            Delete                                                
+                                        </td>                   
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            
+                            <form class="form-inline pull-right margin-bottom-basic">
+                                <div class="form-group">
+                                    <grid-pagination max-size="5"
+                                                     boundary-links="true"
+                                                     class="pagination-sm"
+                                                     total-items="paginationOptions.totalItems"
+                                                     ng-model="paginationOptions.currentPage"
+                                                     ng-change="reloadGrid()"
+                                                     items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                                </div>
+                                <div class="form-group items-per-page">
+                                    <label for="itemsOnPageSelect2">Items per page:</label>
+                                    <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                            ng-init="paginationOptions.itemsPerPage = '10'"
+                                            ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                        <option>10</option>
+                                        <option>25</option>
+                                        <option>50</option>
+                                        <option>75</option>
+                                    </select>
+                                </div>
+                            </form>                            
+                            
+                        </div>           
+                    </md-content>
+                </md-tab>   
+
+                <md-tab label="Tags ({{tagCount}})">
+                    <md-content class="md-padding">
+
+                        <div id="members" grid-data grid-options="gridTagsOptions" grid-actions="gridMembersActions">
+                           <table class="table table-bordered table-striped">
+                               <thead>
+                               <tr>
+                                   <th sortable="ID" class="sortable">#</th>
+                                   <th sortable="TITLE" class="sortable">Title</th>                                       
+                                   <th sortable="DESCRIPTION" class="sortable">Description</th>  
+                                   <th>&nbsp;</th>  
+                               </tr>
+                               </thead>
+                               <tbody>
+                               <tr grid-item>
+                                   <td ng-bind="item.ID" class="underline" ng-click="editTag(item, $event)"></td>
+                                   <td ng-bind="item.TITLE"></td>
+                                   <td ng-bind="item.DESCRIPTION"></td> 
+                                    <td ng-click="deleteTag(item, $event)" class="underline centre">
+                                        Delete                                                
+                                    </td>                                        
+                               </tr>
+                               </tbody>
+                           </table> 
+                            
+                            <form class="form-inline pull-right margin-bottom-basic">
+                                <div class="form-group">
+                                    <grid-pagination max-size="5"
+                                                     boundary-links="true"
+                                                     class="pagination-sm"
+                                                     total-items="paginationOptions.totalItems"
+                                                     ng-model="paginationOptions.currentPage"
+                                                     ng-change="reloadGrid()"
+                                                     items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                                </div>
+                                <div class="form-group items-per-page">
+                                    <label for="itemsOnPageSelect2">Items per page:</label>
+                                    <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                            ng-init="paginationOptions.itemsPerPage = '10'"
+                                            ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                        <option>10</option>
+                                        <option>25</option>
+                                        <option>50</option>
+                                        <option>75</option>
+                                    </select>
+                                </div>
+                            </form>                            
+
+                        </div>
+                    </md-content>
+                </md-tab>   
+
+                <md-tab label="Staff ({{staffCount}})">
+                    <md-content class="md-padding">
+
+                        <div id="members" grid-data grid-options="gridMembersOptions" grid-actions="gridMembersActions">
+                           <table class="table table-bordered table-striped">
+                               <thead>
+                               <tr>
+                                    <th sortable="ID" class="sortable">#</th>
+                                    <th sortable="EMAIL" class="sortable">Email</th>                                       
+                                    <th sortable="PREFERRED_NAME" class="sortable">Name</th>                                           
+                                    <th sortable="IS_ACTIVE" class="sortable">Active?</th>                                                                                                    
+                                    <th>&nbsp;</th>  
+                               </tr>
+                               </thead>
+                               <tbody>
+                               <tr grid-item>
+                                    <td ng-click="editMember(item, $event)" ng-bind="item.ID" class="underline"></td>
+                                    <td ng-bind="item.EMAIL"></td>
+                                    <td ng-bind="item.PREFERRED_NAME"></td>                                                                                
+                                    <td ng-bind="item.ACTIVE"></td>                                        
+                                    <td ng-click="passwordMember(item, $event)" class="underline centre">
+                                         Set Password                                                
+                                    </td>                                           
+                               </tr>
+                               </tbody>
+                           </table> 
+                            
+                            <form class="form-inline pull-right margin-bottom-basic">
+                                <div class="form-group">
+                                    <grid-pagination max-size="5"
+                                                     boundary-links="true"
+                                                     class="pagination-sm"
+                                                     total-items="paginationOptions.totalItems"
+                                                     ng-model="paginationOptions.currentPage"
+                                                     ng-change="reloadGrid()"
+                                                     items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                                </div>
+                                <div class="form-group items-per-page">
+                                    <label for="itemsOnPageSelect2">Items per page:</label>
+                                    <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                            ng-init="paginationOptions.itemsPerPage = '10'"
+                                            ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                        <option>10</option>
+                                        <option>25</option>
+                                        <option>50</option>
+                                        <option>75</option>
+                                    </select>
+                                </div>
+                            </form>                            
+                            
+                        </div>
+                    </md-content>
+                </md-tab>                                        
+
+            </md-tabs>
+        </md-content>
+
 
     </div>  
     
     <br/><br/>
     
-    <div style="display: block; text-align: center;" class="logo" ng-click="goHome()">
+    <!-- Sign Off -->    
+    <div class="grid-item center logo" style="grid-column: 1 / span 16; grid-row: 13;">
         <img src="Images/Common/StoryBanklogo.png" />   
-    </div>        
+    </div>          
       
 </div>
