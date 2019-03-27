@@ -17,41 +17,33 @@
     </div>      
 
     <!-- Stories -->
-    <div class="grid-item left" style="grid-column: 2 / span 6; grid-row: 3;">    
+    <div class="grid-item left" style="grid-column: 2 / span 12; grid-row: 4;">    
 
-        <h3 id="newestStory" class="red headerUnderline" ng-click="switchCategory('NEWEST');">Newest</h3>
-        <h3 id="popularStory" class="blue" ng-click="switchCategory('POPULAR');">Popular</h3>
-        <h3 id="authorStory" class="blue" ng-click="switchCategory('AUTHOR');">Author</h3>
-        <h3 id="azStory" class="blue" ng-click="switchCategory('TITLE');">A-Z</h3>
+        <h3 id="newestStory" class="red underline" ng-click="switchOrderBy('NEWEST');">Newest</h3>
+        <h3 id="popularStory" class="blue" ng-click="switchOrderBy('POPULAR');">Popular</h3>
+        <h3 id="authorStory" class="blue" ng-click="switchOrderBy('AUTHOR');">Author</h3>
+        <h3 id="azStory" class="blue" ng-click="switchOrderBy('TITLE');">A&mdash;Z</h3>
         
     </div>    
     
-    <div id="storyDisplay" class="grid-item left storyList" style="grid-column: 2 / span 7; grid-row: 3 / span 6;">    
+    <div id="storyDisplay" class="grid-item left storyList" style="grid-column: 2 / span 12; grid-row: 4 / span 9;">    
         <ul>            
-            <li id="deposit{{deposit.ID}}" class="hoverCursor" ng-repeat="deposit in withdrawals" ng-click="loadStory(deposit.ID);">                
+            <li id="deposit{{deposit.ID}}" class="hoverCursor" ng-repeat="deposit in withdrawals" ng-click="switchStory(deposit.ID);">                
                 <div md-truncate>{{deposit.TITLE}}</div>
                 <div md-truncate>{{deposit.STORED_AS}}</div>
             </li>
         </ul>
     </div>        
-
-    <div class="grid-item center" style="grid-column: 9; grid-row: 5 / span 2;">    
-        
-        <img class="gestures" src="Images/RoomL/Gestures01.svg" />
-        <br/>
-        <h3 class="instructions blue">Swipe left or right to sort stories.</h3>        
-        
-    </div>    
     
-    <div class="grid-item center" style="grid-column: 9; grid-row: 7 / span 2;">    
+    <div class="grid-item center" style="grid-column: 14 / span 2; grid-row: 8 / span 2;">    
 
         <img class="gestures" src="Images/RoomL/Gestures02.svg" />
-        <br/>
+
         <h3 class="instructions blue">Swipe up or down to scroll through stories.</h3>
         
     </div>    
     
-    <div class="grid-item center" style="grid-column: 9; grid-row: 9;" ng-click="backToCategories();">    
+    <div class="grid-item center" style="grid-column: 14 / span 2; grid-row: 12;" ng-click="backToCategories();">    
 
         <img class="backButton" src="Images/RoomL/BackButton.svg" />
         

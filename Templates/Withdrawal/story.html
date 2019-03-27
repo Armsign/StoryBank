@@ -1,4 +1,4 @@
-<div class="grid-container withdrawals" md-swipe-left="leftSwipe();" md-swipe-right="rightSwipe();">
+<div class="grid-container withdrawals">
     
     <div class="grid-item center" style="grid-column: 1 / span 16; grid-row: 1 / span 3;">
         <h1 class="blue">
@@ -15,13 +15,17 @@
     <div class="grid-item center myAccount" style="grid-column: 14 / span 2; grid-row: 1 / span 2;">    
         <img src="Images/RoomL/MyAccount_Button.svg" ng-click="openAccount($event)"/>            
     </div>  
-    <!-- Stories -->
-    <div class="grid-item left" style="grid-column: 2 / span 6; grid-row: 3;">    
-        <h3 md-truncate id="daStory" class="red headerUnderline" ng-click="changeStory(1)">{{activeStory.TITLE}} by {{activeStory.STORED_AS}}</h3>
-        <h3 id="daDiscussion" class="blue" ng-click="changeStory(0)">Discussion</h3>
-    </div>    
     
-    <div class="grid-item left storyDisplay" style="grid-column: 2 / span 7; grid-row: 3 / span 6;">    
+    <!-- Stories -->
+    <div md-truncate class="grid-item left" style="grid-column: 2 / span 10; grid-row: 4;">            
+        <h3 id="daStory" class="red underline" ng-click="changeStory(1)">{{activeStory.TITLE}} by {{activeStory.STORED_AS}}</h3>
+    </div>   
+    
+    <div class="grid-item right" style="grid-column: 12 / span 2; grid-row: 4;">            
+        <h3 id="daDiscussion" style="margin-right: 0px !important;" class="blue" ng-click="changeStory(0)">Discussion</h3>
+    </div>      
+    
+    <div class="grid-item left storyDisplay" style="grid-column: 2 / span 12; grid-row: 4 / span 9;">    
 
         <div ng-if="showStory" ng-bind-html="activeStory.TRANSCRIPTION"></div>
         
@@ -31,33 +35,25 @@
         
     </div>        
     
-    <div class="grid-item center" style="grid-column: 9; grid-row: 3 / span 2;">    
-        <img class="storyHeart" src="Images/RoomL/Heart_Unselected.svg" />
-        <br/>        
+    <div class="grid-item center" style="grid-column: 14 / span 2; grid-row: 5 / span 2;">    
+        <img class="gestures" src="Images/RoomL/Heart_Unselected.svg" />       
         <h3 class="instructions red">Love it.</h3>        
     </div>     
-
-    <div class="grid-item center" style="grid-column: 9; grid-row: 5 / span 2;">    
-        
-        <img class="gestures" src="Images/RoomL/Gestures01.svg" />
-        <br/>
-        <h3 class="instructions blue">Swipe left or right to see discussion about this story.</h3>        
-        
-    </div>    
     
-    <div class="grid-item center" style="grid-column: 9; grid-row: 7 / span 2;">    
+    <div class="grid-item center" style="grid-column: 14 / span 2; grid-row: 7 / span 2;">    
 
         <img class="gestures" src="Images/RoomL/Gestures02.svg" />
-        <br/>
+
         <h3 class="instructions blue">Swipe up or down to scroll through stories.</h3>
         
-    </div>    
+    </div>      
+
+    <div ng-if="!showStory" class="grid-item center" style="grid-column: 14 / span 2; grid-row: 10;">            
+        <img class="backButton" src="Images/RoomL/CommentButton.svg" />        
+    </div>       
     
-    <div class="grid-item center" style="grid-column: 9; grid-row: 9;">    
-        
-        <img ng-if="!showStory" class="backButton" src="Images/RoomL/CommentButton.svg" />
-        <img class="backButton" src="Images/RoomL/BackButton.svg" ng-click="backToCategories();"/>
-        
+    <div class="grid-item center" style="grid-column: 14 / span 2; grid-row: 12;">    
+        <img class="backButton" src="Images/RoomL/BackButton.svg" ng-click="backToCategories();"/>        
     </div>       
   
     <!-- Sign Off -->    

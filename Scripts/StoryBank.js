@@ -895,8 +895,10 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     $scope.sortBy = 'NEWEST';
     $scope.withdrawals = undefined;
     $scope.withdrawalsCount = 0;
+    $scope.activeStory = undefined;
+    $scope.showStory = 1;    
     
-    $scope.loadStory = function(story)
+    $scope.switchStory = function(story)
     {
         $location.path("/Room/View/L/Story/Display/" + story);   
     }
@@ -916,76 +918,12 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             });   
         
     }    
-   
-    $scope.leftSwipe = function()
-    {
-        var result = undefined;
-
-        $scope.resetHeadings();
-
-        switch ($scope.sortBy)
-        {
-            case "POPULAR":
-                result = document.getElementById('newestStory');
-                $scope.sortBy = "NEWEST";
-                break;
-            case "AUTHOR":
-                result = document.getElementById('popularStory');                               
-                $scope.sortBy = "POPULAR";
-                break;
-            case "TITLE":
-                result = document.getElementById('authorStory');                
-                $scope.sortBy = "AUTHOR";
-                break;
-            default:    //  Newest
-                result = document.getElementById('azStory');                
-                $scope.sortBy = "TITLE";
-                break;            
-        }     
-        
-        angular.element(result).addClass("headerUnderline red");
-
-        $scope.loadWithdrawals();
-    }
-   
-    $scope.rightSwipe = function()
-    {
-        var result = undefined;
-
-        //  NEWEST POPULAR AUTHOR TITLE 
-        $scope.resetHeadings();
-        
-        switch ($scope.sortBy)
-        {
-            case "POPULAR":
-                result = document.getElementById('authorStory');
-                $scope.sortBy = "AUTHOR";
-                break;
-            case "AUTHOR":
-                result = document.getElementById('azStory');                               
-                $scope.sortBy = "TITLE";
-                break;
-            case "TITLE":
-                result = document.getElementById('newestStory');                
-                $scope.sortBy = "NEWEST";
-                break;
-            default:    //  Newest
-                result = document.getElementById('popularStory');                
-                $scope.sortBy = "POPULAR";
-                break;            
-        }     
-        
-        angular.element(result).addClass("headerUnderline red");
-
-        $scope.loadWithdrawals();
-        
-    };
     
     $scope.resetHeadings = function()
     {
         
         var result = document.getElementsByTagName('h3');
-        angular.element(result).removeClass('headerUnderline');
+        angular.element(result).removeClass('underline');
         angular.element(result).removeClass('red');         
         angular.element(result).addClass('blue');         
         
@@ -1028,11 +966,18 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
                 break;            
         }     
         
-        angular.element(result).addClass("headerUnderline red");
+        angular.element(result).addClass("underline red");
 
         $scope.loadWithdrawals();   
         
     }
+    
+    $scope.backToCategories = function()
+    {
+        
+        $location.path('Room/View/L/0');        
+        
+    }    
     
     $scope.openAccount = function(ev)
     {
@@ -1067,16 +1012,67 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     $scope.backToCategories = function()
     {
         
-        $location.path('Room/View/L/0');        
+        window.history.back();       
         
     }
+    
+    $scope.loadStory = function(id)
+    {
+        
+        //  Ok ... but how it actually needs to send these to an api ...        
+        var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=storyID&id=' + id;       
+
+        //  Call the login function appropriately
+        $http.get(url).then(
+            function (response)   
+            {
+                if (response.data.length === 1)
+                {
+                        $scope.activeStory = response.data[0];
+                        
+                        /*
+                        if ($scope.activeStory.TITLE.length > 24)
+                        {
+                            $scope.activeStory.TITLE = $scope.activeStory.TITLE.substring(0,24) + "... ";
+                        }
+                        */
+                }
+
+            });           
+        
+    }    
+   
+    $scope.changeStory = function(shower)
+    {        
+        $scope.resetHeadings();
+        
+        $scope.showStory = shower;
+        
+        if ($scope.showStory === 1)
+        {                    
+            angular.element(document.getElementById("daStory")).addClass("underline red");            
+        } else {
+            
+            angular.element(document.getElementById("daDiscussion")).addClass("underline red");
+        }
+
+    }   
    
     angular.element(document).ready(function () 
     {                
         //  This here        
-        $scope.activeCategory = $routeParams.category;               
-        $scope.loadWithdrawals();
-
+        if ($location.path().includes('Display'))
+        {
+            
+            $scope.loadStory($routeParams.id);
+            
+        } else {
+            
+            $scope.activeCategory = $routeParams.category;               
+            $scope.loadWithdrawals();
+            
+        }
+        
         $scope.$digest();
     });  
 
@@ -1124,7 +1120,7 @@ myApp.config(['$routeProvider', function($routeProvider)
         }).     
         when('/Room/View/L/Story/Display/:id', { 
             templateUrl: 'Templates/Withdrawal/story.html',
-            controller: 'StoryReaderCTRL'    
+            controller: 'WithdrawalsCTRL'    
         });                
     
 }]);
