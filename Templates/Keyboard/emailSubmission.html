@@ -1,0 +1,405 @@
+<div class="emailSubmission grid-container">
+
+    <div class="keyBoardPage grid-item" style="grid-column: 3; grid-row: 1;">
+
+        <md-content md-no-float ng-cloak>
+            <p style="font-family: Olivetti; font-size: 11px; line-height: 24px;"><b class="red" style="font-family: BalfordBase; font-size: 24px;">Inspired</b> {{question}}</p>
+        </md-content>
+
+        <md-input-container md-no-float>
+            <textarea id="textForStory" ng-disabled="true" max-rows="10" aria-label md-no-resize ng-model="activeStory" placeholder="Your story begins here ..."></textarea>
+        </md-input-container>
+
+    </div>
+
+    <div class="keyBoardLayout" style="grid-column: 2 / span 3; grid-row: 2;">
+
+         <ul ng-if="capsLock === false">
+
+            <li class="line1" ng-click="keyClick($event, '1')">            
+                <img src="Images/Keyboard/Keyboard_Keys_1_a.svg" />
+            </li>
+            <li class="line1" ng-click="keyClick($event, '2')">            
+                <img src="Images/Keyboard/Keyboard_Keys_2_a.svg" />
+            </li>        
+            <li class="line1" ng-click="keyClick($event, '3')">            
+                <img src="Images/Keyboard/Keyboard_Keys_3_a.svg" />
+            </li>        
+
+            <li class="line1" ng-click="keyClick($event, '4')">            
+                <img src="Images/Keyboard/Keyboard_Keys_4_a.svg" />
+            </li>                
+
+            <li class="line1" ng-click="keyClick($event, '5')">            
+                <img src="Images/Keyboard/Keyboard_Keys_5_a.svg" />
+            </li>       
+
+            <li class="line1" ng-click="keyClick($event, '6')">            
+                <img src="Images/Keyboard/Keyboard_Keys_6_a.svg" />
+            </li>
+            <li class="line1" ng-click="keyClick($event, '7')">            
+                <img src="Images/Keyboard/Keyboard_Keys_7_a.svg" />
+            </li>        
+            <li class="line1" ng-click="keyClick($event, '8')">            
+                <img src="Images/Keyboard/Keyboard_Keys_8_a.svg" />
+            </li>        
+
+            <li class="line1" ng-click="keyClick($event, '9')">            
+                <img src="Images/Keyboard/Keyboard_Keys_9_a.svg" />
+            </li>                
+
+            <li class="line1" ng-click="keyClick($event, '0')">            
+                <img src="Images/Keyboard/Keyboard_Keys_0_a.svg" />
+            </li>         
+
+            <li class="line1" ng-click="keyClick($event, '=')">            
+                <img src="Images/Keyboard/Keyboard_Keys_=_a.svg" />
+            </li>                
+
+
+            <li class="line1" ng-click="keyClick($event, 'BACKSPACE')">            
+                <img src="Images/Keyboard/Keyboard_Keys_Backspace.svg" />
+            </li>         
+
+            <!-- Line 2 -->
+            <li class="line1" style="width: 4%;">            
+                &nbsp;
+            </li>
+
+            <li class="line1" ng-click="keyClick($event, 'q')">            
+                <img src="Images/Keyboard/Keyboard_Keys_Q_b.svg" />
+            </li>
+            <li class="line1" ng-click="keyClick($event, 'w')">            
+                <img src="Images/Keyboard/Keyboard_Keys_W_b.svg" />
+            </li>        
+            <li class="line1" ng-click="keyClick($event, 'e')">            
+                <img src="Images/Keyboard/Keyboard_Keys_E_b.svg" />
+            </li>        
+
+            <li class="line1" ng-click="keyClick($event, 'r')">            
+                <img src="Images/Keyboard/Keyboard_Keys_R_b.svg" />
+            </li>                
+
+            <li class="line1" ng-click="keyClick($event, 't')">            
+                <img src="Images/Keyboard/Keyboard_Keys_T_b.svg" />
+            </li>       
+
+            <li class="line1" ng-click="keyClick($event, 'y')">            
+                <img src="Images/Keyboard/Keyboard_Keys_Y_b.svg" />
+            </li>
+            <li class="line1" ng-click="keyClick($event, 'u')">            
+                <img src="Images/Keyboard/Keyboard_Keys_U_b.svg" />
+            </li>        
+            <li class="line1" ng-click="keyClick($event, 'i')">            
+                <img src="Images/Keyboard/Keyboard_Keys_I_b.svg" />
+            </li>        
+
+            <li class="line1" ng-click="keyClick($event, 'o')">            
+                <img src="Images/Keyboard/Keyboard_Keys_O_b.svg" />
+            </li>                
+
+            <li class="line1" ng-click="keyClick($event, 'p')">            
+                <img src="Images/Keyboard/Keyboard_Keys_P_b.svg" />
+            </li>         
+
+            <li class="line1" ng-click="keyClick($event, '_')">            
+                <img src="Images/Keyboard/Keyboard_Keys_-_b.svg" />
+            </li>                
+
+            <!-- Line 3 -->
+            <li class="line1" style="width: 8%;">            
+                &nbsp;
+            </li>        
+
+            <li class="line1" ng-click="keyClick($event, 'a')">            
+                <img src="Images/Keyboard/Keyboard_Keys_A_b.svg" />
+            </li>
+            <li class="line1" ng-click="keyClick($event, 's')">            
+                <img src="Images/Keyboard/Keyboard_Keys_S_b.svg" />
+            </li>        
+            <li class="line1" ng-click="keyClick($event, 'd')">            
+                <img src="Images/Keyboard/Keyboard_Keys_D_b.svg" />
+            </li>        
+
+            <li class="line1" ng-click="keyClick($event, 'f')">            
+                <img src="Images/Keyboard/Keyboard_Keys_F_b.svg" />
+            </li>                
+
+            <li class="line1" ng-click="keyClick($event, 'g')">            
+                <img src="Images/Keyboard/Keyboard_Keys_G_b.svg" />
+            </li>       
+
+            <li class="line1" ng-click="keyClick($event, 'h')">            
+                <img src="Images/Keyboard/Keyboard_Keys_H_b.svg" />
+            </li>
+            <li class="line1" ng-click="keyClick($event, 'j')">            
+                <img src="Images/Keyboard/Keyboard_Keys_J_b.svg" />
+            </li>        
+            <li class="line1" ng-click="keyClick($event, 'k')">            
+                <img src="Images/Keyboard/Keyboard_Keys_K_b.svg" />
+            </li>        
+
+            <li class="line1" ng-click="keyClick($event, 'l')">            
+                <img src="Images/Keyboard/Keyboard_Keys_L_b.svg" />
+            </li>                
+
+            <li class="line1" ng-click="keyClick($event, '&quot;')">            
+                <img src="Images/Keyboard/Keyboard_Keys_'_b.svg" />
+            </li>         
+
+            <li class="line1" ng-click="keyClick($event, '\r\n')">            
+                <img src="Images/Keyboard/Keyboard_Keys_Enter.svg" />
+            </li>             
+
+            <!-- Line 4 -->
+            <li class="line1" style="width: 12%;">            
+                &nbsp;
+            </li>        
+
+            <li class="line1" ng-click="keyClick($event, 'z')">            
+                <img src="Images/Keyboard/Keyboard_Keys_Z_b.svg" />
+            </li>
+            <li class="line1" ng-click="keyClick($event, 'x')">            
+                <img src="Images/Keyboard/Keyboard_Keys_X_b.svg" />
+            </li>        
+            <li class="line1" ng-click="keyClick($event, 'c')">            
+                <img src="Images/Keyboard/Keyboard_Keys_C_b.svg" />
+            </li>        
+
+            <li class="line1" ng-click="keyClick($event, 'v')">            
+                <img src="Images/Keyboard/Keyboard_Keys_V_b.svg" />
+            </li>                
+
+            <li class="line1" ng-click="keyClick($event, 'b')">            
+                <img src="Images/Keyboard/Keyboard_Keys_B_b.svg" />
+            </li>       
+
+            <li class="line1" ng-click="keyClick($event, 'n')">            
+                <img src="Images/Keyboard/Keyboard_Keys_N_b.svg" />
+            </li>
+            <li class="line1" ng-click="keyClick($event, 'm')">            
+                <img src="Images/Keyboard/Keyboard_Keys_M_b.svg" />
+            </li>        
+            <li class="line1" ng-click="keyClick($event, ',')">            
+                <img src="Images/Keyboard/Keyboard_Keys_Comma.svg" />
+            </li>        
+
+            <li class="line1" ng-click="keyClick($event, '.')">            
+                <img src="Images/Keyboard/Keyboard_Keys_Stop.svg" />
+            </li>                
+
+            <li class="line1" ng-click="keyClick($event, '?')">            
+                <img src="Images/Keyboard/Keyboard_Keys_QuestionMark.svg" />
+            </li>         
+
+            <!-- Line 5 -->  
+            <li class="shiftDeposit" ng-click="keyClick($event, 'SHIFT')">            
+                <img src="Images/Keyboard/Keyboard_Keys_Shift.svg" />
+            </li>
+            
+            <li class="spaceBar" ng-click="keyClick($event, ' ')">            
+                <img src="Images/Keyboard/Keyboard_Keys_Space.svg" />
+            </li>   
+
+            <li class="actualDeposit" ng-click="keyClick($event, 'DEPOSIT')">            
+                <img src="Images/Keyboard/Keyboard_Keys_Deposit.svg" />
+            </li>        
+
+        </ul>    
+        
+        <ul ng-if="capsLock === true">
+
+          <li class="line1" ng-click="keyClick($event, '!')">            
+              <img src="Images/Keyboard/Keyboard_Keys_1_b.svg" />
+          </li>
+          <li class="line1" ng-click="keyClick($event, '@')">            
+              <img src="Images/Keyboard/Keyboard_Keys_2_b.svg" />
+          </li>        
+          <li class="line1" ng-click="keyClick($event, '#')">            
+              <img src="Images/Keyboard/Keyboard_Keys_3_b.svg" />
+          </li>        
+
+          <li class="line1" ng-click="keyClick($event, '$')">            
+              <img src="Images/Keyboard/Keyboard_Keys_4_b.svg" />
+          </li>                
+
+          <li class="line1" ng-click="keyClick($event, '%')">            
+              <img src="Images/Keyboard/Keyboard_Keys_5_b.svg" />
+          </li>       
+
+          <li class="line1" ng-click="keyClick($event, '^')">            
+              <img src="Images/Keyboard/Keyboard_Keys_6_b.svg" />
+          </li>
+          <li class="line1" ng-click="keyClick($event, '&')">            
+              <img src="Images/Keyboard/Keyboard_Keys_7_b.svg" />
+          </li>        
+          <li class="line1" ng-click="keyClick($event, '*')">            
+              <img src="Images/Keyboard/Keyboard_Keys_8_b.svg" />
+          </li>        
+
+          <li class="line1" ng-click="keyClick($event, '(')">            
+              <img src="Images/Keyboard/Keyboard_Keys_9_b.svg" />
+          </li>                
+
+          <li class="line1" ng-click="keyClick($event, ')')">            
+              <img src="Images/Keyboard/Keyboard_Keys_0_b.svg" />
+          </li>         
+
+          <li class="line1" ng-click="keyClick($event, '+')">            
+              <img src="Images/Keyboard/Keyboard_Keys_=_b.svg" />
+          </li>                
+
+
+          <li class="line1" ng-click="keyClick($event, 'BACKSPACE')">            
+              <img src="Images/Keyboard/Keyboard_Keys_Backspace.svg" />
+          </li>         
+
+          <!-- Line 2 -->
+          <li class="line1" style="width: 4%;">            
+              &nbsp;
+          </li>
+
+          <li class="line1" ng-click="keyClick($event, 'Q')">            
+              <img src="Images/Keyboard/Keyboard_Keys_Q_a.svg" />
+          </li>
+          <li class="line1" ng-click="keyClick($event, 'W')">            
+              <img src="Images/Keyboard/Keyboard_Keys_W_a.svg" />
+          </li>        
+          <li class="line1" ng-click="keyClick($event, 'E')">            
+              <img src="Images/Keyboard/Keyboard_Keys_E_a.svg" />
+          </li>        
+
+          <li class="line1" ng-click="keyClick($event, 'R')">            
+              <img src="Images/Keyboard/Keyboard_Keys_R_a.svg" />
+          </li>                
+
+          <li class="line1" ng-click="keyClick($event, 'T')">            
+              <img src="Images/Keyboard/Keyboard_Keys_T_a.svg" />
+          </li>       
+
+          <li class="line1" ng-click="keyClick($event, 'Y')">            
+              <img src="Images/Keyboard/Keyboard_Keys_Y_a.svg" />
+          </li>
+          <li class="line1" ng-click="keyClick($event, 'U')">            
+              <img src="Images/Keyboard/Keyboard_Keys_U_a.svg" />
+          </li>        
+          <li class="line1" ng-click="keyClick($event, 'I')">            
+              <img src="Images/Keyboard/Keyboard_Keys_I_a.svg" />
+          </li>        
+
+          <li class="line1" ng-click="keyClick($event, 'O')">            
+              <img src="Images/Keyboard/Keyboard_Keys_O_a.svg" />
+          </li>                
+
+          <li class="line1" ng-click="keyClick($event, 'P')">            
+              <img src="Images/Keyboard/Keyboard_Keys_P_a.svg" />
+          </li>         
+
+          <li class="line1" ng-click="keyClick($event, '_')">            
+              <img src="Images/Keyboard/Keyboard_Keys_-_a.svg" />
+          </li>                
+
+          <!-- Line 3 -->
+          <li class="line1" style="width: 8%;">            
+              &nbsp;
+          </li>        
+
+          <li class="line1" ng-click="keyClick($event, 'A')">            
+              <img src="Images/Keyboard/Keyboard_Keys_A_a.svg" />
+          </li>
+          <li class="line1" ng-click="keyClick($event, 'S')">            
+              <img src="Images/Keyboard/Keyboard_Keys_S_a.svg" />
+          </li>        
+          <li class="line1" ng-click="keyClick($event, 'D')">            
+              <img src="Images/Keyboard/Keyboard_Keys_D_a.svg" />
+          </li>        
+
+          <li class="line1" ng-click="keyClick($event, 'F')">            
+              <img src="Images/Keyboard/Keyboard_Keys_F_a.svg" />
+          </li>                
+
+          <li class="line1" ng-click="keyClick($event, 'G')">            
+              <img src="Images/Keyboard/Keyboard_Keys_G_a.svg" />
+          </li>       
+
+          <li class="line1" ng-click="keyClick($event, 'H')">            
+              <img src="Images/Keyboard/Keyboard_Keys_H_a.svg" />
+          </li>
+          <li class="line1" ng-click="keyClick($event, 'J')">            
+              <img src="Images/Keyboard/Keyboard_Keys_J_a.svg" />
+          </li>        
+          <li class="line1" ng-click="keyClick($event, 'K')">            
+              <img src="Images/Keyboard/Keyboard_Keys_K_a.svg" />
+          </li>        
+
+          <li class="line1" ng-click="keyClick($event, 'L')">            
+              <img src="Images/Keyboard/Keyboard_Keys_L_a.svg" />
+          </li>                
+
+          <li class="line1" ng-click="keyClick($event, '&lsquo;')">            
+              <img src="Images/Keyboard/Keyboard_Keys_'_a.svg" />
+          </li>         
+
+          <li class="line1" ng-click="keyClick($event, '\r\n')">            
+              <img src="Images/Keyboard/Keyboard_Keys_Enter.svg" />
+          </li>             
+
+          <!-- Line 4 -->
+          <li class="line1" style="width: 12%;">            
+              &nbsp;
+          </li>        
+
+          <li class="line1" ng-click="keyClick($event, 'Z')">            
+              <img src="Images/Keyboard/Keyboard_Keys_Z_a.svg" />
+          </li>
+          <li class="line1" ng-click="keyClick($event, 'X')">            
+              <img src="Images/Keyboard/Keyboard_Keys_X_a.svg" />
+          </li>        
+          <li class="line1" ng-click="keyClick($event, 'C')">            
+              <img src="Images/Keyboard/Keyboard_Keys_C_a.svg" />
+          </li>        
+
+          <li class="line1" ng-click="keyClick($event, 'V')">            
+              <img src="Images/Keyboard/Keyboard_Keys_V_a.svg" />
+          </li>                
+
+          <li class="line1" ng-click="keyClick($event, 'B')">            
+              <img src="Images/Keyboard/Keyboard_Keys_B_a.svg" />
+          </li>       
+
+          <li class="line1" ng-click="keyClick($event, 'N')">            
+              <img src="Images/Keyboard/Keyboard_Keys_N_a.svg" />
+          </li>
+          <li class="line1" ng-click="keyClick($event, 'M')">            
+              <img src="Images/Keyboard/Keyboard_Keys_M_a.svg" />
+          </li>        
+          <li class="line1" ng-click="keyClick($event, ',')">            
+              <img src="Images/Keyboard/Keyboard_Keys_Comma.svg" />
+          </li>        
+
+          <li class="line1" ng-click="keyClick($event, '.')">            
+              <img src="Images/Keyboard/Keyboard_Keys_Stop.svg" />
+          </li>                
+
+          <li class="line1" ng-click="keyClick($event, '?')">            
+              <img src="Images/Keyboard/Keyboard_Keys_QuestionMark.svg" />
+          </li>         
+
+          <!-- Line 5 -->  
+          <li class="shiftDeposit" ng-click="keyClick($event, 'SHIFT')">            
+              <img src="Images/Keyboard/Keyboard_Keys_Shift.svg" />
+          </li>
+
+          <li class="spaceBar" ng-click="keyClick($event, ' ')">            
+              <img src="Images/Keyboard/Keyboard_Keys_Space.svg" />
+          </li>   
+
+          <li class="actualDeposit" ng-click="keyClick($event, 'DEPOSIT')">            
+              <img src="Images/Keyboard/Keyboard_Keys_Deposit.svg" />
+          </li>        
+
+      </ul>            
+
+    </div>
+    
+</div>

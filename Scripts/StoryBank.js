@@ -850,6 +850,12 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
         } 
     };
     
+    $scope.logOut = function()
+    {
+        $cookies.remove("authenticationToken");
+        location.reload();
+    }    
+    
     angular.element(document).ready(function () 
     {        
         $scope.token = $cookies.get('authenticationToken');
@@ -897,6 +903,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     $scope.withdrawalsCount = 0;
     $scope.activeStory = undefined;
     $scope.showStory = 1;    
+    $scope.visitorID = 0;
     
     $scope.switchStory = function(story)
     {
@@ -975,43 +982,6 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     $scope.backToCategories = function()
     {
         
-        $location.path('Room/View/L/0');        
-        
-    }    
-    
-    $scope.openAccount = function(ev)
-    {
-
-        //  Abstract the deposit into a dialog ... templated, yes.
-        $rootScope.openDialog = $mdDialog.show({
-            templateUrl: 'Templates/Keyboard/depositCollectID.html',
-            controller: 'DepositCTRL',         
-            parent: angular.element(document.body),
-            targetEvent: ev,
-            clickOutsideToClose:true
-        })
-        .then(function(answer) {
-            
-            //  It's anon
-            $scope.visitorID = answer;            
-            $scope.email = 'anon@storybank.com.au';
-            $scope.nomDePlume = 'Anon';
-            $scope.completeDeposit();      
-    
-            $rootScope.openDialog = false;
-  
-        }, function() {
-            
-            //    No action
-            $rootScope.openDialog = false;
-          
-        }); 
-        
-    }
-    
-    $scope.backToCategories = function()
-    {
-        
         window.history.back();       
         
     }
@@ -1057,6 +1027,109 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
         }
 
     }   
+    
+    /*
+     *  Open the account?
+     */
+    
+    $scope.openAccount = function(ev)
+    {
+
+        //  Abstract the deposit into a dialog ... templated, yes.
+        $rootScope.openDialog = $mdDialog.show({
+            templateUrl: 'Templates/Keyboard/numberPad.html',
+            controller: 'NumPadCTRL',         
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true
+        })
+        .then(function(answer) {
+            
+            //  Store response
+            $scope.visitorID = answer * 1;
+            
+            //  Alrighty, now that it's closing, we need to open the email bit ;p            
+            window.setTimeout(function() { $scope.openEmail(); }, 100);
+            
+            $rootScope.openDialog = false;
+  
+        }, function() {
+            
+            //    No action
+            $rootScope.openDialog = false;
+          
+        }); 
+        
+    }    
+    
+    $scope.lovingIt = function(ev)
+    {
+        
+        //  Abstract the deposit into a dialog ... templated, yes.
+        $rootScope.openDialog = $mdDialog.show({
+            templateUrl: 'Templates/Keyboard/numberPad.html',
+            controller: 'NumPadCTRL',         
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true
+        })
+        .then(function(answer) {
+            
+            //  Store response
+            $scope.visitorID = answer * 1;
+            
+            if ($scope.visitorID > 0)
+            {            
+                alert('Love recognised');                
+            } else {
+                alert('Love unrecognised');                
+            }
+            
+            $rootScope.openDialog = false;
+  
+        }, function() {
+            
+            //    No action
+            $rootScope.openDialog = false;
+          
+        });         
+        
+    }
+    
+    $scope.openEmail = function(ev)
+    {
+        
+
+        //  Abstract the deposit into a dialog ... templated, yes.
+        $rootScope.openDialog = $mdDialog.show({
+            templateUrl: 'Templates/Keyboard/typeWriter.html',
+            controller: 'KeyboardCTRL',         
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            data: $scope.visitorID
+           
+        })
+        .then(function(answer) {
+            
+            //  Store response
+            $scope.visitorID = answer * 1;
+            
+            //  Alrighty, now that it's closing, we need to open the email bit ;p
+
+            
+            $rootScope.openDialog = false;
+  
+        }, function() {
+            
+            //    No action
+            $rootScope.openDialog = false;
+          
+        });         
+        
+        
+        
+    }
    
     angular.element(document).ready(function () 
     {                
@@ -1071,7 +1144,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             $scope.activeCategory = $routeParams.category;               
             $scope.loadWithdrawals();
             
-        }
+        }        
         
         $scope.$digest();
     });  

@@ -153,8 +153,7 @@ md-whiteframe
 md-dialog
 {
     padding: 1em;
-    width: 50%;
-
+    width: 80%;
     background-image: url("../Images/Common/DialogBackground.jpg");      
     background-size:cover;    
 }
@@ -175,7 +174,7 @@ md-dialog
 **  High Level Containers, standardise grid layout
 */  
 
-.deposits, .withdrawals, .curation, .screenSaver, .menu
+.deposits, .withdrawals, .curation, .screenSaver, .menu, .emailSubmission
 {
     background-image: url("../Images/Common/ScreenSaverBackground.jpg");           
     
@@ -539,6 +538,7 @@ h1.screenSaverTitle
 
 div.paperButton
 {
+    margin-top: 16px;
     padding: 4%;
     display: block;
 }
