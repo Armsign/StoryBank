@@ -904,6 +904,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     $scope.activeStory = undefined;
     $scope.showStory = 1;    
     $scope.visitorID = 0;
+    $scope.isLoved = false;
     
     $scope.switchStory = function(story)
     {
@@ -999,13 +1000,6 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
                 if (response.data.length === 1)
                 {
                         $scope.activeStory = response.data[0];
-                        
-                        /*
-                        if ($scope.activeStory.TITLE.length > 24)
-                        {
-                            $scope.activeStory.TITLE = $scope.activeStory.TITLE.substring(0,24) + "... ";
-                        }
-                        */
                 }
 
             });           
@@ -1079,11 +1073,26 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             $scope.visitorID = answer * 1;
             
             if ($scope.visitorID > 0)
-            {            
-                alert('Love recognised');                
-            } else {
-                alert('Love unrecognised');                
-            }
+            {
+                
+                //  Ok ... but how it actually needs to send these to an api ...        
+                var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=love&id=' + $scope.activeStory.ID + '&visitorID=' + $scope.visitorID;       
+
+                //  Call the login function appropriately
+                $http.get(url).then(
+                    function (response)   
+                    {
+                        //  Really it just doesn't do anything now ...
+                        //  But we'll need some authentication
+                        $scope.isLoved = true;
+
+                    }, 
+                    function(response) 
+                    {
+                        
+                    });                          
+                
+            } 
             
             $rootScope.openDialog = false;
   
@@ -1098,11 +1107,10 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     
     $scope.openEmail = function(ev)
     {
-        
 
         //  Abstract the deposit into a dialog ... templated, yes.
         $rootScope.openDialog = $mdDialog.show({
-            templateUrl: 'Templates/Keyboard/typeWriter.html',
+            templateUrl: 'Templates/Keyboard/emailCollector.html',
             controller: 'KeyboardCTRL',         
             parent: angular.element(document.body),
             targetEvent: ev,
