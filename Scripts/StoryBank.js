@@ -620,7 +620,14 @@ myApp.controller('CommentCTRL', function($rootScope, $scope, $mdDialog, dataToPa
         //  Let's test this one huh
         window.setTimeout(function() { $scope.removeClasses(); }, 250);
         
-    }; 
+    };
+    
+    $scope.removeClasses = function()
+    {
+        var result = document.getElementsByClassName("animated pulse");
+        
+        angular.element(result).removeClass("animated pulse");    
+    }     
     
     angular.element(document).ready(function () 
     {        
@@ -1085,7 +1092,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             {
                 if (response.data.length === 1)
                 {
-                        $scope.activeStory = response.data[0];
+                    $scope.activeStory = response.data[0];
                 }
 
             });           
@@ -1205,11 +1212,22 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
         })
         .then(function(answer) {
             
-            //  Store response
-
             //  Should have some emails now ;p
             //  Fire off a buncha requests to the API for each email and call it a day, huh?
+            //  Ok ... but how it actually needs to send these to an api ...        
+            var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=email'
+                    + '&id=' + $routeParams.id 
+                    + '&visitorID=' + $scope.visitorID
+                    + '&emails=' + answer;
 
+            //  Call the login function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    
+                    alert('Email sent');
+
+                }); 
 
             
             $rootScope.openDialog = false;
