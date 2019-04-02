@@ -189,6 +189,23 @@ md-dialog
 
     grid-template-columns: 1% 8% 8% 8% 8% 8% 8% 1% 1% 8% 8% 8% 8% 8% 8% 1%;    
     grid-template-rows: 2% 8% 8% 8% 8% 8% 8% 8% 8% 8% 8% 8% 8% 2%;    
+    
+    overflow: hidden;
+}
+
+@media only screen and (min-width: 1920px) 
+{
+    
+    md-dialog
+    {
+        width: 40%;        
+    }
+    
+}
+
+.emailSubmission
+{
+    width: 100%;
 }
 
 .deposits
@@ -278,6 +295,11 @@ md-dialog
 .keyBoardLayout
 {
     margin-top: 48px;   
+}
+
+.emailSubmission .keyBoardLayout
+{
+    width: 100%;
 }
 
 .keyBoardLayout ul

@@ -474,31 +474,31 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
             } else if (keyClicked === 'DEPOSIT' && $scope.activeStory.length > 0) {                        
                 
                 //  Collect their id
-                 $rootScope.openDialog = $mdDialog.show({
-                     templateUrl: 'Templates/Keyboard/numberPad.html',
-                     controller: 'NumPadCTRL',         
-                     parent: angular.element(document.body),
-                     targetEvent: $event,
-                     clickOutsideToClose:true
-                 })
-                 .then(function(answer) {
+                $rootScope.openDialog = $mdDialog.show({
+                    templateUrl: 'Templates/Keyboard/numberPad.html',
+                    controller: 'NumPadCTRL',         
+                    parent: angular.element(document.body),
+                    targetEvent: $event,
+                    clickOutsideToClose:true
+                })
+                .then(function(answer) {
 
-                     //  It's always anon
-                     $scope.visitorID = answer;            
-                     $scope.email = 'anon@storybank.com.au';
-                     $scope.nomDePlume = 'Anon';
-                     
-                     // Make deposit
-                     $scope.completeDeposit();      
+                    //  It's always anon
+                    $scope.visitorID = answer;            
+                    $scope.email = 'anon@storybank.com.au';
+                    $scope.nomDePlume = 'Anon';
 
-                     $rootScope.openDialog = false;
+                    // Make deposit
+                    $scope.completeDeposit();      
 
-                 }, function() {
+                    $rootScope.openDialog = false;
 
-                     //    No action
-                     $rootScope.openDialog = false;
+                }, function() {
 
-                 });                  
+                    //    No action
+                    $rootScope.openDialog = false;
+
+                });                                  
                 
             } else if (keyClicked !== 'DEPOSIT') {                                        
                 
@@ -572,6 +572,62 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
         $scope.fetchQuestion();        
     });   
 
+});
+
+myApp.controller('CommentCTRL', function($rootScope, $scope, $mdDialog, dataToPass) 
+{ 
+    $scope.capsLock = false;
+    $scope.question = ''; 
+    $scope.activeStory = '';    
+    $scope.visitorID = '';
+   
+    $scope.keyClick = function($event, keyClicked)
+    {
+        var myDate = new Date();
+        $rootScope.lastKeyPress = myDate.getTime();
+        
+        if (keyClicked === 'SHIFT') 
+        {
+            
+            $scope.capsLock = !$scope.capsLock;
+            
+        } else {
+        
+            if (keyClicked === 'BACKSPACE')
+            {
+                
+                $scope.activeStory = $scope.activeStory.slice(0, -1);
+                
+            } else if (keyClicked === 'DEPOSIT' && $scope.activeStory.length > 0) {                        
+                
+                $mdDialog.hide($scope.activeStory);
+                
+            } else if (keyClicked !== 'DEPOSIT') {                                        
+                
+                $scope.activeStory = $scope.activeStory + keyClicked;
+                
+            } 
+            
+        }
+
+        //  Keep it visible please
+        var textarea = document.getElementById('textForStory');
+        textarea.scrollTop = textarea.scrollHeight;            
+        
+        //  This is the animated section ... once animation is added, run it needs to be removed ...        
+        angular.element($event.currentTarget).addClass("animated pulse"); 
+        
+        //  Let's test this one huh
+        window.setTimeout(function() { $scope.removeClasses(); }, 250);
+        
+    }; 
+    
+    angular.element(document).ready(function () 
+    {        
+        $scope.visitorID = dataToPass.visitorID;
+        $scope.question = dataToPass.question;    
+    });    
+    
 });
 
 myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog) 
@@ -987,6 +1043,36 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
         
     }
     
+    $scope.addComment = function(ev)
+    {
+        
+        //  Abstract the deposit into a dialog ... templated, yes.
+        $rootScope.openDialog = $mdDialog.show({
+            templateUrl: 'Templates/Keyboard/numberPad.html',
+            controller: 'NumPadCTRL',         
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true
+        })
+        .then(function(answer) {
+            
+            //  Store response
+            $scope.visitorID = answer * 1;
+            
+            //  Alrighty, now that it's closing, we need to open the email bit ;p            
+            window.setTimeout(function() { $scope.openComment(); }, 100);
+            
+            $rootScope.openDialog = false;
+  
+        }, function() {
+            
+            //    No action
+            $rootScope.openDialog = false;
+          
+        });         
+
+    };
+    
     $scope.loadStory = function(id)
     {
         
@@ -1110,21 +1196,51 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
 
         //  Abstract the deposit into a dialog ... templated, yes.
         $rootScope.openDialog = $mdDialog.show({
-            templateUrl: 'Templates/Keyboard/emailCollector.html',
-            controller: 'KeyboardCTRL',         
+            templateUrl: 'Templates/Keyboard/commentCollector.html',
+            controller: 'CommentCTRL',         
             parent: angular.element(document.body),
             targetEvent: ev,
-            clickOutsideToClose:true,
-            data: $scope.visitorID
-           
+            clickOutsideToClose: true,
+            dataToPass: { visitorID: $scope.visitorID, question: "Please enter your email address so we can deliver your deposits. If you'd like to send it to multiple recipients, just put a ; between them.\nFor example, jane@smith.com; john@smith.com" }
         })
         .then(function(answer) {
             
             //  Store response
-            $scope.visitorID = answer * 1;
-            
-            //  Alrighty, now that it's closing, we need to open the email bit ;p
 
+            //  Should have some emails now ;p
+            //  Fire off a buncha requests to the API for each email and call it a day, huh?
+
+
+            
+            $rootScope.openDialog = false;
+  
+        }, function() {
+            
+            //    No action
+            $rootScope.openDialog = false;
+          
+        });
+        
+    }
+    
+    $scope.openComment = function(ev)
+    {
+       
+        //  Abstract the deposit into a dialog ... templated, yes.
+        $rootScope.openDialog = $mdDialog.show({
+            templateUrl: 'Templates/Keyboard/commentCollector.html',
+            controller: 'CommentCTRL',         
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            dataToPass: { visitorID: $scope.visitorID, question: "Add your comment to this story. It'll be displayed once it's moderated." }      
+        })
+        .then(function(answer) {
+
+            //  Submit comment for processing ... woo.
+    
+                    
+                    
             
             $rootScope.openDialog = false;
   
@@ -1135,9 +1251,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
           
         });         
         
-        
-        
-    }
+    }    
    
     angular.element(document).ready(function () 
     {                
