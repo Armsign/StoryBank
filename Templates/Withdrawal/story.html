@@ -29,8 +29,13 @@
 
         <div ng-if="showStory" ng-bind-html="activeStory.TRANSCRIPTION"></div>
         
-        <div ng-if="!showStory">
-            Discussions            
+        <div class="commentsList" ng-if="!showStory">
+            <ul>            
+                <li id="comment{{comment.ID}}" class="hoverCursor" ng-repeat="comment in comments">                
+                    <div>{{comment.COMMENT}}</div>
+                    <div>{{comment.COMMENT_ON_FORMATTED}}</div>
+                </li>
+            </ul>
         </div>
         
     </div>        

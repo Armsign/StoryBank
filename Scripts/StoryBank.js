@@ -965,6 +965,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     $scope.withdrawals = undefined;
     $scope.withdrawalsCount = 0;
     $scope.activeStory = undefined;
+    $scope.comments = undefined;
     $scope.showStory = 1;    
     $scope.visitorID = 0;
     $scope.isLoved = false;
@@ -1090,15 +1091,29 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
         $http.get(url).then(
             function (response)   
             {
+                //  We also need to load the comments here ... hmmmm... also need to save them. Yeh-hah.
                 if (response.data.length === 1)
                 {
                     $scope.activeStory = response.data[0];
                 }
 
-            });           
-        
+            });          
+            
+        //  Also fetch up the comments       
+        url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=comments&id=' + id;       
+
+        //  Call the login function appropriately
+        $http.get(url).then(
+            function (response)   
+            {
+                //  We also need to load the comments here ... hmmmm... also need to save them. Yeh-hah.
+                if (response.data.length > 0)
+                {
+                    $scope.comments = response.data;
+                }
+            });                     
     }    
-   
+
     $scope.changeStory = function(shower)
     {        
         $scope.resetHeadings();
@@ -1256,9 +1271,19 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
         .then(function(answer) {
 
             //  Submit comment for processing ... woo.
-    
-                    
-                    
+            var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=addComments&id=' + $scope.activeStory.ID + '&visitorID=' + $scope.visitorID + '&comments=' + answer;       
+
+            //  Call the login function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    //  Really it just doesn't do anything now ...
+                    //  But we'll need some authentication
+                }, 
+                function(response) 
+                {
+
+                });             
             
             $rootScope.openDialog = false;
   

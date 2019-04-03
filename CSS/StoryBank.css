@@ -837,13 +837,26 @@ div.paperButton p
     
 }
 
-.storyList li, .storyDisplay div
+.storyList li, .storyDisplay div, .commentsList li
 {
     padding: 1em;
     width: 100%;
     float: left;
     border-bottom: 1px solid rgba(51, 51, 51, .6);
     padding-bottom: 1em;
+}
+
+.commentsList
+{
+    background-color: transparent;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.commentsList li div
+{
+    margin: 0;
+    padding: 0;
 }
 
 .storyDisplay div
@@ -857,14 +870,14 @@ div.paperButton p
     line-height: 1.6em;
 }
 
-.storyList div:first-child
+.storyList div:first-child, .commentsList div:first-child
 {
     float: left;
     width: 70%;
     display: inline;
 }
 
-.storyList div:last-child
+.storyList div:last-child, .commentsList div:last-child
 {
     text-align: right;
     float: right;
