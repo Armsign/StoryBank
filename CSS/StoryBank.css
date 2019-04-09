@@ -213,11 +213,6 @@ md-dialog
     background-image: url("../Images/Common/typeWriterBackground.png"); 
 }
 
-.curation md-input-container
-{
-    font-size: 2em;
-}
-
 /*
 **  Menu
 */
@@ -935,4 +930,34 @@ h3.instructions
     margin-top: 50px;    
     margin-bottom: 16px;    
     height: calc(100% - 66px);    
+}
+
+/*
+**  Handle curation
+*/
+
+.curation
+{
+    overflow-y: scroll;
+}
+
+.curation md-input-container
+{
+    font-size: 2em;    
+}
+
+.curation md-input-container button
+{
+    float: right;    
+}
+
+.curation md-input-container button:first-child
+{
+    margin-right: 0;
+}
+
+.curation p, .curation td
+{
+    margin: 0;
+    font-size: 1.5em;
 }

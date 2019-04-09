@@ -110,8 +110,7 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
         }
     }
     
-    //  ok        
-    
+    //  ok            
     $scope.addStaff = function(ev)
     {
         $rootScope.staff = undefined;
@@ -473,7 +472,7 @@ myApp.controller('AdminCTRL', ['$rootScope', '$scope', '$http', '$mdDialog', '$c
            return; 
 
         }
-    };      
+    };          
     
     angular.element(document).ready(function () 
     {        
@@ -815,7 +814,6 @@ myApp.controller('MemberCtrl', function ($rootScope, $scope, $http, $mdDialog, $
     });      
     
 });
-
 
 myApp.config(['$provide', function($provide)
 {
