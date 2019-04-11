@@ -713,6 +713,7 @@ myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog)
 myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $cookies, $location)
 { 
     //  Root scope
+    $rootScope.comment = undefined;
     $rootScope.staff = undefined;
     $rootScope.tag = undefined;    
     $rootScope.deposit = undefined;    
@@ -724,17 +725,16 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
     $scope.displayName = '';
   
     $scope.approvedStoriesCount = 0;
-    $scope.unApprovedStoriesCount = 0;
-    
+    $scope.unApprovedStoriesCount = 0;    
+    $scope.commentsCount = 0;    
     $scope.tagCount = 0;    
-    $scope.staffCount = 0;    
-    
+    $scope.staffCount = 0;        
     $scope.token = '';
     $scope.searchText = '';
     
     $scope.approvedStoriesOptions = { data: [], pagination: { itemsPerPage: '10' } };            
-    $scope.unApprovedStoriesOptions = { data: [], pagination: { itemsPerPage: '10' } };
-    
+    $scope.unApprovedStoriesOptions = { data: [], pagination: { itemsPerPage: '10' } };    
+    $scope.commentsOptions = { data: [], pagination: { itemsPerPage: '10' } };    
     $scope.gridMembersOptions = { data: [], pagination: { itemsPerPage: '10' } };
     $scope.gridTagsOptions = { data: [], pagination: { itemsPerPage: '10' } };
 
@@ -831,6 +831,24 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
         }
     }; 
     
+    $scope.getCommentsData = function() 
+    {
+        if ($scope.token && $scope.token.length > 0)
+        {
+            //  Ok ... but how it actually needs to send these to an api ...        
+            var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=newComments&token=' + $scope.token;       
+            
+            //  Call the login function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    $scope.commentsOptions.data = response.data;
+                    $scope.commentsCount = response.data.length;
+                });   
+
+        }
+    };       
+    
     $scope.authenticate = function(ev)
     {
         if (this.email.length > 0 && this.password.length > 0)
@@ -855,12 +873,10 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
                         $scope.token = response.data.SESSION;
                         
                         //  Load up teh data grids!
-                        $scope.getServerData();
-                        $scope.getFlaggedServerData();   
+                        $scope.getApprovedStoriesData();
+                        $scope.getUnApprovedStoriesData();                          
                         $scope.getMemberServerData();
                         $scope.getTagServerData();
-                        $scope.getApprovedStoryData();
-                        $scope.getDeadStoryData();
                         
                     } else {
                         
@@ -1132,7 +1148,84 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
                         //  Do nothing
                     });                      
         }
+    }  
+    
+    /*
+     *  Comments Section
+     */
+    
+    //  ok            
+    $scope.deleteComment = function(comment, ev)
+    {
+        if ($scope.token && $scope.token.length > 0)
+        {        
+        
+            var confirm = $mdDialog.confirm()
+                  .title('Delete this comment?')
+                  .textContent('This is a permanent action.')
+                  .ariaLabel('Delete')
+                  .targetEvent(ev)
+                  .ok('Yes!')
+                  .cancel('No!');
+
+            $mdDialog.show(confirm).then(
+                function() 
+                {
+                                //  Ok ... but how it actually needs to send these to an api ...        
+                    var url = 'http://' + $location.host() 
+                        + '/Vault/API.php?action=deposit&method=deleteComment&token=' + $scope.token
+                        + '&id=' + comment.ID;
+
+                    //  Call the login function appropriately
+                    $http.get(url).then(
+                        function (response)   
+                        {                        
+                            
+                            //  Load up teh data grids!
+                            $scope.getCommentsData();                          
+                            
+                        }); 
+                    }, function() {
+                        //  Do nothing
+                    });                      
+        }          
     }    
+    
+    $scope.approveComment = function(comment, ev)
+    {
+        if ($scope.token && $scope.token.length > 0)
+        {        
+        
+            var confirm = $mdDialog.confirm()
+                  .title('Approve this comment?')
+                  .textContent('This is a permanent action.')
+                  .ariaLabel('Approve')
+                  .targetEvent(ev)
+                  .ok('Yes!')
+                  .cancel('No!');
+
+            $mdDialog.show(confirm).then(
+                function() 
+                {
+                                //  Ok ... but how it actually needs to send these to an api ...        
+                    var url = 'http://' + $location.host() 
+                        + '/Vault/API.php?action=deposit&method=approveComment&token=' + $scope.token
+                        + '&id=' + comment.ID;
+
+                    //  Call the login function appropriately
+                    $http.get(url).then(
+                        function (response)   
+                        {                        
+                            
+                            //  Load up teh data grids!
+                            $scope.getCommentsData();                          
+                            
+                        }); 
+                    }, function() {
+                        //  Do nothing
+                    });                      
+        }           
+    }     
             
     $scope.logOut = function()
     {
@@ -1163,7 +1256,7 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
                         //  Load up teh data grids!
                         $scope.getApprovedStoriesData();
                         $scope.getUnApprovedStoriesData();   
-                        
+                        $scope.getCommentsData();
                         $scope.getMemberServerData();
                         $scope.getTagServerData();
                     }   
@@ -1252,7 +1345,38 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
                 //  That's ok, no tags, we don't even need them.
             });         
        return;        
-    }
+    };
+    
+    $scope.fetchSingleStory = function()
+    {
+        //  Ok ... but how it actually needs to send these to an api ...        
+        var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=singleStory&token=' + $scope.token
+                + '&id=' + $scope.deposit.ID;
+
+        //  Call the tags function appropriately
+        $http.get(url).then(
+            function (response)   
+            {
+                if (response.data.length > 0)
+                {                
+                    
+                    $scope.deposit = response.data[0];
+                    
+                    $scope.reflectStory = $scope.deposit.TRANSCRIPTION;
+                    $scope.approved = $scope.deposit.IS_PLAYABLE * 1;   // Reset to integral
+                    
+                } else {
+                    
+                    alert("Critical error");
+                    
+                }
+            }, 
+            function(response) 
+            {
+                //  That's ok, no tags, we don't even need them.
+            });         
+       return;         
+    };
     
     $scope.changeApproval = function(value)
     {
@@ -1361,8 +1485,8 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
             
         } else {
             
-            $scope.reflectStory = $scope.deposit.TRANSCRIPTION;
-            $scope.approved = $scope.deposit.IS_PLAYABLE * 1;   // Reset to integral
+            //  We now need to fetch the whole story
+            $scope.fetchSingleStory();            
             $scope.fetchStoryTags();
             
         } 

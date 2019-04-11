@@ -938,7 +938,7 @@ h3.instructions
 
 .curation
 {
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .curation md-input-container
@@ -960,4 +960,5 @@ h3.instructions
 {
     margin: 0;
     font-size: 1.5em;
+    overflow: hidden;
 }

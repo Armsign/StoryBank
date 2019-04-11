@@ -55,7 +55,7 @@
                             <table class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th sortable="ID" class="sortable">#
+                                    <th sortable="ID" class="sortable" style="width: 12.5%;">#
 
                                          <input type="text" class="form-control"
                                             placeholder="Search ..."
@@ -66,7 +66,7 @@
 
                                     </th>
 
-                                    <th sortable="STORED_BY" class="sortable">Email
+                                    <th sortable="STORED_BY" class="sortable" style="width: 12.5%;">Email
 
                                          <input type="text" class="form-control"
                                             placeholder="Search ..."
@@ -76,7 +76,7 @@
                                             filter-type="text" />
 
                                     </th>                                                            
-                                    <th sortable="STORED_AS" class="sortable">Nom De Plume
+                                    <th sortable="STORED_AS" class="sortable" style="width: 12.5%;">Nom De Plume
 
 
                                          <input type="text" class="form-control"
@@ -88,7 +88,7 @@
 
 
                                     </th>                                                            
-                                    <th sortable="STORED_ON" class="sortable">Received
+                                    <th sortable="STORED_ON" class="sortable" style="width: 12.5%;">Received
 
                                          <input type="text" class="form-control"
                                             placeholder="Search ..."
@@ -98,7 +98,7 @@
                                             filter-type="text">                                           
 
                                     </th>                                                                                
-                                    <th sortable="TITLE" class="sortable">Title                                    
+                                    <th sortable="TITLE" class="sortable" style="width: 42%;">Title                                    
 
                                          <input type="text" class="form-control"
                                             placeholder="Search ..."
@@ -108,19 +108,18 @@
                                             filter-type="text">                                      
                                     
                                     </th>  
-                                    <th>&nbsp;</th>  
+                                    <th style="width: 8%;">&nbsp;</th>  
                                 </tr>
                                 </thead>
                                 <tbody>
                                     <tr grid-item>
-                                        <td ng-click="editDeposit(item, $event)" ng-bind="item.ID" class="underline"></td>
-                                        <td ng-bind="item.STORED_BY"></td> 
-                                        <td ng-bind="item.STORED_AS"></td> 
-                                        <td ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
+                                        <td style="width: 12.5%;" ng-click="editDeposit(item, $event)" ng-bind="item.ID" class="underline"></td>
+                                        <td style="width: 12.5%;" ng-bind="item.STORED_BY"></td> 
+                                        <td style="width: 12.5%;" ng-bind="item.STORED_AS"></td> 
+                                        <td style="width: 12.5%;" ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
+                                        <td style="width: 42%;" ng-bind="item.TITLE"></td>
 
-                                        <td md-truncate ng-bind="item.TITLE"></td>
-
-                                        <td ng-click="deleteDeposit(item, $event)" class="underline centre">
+                                        <td style="width: 8%;" ng-click="deleteDeposit(item, $event)" class="underline centre">
                                             Delete                                                
                                         </td> 
                                     </tr>
@@ -162,7 +161,7 @@
                             <table class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th sortable="ID" class="sortable">#
+                                    <th sortable="ID" class="sortable" style="width: 12.5%;">#
 
                                          <input type="text" class="form-control"
                                             placeholder="Search ..."
@@ -171,9 +170,8 @@
                                             filter-by="ID"
                                             filter-type="text">                                            
 
-
                                     </th>
-                                    <th sortable="STORED_BY" class="sortable">Email
+                                    <th sortable="STORED_BY" class="sortable" style="width: 12.5%;">Email
 
                                          <input type="text" class="form-control"
                                             placeholder="Search ..."
@@ -183,7 +181,7 @@
                                             filter-type="text">
 
                                     </th>                                                            
-                                    <th sortable="STORED_AS" class="sortable">Nom De Plume
+                                    <th sortable="STORED_AS" class="sortable" style="width: 12.5%;">Nom De Plume
 
 
                                          <input type="text" class="form-control"
@@ -195,7 +193,7 @@
 
 
                                     </th>                                                            
-                                    <th sortable="STORED_ON" class="sortable">Received
+                                    <th sortable="STORED_ON" class="sortable" style="width: 12.5%;">Received
 
                                          <input type="text" class="form-control"
                                             placeholder="Search ..."
@@ -205,7 +203,7 @@
                                             filter-type="text">                                           
 
                                     </th>                                                                                
-                                    <th sortable="TITLE" class="sortable">Title
+                                    <th sortable="TITLE" class="sortable" style="width: 42%;">Title
 
                                          <input type="text" class="form-control"
                                             placeholder="Search ..."
@@ -215,17 +213,17 @@
                                             filter-type="text">                                        
 
                                     </th>  
-                                    <th>&nbsp;</th> 
+                                    <th style="width: 8%;">&nbsp;</th> 
                                 </tr>
                                 </thead>
                                 <tbody>
                                     <tr grid-item>
-                                        <td ng-click="editDeposit(item, $event)" ng-bind="item.ID" class="underline"></td>
-                                        <td ng-bind="item.STORED_BY"></td> 
-                                        <td ng-bind="item.STORED_AS"></td> 
-                                        <td ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
-                                        <td md-truncate ng-bind="item.TITLE"></td>                                        
-                                        <td ng-click="deleteDeposit(item, $event)" class="underline centre">
+                                        <td style="width: 12.5%;" ng-click="editDeposit(item, $event)" ng-bind="item.ID" class="underline"></td>
+                                        <td style="width: 12.5%;" ng-bind="item.STORED_BY"></td> 
+                                        <td style="width: 12.5%;" ng-bind="item.STORED_AS"></td> 
+                                        <td style="width: 12.5%;" ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
+                                        <td style="width: 42%;" ng-bind="item.TITLE"></td>                                        
+                                        <td style="width: 8%;" ng-click="deleteDeposit(item, $event)" class="underline centre">
                                             Delete                                                
                                         </td> 
                                     </tr>
@@ -260,79 +258,58 @@
                     </md-content>
                 </md-tab>  
                
-
-                <md-tab label="Commented Stories ({{flaggedStoriesCount}})">
+                <md-tab label="New Comments ({{commentsCount}})">
                      <md-content class="md-padding">
 
-                        <div id="flaggedStories" grid-data grid-options="gridFlaggedStoriesOptions" grid-actions="gridFlaggedStoriesActions">
+                        <div id="flaggedStories" grid-data grid-options="commentsOptions" grid-actions="gridFlaggedStoriesActions">
                             <table class="table table-bordered table-striped">
                                 <thead>
-                                    <th sortable="ID" class="sortable">#
+                                    
+                                    <th style="width: 12.5%;" sortable="COMMENT_BY" class="sortable">Made By
 
                                          <input type="text" class="form-control"
                                             placeholder="Search ..."
                                             ng-change="gridNewStoriesActions.filter()"
-                                            ng-model="ID"
-                                            filter-by="ID"
-                                            filter-type="text">                                            
-
-
-                                    </th>
-                                    <th sortable="STORED_BY" class="sortable">Email
-
-                                         <input type="text" class="form-control"
-                                            placeholder="Search ..."
-                                            ng-change="gridNewStoriesActions.filter()"
-                                            ng-model="STORED_BY"
-                                            filter-by="STORED_BY"
+                                            ng-model="COMMENT_BY"
+                                            filter-by="COMMENT_BY"
                                             filter-type="text">
 
                                     </th>                                                            
-                                    <th sortable="STORED_AS" class="sortable">Nom De Plume
-
+                                    <th style="width: 12.5%;" sortable="COMMENT_ON" class="sortable">Made On
 
                                          <input type="text" class="form-control"
                                             placeholder="Search ..."
                                             ng-change="gridNewStoriesActions.filter()"
-                                            ng-model="STORED_AS"
-                                            filter-by="STORED_AS"
+                                            ng-model="COMMENT_ON"
+                                            filter-by="COMMENT_ON"
                                             filter-type="text">
 
-
                                     </th>                                                            
-                                    <th sortable="STORED_ON" class="sortable">Received
+                                                                              
+                                    <th style="width: 59%;" sortable="COMMENT" class="sortable">Comment
 
                                          <input type="text" class="form-control"
                                             placeholder="Search ..."
                                             ng-change="gridNewStoriesActions.filter()"
-                                            ng-model="STORED_ON"
-                                            filter-by="STORED_ON"
-                                            filter-type="text">                                           
-
-                                    </th>                                                                                
-                                    <th sortable="TRANSCRIPTION" class="sortable">Story
-                                        <!--
-                                         <input type="text" class="form-control"
-                                            placeholder="Search ..."
-                                            ng-change="gridNewStoriesActions.filter()"
-                                            ng-model="TRANSCRIPTION"
-                                            filter-by="TRANSCRIPTION"
+                                            ng-model="COMMENT"
+                                            filter-by="COMMENT"
                                             filter-type="text">                                        
-                                        -->
-                                    </th>  
-                                    <th>&nbsp;</th>                                                                                 
+
+                                    </th> 
+                                    
+                                    <th style="width: 8%;" >&nbsp;</th>                                      
+                                    <th style="width: 8%;" >&nbsp;</th>                                                                                 
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr grid-item ng-click="editDeposit(item, $event)">
-                                       <td ng-click="editDeposit(item, $event)" ng-bind="item.ID" class="underline"></td>
-                                        <td ng-bind="item.STORED_BY"></td> 
-                                        <td ng-bind="item.STORED_AS"></td> 
-                                        <td ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
-                                        <td>
-                                            <p ng-bind-html="item.TRANSCRIPTION"></p>                                                
-                                        </td> 
-                                        <td ng-click="deleteDeposit(item, $event)" class="underline centre">
+                                    <tr grid-item>                                                                                
+                                        <td style="width: 12.5%;" ng-bind="item.COMMENT_BY"></td> 
+                                        <td style="width: 12.5%;" ng-bind="item.COMMENT_ON"></td> 
+                                        <td style="width: 59%;" ng-bind="item.COMMENT"></td>
+                                        <td style="width: 8%;" ng-click="approveComment(item, $event)" class="underline centre">
+                                            Approve                                                
+                                        </td>                                         
+                                        <td style="width: 8%;" ng-click="deleteComment(item, $event)" class="underline centre">
                                             Delete                                                
                                         </td>                   
                                     </tr>
@@ -476,10 +453,7 @@
             </md-tabs>
         </md-content>
 
-
     </div>  
-    
-    <br/><br/>
     
     <!-- Sign Off -->    
     <div class="grid-item center logo" style="grid-column: 1 / span 16; grid-row: 13;">
