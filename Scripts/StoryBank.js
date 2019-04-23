@@ -1875,20 +1875,23 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             //  Should have some emails now ;p
             //  Fire off a buncha requests to the API for each email and call it a day, huh?
             //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=email'
-                    + '&id=' + $routeParams.id 
-                    + '&visitorID=' + $scope.visitorID
-                    + '&emails=' + answer;
+            if (answer.length > 0)
+            {
+                
+                var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=email'
+                        + '&visitorID=' + $scope.visitorID
+                        + '&emails=' + answer;
 
-            //  Call the login function appropriately
-            $http.get(url).then(
-                function (response)   
-                {
-                    
-                    alert('Email sent');
+                //  Call the login function appropriately
+                $http.get(url).then(
+                    function (response)   
+                    {
 
-                }); 
+                        alert('Email sent');
 
+                    }); 
+
+            }
             
             $rootScope.openDialog = false;
   
