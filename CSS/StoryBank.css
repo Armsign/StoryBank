@@ -956,9 +956,10 @@ h3.instructions
     margin-right: 0;
 }
 
-.curation p, .curation td
+.curation p, .curation td, .modalText
 {
     margin: 0;
-    font-size: 1.5em;
+    font-size: 1.4em;
     overflow: hidden;
 }
+
