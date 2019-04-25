@@ -1,19 +1,17 @@
-<div id="screenSaverID" class="grid-container screenSaver" ng-click="restoreSession()">
+<div class="grid-container deposits" ng-click="restoreSession()">
     
-    <!-- Row 1 Background image -->
-    <div style="grid-column: 4 / span 4; grid-row: 4 / span 3;">
-        
-        <img class="screenSaveAccent" src="Images/Common/letterAccent_Left.svg" />
-        
-        <h1 class="blue screenSaverTitle">Inspiration Station</h1>
-         
-        <img class="screenSaveAccent" src="Images/Common/letterAccent_Right.svg" />
-         <br/>
-         <h1 class="blue">We are all storytellers.</h1>
+    <div id="screenSaverID" class="grid-item screenSaver" style="grid-column: 1 / span 8; grid-row: 1 / span 3;">
+        <h1 class="blue">
+            <img class="letterAccent" src="Images/Common/letterAccent_Left.svg" />        
+            Story Bank Teller
+            <img class="letterAccent" src="Images/Common/letterAccent_Right.svg" />     
+        </h1>
+        <h2>
+             We are all storytellers.
+        </h2>
     </div>    
-
     
-    <div id="callToActionButton" class="callToAction" style="grid-column: 5 / span 2; grid-row: 7 / span 1;">
+    <div id="callToActionButton" class="callToAction" style="grid-column: 6 / span 6; grid-row: 7 / span 4;">
          <h1 class="red">Touch to begin</h1>
     </div>  
   
@@ -41,8 +39,14 @@
         <img id="maryWindPoppinsRight" src="Images/Screensaver/WINDYPOPPINS.gif" style="opacity: 0;" />   
     </div>        
     
-    <div class="grid-item logo" style="grid-column: 4 / span 4; grid-row: 10;">
+    <!-- Sign Off -->    
+    <div class="grid-item center logo" style="grid-column: 1 / span 16; grid-row: 13;">
         <img src="Images/Common/StoryBanklogo.png" />   
-    </div>        
+    </div>     
     
-</div>
+</div>  
+
+<!--
+    grid-template-columns: 1% 8% 8% 8% 8% 8% 8% 1% 1% 8% 8% 8% 8% 8% 8% 1%;    
+    grid-template-rows: 2% 8% 8% 8% 8% 8% 8% 8% 8% 8% 8% 8% 8% 2%;  
+-->
