@@ -1113,6 +1113,28 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
         });              
     }
     
+    $scope.commentDeposit = function(comment, ev)
+    {
+        $rootScope.comment = comment;
+        
+        $mdDialog.show({
+            controller: 'DepositCtrl',    
+            templateUrl: 'Templates/Modals/deposit.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: false,
+        })
+        .then(function() 
+        {
+            
+            //  Load up teh data grids!
+            $scope.getApprovedStoriesData();
+            $scope.getUnApprovedStoriesData();             
+ 
+        });              
+    }    
+    
     $scope.deleteDeposit = function(deposit,ev)
     {
         if ($scope.token && $scope.token.length > 0)
@@ -1274,6 +1296,7 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
 myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, $cookies, $location) 
 { 
     $scope.deposit = $rootScope.deposit;
+    $scope.comment = $rootScope.comment;
     $scope.approved = 0;
     $scope.storyTags = new Array();
     $scope.storyTagsSuperSet = new Array();
@@ -1463,25 +1486,36 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
         //  Did we get a tag? if not we need to instanciate one.
         if (typeof $scope.deposit === "undefined")
         {
+            
             $scope.deposit = {
-                ID:"0", 
-                PROMPT_ID:0,
-                TITLE: "Title", 
-                VISITOR_ID: 0,
-                STORED_BY: "anon@storybank.com.au",
-                STORED_AS:"Anon",
-                STORED_AT:"N/A",
-                STORED_ON: new Date(),
-                AUDIO_TYPE:"",
-                AUDIO_LENGTH:0,
-                IS_PLAYABLE:0,
-                IS_TRANSCRIBED:1,
-                TRANSCRIPTION:"Story",
-                HAS_CONSENT:0,
-                USE_EMAIL:0,                
-                REVIEWED_BY:0,
-                REVIEWED_ON:new Date(),                
-            };        
+                    ID:"0", 
+                    PROMPT_ID:0,
+                    TITLE: "Title", 
+                    VISITOR_ID: 0,
+                    STORED_BY: "anon@storybank.com.au",
+                    STORED_AS:"Anon",
+                    STORED_AT:"N/A",
+                    STORED_ON: new Date(),
+                    AUDIO_TYPE:"",
+                    AUDIO_LENGTH:0,
+                    IS_PLAYABLE:0,
+                    IS_TRANSCRIBED:1,
+                    TRANSCRIPTION:"Story",
+                    HAS_CONSENT:0,
+                    USE_EMAIL:0,                
+                    REVIEWED_BY:0,
+                    REVIEWED_ON:new Date(),                
+                };                  
+            
+            if (typeof $scope.comment !== "undefined")
+            {
+                
+                $scope.deposit.ID = $scope.comment.DEPOSIT;                            
+                //  We now need to fetch the whole story
+                $scope.fetchSingleStory();            
+                $scope.fetchStoryTags();
+                
+            } 
             
         } else {
             

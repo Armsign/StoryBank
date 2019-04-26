@@ -109,12 +109,16 @@ class DaSafe
 
                 $stmt->execute();     
                 
-                if ($id === 0)               
-                {               
-                    $returnArray = mysqli_insert_id($this->mysqli);                
+                if ($id == 0)               
+                {                      
+                    
+                    $returnArray = mysqli_insert_id($this->mysqli);                                    
+                    
+                } else {
+                    
+                    $returnArray = $id;
+                    
                 }
-                
-                echo $stmt->error;
                 
                 $stmt->close();                            
             }

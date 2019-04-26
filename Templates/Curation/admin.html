@@ -97,7 +97,19 @@
                                             filter-by="STORED_ON"
                                             filter-type="text">                                           
 
-                                    </th>                                                                                
+                                    </th>             
+                                    
+                                    <th sortable="REVIEWED_ON" class="sortable" style="width: 12.5%;">Reviewed
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="approvedStoriesOptions.filter()"
+                                            ng-model="REVIEWED_ON"
+                                            filter-by="REVIEWED_ON"
+                                            filter-type="text">                                           
+
+                                    </th>                                      
+                                    
                                     <th sortable="TITLE" class="sortable" style="width: 42%;">Title                                    
 
                                          <input type="text" class="form-control"
@@ -117,6 +129,7 @@
                                         <td style="width: 12.5%;" ng-bind="item.STORED_BY"></td> 
                                         <td style="width: 12.5%;" ng-bind="item.STORED_AS"></td> 
                                         <td style="width: 12.5%;" ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
+                                        <td style="width: 12.5%;" ng-bind="item.REVIEWED_ON | date:'dd/MM/yyyy'"></td>                                        
                                         <td style="width: 42%;" ng-bind="item.TITLE"></td>
 
                                         <td style="width: 8%;" ng-click="deleteDeposit(item, $event)" class="underline centre">
@@ -202,7 +215,19 @@
                                             filter-by="STORED_ON"
                                             filter-type="text">                                           
 
-                                    </th>                                                                                
+                                    </th>    
+                                    
+                                    <th sortable="REVIEWED_ON" class="sortable" style="width: 12.5%;">Reviewed
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="unApprovedStoriesOptions.filter()"
+                                            ng-model="REVIEWED_ON"
+                                            filter-by="REVIEWED_ON"
+                                            filter-type="text">                                           
+
+                                    </th>                                     
+                                    
                                     <th sortable="TITLE" class="sortable" style="width: 42%;">Title
 
                                          <input type="text" class="form-control"
@@ -222,6 +247,7 @@
                                         <td style="width: 12.5%;" ng-bind="item.STORED_BY"></td> 
                                         <td style="width: 12.5%;" ng-bind="item.STORED_AS"></td> 
                                         <td style="width: 12.5%;" ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
+                                        <td style="width: 12.5%;" ng-bind="item.REVIEWED_ON | date:'dd/MM/yyyy'"></td>                                        
                                         <td style="width: 42%;" ng-bind="item.TITLE"></td>                                        
                                         <td style="width: 8%;" ng-click="deleteDeposit(item, $event)" class="underline centre">
                                             Delete                                                
@@ -265,6 +291,17 @@
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     
+                                    <th sortable="DEPOSIT" class="sortable" style="width: 12.5%;">Story #
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="gridNewStoriesActions.filter()"
+                                            ng-model="DEPOSIT"
+                                            filter-by="DEPOSIT"
+                                            filter-type="text">                                            
+
+                                    </th>                                    
+                                    
                                     <th style="width: 12.5%;" sortable="COMMENT_BY" class="sortable">Made By
 
                                          <input type="text" class="form-control"
@@ -302,7 +339,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr grid-item>                                                                                
+                                    <tr grid-item>   
+                                        <td style="width: 12.5%;" ng-click="commentDeposit(item, $event)" ng-bind="item.DEPOSIT" class="underline"></td>
                                         <td style="width: 12.5%;" ng-bind="item.COMMENT_BY"></td> 
                                         <td style="width: 12.5%;" ng-bind="item.COMMENT_ON"></td> 
                                         <td style="width: 59%;" ng-bind="item.COMMENT"></td>

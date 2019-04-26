@@ -18,7 +18,6 @@ class Deposits
     /*
      *      Admin functions
      */
-
     public function updateStory($token, $id, $promptId, $email, $nomDePlume, $title, $story, $charDesign, $hasConsent = 0, $useEmail = 0, $isPlayable = 0)
     {
         //  Need to check if this is a user
