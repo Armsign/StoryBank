@@ -161,7 +161,7 @@ class DaSafe
         return $returnArray;
     }  
     
-    public function updateTags($token, $id, $title, $description)
+    public function updateTags($token, $id, $title, $description, $isPublic)
     {
         //  Validate the token to get the user id
         $returnArray = array();
@@ -173,13 +173,14 @@ class DaSafe
                 
                 $sql = "UPDATE TAGS SET "
                     . "TITLE = '" . $title . "', "                 
-                    . "DESCRIPTION = '" . $description . "' "
+                    . "DESCRIPTION = '" . $description . "', "
+                    . "IS_PUBLIC = " . $isPublic . " "
                     . "WHERE ID = " . $id . ";";
                 
             } else {
 
-                $sql = "INSERT INTO TAGS ( TITLE, DESCRIPTION ) "
-                        . "VALUES ('" . $title . "', '" . $description . "')";
+                $sql = "INSERT INTO TAGS ( TITLE, DESCRIPTION, IS_PUBLIC ) "
+                        . "VALUES ('" . $title . "', '" . $description . "', " . $isPublic  . ")";
                 
             }
             
@@ -485,7 +486,7 @@ class DaSafe
      */
     public function fetchTags()
     {
-        return $this->executeSQL("SELECT ID, TITLE, DESCRIPTION FROM TAGS ORDER BY TITLE ASC");
+        return $this->executeSQL("SELECT ID, TITLE, DESCRIPTION, IS_PUBLIC FROM TAGS ORDER BY TITLE ASC");
     }
     
     /*

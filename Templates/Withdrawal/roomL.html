@@ -16,7 +16,14 @@
         <img src="Images/RoomL/MyAccount_Button.svg" ng-click="openAccount($event)"/>            
     </div>    
     
-    <!-- Categories -->
+    <ul class="grid-item" style="grid-column: 2 / span 15; grid-row: 4 / span 12;">            
+        <li ng-if="tag.IS_PUBLIC == 1" class="center category" ng-repeat="tag in tags" ng-click="switchCategory($event, tag.TITLE);">                
+            <div>{{tag.TITLE}}</div>
+        </li>
+    </ul>
+    
+    <!--
+    
     <div class="grid-item center category" style="grid-column: 1 / span 5; grid-row: 4 / span 3;">    
         <img src="Images/RoomL/Category_Maryborough.svg" ng-click="switchCategory($event, 'Maryborough');"/>            
     </div>
@@ -51,7 +58,9 @@
     
     <div class="grid-item center category" style="grid-column: 12 / span 5; grid-row: 10 / span 3;">    
         <img src="Images/RoomL/Category_ScienceFiction.svg" ng-click="switchCategory($event, 'Science Fiction');"/>
-    </div>     
+    </div>    
+    
+    -->
     
     <!-- Sign Off -->    
     <div class="grid-item center logo" style="grid-column: 1 / span 16; grid-row: 13;">

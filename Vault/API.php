@@ -267,8 +267,9 @@ function Tags()
             $id = trim($_GET["id"]);              
             $title = trim($_GET["title"]);
             $description = trim($_GET["description"]);
+            $isPublic = trim($_GET["isPublic"]);
             
-            echo json_encode($mySafe->updateTags($token, $id, $title, $description));
+            echo json_encode($mySafe->updateTags($token, $id, $title, $description, $isPublic));
             
             unset($mySafe);            
             break;        

@@ -122,10 +122,11 @@ CREATE TABLE DEPOSIT_FLAGS (
 --
 DROP TABLE IF EXISTS TAGS;
 CREATE TABLE TAGS (
-  ID bigint(20) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  TITLE varchar(1024) NOT NULL,
-  DESCRIPTION varchar(2048) NOT NULL,
-  PRIMARY KEY (ID)
+    ID bigint(20) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+    TITLE varchar(1024) NOT NULL,
+    DESCRIPTION varchar(2048) NOT NULL,
+    IS_INAPPROPRIATE INT(11) NOT NULL DEFAULT '0',
+    PRIMARY KEY (ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -146,6 +147,16 @@ JOIN 	email_addr_bean_rel eb ON ac.contact_id = eb.bean_id
 JOIN	email_addresses ea ON eb.email_address_id = ea.id
 LEFT 	JOIN accounts parent ON a.parent_id = parent.id
 WHERE	a.deleted = 0 
+
+
+http://demo.armsign.com.au/Vault/API.php?action=tags
+&method=update
+&token=c4fbb242c5ba845c3271e660fefe45d8072814c412d044e52cb530a6fe7e65a1
+&id=00000000000000000012
+&title=Adventure
+&description=Stores%20of%20exciting%20adventures!
+&isPublic=1
+
 
 
 */

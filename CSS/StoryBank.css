@@ -791,10 +791,30 @@ div.paperButton p
     width: 100%;        
 }
 
+/*
 .category img
 {
     width: 96%;
     margin: 2%;
+}
+*/
+
+.category
+{
+    float: left;
+    width: calc(100% / 3);
+}
+
+.category div
+{
+    margin: 1em;
+    padding: 1em;
+    font-size: 3em;   
+    font-family: BalfordBase;
+    background-color: rgba(255, 255, 255, .4) !important;    
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;     
 }
 
 

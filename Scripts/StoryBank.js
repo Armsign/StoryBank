@@ -808,27 +808,23 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
     
     $scope.getTagServerData = function() 
     {
-       var token = $cookies.get('authenticationToken');
-        
-        if (token && token.length > 0)
-        {
-            //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=tags&method=fetch';       
 
-            //  Call the tags function appropriately
-            $http.get(url).then(
-                function (response)   
-                {
-                    $scope.gridTagsOptions.data = response.data;
-                    $scope.tagCount = response.data.length;
-                }, 
-                function(response) 
-                {
-                    //  That's ok, no tags, we don't even need them.
-                });         
-           return; 
+        //  Ok ... but how it actually needs to send these to an api ...        
+        var url = 'http://' + $location.host() + '/Vault/API.php?action=tags&method=fetch';       
 
-        }
+        //  Call the tags function appropriately
+        $http.get(url).then(
+            function (response)   
+            {
+                $scope.gridTagsOptions.data = response.data;
+                $scope.tagCount = response.data.length;
+            }, 
+            function(response) 
+            {
+                //  That's ok, no tags, we don't even need them.
+            });         
+       return; 
+
     }; 
     
     $scope.getCommentsData = function() 
@@ -1533,6 +1529,7 @@ myApp.controller('TagCtrl', function ($rootScope, $scope, $http, $mdDialog, $coo
 { 
     $scope.tag = $rootScope.tag;
     $scope.token = '';
+    $scope.approved = 0;    
     
     $scope.saveDialog = function()
     {                        
@@ -1541,7 +1538,8 @@ myApp.controller('TagCtrl', function ($rootScope, $scope, $http, $mdDialog, $coo
                 + '/Vault/API.php?action=tags&method=update&token=' + $scope.token
                 + '&id=' + $scope.tag.ID
                 + '&title=' + $scope.tag.TITLE 
-                + '&description=' + $scope.tag.DESCRIPTION; 
+                + '&description=' + $scope.tag.DESCRIPTION
+                + '&isPublic=' + $scope.approved; 
 
         //  Call the tags function appropriately
         $http.get(url).then(
@@ -1562,6 +1560,12 @@ myApp.controller('TagCtrl', function ($rootScope, $scope, $http, $mdDialog, $coo
     {
         $mdDialog.hide($scope.tag);
     }
+    
+    $scope.changeApproval = function(value)
+    {
+        $scope.approved = value;
+        $scope.tag.IS_PUBLIC = value;
+    }    
             
     angular.element(document).ready(function () 
     {        
@@ -1572,7 +1576,13 @@ myApp.controller('TagCtrl', function ($rootScope, $scope, $http, $mdDialog, $coo
         if (typeof $scope.tag === "undefined")
         {
             $scope.tag = {ID:"0", TITLE:"Tag Title", DESCRIPTION:"Tag Description"};            
+        } else {
+            
+            $scope.approved = $scope.tag.IS_PUBLIC * 1;
+            
         }
+        
+        $scope.$digest();
                 
     });      
     
@@ -1647,7 +1657,28 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     $scope.comments = undefined;
     $scope.showStory = 1;    
     $scope.visitorID = 0;
-    $scope.isLoved = false;
+    $scope.isLoved = false;    
+    $scope.tags = undefined;
+    
+    //  Should we build the 9 item grid into a structural element?    
+    $scope.getTagServerData = function() 
+    {
+        //  Ok ... but how it actually needs to send these to an api ...        
+        var url = 'http://' + $location.host() + '/Vault/API.php?action=tags&method=fetch';       
+
+        //  Call the tags function appropriately
+        $http.get(url).then(
+            function (response)   
+            {
+                $scope.tags = response.data;      
+            }, 
+            function(response) 
+            {
+                //  That's ok, no tags, we don't even need them.
+            });         
+       return; 
+
+    };     
     
     $scope.switchStory = function(story)
     {
@@ -1979,7 +2010,9 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     }    
    
     angular.element(document).ready(function () 
-    {                
+    {        
+        $scope.getTagServerData();
+        
         //  This here        
         if ($location.path().includes('Display'))
         {

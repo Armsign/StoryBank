@@ -13,7 +13,13 @@
         <md-input-container style="width: 100%;">
             <label>Description</label>
             <textarea class="modalText" md-maxlength="8192" ng-model="tag.DESCRIPTION"></textarea>
-        </md-input-container>            
+        </md-input-container>         
+        
+        <md-input-container style="width: 48%; margin-top: -16px;">
+            <md-checkbox class="modalText" ng-model="approved" ng-change="changeApproval(approved)"  ng-true-value="1" ng-false-value="0" aria-label="Approved?">
+                Core Category?
+            </md-checkbox>            
+        </md-input-container>          
         
     </md-dialog-content>
     
