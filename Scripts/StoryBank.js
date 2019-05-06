@@ -1030,7 +1030,7 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
                 .textContent('Please enter a password for this staff member.')
                 .placeholder('Password')
                 .ariaLabel('Password')
-                .initialValue('AG00dPassw0rd')
+                .initialValue('Please enter a new password')
                 .targetEvent(ev)
                 .required(true)
                 .ok('Save')
