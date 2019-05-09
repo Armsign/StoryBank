@@ -157,6 +157,12 @@ http://demo.armsign.com.au/Vault/API.php?action=tags
 &description=Stores%20of%20exciting%20adventures!
 &isPublic=1
 
+[customer-area-dashboard /]
 
+7yrs Polycure External Signage;
+5yrs Digital Print Signage;
+3yrs ACS/ACM/ACB (Aluminium Composites);
+10yrs Etched Anodised Signage;
+10yrs for all interior installations.
 
 */
