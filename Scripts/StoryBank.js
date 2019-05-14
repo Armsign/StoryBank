@@ -559,7 +559,9 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
                     $scope.question = 'Inspired to begin your story ...?';
                     break; 
             }
-        }        
+        }   
+        
+        $scope.$digest();
     }    
     
     angular.element(document).ready(function () 
