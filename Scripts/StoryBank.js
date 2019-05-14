@@ -1935,7 +1935,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose: true,
-            dataToPass: { visitorID: $scope.visitorID, question: "Please enter your email address so we can deliver your deposits. If you'd like to send it to multiple recipients, just put a ; between them.\nFor example, jane@smith.com; john@smith.com" }
+            dataToPass: { visitorID: $scope.visitorID, question: "Please enter your email address so we can deliver your Account Statement. If you'd like to send it to multiple recipients, just put a ; between them.\nFor example, jane@smith.com; john@smith.com" }
         })
         .then(function(answer) {
             

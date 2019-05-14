@@ -1,11 +1,6 @@
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require(__DIR__ . '/Libraries/PHPMailer/Exception.php');
-require(__DIR__ . '/Libraries/PHPMailer/PHPMailer.php');
-require(__DIR__ . '/Libraries/PHPMailer/SMTP.php');
+require_once("Emails.php"); 
 
 /**
  * Description of Deposit
@@ -120,49 +115,9 @@ class Deposits
      */
     public function sendEmails($visitorID, $email)
     {
-        //  Open a mailer, takes more time, but is working
-        $mail = new PHPMailer(true);
-        
-        try {
-            //Server settings
-            $mail->SMTPDebug = 0;                                       // Enable verbose debug output
-            $mail->isSMTP();                                            // Set mailer to use SMTP
-            $mail->Host       = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
-            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'paul@armsign.com.au';                     // SMTP username
-            $mail->Password   = 'Reddragon01';                               // SMTP password
-            $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
-            $mail->Port       = 587;                                    // TCP port to connect to
-
-            //Recipients
-            $mail->setFrom('teller@storybank.com.au', 'Story Bank');
-            $mail->addAddress($email, 'Storybank Visitor');     // Add a recipient
-            $mail->addReplyTo('donotreply@storybank.com.au', 'Do Not Reply');
-
-            // Attachments
-
-            $mail->addAttachment(__DIR__ . '/Files/safeDoor.png');         // Add attachments
-
-            // Content
-            $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'Storybank Withdrawal';
-            
-            $mail->Body .= "<h1>You're too hot!</h1>";
-            $mail->Body .= "<p>Like, if anything, you're too hot to actually date.<p>";            
-            
-            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-            $mail->send();
-            
-            //  echo 'Message has been sent';
-            
-        } catch (Exception $e) {
-            
-            // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-            
-        }    
-       
-
+        $mailer = new ArmsignEmails();
+        $mailer->CreateAccountStatement($visitorID, $email);        
+        unset($mailer);
     }
     
     public function createStory($promptID, $email, $visitorID, $nomDePlume, $story, $charDesign, $hasConsent = 0, $useEmail = 0)
@@ -362,24 +317,3 @@ class Deposits
     }        
     
 }
-
-/*
-sendmail -F “Synology Station” -f “paul@armsign.com.au” -t pdunn@propergauche.com << EOF
-Subject: Synology Mail Test
-Seems to work. Hooray.
-EOF
- * 
- * 
- * 
- *              /usr/bin/ssmtp -t
- * 
- * 
- 
- sendmail -F “Synology Station” -f “paul@armsign.com.au” -t paul@armsign.com.au << EOF
-Subject: Synology Mail Test
-Seems to work. Hooray.
-EOF
- 
- * 
- * 
- */

@@ -377,6 +377,26 @@ class DaSafe
         return $returnArray;
     }     
     
+    public function fetchAccountStatement($visitorID)
+    {        
+        echo "SELECT STORED_AS, STORED_BY, TRANSCRIPTION, CHARACTER_DESIGN "
+                . "FROM DEPOSITS "
+                . "WHERE VISITOR_ID = '" . $visitorID . "' "                
+                . "ORDER BY PROMPT_ID ASC";
+        
+        /*
+        $returnArray = $this->executeSQL("SELECT STORED_AS, STORED_BY, TRANSCRIPTION, CHARACTER_DESIGN "
+                . "FROM DEPOSITS "
+                . "WHERE VISITOR_ID = '" . $visitorID . "' "                
+                . "ORDER BY PROMPT_ID ASC");                                     
+
+
+        return $returnArray;                
+         * 
+         */
+        
+        return '';
+    }    
     
     public function fetchWithdrawalStoryId($id)
     {        

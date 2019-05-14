@@ -2,10 +2,12 @@
 
     <div class="keyBoardPage grid-item" style="grid-column: 3; grid-row: 1;">
 
-        <md-content md-no-float ng-cloak>
-            <p style="font-family: Olivetti; font-size: 11px; line-height: 24px;" ng-bind="question" />
+        <md-content md-no-float>
+            <p style="font-family: Olivetti; font-size: 11px; line-height: 24px;"/>{{question}}</p>
         </md-content>
 
+        
+        
         <md-input-container md-no-float>
             <textarea id="textForStory" ng-disabled="true" max-rows="10" aria-label md-no-resize ng-model="activeStory" placeholder="Your story begins here ..."></textarea>
         </md-input-container>
