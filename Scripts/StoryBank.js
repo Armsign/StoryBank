@@ -540,23 +540,23 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
                 case 5:         
                 case 6: 
                 case 8:
-                    $scope.question = 'to think of a magical moment, special place or person related to Maryborough? The bond of people to Maryborough and their powerful sense of place and community, is bound by stories. Share your story of Maryborough to the Story Bank.'; 
+                    $scope.question = "Think of your own treasured places and possessions? Do they suggest any story ideas? Type some notes and we'll save them to your Story Bank Account."; 
                     break; 
                 case 10:
                 case 11:
                 case 12:
                 case 13:
                 case 14:
-                    $scope.question = 'to start to think about a story you would like to write. Who is the main character? Write one or two sentences describing them. You might include their appearance as well as their personality; their goals or their fears.';
+                    $scope.question = 'Go deeper into your characters. What makes them tick? How do they react towards others? Type some notes about their purpose in your story.';
                     break;
                 case 15:
-                    $scope.question = 'to write a story about your character?';
+                    $scope.question = 'Now bring your character to life with words by describing their appearance and personality traits.';
                     break;
                 case 16:
-                    $scope.question = 'to write a story about your selections?';
+                    $scope.question = 'Use these thought-provoking questions to inspire your storytelling. Quick! Start typing now.';
                     break;                                        
                 default:
-                    $scope.question = 'to begin your story ...?';
+                    $scope.question = 'Inspired to begin your story ...?';
                     break; 
             }
         }        

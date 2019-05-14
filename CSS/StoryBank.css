@@ -720,14 +720,12 @@ div.paperButton p
 
 .cloudContainer h3
 {        
-    position: absolute;
-    top: 66px;
+    padding: 16px !important;
     text-align: center;
     display: block !important;  
     width: 100%;
-    font-size: 3em !important;
+    font-size: 2em !important;
     margin: 0 !important;
-    padding: 0 !important;
     pointer-events: none;    
 }
 
