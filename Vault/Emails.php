@@ -17,6 +17,10 @@ use PHPMailer\PHPMailer\PHPMailer;
  */
 class ArmsignEmails
 {
+    //  Standard Fonts to setup
+    private $font_BalfordBase = null;
+    private $font_SourceSansPro = null;
+    private $font_Skitch = null;            
     
     public function CreateAccountStatement($visitorID, $email)
     {        
@@ -32,6 +36,9 @@ class ArmsignEmails
         $outputHTML .= $this->CompileHeader($visitorID, $visitorStories);
         $outputHTML .= $this->CompileRoomC($visitorID, $visitorStories);
         $outputHTML .= $this->CompileRoomD($visitorID, $visitorStories);
+        
+        $outputHTML .= '<p style="display: block; text-align: center; margin: 0; padding: 0;"><img src="../Images/Email/PageBreak.png" /></p>';
+        
         $outputHTML .= $this->CompileRoomE($visitorID, $visitorStories);
         $outputHTML .= $this->CompileRoomI($visitorID, $visitorStories);
         $outputHTML .= $this->CompileBalance($visitorID);
@@ -40,9 +47,10 @@ class ArmsignEmails
         $outputHTML .= '</body>';
         $outputHTML .= '</html>';
 
-        $fileLocation = $this->CompilePDF($outputHTML);
+        //  $fileLocation = $this->CompilePDF($outputHTML);
+        $fileLocation = $this->CompilePS($outputHTML);
         
-        $this->HitSend($email, $outputHTML, $fileLocation);
+        // $this->HitSend($email, $outputHTML, '');
         
     }
     
@@ -50,17 +58,18 @@ class ArmsignEmails
     {
         $outputHTML = '<style>';
         
-        $outputHTML .= 'body                {padding: 2%; background-color: #FFFFFF;}';        
-        $outputHTML .= 'h1                  {color: blue;}';        
-        $outputHTML .= 'p                   {color: red;}';                
-        $outputHTML .= 'table               {width: 100%; border: none; border-collapse: collapse;}';        
-        $outputHTML .= 'div                 {padding: 2%; display: block;}';   
-        $outputHTML .= '.containerHeader    {width: 96%;}';   
-        $outputHTML .= '.headerLeft         {float: left; display: inline; width: 62%;}';   
-        $outputHTML .= '.headerRight        {float: right; display: inline; width: 30%;}';   
-        $outputHTML .= '.footerLeft         {float: left; display: inline; width: 16%;}';   
-        $outputHTML .= '.footerRight        {float: right; display: inline; width: 76%;}';   
-        $outputHTML .= '.dashedAbove        {border-top: 1px dashed #000000;}';   
+        $outputHTML .= 'body                {padding: 2%; background-color: #FFFFFF; font-family: sourcesanspro; font-size: 12px; color: black;}';
+        //$outputHTML .= 'body                {padding: 2%; background-color: #FFFFFF; font-family: balfordbase; font-size: 12px; color: black;}';        
+        $outputHTML .= 'table               {width: 100%; border: none; border-collapse: collapse;}';
+        $outputHTML .= 'div                 {padding: 16px; display: block; width: calc(100% - 32px);';
+        $outputHTML .= '.dashedAbove        {border-top: 1px dashed #000000;}';
+        $outputHTML .= '.red                {color: rgb(216,0,0); font-family: zai_olivettiunderwoodstudio21typewriter; font-size: 12px; letter-spacing: -5px;}';
+        $outputHTML .= '.borders, .borders td           {padding: 8px; border: 1px solid black; vertical-align: middle;}';
+        $outputHTML .= '.redDate            {color: rgb(216,0,0); font-family: zai_olivettiunderwoodstudio21typewriter; font-size: 14px; letter-spacing: -5px; line-height: 14px;}';        
+        $outputHTML .= '.tableTitle         {font-size: 16px; line-height: 16px;}';
+        
+        $outputHTML .= '.nomDePlume         {font-size: 16px; line-height: 16px;}';
+        $outputHTML .= '.accountNumber      {margin-top: -32px;}';
         
         $outputHTML .= '</style>';        
         
@@ -84,23 +93,27 @@ class ArmsignEmails
         $outputHTML .= '<tbody>';        
         $outputHTML .= '<tr>';
         
-        $outputHTML .= '<td width="66%">'
-                . 'Account Statement'
+        $outputHTML .= '<td width="60%">'
+                . '<img src="../Images/Email/AccountStatement.png" />'
                 . '<br/><br/>'
-                . $this->FetchAccountName($visitorStories)
-                . '<br/><br/>'
-                . $this->FetchAccountNumber($visitorStories)                
+                . '<img src="../Images/Email/AccountDetails.png" />'
+                . '<p class="redDate">' . $this->FetchAccountName($visitorStories) . '</p>'
+                . '<p class="redDate accountNumber">' . $this->FetchAccountNumber($visitorStories) . '</p>'                               
                 . '<br/><br/>'                
-                . '<b><i>Congratulations,</i></b> you are well on your way to learning the art of storytelling!'
+                . '<div><b><i>Congratulations,</i></b> you are well on your way to learning the art of storytelling!'
                 . '<br/>'
                 . 'Your account holds the deposits of your adventures through The Story Bank. These are valuable investments that will add compound interest to your story.'
-                . '<br/><br/>'                
+                . '</div><br/><br/>'                
                 . '<b>Account Balance:</b>'
                 . '<br/>'
                 . 'Every good story comes from a simple storytelling process. Your balance of ideas and thoughts below create the outline for your story. Take a look at your account so far!';
         $outputHTML .= '</td>';        
+
+        $outputHTML .= '<td width="6%" class="tdContainer"></td>';
         
-        $outputHTML .= '<td width="34%">The Story Bank<br/>And some pixtures</td>';
+        $outputHTML .= '<td width="34%" class="tdContainer">'
+                . '<img src="../Images/Email/Header.png" />'
+                . '</td>';
         
         $outputHTML .= '</tr>';
         $outputHTML .= '</tbody>';
@@ -111,15 +124,20 @@ class ArmsignEmails
 
     private function CompileRoomC($visitorID, $visitorStories)
     {
-        $outputHTML = '<table>';          
+        $outputHTML = '<table class="borders">';          
         $outputHTML .= '<tbody>';       
         
         // PROMPT_ID, STORED_ON, STORED_AS, STORED_BY, TRANSCRIPTION, CHARACTER_DESIGN
         
         $outputHTML .= '<tr>';        
         $outputHTML .= '<td width="17%">DATE OF DEPOSIT</td>';                
-        $outputHTML .= '<td width="17%">' . $this->FetchAccountDate($visitorStories) . '</td>';                
-        $outputHTML .= '<td width="66%">A place to write and somethign to write about ... (pix)</td>';
+        
+        $outputHTML .= '<td width="17%" class="redDate">' . $this->FetchAccountDate($visitorStories) . '</td>';   
+        
+        $outputHTML .= '<td  class="tableTitle" width="66%">A place to write and somethign to write about ...'
+                . '<img src="../Images/Email/MaryPoppins.png" />'                
+                . '<img src="../Images/Email/OneQuarter.png" />'                
+                . '</td>';
         $outputHTML .= '</tr>';        
         
         $outputHTML .= '<tr>';        
@@ -129,7 +147,7 @@ class ArmsignEmails
                 . 'Think about how you want to tell your story. Is it a short tale or a long yarn? Is it a complex narrative or a simple memory? Will people read it or experience it in some other way such as film, music or art? '
                 . '</td>';                
         
-        $outputHTML .= '<td width="68%">';
+        $outputHTML .= '<td class="red" width="68%">';
         
         foreach ($visitorStories as $story)
         {        
@@ -151,7 +169,7 @@ class ArmsignEmails
 
     private function CompileRoomD($visitorID, $visitorStories)
     {
-        $outputHTML = '<table>';          
+        $outputHTML .= '<table class="borders">';          
         $outputHTML .= '<tbody>';       
         
         $outputHTML .= '<tr>';        
@@ -171,7 +189,7 @@ class ArmsignEmails
                 . 'Think good guys and bad guys! How do they create conflict and stop the main character from achieving their goals?'
                 . '</td>';                
         
-        $outputHTML .= '<td width="66%">';
+        $outputHTML .= '<td class="red" width="66%">';
         
         foreach ($visitorStories as $story)
         {        
@@ -193,7 +211,7 @@ class ArmsignEmails
 
     private function CompileRoomE($visitorID, $visitorStories)
     {
-        $outputHTML = '<table>';          
+        $outputHTML = '<table class="borders">';          
         $outputHTML .= '<tbody>';       
         
         $outputHTML .= '<tr>';        
@@ -213,7 +231,7 @@ class ArmsignEmails
                 . 'Make your character memorable with a distinctive personality that people will connect with.'
                 . '</td>';                
         
-        $outputHTML .= '<td width="66%">';
+        $outputHTML .= '<td class="red" width="66%">';
         
         foreach ($visitorStories as $story)
         {        
@@ -235,7 +253,7 @@ class ArmsignEmails
     
     private function CompileRoomI($visitorID, $visitorStories)
     {
-        $outputHTML = '<table>';          
+        $outputHTML = '<table class="borders">';          
         $outputHTML .= '<tbody>';       
         
         $outputHTML .= '<tr>';        
@@ -255,7 +273,7 @@ class ArmsignEmails
                 . 'How might the story end in an unexpected, interesting or unusual way?'
                 . '</td>';                
         
-        $outputHTML .= '<td width="66%">';
+        $outputHTML .= '<td class="red" width="66%">';
         
         foreach ($visitorStories as $story)
         {        
@@ -304,7 +322,7 @@ class ArmsignEmails
         $outputHTML .= '<tbody>';        
         
         $outputHTML .= '<tr>';        
-        $outputHTML .= '<td width="20%">Light bulb</td>';                
+        $outputHTML .= '<td width="20%"><img src="../Images/Email/LightBulb.png" /></td>';                
         $outputHTML .= '<td width="80%">'
                . 'Inspired?'
                 . '<br/><br/>'           
@@ -320,7 +338,7 @@ class ArmsignEmails
         $outputHTML .= '</tr>';    
         
         $outputHTML .= '<tr class="dashedAbove">';        
-        $outputHTML .= '<td width="20%">Hand pointing</td>';                
+        $outputHTML .= '<td width="20%"><img src="../Images/Email/Hand.png" /></td>';                
         $outputHTML .= '<td width="80%">'
                 . '<a href="mailto:storybank@frasercoast.qld.gov.au">StoryBank@frasercoast.qld.gov.au</a>'
                 . '<br/><br/>'   
@@ -342,8 +360,11 @@ class ArmsignEmails
         $returnFile = '';
         
         // create new PDF document
-        $pdf = new TCPDF();
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, "letter", true, "UTF-8", false);               
 
+        //  Setup parameters
+        //  $pdf->SetFont('dejavusans', '', 14, '', true );
+        
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('Story Bank');
@@ -351,13 +372,14 @@ class ArmsignEmails
         $pdf->SetSubject('Story Bank Account Statement');
         $pdf->SetKeywords('Story Bank, Account Statement');
 
-        // set default monospaced font
-        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        // embed the font
+                     
+        $pdf->SetFont($fontname, '', 10, false);
 
         // set margins
         $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetPrintHeader(false);
+        $pdf->SetPrintFooter(false);        
 
         // set auto page breaks
         $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
@@ -365,14 +387,11 @@ class ArmsignEmails
         // set image scale factor
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
-        // set font
-        $pdf->SetFont('helvetica', '', 12);
-
         // add a page
         $pdf->AddPage();
         
         // output the HTML content
-        $pdf->writeHTML($html, true, false, true, false, '');
+        $pdf->writeHTML($html . $fontname, true, false, true, false, '');
 
         // close and output PDF document
         $pdf->Output(__DIR__ . 'Files/example_011.pdf', 'I');      
@@ -380,6 +399,77 @@ class ArmsignEmails
         unset($pdf);
         
         return __DIR__ . 'Files/example_011.pdf';        
+    }
+    
+    private function CompilePS($visitorStories)
+    {
+         // create new PDF document
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, "letter", true, "UTF-8", false);               
+
+        // set document information
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Story Bank');
+        $pdf->SetTitle('Story Bank Account Statement');
+        $pdf->SetSubject('Story Bank Account Statement');
+        $pdf->SetKeywords('Story Bank, Account Statement');
+        $pdf->setImageScale(1);        
+        
+        // set margins
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetPrintHeader(false);
+        $pdf->SetPrintFooter(false);     
+        $pdf->setFontSubsetting(false);
+        
+        // add a page
+        $pdf->AddPage();
+        
+        //  Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false, $alt=false, $altimgs=array()) {
+        $pdf->Image('../Images/Email/AccountStatement.png', PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 1.5, 110, 15, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);
+        $pdf->Image('../Images/Email/Header.png', PDF_MARGIN_LEFT + 120, PDF_MARGIN_TOP + 1.5, 70, 90, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);        
+        $pdf->Image('../Images/Email/AccountDetails.png', PDF_MARGIN_LEFT + 1, PDF_MARGIN_TOP + 23, 110, 25, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);                
+
+        $pdf->SetFont('balfordbase', 'B', 33);
+        $pdf->Write(0, '       account statement', '', 0, '', 1, 0, false, false, 0);
+
+        $pdf->Ln(10);
+        
+        $pdf->SetFont('balfordbase', 'B', 12);
+        $pdf->Write(0, '     account name / nom de plume', '', 0, '', 1, 0, false, false, 0);
+        
+        $pdf->Ln(3);
+        
+        $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 12);
+        $pdf->SetTextColor(216,0,0);
+        $pdf->Write(0, ' Anon', '', 0, '', 1, 0, false, false, 0);
+        
+        $pdf->Ln(3);        
+        
+        $pdf->SetFont('balfordbase', 'B', 12);
+        $pdf->SetTextColor(0,0,0);        
+        $pdf->Write(0, '     account number', '', 0, '', 1, 0, false, false, 0);   
+        
+        $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 12);
+        $pdf->SetTextColor(216,0,0);
+        $pdf->Write(0, '12345', '', 0, '', 1, 0, false, false, 0);        
+
+
+        $pdf->Ln(2);
+
+        $pdf->SetFont('dejavusans', '', 10);
+
+        //  $pdf->MultiCell(80, 0, "[True Type Unicode font] : Cras eros leo, porttitor porta, accumsan fermentum, ornare ac, est. Praesent dui lorem, imperdiet at, cursus sed, facilisis aliquam, nibh. Nulla accumsan nonummy diam. Donec tempus. Etiam posuere. Proin lectus. Donec purus. Duis in sem pretium urna feugiat vehicula. Ut suscipit velit eget massa. Nam nonummy, enim commodo euismod placerat, tortor elit tempus lectus, quis suscipit metus lorem blandit turpis.\n", 1, 'J', 0, 1, '', '', true, 0);
+
+        $pdf->Ln(2);
+
+        $pdf->SetFont('cid0jp', '', 9);
+
+        // $pdf->MultiCell(80, 0, "[CID-0 font] : Cras eros leo, porttitor porta, accumsan fermentum, ornare ac, est. Praesent dui lorem, imperdiet at, cursus sed, facilisis aliquam, nibh. Nulla accumsan nonummy diam. Donec tempus. Etiam posuere. Proin lectus. Donec purus. Duis in sem pretium urna feugiat vehicula. Ut suscipit velit eget massa. Nam nonummy, enim commodo euismod placerat, tortor elit tempus lectus, quis suscipit metus lorem blandit turpis.\n", 1, 'J', 0, 1, '', '', true, 0);
+
+        $pdf->Output(__DIR__ . 'Files/example_011.pdf', 'I');      
+        
+        unset($pdf);        
+
+        
     }
     
     private function HitSend($email, $outputHTML, $fileLocation)
@@ -414,7 +504,7 @@ class ArmsignEmails
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = 'Storybank Withdrawal';
 
-        $mail->Body .= $outputHTML;
+        $mail->Body .= $outputHTML . $this->font_BalfordBase;
 
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
@@ -460,7 +550,8 @@ class ArmsignEmails
         {        
             if (strlen($story->STORED_ON) > 0)
             {                
-                return $story->STORED_ON;
+                $date=date_create($story->STORED_ON);
+                return date_format($date,"d.m.Y");
             }        
         }          
         
