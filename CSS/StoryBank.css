@@ -230,6 +230,11 @@ md-dialog
     background-color: rgba(255,255,255, .2);
 }
 
+.menuItem h1
+{
+    margin: 1em !important;
+}
+
 .selectedImage
 {        
     background-image: url("../Images/Common/itemHighlight.svg");
