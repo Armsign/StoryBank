@@ -26,456 +26,695 @@ class ArmsignEmails
     {        
         $visitorStories = $this->GatherData($visitorID);
         
+        /*
         $outputHTML = '<html>';        
         $outputHTML .= '<head>';
         $outputHTML .= $this->SetupStyles();
         $outputHTML .= '</head>';
         
         $outputHTML .= '<body>';      
-        
-        $outputHTML .= $this->CompileHeader($visitorID, $visitorStories);
-        $outputHTML .= $this->CompileRoomC($visitorID, $visitorStories);
-        $outputHTML .= $this->CompileRoomD($visitorID, $visitorStories);
-        
-        $outputHTML .= '<p style="display: block; text-align: center; margin: 0; padding: 0;"><img src="../Images/Email/PageBreak.png" /></p>';
-        
-        $outputHTML .= $this->CompileRoomE($visitorID, $visitorStories);
-        $outputHTML .= $this->CompileRoomI($visitorID, $visitorStories);
-        $outputHTML .= $this->CompileBalance($visitorID);
-        $outputHTML .= $this->CompileFooter($visitorID);
-        
+        $outputHTML .= 'Please find your Account Statement attached.';      
         $outputHTML .= '</body>';
         $outputHTML .= '</html>';
+         * */
 
         //  $fileLocation = $this->CompilePDF($outputHTML);
-        $fileLocation = $this->CompilePS($outputHTML);
+        $fileLocation = $this->CompilePS($visitorID, $visitorStories);        
         
-        // $this->HitSend($email, $outputHTML, '');
+        $this->HitSend($email, $outputHTML, $fileLocation);
         
+        return;         
     }
     
-    private function SetupStyles()
+    private function CompilePS($visitorID, $visitorStories)
     {
-        $outputHTML = '<style>';
-        
-        $outputHTML .= 'body                {padding: 2%; background-color: #FFFFFF; font-family: sourcesanspro; font-size: 12px; color: black;}';
-        //$outputHTML .= 'body                {padding: 2%; background-color: #FFFFFF; font-family: balfordbase; font-size: 12px; color: black;}';        
-        $outputHTML .= 'table               {width: 100%; border: none; border-collapse: collapse;}';
-        $outputHTML .= 'div                 {padding: 16px; display: block; width: calc(100% - 32px);';
-        $outputHTML .= '.dashedAbove        {border-top: 1px dashed #000000;}';
-        $outputHTML .= '.red                {color: rgb(216,0,0); font-family: zai_olivettiunderwoodstudio21typewriter; font-size: 12px; letter-spacing: -5px;}';
-        $outputHTML .= '.borders, .borders td           {padding: 8px; border: 1px solid black; vertical-align: middle;}';
-        $outputHTML .= '.redDate            {color: rgb(216,0,0); font-family: zai_olivettiunderwoodstudio21typewriter; font-size: 14px; letter-spacing: -5px; line-height: 14px;}';        
-        $outputHTML .= '.tableTitle         {font-size: 16px; line-height: 16px;}';
-        
-        $outputHTML .= '.nomDePlume         {font-size: 16px; line-height: 16px;}';
-        $outputHTML .= '.accountNumber      {margin-top: -32px;}';
-        
-        $outputHTML .= '</style>';        
-        
-        return $outputHTML;
-    }
-    
-    private function GatherData($visitorID)
-    {
-        //  Woo.
-        $daSafe = new DaSafe();       
-        $returnArray = json_encode($daSafe->fetchAccountStatement($visitorID));
-        unset($daSafe);        
-        
-        return json_decode($returnArray);
-    }
-    
-    private function CompileHeader($visitorID, $visitorStories)
-    {
-        //  Ok, what are we looking at here?
-        $outputHTML = '<table>';          
-        $outputHTML .= '<tbody>';        
-        $outputHTML .= '<tr>';
-        
-        $outputHTML .= '<td width="60%">'
-                . '<img src="../Images/Email/AccountStatement.png" />'
-                . '<br/><br/>'
-                . '<img src="../Images/Email/AccountDetails.png" />'
-                . '<p class="redDate">' . $this->FetchAccountName($visitorStories) . '</p>'
-                . '<p class="redDate accountNumber">' . $this->FetchAccountNumber($visitorStories) . '</p>'                               
-                . '<br/><br/>'                
-                . '<div><b><i>Congratulations,</i></b> you are well on your way to learning the art of storytelling!'
-                . '<br/>'
-                . 'Your account holds the deposits of your adventures through The Story Bank. These are valuable investments that will add compound interest to your story.'
-                . '</div><br/><br/>'                
-                . '<b>Account Balance:</b>'
-                . '<br/>'
-                . 'Every good story comes from a simple storytelling process. Your balance of ideas and thoughts below create the outline for your story. Take a look at your account so far!';
-        $outputHTML .= '</td>';        
+         // create new PDF document
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, "A4", true, "UTF-8", false);               
 
-        $outputHTML .= '<td width="6%" class="tdContainer"></td>';
+        // set document information
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Story Bank');
+        $pdf->SetTitle('Story Bank Account Statement');
+        $pdf->SetSubject('Story Bank Account Statement');
+        $pdf->SetKeywords('Story Bank, Account Statement');
+        $pdf->SetMargins(10, 10, 10);
+        $pdf->SetPrintHeader(false);
+        $pdf->SetPrintFooter(false);   
         
-        $outputHTML .= '<td width="34%" class="tdContainer">'
-                . '<img src="../Images/Email/Header.png" />'
-                . '</td>';
+        // set margins  
+        $pdf->SetAutoPageBreak(TRUE, 0);        
+        $pdf->setFontSubsetting(false);
+        $pdf->setCellPaddings(3, 3, 3, 3);
+        $pdf->setImageScale(1);     
+        $pdf->setCellHeightRatio(1);        
         
-        $outputHTML .= '</tr>';
-        $outputHTML .= '</tbody>';
-        $outputHTML .= '</table>';        
+        // add a page break
+        $pdf->AddPage();
+
+        $this->CompileHeader($pdf, $visitorStories);
+        $this->CompileRoomC($pdf, $visitorStories);
+        $this->CompileRoomE($pdf, $visitorStories);
+
+        //  Page Break
+        $pdf->AddPage();       
+        $pdf->ImageSVG('../Images/Email/PageBreak.svg', 85, 6, 40, 11, '', '', '', 0, false);           
+
+        //  Page 2 Content
+        $this->CompileRoomD($pdf, $visitorStories);
+        $this->CompileRoomI($pdf, $visitorStories);
         
-        return $outputHTML . '<br/><br/>';
+        //  Footer data
+        $this->CompileBalance($pdf, $visitorStories);        
+        $this->CompileFooter($pdf, $visitorStories);        
+
+        //  Hooray, let's build her up
+        $pdf->Output(__DIR__ . 'Files/AccountStatement_' . $visitorID . '.pdf', 'I');      
+        
+        //  Done, tidy it all up
+        $pdf->destroy();       
+        unset($pdf);        
+
+        //  Let the email know about it
+        return __DIR__ . 'Files/AccountStatement_' . $visitorID . '.pdf';
+    }
+    
+    private function CompileHeader($pdf, $visitorStories)
+    {
+        //  Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false, $alt=false, $altimgs=array()) {
+        // $pdf->Image('../Images/Email/AccountStatement.png', PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 1.5, 110, 15, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);
+        // $pdf->Image('../Images/Email/Header.png', PDF_MARGIN_LEFT + 120, PDF_MARGIN_TOP + 1.5, 70, 90, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);        
+        // $pdf->Image('../Images/Email/AccountDetails.png', PDF_MARGIN_LEFT + 1, PDF_MARGIN_TOP + 23, 110, 25, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);                
+
+        $pdf->ImageSVG('../Images/Email/AccountStatement.svg', 10, 10, 110, 15, '', '', '', 0, false);                   
+        $pdf->ImageSVG('../Images/Email/Header.svg', 130, 10, 70, 90, '', '', '', 0, false);                   
+        $pdf->ImageSVG('../Images/Email/AccountDetails.svg', 10, 30, 110, 25, '', '', '', 0, false); 
+        
+        $pdf->SetFont('balfordbase', 'B', 12);
+        $pdf->MultiCell(60, 11, 
+                "account name / nom de plume",                
+                0, 'L', 0, 0, 12, 29, true, 0, false, true, 11, 'M', false);        
+        
+        $pdf->MultiCell(60, 11, 
+                "account number",                
+                0, 'L', 0, 0, 12, 45, true, 0, false, true, 11, 'M', false);    
+        
+        $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 10);
+        $pdf->SetTextColor(216,0,0);
+        
+        $pdf->MultiCell(60, 11, 
+                $this->FetchAccountName($visitorStories),                
+                0, 'L', 0, 0, 12, 37, true, 0, false, true, 11, 'M', false);        
+        
+        $pdf->MultiCell(60, 11, 
+                $this->FetchAccountNumber($visitorStories),                
+                0, 'L', 0, 0, 85, 45, true, 0, false, true, 11, 'M', false);         
+        
+        $pdf->SetFont('sourcesansproi', '', 11);                
+        $pdf->SetTextColor(0,0,0);          
+        $pdf->MultiCell(100, 10, 
+                "Congratulations,",
+                0, 'L', 0, 0, 12, 60, true, 0, false, true, 0, 'T', false);           
+        
+        $pdf->SetFont('sourcesansprolight', '', 11);              
+        $pdf->MultiCell(102, 60, 
+                "                                    you are well on your way to learning the art of storytelling!\n\n" .
+                "Your account holds the deposits of your adventures through The Story Bank. These are valuable investments that will add compound interest to your story.\n\n",
+                0, 'L', 0, 0, 12, 60, true, 0, false, true, 0, 'T', false);         
+        
+        $pdf->SetFont('sourcesansprob', '', 11);        
+        $pdf->MultiCell(102, 60, 
+                "Account Balance:",
+                0, 'L', 0, 0, 12, 90, true, 0, false, true, 0, 'T', false); 
+        
+        $pdf->SetFont('sourcesansprolight', '', 11);              
+        $pdf->MultiCell(102, 60, 
+                "\n" .
+                "Every good story comes from a simple storytelling process.\n\n" .
+                "Your balance of ideas and thoughts below create the outline for your story. Take a look at your account so far!\n\n", 
+                0, 'L', 0, 0, 12, 92, true, 0, false, true, 0, 'T', false);          
+             
+        return;
     }
 
-    private function CompileRoomC($visitorID, $visitorStories)
+    private function CompileRoomC($pdf, $visitorStories)
     {
-        $outputHTML = '<table class="borders">';          
-        $outputHTML .= '<tbody>';       
+       // Date of Deposit       
+        $complex_cell_border = array(
+           'T' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'L' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );        
         
-        // PROMPT_ID, STORED_ON, STORED_AS, STORED_BY, TRANSCRIPTION, CHARACTER_DESIGN
+        $pdf->SetFont('balfordbase', 'B', 12);
+        $pdf->MultiCell(30, 11, 
+                "date of deposit",                
+                $complex_cell_border, 'L', 0, 0, 10, 133, true, 0, false, true, 11, 'M', false);
         
-        $outputHTML .= '<tr>';        
-        $outputHTML .= '<td width="17%">DATE OF DEPOSIT</td>';                
+        //  Merge Date
+        $complex_cell_border = array(
+           'T' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           //'L' => array('width' => 0, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );         
         
-        $outputHTML .= '<td width="17%" class="redDate">' . $this->FetchAccountDate($visitorStories) . '</td>';   
+        $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 8);        
+        $pdf->SetTextColor(216,0,0);        
+        $pdf->MultiCell(35, 11, 
+                $this->FetchAccountDate($visitorStories),                
+                $complex_cell_border, 'C', 0, 0, 40, 133, true, 0, false, true, 11, 'M', false);  
+        $pdf->SetTextColor(0,0,0);      
+                
+        //  Story Header
+        $pdf->SetFont('sourcesanspro', '', 14);
+        $pdf->MultiCell(125, 11, 
+               'A place to write and something to write about ...',                
+                $complex_cell_border, 'L', 0, 0, 75, 133, true, 0, false, true, 11, 'M', false);        
         
-        $outputHTML .= '<td  class="tableTitle" width="66%">A place to write and somethign to write about ...'
-                . '<img src="../Images/Email/MaryPoppins.png" />'                
-                . '<img src="../Images/Email/OneQuarter.png" />'                
-                . '</td>';
-        $outputHTML .= '</tr>';        
+        $pdf->ImageSVG('../Images/Email/MaryPoppins.svg', 181, 135, 8, 7, '', '', '', 0, false);           
+        $pdf->ImageSVG('../Images/Email/OneQuarter.svg', 189, 133, 11, 11, '', '', '', 0, false);        
+                
+        //  Blurb        
+        $complex_cell_border = array(
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'L' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );           
+
+        $pdf->SetFont('sourcesanspro', '', 9);    
+        $pdf->MultiCell(65, 55, 
+                "The environment in which you write and the objects you keep around you say something about your memories and your imagination.\n\n" .
+                "They often build the world in which a story will unfold. Review your notes to scope out the features of the world you want to create.\n\n" .
+                "Think about how you want to tell your story. Is it a short tale or a long yarn? Is it a complex narrative or a simple memory? Will people read it or experience it in some other way such as film, music or art?\n\n",
+                $complex_cell_border, 'J', 0, 0, 10, 144, true, 0, false, true, 0, 'M', false);
+
+        //  Story Data
+        $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', '', 10); 
+        $pdf->SetTextColor(216,0,0);       
         
-        $outputHTML .= '<tr>';        
-        $outputHTML .= '<td colspan="2">'
-                . 'The environment in which you write and the objects you keep around you say something about your memories and your imagination. They often build the world in which a story will unfold. Review your notes to scope out the features of the world you want to create.'
-                . '<br/><br/>'                
-                . 'Think about how you want to tell your story. Is it a short tale or a long yarn? Is it a complex narrative or a simple memory? Will people read it or experience it in some other way such as film, music or art? '
-                . '</td>';                
+        $displayText = '<table><tbody>';
+        for ($i = 0; $i < 14; $i++)
+        {        
+            if ($i % 2 == 0)
+            {                
+                $displayText .= '<tr style="background-color: #FAFAFA;">';
+            } else {
+                $displayText .= '<tr>';                    
+            }
+            
+            $displayText .= '<td>&nbsp;</td></tr>';
+            
+            $rowCounter++;
+        }
+        $displayText .= '</tbody></table>';
         
-        $outputHTML .= '<td class="red" width="68%">';
+        $pdf->MultiCell(125, 55, 
+                $displayText,                
+                0, 'L', 0, 0, 75, 144, true, 0, true, true, 0, 'T', false);          
         
+        $complex_cell_border = array(
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );    
+        
+        $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 6);         
+        $displayText = '';
         foreach ($visitorStories as $story)
         {        
             if ($story->PROMPT_ID > 0 && $story->PROMPT_ID < 10)
-            {                
-                $outputHTML .= $story->TRANSCRIPTION;
-                $outputHTML .= '<br/><br/>';
+            {            
+                $height = $pdf->getStringHeight(125, $displayText . $story->TRANSCRIPTION, true, true, 0, 0 );
+                
+                if ($height < 55)
+                {
+                    $displayText .= $story->TRANSCRIPTION;                        
+                } else {
+                    break;                    
+                }
             }        
-        }
-        
-        $outputHTML .= '</td>';
-        $outputHTML .= '</tr>';                
-        
-        $outputHTML .= '</tbody>';
-        $outputHTML .= '</table>'; 
-        
-        return $outputHTML . '<br/><br/>';
+        }        
+           
+        $pdf->setCellHeightRatio(2);
+        $pdf->MultiCell(125, 55, 
+                $displayText,                
+                $complex_cell_border, 'L', 0, 0, 75, 144, true, 0, true, true, 55, 'T', false);          
+        $pdf->setCellHeightRatio(1);
+        $pdf->SetTextColor(0,0,0);               
+
+        return;                
     }
 
-    private function CompileRoomD($visitorID, $visitorStories)
+    private function CompileRoomD($pdf, $visitorStories)
     {
-        $outputHTML .= '<table class="borders">';          
-        $outputHTML .= '<tbody>';       
+        // Date of Deposit       
+        $complex_cell_border = array(
+           'T' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'L' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );        
         
-        $outputHTML .= '<tr>';        
-        $outputHTML .= '<td width="17%">DATE OF DEPOSIT</td>';                
-        $outputHTML .= '<td width="17%">' . $this->FetchAccountDate($visitorStories) . '</td>';                
-        $outputHTML .= '<td width="66%">Characters are a pillar of your story ...</td>';
-        $outputHTML .= '</tr>';        
+        $pdf->SetFont('balfordbase', 'B', 12);
+        $pdf->MultiCell(30, 11, 
+                "date of deposit",                
+                $complex_cell_border, 'L', 0, 0, 10, 25, true, 0, false, true, 11, 'M', false);
         
-        $outputHTML .= '<tr>';        
-        $outputHTML .= '<td colspan="2">'
-                . 'To develop an interesting story, work more on your character to give them some flaws.'
-                . '<br/><br/>'                     
-                . 'What do they need to learn or desire to change? This will provide you with an idea of what happens to them as the story unfolds.'
-                . '<br/><br/>'                                       
-                . 'Now, create an opposing character (an Antagonist) who will create obstacles and complications for your main character.'
-                . '<br/><br/>'                     
-                . 'Think good guys and bad guys! How do they create conflict and stop the main character from achieving their goals?'
-                . '</td>';                
+        //  Merge Date
+        $complex_cell_border = array(
+           'T' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           //'L' => array('width' => 0, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );         
         
-        $outputHTML .= '<td class="red" width="66%">';
+        $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 8);        
+        $pdf->SetTextColor(216,0,0);        
+        $pdf->MultiCell(35, 11, 
+                $this->FetchAccountDate($visitorStories),                
+                $complex_cell_border, 'C', 0, 0, 40, 25, true, 0, false, true, 11, 'M', false);  
+        $pdf->SetTextColor(0,0,0);      
+                
+        //  Story Header
+        $pdf->SetFont('sourcesanspro', '', 14);
+        $pdf->MultiCell(125, 11, 
+               'Characters are a pillar of your story ...',                
+                $complex_cell_border, 'L', 0, 0, 75, 25, true, 0, false, true, 11, 'M', false);        
         
+        $pdf->ImageSVG('../Images/Email/MaryPoppins.svg', 181, 27, 8, 7, '', '', '', 0, false);           
+        $pdf->ImageSVG('../Images/Email/ThreeQuarter.svg', 189, 25, 11, 11, '', '', '', 0, false);        
+        
+        // $pdf->Image('../Images/Email/OneQuarter.png', 186, 25, 13, 13, 'PNG', '', '', true, 72, '', false, false, 0, false, false, false);                
+        
+        //  Blurb        
+        $complex_cell_border = array(
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'L' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );           
+
+        $pdf->SetFont('sourcesanspro', '', 9);    
+        $pdf->MultiCell(65, 55, 
+                "To develop an interesting story, work more on your character to give them some flaws.\n\n" .
+                "What do they need to learn or desire to change? This will provide you with an idea of what happens to them as the story unfolds.\n\n" .
+                "Now, create an opposing character (an Antagonist) who will create obstacles and complications for your main character.\r\n\r\n" .
+                "Think good guys and bad guys! How do they create conflict and stop the main character from achieving their goals?\n",
+                $complex_cell_border, 'J', 0, 0, 10, 36, true, 0, false, true, 0, 'M', false);
+
+        //  Story Data
+        $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 10); 
+        $pdf->SetTextColor(216,0,0);       
+        
+        $displayText = '<table><tbody>';
+        for ($i = 0; $i < 14; $i++)
+        {        
+            if ($i % 2 == 0)
+            {                
+                $displayText .= '<tr style="background-color: #FAFAFA;">';
+            } else {
+                $displayText .= '<tr>';                    
+            }
+            
+            $displayText .= '<td>&nbsp;</td></tr>';
+            
+            $rowCounter++;
+        }
+        $displayText .= '</tbody></table>';
+        
+        $pdf->MultiCell(125, 55, 
+                $displayText,                
+                0, 'L', 0, 0, 75, 36, true, 0, true, true, 0, 'T', false);          
+        
+        $complex_cell_border = array(
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );    
+        
+        $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 6);         
+        $displayText = '';
+        foreach ($visitorStories as $story)
+        {        
+            if ($story->PROMPT_ID > 9 && $story->PROMPT_ID < 15)
+            {       
+                $height = $pdf->getStringHeight(125, $displayText . $story->TRANSCRIPTION, true, true, 0, 0 );
+                
+                if ($height < 55)
+                {
+                    $displayText .= $story->TRANSCRIPTION;                        
+                } else {
+                    break;                    
+                }                                
+            }        
+        }        
+           
+        $pdf->setCellHeightRatio(2);        
+        $pdf->MultiCell(125, 55, 
+                $displayText,                
+                $complex_cell_border, 'L', 0, 0, 75, 36, true, 0, true, true, 55, 'T', false);          
+        $pdf->setCellHeightRatio(1);        
+        $pdf->SetTextColor(0,0,0);               
+
+        return;
+    }
+
+    private function CompileRoomE($pdf, $visitorStories)
+    {
+        // Date of Deposit       
+        $complex_cell_border = array(
+           'T' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'L' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );        
+        
+        $pdf->SetFont('balfordbase', 'B', 12);
+        $pdf->MultiCell(30, 11, 
+                "date of deposit",                
+                $complex_cell_border, 'L', 0, 0, 10, 204, true, 0, false, true, 11, 'M', false);
+        
+        //  Merge Date
+        $complex_cell_border = array(
+           'T' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           //'L' => array('width' => 0, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );         
+        
+        $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 8);        
+        $pdf->SetTextColor(216,0,0);        
+        $pdf->MultiCell(35, 11, 
+                $this->FetchAccountDate($visitorStories),                
+                $complex_cell_border, 'C', 0, 0, 40, 204, true, 0, false, true, 11, 'M', false);  
+        $pdf->SetTextColor(0,0,0);      
+                
+        //  Story Header
+        $pdf->SetFont('sourcesanspro', '', 14);
+        $pdf->MultiCell(125, 11, 
+               'Bringing your main character to life ...',                
+                $complex_cell_border, 'L', 0, 0, 75, 204, true, 0, false, true, 11, 'M', false);        
+        
+        $pdf->ImageSVG('../Images/Email/MaryPoppins.svg', 181, 206, 8, 7, '', '', '', 0, false);           
+        $pdf->ImageSVG('../Images/Email/TwoQuarter.svg', 189, 204, 11, 11, '', '', '', 0, false);        
+                
+        //  Blurb        
+        $complex_cell_border = array(
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'L' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );           
+
+        $pdf->SetFont('sourcesanspro', '', 9);    
+        $pdf->MultiCell(65, 65, 
+                "Every story has a single Protagonist or leading character.\n\n" .
+                "What is the name of yours?\n\n" .
+                "Now, create an opposing character (an Antagonist) who will create obstacles and complications for your main character.\r\n\r\n" .
+                "Think good guys and bad guys! How do they create conflict and stop the main character from achieving their goals?\n",
+                $complex_cell_border, 'J', 0, 0, 10, 215, true, 0, false, true, 0, 'M', false);
+
+        //  Story Data
+        $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 10); 
+        $pdf->SetTextColor(216,0,0);       
+        
+        $displayText = '<table><tbody>';
+        for ($i = 0; $i < 16; $i++)
+        {        
+            if ($i % 2 == 0)
+            {                
+                $displayText .= '<tr style="background-color: #FAFAFA;">';
+            } else {
+                $displayText .= '<tr>';                    
+            }
+            
+            $displayText .= '<td>&nbsp;</td></tr>';
+            
+            $rowCounter++;
+        }
+        $displayText .= '</tbody></table>';
+        
+        $pdf->MultiCell(83, 65, 
+                $displayText,                
+                0, 'L', 0, 0, 75, 215, true, 0, true, true, 0, 'T', false);          
+        
+        $complex_cell_border = array(
+           // 'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );    
+        
+        $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 6);         
+        $displayText = '';
         foreach ($visitorStories as $story)
         {        
             if ($story->PROMPT_ID > 9 && $story->PROMPT_ID < 15)
             {                
-                $outputHTML .= $story->TRANSCRIPTION;
-                $outputHTML .= '<br/><br/>';
+                $height = $pdf->getStringHeight(83, $displayText . $story->TRANSCRIPTION, true, true, 0, 0 );
+                
+                if ($height < 65)
+                {
+                    $displayText .= $story->TRANSCRIPTION;                        
+                } else {
+                    break;                    
+                }   
             }        
-        }
+        }        
+           
+        $pdf->setCellHeightRatio(2);        
+        $pdf->MultiCell(83, 65, 
+                $displayText,                
+                $complex_cell_border, 'L', 0, 0, 75, 215, true, 0, true, true, 55, 'T', false);          
+        $pdf->setCellHeightRatio(1);        
+        $pdf->SetTextColor(0,0,0); 
         
-        $outputHTML .= '</td>';
-        $outputHTML .= '</tr>';                
-        
-        $outputHTML .= '</tbody>';
-        $outputHTML .= '</table>'; 
-        
-        return $outputHTML . '<br/><br/>';
-    }
+        //  Pictures!
+        $complex_cell_border = array(
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );          
+        $pdf->MultiCell(42, 65, 
+                "hi there",                
+                $complex_cell_border, 'L', 0, 0, 158, 215, true, 0, true, true, 55, 'T', false);          
 
-    private function CompileRoomE($visitorID, $visitorStories)
-    {
-        $outputHTML = '<table class="borders">';          
-        $outputHTML .= '<tbody>';       
-        
-        $outputHTML .= '<tr>';        
-        $outputHTML .= '<td width="17%">DATE OF DEPOSIT</td>';                
-        $outputHTML .= '<td width="17%">' . $this->FetchAccountDate($visitorStories) . '</td>';                
-        $outputHTML .= '<td width="66%">Bringing your main character to life ...</td>';
-        $outputHTML .= '</tr>';        
-        
-        $outputHTML .= '<tr>';        
-        $outputHTML .= '<td colspan="2">'
-                . 'Every story has a single Protagonist or leading character.'
-                . '<br/><br/>'
-                . 'What is the name of yours?'
-                . '<br/><br/>'
-                . 'Check back on your notes and expand your description of the appearance and personality of your main character.'
-                . '<br/><br/>'
-                . 'Make your character memorable with a distinctive personality that people will connect with.'
-                . '</td>';                
-        
-        $outputHTML .= '<td class="red" width="66%">';
-        
-        foreach ($visitorStories as $story)
-        {        
-            if ($story->PROMPT_ID == 15)
-            {                
-                $outputHTML .= $story->TRANSCRIPTION;
-                $outputHTML .= '<br/><br/>';
-            }        
-        }
-        
-        $outputHTML .= '</td>';
-        $outputHTML .= '</tr>';                
-        
-        $outputHTML .= '</tbody>';
-        $outputHTML .= '</table>'; 
-        
-        return $outputHTML . '<br/><br/>';
+        return;        
     }    
     
-    private function CompileRoomI($visitorID, $visitorStories)
-    {
-        $outputHTML = '<table class="borders">';          
-        $outputHTML .= '<tbody>';       
+    private function CompileRoomI($pdf, $visitorStories)
+    {        
+        // Date of Deposit       
+        $complex_cell_border = array(
+           'T' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'L' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );        
         
-        $outputHTML .= '<tr>';        
-        $outputHTML .= '<td width="17%">DATE OF DEPOSIT</td>';                
-        $outputHTML .= '<td width="17%">' . $this->FetchAccountDate($visitorStories) . '</td>';                
-        $outputHTML .= '<td width="66%">So, what\'s your story really about?</td>';
-        $outputHTML .= '</tr>';        
+        $pdf->SetFont('balfordbase', 'B', 12);
+        $pdf->MultiCell(30, 11, 
+                "date of deposit",                
+                $complex_cell_border, 'L', 0, 0, 10, 96, true, 0, false, true, 11, 'M', false);
         
-        $outputHTML .= '<tr>';        
-        $outputHTML .= '<td colspan="2">'
-                . 'What, in the end, are you trying to share by telling your story?  What is your theme and inspiration?'
-                . '<br/><br/>'                
-                . 'Go back through your notes on thought provoking life questions and decide the main purpose of your story.' 
-                . '<br/><br/>'
-                . 'How does your main character and any supporting characters change through the course of the story?'
-                . '<br/><br/>'                
-                . 'How might the story end in an unexpected, interesting or unusual way?'
-                . '</td>';                
+        //  Merge Date
+        $complex_cell_border = array(
+           'T' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );         
         
-        $outputHTML .= '<td class="red" width="66%">';
+        $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 8);        
+        $pdf->SetTextColor(216,0,0);        
+        $pdf->MultiCell(35, 11, 
+                $this->FetchAccountDate($visitorStories),                
+                $complex_cell_border, 'C', 0, 0, 40, 96, true, 0, false, true, 11, 'M', false);  
+        $pdf->SetTextColor(0,0,0);         
+                
+        //  Story Header
+        $pdf->SetFont('sourcesanspro', '', 14);
+        $pdf->MultiCell(125, 11, 
+               'So, what\'s your story really about?',                
+                $complex_cell_border, 'L', 0, 0, 75, 96, true, 0, false, true, 11, 'M', false);        
+
+        $pdf->ImageSVG('../Images/Email/MaryPoppins.svg', 181, 98, 8, 7, '', '', '', 0, false);   
+        $pdf->ImageSVG('../Images/Email/FourQuarter.svg', 189, 96, 11, 11, '', '', '', 0, false);        
         
+        //  Blurb        
+        $complex_cell_border = array(
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'L' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );           
+ 
+        $pdf->setCellHeightRatio(1.1);
+        $pdf->SetFont('sourcesanspro', '', 9);    
+        $pdf->MultiCell(65, 55, 
+                "What, in the end, are you trying to share by telling your story?  What is your theme and inspiration?\n\n" .
+                "Go back through your notes on thought provoking life questions and decide the main purpose of your story.\n\n" .
+                "How does your main character and any supporting characters change through the course of the story?\n\n" .
+                "How might the story end in an unexpected, interesting or unusual way?\n",
+                $complex_cell_border, 'J', 0, 0, 10, 107, true, 0, false, true, 0, 'M', false);
+        
+        //  Story Data
+        $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 10); 
+        $pdf->SetTextColor(216,0,0);       
+        
+        $displayText = '<table><tbody>';
+        for ($i = 0; $i < 14; $i++)
+        {        
+            if ($i % 2 == 0)
+            {                
+                $displayText .= '<tr style="background-color: #FAFAFA;">';
+            } else {
+                $displayText .= '<tr>';                    
+            }
+            
+            $displayText .= '<td>&nbsp;</td></tr>';
+            
+            $rowCounter++;
+        }
+        $displayText .= '</tbody></table>';
+        
+        $pdf->MultiCell(125, 55, 
+                $displayText,                
+                0, 'L', 0, 0, 75, 107, true, 0, true, true, 0, 'T', false);          
+        
+        $complex_cell_border = array(
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );    
+        
+        $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 6);         
+        $displayText = '';
         foreach ($visitorStories as $story)
         {        
             if ($story->PROMPT_ID == 16)
             {                
-                $outputHTML .= $story->TRANSCRIPTION;
-                $outputHTML .= '<br/><br/>';
+                $height = $pdf->getStringHeight(125, $displayText . $story->TRANSCRIPTION, true, true, 0, 0 );
+                
+                if ($height < 55)
+                {
+                    $displayText .= $story->TRANSCRIPTION;                        
+                } else {
+                    break;                    
+                }   
             }        
-        }
-        
-        $outputHTML .= '</td>';
-        $outputHTML .= '</tr>';                
-        
-        $outputHTML .= '</tbody>';
-        $outputHTML .= '</table>'; 
-        
-        return $outputHTML . '<br/><br/>';
+        }        
+           
+        $pdf->setCellHeightRatio(2);        
+        $pdf->MultiCell(125, 55, 
+                $displayText,                
+                $complex_cell_border, 'L', 0, 0, 75, 107, true, 0, true, true, 55, 'T', false);          
+        $pdf->setCellHeightRatio(1); 
+        $pdf->SetTextColor(0,0,0);               
+
+        return;
     }     
     
-    private function CompileBalance($visitorID)
+    private function CompileBalance($pdf, $visitorStories)
     {
-        $outputHTML = '<table>';          
-        $outputHTML .= '<tbody>';       
-        
-        $outputHTML .= '<tr>';        
-        $outputHTML .= '<td width="34%">CURRENT ACCOUNT BALANCE</td>';                
-        $outputHTML .= '<td width="66%">Halfway to your story goal!</td>';
-        $outputHTML .= '</tr>';        
-        
-        $outputHTML .= '<tr>';        
-        $outputHTML .= '<td width="34%">INTEREST RATE</td>';                
-        $outputHTML .= '<td width="66%">To determine your current rate of interest, pitch your story ideas to a friend.</td>';
-        $outputHTML .= '</tr>';                
-
-        $outputHTML .= '</tbody>';
-        $outputHTML .= '</table>'; 
-        
-        return $outputHTML . '<br/><br/>';        
-        
-    }
-    
-    private function CompileFooter($visitorID)
-    {
-        //  Ok, what are we looking at here?
-        $outputHTML = '<table>';          
-        $outputHTML .= '<tbody>';        
-        
-        $outputHTML .= '<tr>';        
-        $outputHTML .= '<td width="20%"><img src="../Images/Email/LightBulb.png" /></td>';                
-        $outputHTML .= '<td width="80%">'
-               . 'Inspired?'
-                . '<br/><br/>'           
-                . 'Great! Now it\'s time to keep growing your balance by taking your Story Notes to our Workshop or your favourite creative place and use them to start creating your story.'
-                . '<br/><br/>'
-                . 'Develop the outline of your story by listing a series of events in the order that they will happen. Seeing all the moments in your story will highlight any gaps. It will also show you opportunities to fill with twists and turns, surprises and delights. Easy, right?'
-                . '<br/><br/>'
-                . 'Well, as Mary Poppins herself says: "<b><i>Well begun is half done!</i></b>" Good luck!'
-                . '<br/><br/>'                
-                . 'Oh, and when you\'re finished, let us know - we\'d love to share your story!'
-                . '</td>';
-        
-        $outputHTML .= '</tr>';    
-        
-        $outputHTML .= '<tr class="dashedAbove">';        
-        $outputHTML .= '<td width="20%"><img src="../Images/Email/Hand.png" /></td>';                
-        $outputHTML .= '<td width="80%">'
-                . '<a href="mailto:storybank@frasercoast.qld.gov.au">StoryBank@frasercoast.qld.gov.au</a>'
-                . '<br/><br/>'   
-                . '#storybankmaryborough'
-                . '<br/><br/>'
-                . '<a href="www.storybankmaryborough.com.au">www,storybankmaryborough.com.au</a>'
-                . '</td>';        
-        $outputHTML .= '</tr>';
-        
-        $outputHTML .= '</tbody>';
-        $outputHTML .= '</table>';         
-        
-        
-        return $outputHTML;
-    }
-    
-    private function CompilePDF($html)
-    {
-        $returnFile = '';
-        
-        // create new PDF document
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, "letter", true, "UTF-8", false);               
-
-        //  Setup parameters
-        //  $pdf->SetFont('dejavusans', '', 14, '', true );
-        
-        // set document information
-        $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetAuthor('Story Bank');
-        $pdf->SetTitle('Story Bank Account Statement');
-        $pdf->SetSubject('Story Bank Account Statement');
-        $pdf->SetKeywords('Story Bank, Account Statement');
-
-        // embed the font
-                     
-        $pdf->SetFont($fontname, '', 10, false);
-
-        // set margins
-        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-        $pdf->SetPrintHeader(false);
-        $pdf->SetPrintFooter(false);        
-
-        // set auto page breaks
-        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-        // set image scale factor
-        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-        // add a page
-        $pdf->AddPage();
-        
-        // output the HTML content
-        $pdf->writeHTML($html . $fontname, true, false, true, false, '');
-
-        // close and output PDF document
-        $pdf->Output(__DIR__ . 'Files/example_011.pdf', 'I');      
-        
-        unset($pdf);
-        
-        return __DIR__ . 'Files/example_011.pdf';        
-    }
-    
-    private function CompilePS($visitorStories)
-    {
-         // create new PDF document
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, "letter", true, "UTF-8", false);               
-
-        // set document information
-        $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetAuthor('Story Bank');
-        $pdf->SetTitle('Story Bank Account Statement');
-        $pdf->SetSubject('Story Bank Account Statement');
-        $pdf->SetKeywords('Story Bank, Account Statement');
-        $pdf->setImageScale(1);        
-        
-        // set margins
-        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-        $pdf->SetPrintHeader(false);
-        $pdf->SetPrintFooter(false);     
-        $pdf->setFontSubsetting(false);
-        
-        // add a page
-        $pdf->AddPage();
-        
-        //  Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false, $alt=false, $altimgs=array()) {
-        $pdf->Image('../Images/Email/AccountStatement.png', PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 1.5, 110, 15, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);
-        $pdf->Image('../Images/Email/Header.png', PDF_MARGIN_LEFT + 120, PDF_MARGIN_TOP + 1.5, 70, 90, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);        
-        $pdf->Image('../Images/Email/AccountDetails.png', PDF_MARGIN_LEFT + 1, PDF_MARGIN_TOP + 23, 110, 25, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);                
-
-        $pdf->SetFont('balfordbase', 'B', 33);
-        $pdf->Write(0, '       account statement', '', 0, '', 1, 0, false, false, 0);
-
-        $pdf->Ln(10);
+       // Date of Deposit       
+        $complex_cell_border = array(
+           'T' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'L' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );        
         
         $pdf->SetFont('balfordbase', 'B', 12);
-        $pdf->Write(0, '     account name / nom de plume', '', 0, '', 1, 0, false, false, 0);
+        $pdf->MultiCell(65, 11, 
+                "current account balance",                
+                $complex_cell_border, 'L', 0, 0, 10, 164, true, 0, false, true, 11, 'M', false);
         
-        $pdf->Ln(3);
+        //  Merge Date
+        $complex_cell_border = array(
+           'T' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           //'L' => array('width' => 0, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );         
+                
+        //  Story Header
+        $pdf->SetFont('sourcesanspro', '', 9);
+        $pdf->MultiCell(125, 11, 
+               '                                   Halfway to your story goal!',                
+                $complex_cell_border, 'L', 0, 0, 75, 164, true, 0, false, true, 11, 'M', false);        
         
-        $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 12);
-        $pdf->SetTextColor(216,0,0);
-        $pdf->Write(0, ' Anon', '', 0, '', 1, 0, false, false, 0);
+        $pdf->ImageSVG('../Images/Email/YourStory.svg', 78, 160, 20, 20, '', '', '', 0, false);                
         
-        $pdf->Ln(3);        
+        // Date of Deposit       
+        $complex_cell_border = array(
+           'T' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'L' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );        
         
         $pdf->SetFont('balfordbase', 'B', 12);
-        $pdf->SetTextColor(0,0,0);        
-        $pdf->Write(0, '     account number', '', 0, '', 1, 0, false, false, 0);   
+        $pdf->MultiCell(65, 11, 
+                "interest rate",                
+                $complex_cell_border, 'L', 0, 0, 10, 177, true, 0, false, true, 11, 'M', false);
         
-        $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 12);
-        $pdf->SetTextColor(216,0,0);
-        $pdf->Write(0, '12345', '', 0, '', 1, 0, false, false, 0);        
-
-
-        $pdf->Ln(2);
-
-        $pdf->SetFont('dejavusans', '', 10);
-
-        //  $pdf->MultiCell(80, 0, "[True Type Unicode font] : Cras eros leo, porttitor porta, accumsan fermentum, ornare ac, est. Praesent dui lorem, imperdiet at, cursus sed, facilisis aliquam, nibh. Nulla accumsan nonummy diam. Donec tempus. Etiam posuere. Proin lectus. Donec purus. Duis in sem pretium urna feugiat vehicula. Ut suscipit velit eget massa. Nam nonummy, enim commodo euismod placerat, tortor elit tempus lectus, quis suscipit metus lorem blandit turpis.\n", 1, 'J', 0, 1, '', '', true, 0);
-
-        $pdf->Ln(2);
-
-        $pdf->SetFont('cid0jp', '', 9);
-
-        // $pdf->MultiCell(80, 0, "[CID-0 font] : Cras eros leo, porttitor porta, accumsan fermentum, ornare ac, est. Praesent dui lorem, imperdiet at, cursus sed, facilisis aliquam, nibh. Nulla accumsan nonummy diam. Donec tempus. Etiam posuere. Proin lectus. Donec purus. Duis in sem pretium urna feugiat vehicula. Ut suscipit velit eget massa. Nam nonummy, enim commodo euismod placerat, tortor elit tempus lectus, quis suscipit metus lorem blandit turpis.\n", 1, 'J', 0, 1, '', '', true, 0);
-
-        $pdf->Output(__DIR__ . 'Files/example_011.pdf', 'I');      
+        //  Merge Date
+        $complex_cell_border = array(
+           'T' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'R' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+           //'L' => array('width' => 0, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
+        );         
+                
+        //  Story Header
+        $pdf->SetFont('sourcesanspro', '', 9);
+        $pdf->MultiCell(125, 11, 
+               '                             To determine your current rate of interest, pitch your story ideas to a friend.',                
+                $complex_cell_border, 'L', 0, 0, 75, 177, true, 0, false, true, 11, 'M', false);          
         
-        unset($pdf);        
-
-        
+        return;
     }
     
+    private function CompileFooter($pdf, $visitorStories)
+    {   
+        
+        $pdf->ImageSVG('../Images/Email/LightBulb.svg', 20, 194, 22, 26, '', '', '', 0, false);   
+        
+        $pdf->SetFont('sourcesanspro', '', 15);                
+        $pdf->MultiCell(150, 10, 
+                'Inspired?',
+                0, 'L', 0, 0, 45, 190, true, 0, true, true, 0, 'T', false); 
+        
+        $pdf->SetFont('sourcesansprolight', '', 11);        
+        $pdf->MultiCell(150, 60, 
+                "Great! Now it's time to keep growing your balance by taking your Story Notes to our Workshop or your favourite creative place and use them to start creating your story.\n\n" .
+                "Develop the outline of your story by listing a series of events in the order that they will happen. Seeing all the moments in your story will highlight any gaps. It will also show you opportunities to fill with twists and turns, surprises and delights. Easy, right?\n\n" .
+                "Well, as Mary Poppins herself says:                                                         Good luck!\n\n" . 
+                "Oh, and when you're finished, let us know - we'd love to share your story!",
+                0, 'L', 0, 0, 45, 200, true, 0, false, true, 0, 'T', false); 
+        
+        $pdf->SetFont('sourcesansproi', '', 11);                
+        $pdf->MultiCell(150, 10, 
+                '"Well begun is half done!"',
+                0, 'L', 0, 0, 100, 230, true, 0, false, true, 0, 'T', false);         
+        
+        //  Contact Details
+        $pdf->ImageSVG('../Images/Email/Hand.svg', 20, 258, 22, 10, '', '', '', 0, false);                   
+
+        $complex_cell_border = array(
+           'T' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 3, 'cap' => 'round'),
+        );      
+        
+        $pdf->SetFont('skitchsolid', 'B', 11);   
+        
+        $pdf->MultiCell(190, 1, '', $complex_cell_border, 'L', 0, 0, 10, 250, true, 0, true, true, 0, 'M', false);          
+        
+        $pdf->MultiCell(190, 1, 
+                "<a href='mailto:storybank@frasercoast.qld.gov.au'>StoryBank@frasercoast.qld.gov.au</a><br/><br/>" .
+                "#storybankmaryborough<br/><br/>" .
+                "<a href='http://www.storybankmaryborough.com.au' target='_blank'>www,storybankmaryborough.com.au</a>",
+                0, 'L', 0, 0, 45, 254, true, 0, true, true, 0, 'M', false);        
+        
+        
+        $pdf->ImageSVG('../Images/Email/ComeFindYourStory.svg', 138, 254, 42, 26, '', '', '', 0, false);           
+        
+        return;
+    }
+
     private function HitSend($email, $outputHTML, $fileLocation)
     {
-        $fileToSend = '/Files/safeDoor.png';
-        
         //  Open a mailer, takes more time, but is working
         $mail = new PHPMailer(true);
 
@@ -504,7 +743,7 @@ class ArmsignEmails
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = 'Storybank Withdrawal';
 
-        $mail->Body .= $outputHTML . $this->font_BalfordBase;
+        $mail->Body .= $outputHTML;
 
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
@@ -517,6 +756,16 @@ class ArmsignEmails
     /*
      *      DATA MANIPULATION
      */
+    
+    private function GatherData($visitorID)
+    {
+        //  Woo.
+        $daSafe = new DaSafe();       
+        $returnArray = json_encode($daSafe->fetchAccountStatement($visitorID));
+        unset($daSafe);        
+        
+        return json_decode($returnArray);
+    }    
     
     private function FetchAccountName($visitorStories)
     {        
@@ -556,6 +805,17 @@ class ArmsignEmails
         }          
         
         return 'Today';
+    }
+    
+    private function MakeTableLayout($pdf)
+    {
+        
+        $pdf->Rect($pdf->GetX(), $pdf->GetY(), 30, 10, 'L', '', '' );
+        $pdf->Rect($pdf->GetX() + 30, $pdf->GetY(), 30, 10, 'L', '', '' );
+        $pdf->Rect($pdf->GetX() + 60, $pdf->GetY(), 130, 10, 'L', '', '' );
+        $pdf->Rect($pdf->GetX(), $pdf->GetY() + 10, 60, 60, 'L', '', '' );        
+        $pdf->Rect($pdf->GetX() + 60, $pdf->GetY() + 10, 130, 60, 'L', '', '' );         
+        
     }
     
 }
