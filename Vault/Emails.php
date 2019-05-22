@@ -427,8 +427,8 @@ class ArmsignEmails
         $pdf->MultiCell(65, 65, 
                 "Every story has a single Protagonist or leading character.\n\n" .
                 "What is the name of yours?\n\n" .
-                "Now, create an opposing character (an Antagonist) who will create obstacles and complications for your main character.\r\n\r\n" .
-                "Think good guys and bad guys! How do they create conflict and stop the main character from achieving their goals?\n",
+                "Check back on your notes and expand your description of the appearance and personality of your main character.\n\n" .
+                "Make your character memorable with a distinctive personality that people will connect with.\n",
                 $complex_cell_border, 'J', 0, 0, 10, 215, true, 0, false, true, 0, 'M', false);
 
         //  Story Data
@@ -436,7 +436,7 @@ class ArmsignEmails
         $pdf->SetTextColor(216,0,0);       
         
         $displayText = '<table><tbody>';
-        for ($i = 0; $i < 16; $i++)
+        for ($i = 0; $i < 18; $i++)
         {        
             if ($i % 2 == 0)
             {                
@@ -462,15 +462,22 @@ class ArmsignEmails
         
         $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 6);         
         $displayText = '';
+        $characterDesign = undefined;
+        
         foreach ($visitorStories as $story)
         {        
-            if ($story->PROMPT_ID > 9 && $story->PROMPT_ID < 15)
+            if ($story->PROMPT_ID == 15)
             {                
                 $height = $pdf->getStringHeight(83, $displayText . $story->TRANSCRIPTION, true, true, 0, 0 );
                 
                 if ($height < 65)
                 {
-                    $displayText .= $story->TRANSCRIPTION;                        
+                    $displayText .= $story->TRANSCRIPTION; 
+                    
+                    if (strlen($story->CHARACTER_DESIGN) > 0)
+                    {
+                        $characterDesign = json_decode($story->CHARACTER_DESIGN);                        
+                    }
                 } else {
                     break;                    
                 }   
@@ -490,9 +497,30 @@ class ArmsignEmails
            'B' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 0, 'cap' => 'square'),
         );          
         $pdf->MultiCell(42, 65, 
-                "hi there",                
+                "",                
                 $complex_cell_border, 'L', 0, 0, 158, 215, true, 0, true, true, 55, 'T', false);          
 
+        if ($characterDesign !== undefined)
+        {
+            
+            $pdf->Image('../Images/CharacterAssets/Legs/' . $this->GetResolvedFileName($characterDesign->LEG), 
+                    164, 246, 30, 30, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);                                    
+            $pdf->Image('../Images/CharacterAssets/Feet/' . $this->GetResolvedFileName($characterDesign->FEET), 
+                    163, 252, 30, 30, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);                                   
+            $pdf->Image('../Images/CharacterAssets/Torso/' . $this->GetResolvedFileName($characterDesign->TORSO), 
+                    164, 238, 30, 30, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);                                                
+            $pdf->Image('../Images/CharacterAssets/Arms/' . $this->GetResolvedFileName($characterDesign->ARM), 
+                    162, 237, 30, 30, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);  
+            $pdf->Image('../Images/CharacterAssets/Faces/' . $this->GetResolvedFileName($characterDesign->FACE), 
+                    163, 223, 30, 30, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);                                   
+            $pdf->Image('../Images/CharacterAssets/Hands/' . $this->GetResolvedFileName($characterDesign->HAND), 
+                    160, 242, 30, 30, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);                        
+            $pdf->Image('../Images/CharacterAssets/Hair/' . $this->GetResolvedFileName($characterDesign->HAIR), 
+                    162, 223, 30, 30, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);                        
+
+        }
+
+        
         return;        
     }    
     
@@ -688,7 +716,7 @@ class ArmsignEmails
         $pdf->SetFont('sourcesansproi', '', 11);                
         $pdf->MultiCell(150, 10, 
                 '"Well begun is half done!"',
-                0, 'L', 0, 0, 100, 230, true, 0, false, true, 0, 'T', false);         
+                0, 'L', 0, 0, 100, 227, true, 0, false, true, 0, 'T', false);         
         
         //  Contact Details
         $pdf->ImageSVG('../Images/Email/Hand.svg', 20, 258, 22, 10, '', '', '', 0, false);                   
@@ -816,6 +844,18 @@ class ArmsignEmails
         $pdf->Rect($pdf->GetX(), $pdf->GetY() + 10, 60, 60, 'L', '', '' );        
         $pdf->Rect($pdf->GetX() + 60, $pdf->GetY() + 10, 130, 60, 'L', '', '' );         
         
+    }
+    
+    private function GetResolvedFileName($fileName)
+    {
+        $armPieces = explode("/", $fileName);
+        
+        if (count($armPieces) > 0)
+        {
+            return $armPieces[count($armPieces) - 1];            
+        }
+
+        return '';
     }
     
 }
