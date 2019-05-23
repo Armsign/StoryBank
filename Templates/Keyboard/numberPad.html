@@ -7,9 +7,13 @@
 
                 <div>
                 
-                    <p>
-                        Please enter your <b class="red">Story Bank Account number</b> so we can find your <b class="red">account</b>.
+                    <p ng-if="deposits">
+                        Please enter your <b class="red">Story Bank Account number</b> so we can process your <b class="red">deposit</b>.
                     </p>                
+                    
+                    <p ng-if="withdrawals">
+                        Please enter your <b class="red">Story Bank Account number</b> so we can find your <b class="red">account</b>.
+                    </p>                                  
 
                     <p>
                         STORY-{{collectedID}}

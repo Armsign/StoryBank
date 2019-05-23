@@ -479,7 +479,8 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
                     controller: 'NumPadCTRL',         
                     parent: angular.element(document.body),
                     targetEvent: $event,
-                    clickOutsideToClose:true
+                    clickOutsideToClose:true,
+                    dataToPass: false                    
                 })
                 .then(function(answer) {
 
@@ -639,9 +640,11 @@ myApp.controller('CommentCTRL', function($rootScope, $scope, $mdDialog, dataToPa
     
 });
 
-myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog) 
+myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog, dataToPass) 
 {
     $scope.collectedID = 'XXXXX';
+    $scope.deposits = false;
+    $scope.withdrawals = false;
     $scope.validID = false;    
     
     $scope.cancelDeposit = function()
@@ -701,14 +704,29 @@ myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog)
         window.setTimeout(function() { $scope.removeClasses(); }, 250);
         
     };
-    
-   
+       
     $scope.removeClasses = function()
     {
         var result = document.getElementsByClassName("animated pulse");
         
         angular.element(result).removeClass("animated pulse");    
-    }    
+    } ;
+    
+    angular.element(document).ready(function () 
+    {        
+        if (dataToPass == true)
+        {
+            
+           $scope.withdrawals = true;
+           
+        } else {
+            
+           $scope.deposits = true;            
+            
+        }            
+        
+        $scope.$digest();
+    });     
     
 });
 
@@ -1855,7 +1873,8 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             controller: 'NumPadCTRL',         
             parent: angular.element(document.body),
             targetEvent: ev,
-            clickOutsideToClose:true
+            clickOutsideToClose:true,
+            dataToPass: true
         })
         .then(function(answer) {
             
