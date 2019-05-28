@@ -116,7 +116,7 @@ class Deposits
     public function sendEmails($visitorID, $email)
     {
         $mailer = new ArmsignEmails();
-        $mailer->CreateAccountStatement($visitorID, $email);        
+        echo $mailer->CreateAccountStatement($visitorID, $email);        
         unset($mailer);
     }
     

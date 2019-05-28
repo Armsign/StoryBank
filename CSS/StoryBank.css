@@ -937,13 +937,14 @@ h3.instructions
 /* Track */
 ::-webkit-scrollbar-track {
     background-image: url("../Images/RoomL/Thermometer.svg");      
-    background-size: cover;
+    background-size: cover;    
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
     
     background: rgba(114, 32, 33, 1);
+    max-width: 16px;
 
 }
 

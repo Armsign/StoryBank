@@ -37,13 +37,13 @@ myApp.controller('ContainerCTRL', function($rootScope, $scope, $location)
 
     //  General navigation
     $scope.changeLocation = function(location)
-    {        
+    {           
         $location.path("/" + location);  
     };
 
     angular.element(document).ready(function () 
     {        
-        //  Nothing good to go in here ;p
+        
     });   
 
 });
@@ -1947,7 +1947,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     $scope.openEmail = function(ev)
     {
 
-        //  Abstract the deposit into a dialog ... templated, yes.
+        //  Abstract the deposit into a dialog ... templated, yes.s
         $rootScope.openDialog = $mdDialog.show({
             templateUrl: 'Templates/Keyboard/commentCollector.html',
             controller: 'CommentCTRL',         
@@ -1963,7 +1963,6 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             //  Ok ... but how it actually needs to send these to an api ...        
             if (answer.length > 0)
             {
-                
                 var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=email'
                         + '&visitorID=' + $scope.visitorID
                         + '&emails=' + answer;
@@ -1972,9 +1971,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
                 $http.get(url).then(
                     function (response)   
                     {
-
-                        alert('Email sent');
-
+                        printJS({ printable: response.data, type: 'pdf' })
                     }); 
 
             }

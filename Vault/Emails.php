@@ -24,26 +24,15 @@ class ArmsignEmails
     
     public function CreateAccountStatement($visitorID, $email)
     {        
+        
         $visitorStories = $this->GatherData($visitorID);
-        
-        /*
-        $outputHTML = '<html>';        
-        $outputHTML .= '<head>';
-        $outputHTML .= $this->SetupStyles();
-        $outputHTML .= '</head>';
-        
-        $outputHTML .= '<body>';      
-        $outputHTML .= 'Please find your Account Statement attached.';      
-        $outputHTML .= '</body>';
-        $outputHTML .= '</html>';
-         * */
 
         //  $fileLocation = $this->CompilePDF($outputHTML);
         $fileLocation = $this->CompilePS($visitorID, $visitorStories);        
         
-        $this->HitSend($email, $outputHTML, $fileLocation);
+        //  $this->HitSend($email, $outputHTML, $fileLocation);
         
-        return;         
+        return $fileLocation;         
     }
     
     private function CompilePS($visitorID, $visitorStories)
@@ -88,22 +77,18 @@ class ArmsignEmails
         $this->CompileFooter($pdf, $visitorStories);        
 
         //  Hooray, let's build her up
-        $pdf->Output(__DIR__ . 'Files/AccountStatement_' . $visitorID . '.pdf', 'I');      
+        //  $pdf->Output(__DIR__ . '/Files/AccountStatement_' . $visitorID . '.pdf', 'F');      
+        $pdf->Output(__DIR__ . '/Files/AccountStatement_' . $visitorID . '.pdf', 'I');      
         
         //  Done, tidy it all up
-        $pdf->destroy();       
         unset($pdf);        
 
         //  Let the email know about it
-        return __DIR__ . 'Files/AccountStatement_' . $visitorID . '.pdf';
+        return 'Vault/Files/AccountStatement_' . $visitorID . '.pdf';    //  We need the relative path on the front-end
     }
     
     private function CompileHeader($pdf, $visitorStories)
     {
-        //  Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false, $alt=false, $altimgs=array()) {
-        // $pdf->Image('../Images/Email/AccountStatement.png', PDF_MARGIN_LEFT, PDF_MARGIN_TOP + 1.5, 110, 15, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);
-        // $pdf->Image('../Images/Email/Header.png', PDF_MARGIN_LEFT + 120, PDF_MARGIN_TOP + 1.5, 70, 90, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);        
-        // $pdf->Image('../Images/Email/AccountDetails.png', PDF_MARGIN_LEFT + 1, PDF_MARGIN_TOP + 23, 110, 25, 'PNG', '', '', true, 300, '', false, false, 0, false, false, false);                
 
         $pdf->ImageSVG('../Images/Email/AccountStatement.svg', 10, 10, 110, 15, '', '', '', 0, false);                   
         $pdf->ImageSVG('../Images/Email/Header.svg', 130, 10, 70, 90, '', '', '', 0, false);                   
@@ -119,7 +104,7 @@ class ArmsignEmails
                 0, 'L', 0, 0, 12, 45, true, 0, false, true, 11, 'M', false);    
         
         $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 10);
-        $pdf->SetTextColor(216,0,0);
+        //  $pdf->SetTextColor(216,0,0);
         
         $pdf->MultiCell(60, 11, 
                 $this->FetchAccountName($visitorStories),                
@@ -129,29 +114,29 @@ class ArmsignEmails
                 $this->FetchAccountNumber($visitorStories),                
                 0, 'L', 0, 0, 85, 45, true, 0, false, true, 11, 'M', false);         
         
-        $pdf->SetFont('sourcesansproi', '', 11);                
+        $pdf->SetFont('sourcesansproi', '', 12);                
         $pdf->SetTextColor(0,0,0);          
         $pdf->MultiCell(100, 10, 
                 "Congratulations,",
-                0, 'L', 0, 0, 12, 60, true, 0, false, true, 0, 'T', false);           
+                0, 'L', 0, 0, 12, 62, true, 0, false, true, 0, 'T', false);           
         
-        $pdf->SetFont('sourcesansprolight', '', 11);              
+        $pdf->SetFont('sourcesansprolight', '', 12);              
         $pdf->MultiCell(102, 60, 
                 "                                    you are well on your way to learning the art of storytelling!\n\n" .
                 "Your account holds the deposits of your adventures through The Story Bank. These are valuable investments that will add compound interest to your story.\n\n",
-                0, 'L', 0, 0, 12, 60, true, 0, false, true, 0, 'T', false);         
+                0, 'L', 0, 0, 12, 62, true, 0, false, true, 0, 'T', false);         
         
-        $pdf->SetFont('sourcesansprob', '', 11);        
+        $pdf->SetFont('sourcesansprob', '', 12);        
         $pdf->MultiCell(102, 60, 
                 "Account Balance:",
-                0, 'L', 0, 0, 12, 90, true, 0, false, true, 0, 'T', false); 
+                0, 'L', 0, 0, 12, 94, true, 0, false, true, 0, 'T', false); 
         
-        $pdf->SetFont('sourcesansprolight', '', 11);              
+        $pdf->SetFont('sourcesansprolight', '', 12);
         $pdf->MultiCell(102, 60, 
                 "\n" .
-                "Every good story comes from a simple storytelling process.\n\n" .
+                "Every good story comes from a simple storytelling process. " .
                 "Your balance of ideas and thoughts below create the outline for your story. Take a look at your account so far!\n\n", 
-                0, 'L', 0, 0, 12, 92, true, 0, false, true, 0, 'T', false);          
+                0, 'L', 0, 0, 12, 95, true, 0, false, true, 0, 'T', false);          
              
         return;
     }
@@ -180,7 +165,7 @@ class ArmsignEmails
         );         
         
         $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 8);        
-        $pdf->SetTextColor(216,0,0);        
+        //  $pdf->SetTextColor(216,0,0);        
         $pdf->MultiCell(35, 11, 
                 $this->FetchAccountDate($visitorStories),                
                 $complex_cell_border, 'C', 0, 0, 40, 133, true, 0, false, true, 11, 'M', false);  
@@ -204,14 +189,14 @@ class ArmsignEmails
 
         $pdf->SetFont('sourcesanspro', '', 9);    
         $pdf->MultiCell(65, 55, 
-                "The environment in which you write and the objects you keep around you say something about your memories and your imagination.\n\n" .
+                "The environment in which you write and the objects you keep around you say something about your memories and your imagination." .
                 "They often build the world in which a story will unfold. Review your notes to scope out the features of the world you want to create.\n\n" .
-                "Think about how you want to tell your story. Is it a short tale or a long yarn? Is it a complex narrative or a simple memory? Will people read it or experience it in some other way such as film, music or art?\n\n",
+                "Think about how you want to tell your story. As a short tale or a long yarn? Is it a complex narrative or a simple memory? Will people read it or experience it in some other way such as film, music or art?\n\n",
                 $complex_cell_border, 'J', 0, 0, 10, 144, true, 0, false, true, 0, 'M', false);
 
         //  Story Data
         $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', '', 10); 
-        $pdf->SetTextColor(216,0,0);       
+        //  $pdf->SetTextColor(216,0,0);       
         
         $displayText = '<table><tbody>';
         for ($i = 0; $i < 14; $i++)
@@ -289,7 +274,7 @@ class ArmsignEmails
         );         
         
         $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 8);        
-        $pdf->SetTextColor(216,0,0);        
+        //  $pdf->SetTextColor(216,0,0);        
         $pdf->MultiCell(35, 11, 
                 $this->FetchAccountDate($visitorStories),                
                 $complex_cell_border, 'C', 0, 0, 40, 25, true, 0, false, true, 11, 'M', false);  
@@ -316,14 +301,14 @@ class ArmsignEmails
         $pdf->SetFont('sourcesanspro', '', 9);    
         $pdf->MultiCell(65, 55, 
                 "To develop an interesting story, work more on your character to give them some flaws.\n\n" .
-                "What do they need to learn or desire to change? This will provide you with an idea of what happens to them as the story unfolds.\n\n" .
-                "Now, create an opposing character (an Antagonist) who will create obstacles and complications for your main character.\r\n\r\n" .
-                "Think good guys and bad guys! How do they create conflict and stop the main character from achieving their goals?\n",
+                "What do they need to learn or change? What happens to them as the story unfolds.\n\n" .
+                "Now, create an opposing character (an Antagonist) who will create obstacles and complications for your main character.\n\n" .
+                "Think good guys and bad guys!\n",
                 $complex_cell_border, 'J', 0, 0, 10, 36, true, 0, false, true, 0, 'M', false);
 
         //  Story Data
         $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 10); 
-        $pdf->SetTextColor(216,0,0);       
+        //  $pdf->SetTextColor(216,0,0);       
         
         $displayText = '<table><tbody>';
         for ($i = 0; $i < 14; $i++)
@@ -401,7 +386,7 @@ class ArmsignEmails
         );         
         
         $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 8);        
-        $pdf->SetTextColor(216,0,0);        
+        //  $pdf->SetTextColor(216,0,0);        
         $pdf->MultiCell(35, 11, 
                 $this->FetchAccountDate($visitorStories),                
                 $complex_cell_border, 'C', 0, 0, 40, 204, true, 0, false, true, 11, 'M', false);  
@@ -433,7 +418,7 @@ class ArmsignEmails
 
         //  Story Data
         $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 10); 
-        $pdf->SetTextColor(216,0,0);       
+        //  $pdf->SetTextColor(216,0,0);       
         
         $displayText = '<table><tbody>';
         for ($i = 0; $i < 18; $i++)
@@ -547,7 +532,7 @@ class ArmsignEmails
         );         
         
         $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 8);        
-        $pdf->SetTextColor(216,0,0);        
+        //  $pdf->SetTextColor(216,0,0);        
         $pdf->MultiCell(35, 11, 
                 $this->FetchAccountDate($visitorStories),                
                 $complex_cell_border, 'C', 0, 0, 40, 96, true, 0, false, true, 11, 'M', false);  
@@ -572,15 +557,15 @@ class ArmsignEmails
         $pdf->setCellHeightRatio(1.1);
         $pdf->SetFont('sourcesanspro', '', 9);    
         $pdf->MultiCell(65, 55, 
-                "What, in the end, are you trying to share by telling your story?  What is your theme and inspiration?\n\n" .
-                "Go back through your notes on thought provoking life questions and decide the main purpose of your story.\n\n" .
-                "How does your main character and any supporting characters change through the course of the story?\n\n" .
+                "What are you trying to share by telling your story?  What is your theme and inspiration?\n\n" .
+                "Go back through your notes and decide the main purpose of your story.\n\n" .
+                "How do your characters change?\n\n" .
                 "How might the story end in an unexpected, interesting or unusual way?\n",
                 $complex_cell_border, 'J', 0, 0, 10, 107, true, 0, false, true, 0, 'M', false);
         
         //  Story Data
         $pdf->SetFont('zai_olivettiunderwoodstudio21typewriter', 'B', 10); 
-        $pdf->SetTextColor(216,0,0);       
+        //  $pdf->SetTextColor(216,0,0);       
         
         $displayText = '<table><tbody>';
         for ($i = 0; $i < 14; $i++)
@@ -698,36 +683,36 @@ class ArmsignEmails
     private function CompileFooter($pdf, $visitorStories)
     {   
         
-        $pdf->ImageSVG('../Images/Email/LightBulb.svg', 20, 194, 22, 26, '', '', '', 0, false);   
+        $pdf->ImageSVG('../Images/Email/LightBulb.svg', 20, 196, 21, 27, '', '', '', 0, false);   
         
         $pdf->SetFont('sourcesanspro', '', 15);                
-        $pdf->MultiCell(150, 10, 
+        $pdf->MultiCell(28, 10, 
                 'Inspired?',
-                0, 'L', 0, 0, 45, 190, true, 0, true, true, 0, 'T', false); 
+                0, 'C', 0, 0, 20, 224, true, 0, true, true, 0, 'T', false); 
         
-        $pdf->SetFont('sourcesansprolight', '', 11);        
+        $pdf->SetFont('sourcesansprolight', '', 12);        
         $pdf->MultiCell(150, 60, 
-                "Great! Now it's time to keep growing your balance by taking your Story Notes to our Workshop or your favourite creative place and use them to start creating your story.\n\n" .
-                "Develop the outline of your story by listing a series of events in the order that they will happen. Seeing all the moments in your story will highlight any gaps. It will also show you opportunities to fill with twists and turns, surprises and delights. Easy, right?\n\n" .
-                "Well, as Mary Poppins herself says:                                                         Good luck!\n\n" . 
+                "Great! Now it's time to keep growing your balance by taking your Story Workshop or your favourite creative place and using them to create your story.\n\n" .
+                "Develop an outline by listing a series of events in the order that they will happen. Seeing all the moments in your story will highlight any gaps. It will also show you opportunities to fill with twists and turns, surprises and delights. Easy, right?\n\n" .
+                "As Mary Poppins herself says:                                                         Good luck!\n\n" . 
                 "Oh, and when you're finished, let us know - we'd love to share your story!",
-                0, 'L', 0, 0, 45, 200, true, 0, false, true, 0, 'T', false); 
+                0, 'L', 0, 0, 45, 194, true, 0, false, true, 0, 'T', false); 
         
-        $pdf->SetFont('sourcesansproi', '', 11);                
+        $pdf->SetFont('sourcesansproi', '', 12);                
         $pdf->MultiCell(150, 10, 
                 '"Well begun is half done!"',
-                0, 'L', 0, 0, 100, 227, true, 0, false, true, 0, 'T', false);         
+                0, 'L', 0, 0, 96, 224, true, 0, false, true, 0, 'T', false);         
         
         //  Contact Details
-        $pdf->ImageSVG('../Images/Email/Hand.svg', 20, 258, 22, 10, '', '', '', 0, false);                   
+        $pdf->ImageSVG('../Images/Email/Hand.svg', 22, 258, 22, 10, '', '', '', 0, false);                   
 
         $complex_cell_border = array(
            'T' => array('width' => .1, 'color' => array(33, 33, 33), 'dash' => 3, 'cap' => 'round'),
         );      
         
-        $pdf->SetFont('skitchsolid', 'B', 11);   
+        $pdf->SetFont('skitchsolid', 'B', 12);   
         
-        $pdf->MultiCell(190, 1, '', $complex_cell_border, 'L', 0, 0, 10, 250, true, 0, true, true, 0, 'M', false);          
+        $pdf->MultiCell(190, 1, '', $complex_cell_border, 'L', 0, 0, 10, 248, true, 0, true, true, 0, 'M', false);          
         
         $pdf->MultiCell(190, 1, 
                 "<a href='mailto:storybank@frasercoast.qld.gov.au'>StoryBank@frasercoast.qld.gov.au</a><br/><br/>" .
