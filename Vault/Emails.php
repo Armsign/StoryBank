@@ -37,7 +37,7 @@ class ArmsignEmails
     
     private function CompilePS($visitorID, $visitorStories)
     {
-         // create new PDF document
+        // create new PDF document
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, "A4", true, "UTF-8", false);               
 
         // set document information
@@ -55,7 +55,7 @@ class ArmsignEmails
         $pdf->setFontSubsetting(false);
         $pdf->setCellPaddings(3, 3, 3, 3);
         $pdf->setImageScale(1);     
-        $pdf->setCellHeightRatio(1);        
+        $pdf->setCellHeightRatio(1.1);        
         
         // add a page break
         $pdf->AddPage();
@@ -78,7 +78,7 @@ class ArmsignEmails
 
         //  Hooray, let's build her up
         //  $pdf->Output(__DIR__ . '/Files/AccountStatement_' . $visitorID . '.pdf', 'F');      
-        $pdf->Output(__DIR__ . '/Files/AccountStatement_' . $visitorID . '.pdf', 'I');      
+        $pdf->Output(__DIR__ . '/Files/AccountStatement_' . $visitorID . '.pdf', 'F');      
         
         //  Done, tidy it all up
         unset($pdf);        
@@ -136,8 +136,8 @@ class ArmsignEmails
                 "\n" .
                 "Every good story comes from a simple storytelling process. " .
                 "Your balance of ideas and thoughts below create the outline for your story. Take a look at your account so far!\n\n", 
-                0, 'L', 0, 0, 12, 95, true, 0, false, true, 0, 'T', false);          
-             
+                0, 'L', 0, 0, 12, 96, true, 0, false, true, 0, 'T', false);          
+        
         return;
     }
 
@@ -172,10 +172,12 @@ class ArmsignEmails
         $pdf->SetTextColor(0,0,0);      
                 
         //  Story Header
+        $pdf->setCellHeightRatio(1);        
         $pdf->SetFont('sourcesanspro', '', 14);
-        $pdf->MultiCell(125, 11, 
+        $pdf->MultiCell(125, 10, 
                'A place to write and something to write about ...',                
                 $complex_cell_border, 'L', 0, 0, 75, 133, true, 0, false, true, 11, 'M', false);        
+        $pdf->setCellHeightRatio(1.1);        
         
         $pdf->ImageSVG('../Images/Email/MaryPoppins.svg', 181, 135, 8, 7, '', '', '', 0, false);           
         $pdf->ImageSVG('../Images/Email/OneQuarter.svg', 189, 133, 11, 11, '', '', '', 0, false);        
@@ -189,7 +191,7 @@ class ArmsignEmails
 
         $pdf->SetFont('sourcesanspro', '', 9);    
         $pdf->MultiCell(65, 55, 
-                "The environment in which you write and the objects you keep around you say something about your memories and your imagination." .
+                "The environment in which you write and the objects you keep around you say something about your memories and your imagination.\n\n" .
                 "They often build the world in which a story will unfold. Review your notes to scope out the features of the world you want to create.\n\n" .
                 "Think about how you want to tell your story. As a short tale or a long yarn? Is it a complex narrative or a simple memory? Will people read it or experience it in some other way such as film, music or art?\n\n",
                 $complex_cell_border, 'J', 0, 0, 10, 144, true, 0, false, true, 0, 'M', false);
@@ -282,9 +284,11 @@ class ArmsignEmails
                 
         //  Story Header
         $pdf->SetFont('sourcesanspro', '', 14);
+        $pdf->setCellHeightRatio(1);
         $pdf->MultiCell(125, 11, 
                'Characters are a pillar of your story ...',                
                 $complex_cell_border, 'L', 0, 0, 75, 25, true, 0, false, true, 11, 'M', false);        
+        $pdf->setCellHeightRatio(1.1);        
         
         $pdf->ImageSVG('../Images/Email/MaryPoppins.svg', 181, 27, 8, 7, '', '', '', 0, false);           
         $pdf->ImageSVG('../Images/Email/ThreeQuarter.svg', 189, 25, 11, 11, '', '', '', 0, false);        
@@ -394,9 +398,11 @@ class ArmsignEmails
                 
         //  Story Header
         $pdf->SetFont('sourcesanspro', '', 14);
+        $pdf->setCellHeightRatio(1);
         $pdf->MultiCell(125, 11, 
                'Bringing your main character to life ...',                
                 $complex_cell_border, 'L', 0, 0, 75, 204, true, 0, false, true, 11, 'M', false);        
+        $pdf->setCellHeightRatio(1.1);        
         
         $pdf->ImageSVG('../Images/Email/MaryPoppins.svg', 181, 206, 8, 7, '', '', '', 0, false);           
         $pdf->ImageSVG('../Images/Email/TwoQuarter.svg', 189, 204, 11, 11, '', '', '', 0, false);        
@@ -473,7 +479,7 @@ class ArmsignEmails
         $pdf->MultiCell(83, 65, 
                 $displayText,                
                 $complex_cell_border, 'L', 0, 0, 75, 215, true, 0, true, true, 55, 'T', false);          
-        $pdf->setCellHeightRatio(1);        
+        $pdf->setCellHeightRatio(1.1);        
         $pdf->SetTextColor(0,0,0); 
         
         //  Pictures!
@@ -540,10 +546,12 @@ class ArmsignEmails
                 
         //  Story Header
         $pdf->SetFont('sourcesanspro', '', 14);
+        $pdf->setCellHeightRatio(1);        
         $pdf->MultiCell(125, 11, 
                'So, what\'s your story really about?',                
                 $complex_cell_border, 'L', 0, 0, 75, 96, true, 0, false, true, 11, 'M', false);        
-
+        $pdf->setCellHeightRatio(1.1);
+        
         $pdf->ImageSVG('../Images/Email/MaryPoppins.svg', 181, 98, 8, 7, '', '', '', 0, false);   
         $pdf->ImageSVG('../Images/Email/FourQuarter.svg', 189, 96, 11, 11, '', '', '', 0, false);        
         
@@ -613,7 +621,7 @@ class ArmsignEmails
         $pdf->MultiCell(125, 55, 
                 $displayText,                
                 $complex_cell_border, 'L', 0, 0, 75, 107, true, 0, true, true, 55, 'T', false);          
-        $pdf->setCellHeightRatio(1); 
+        $pdf->setCellHeightRatio(1.1); 
         $pdf->SetTextColor(0,0,0);               
 
         return;
@@ -712,7 +720,7 @@ class ArmsignEmails
         
         $pdf->SetFont('skitchsolid', 'B', 12);   
         
-        $pdf->MultiCell(190, 1, '', $complex_cell_border, 'L', 0, 0, 10, 248, true, 0, true, true, 0, 'M', false);          
+        $pdf->MultiCell(190, 1, '', $complex_cell_border, 'L', 0, 0, 10, 249, true, 0, true, true, 0, 'M', false);          
         
         $pdf->MultiCell(190, 1, 
                 "<a href='mailto:storybank@frasercoast.qld.gov.au'>StoryBank@frasercoast.qld.gov.au</a><br/><br/>" .
