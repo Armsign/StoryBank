@@ -709,7 +709,7 @@ class ArmsignEmails
         $pdf->SetFont('sourcesansproi', '', 12);                
         $pdf->MultiCell(150, 10, 
                 '"Well begun is half done!"',
-                0, 'L', 0, 0, 96, 224, true, 0, false, true, 0, 'T', false);         
+                0, 'L', 0, 0, 96, 226, true, 0, false, true, 0, 'T', false);         
         
         //  Contact Details
         $pdf->ImageSVG('../Images/Email/Hand.svg', 22, 258, 22, 10, '', '', '', 0, false);                   

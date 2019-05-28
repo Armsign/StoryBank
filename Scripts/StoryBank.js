@@ -646,16 +646,27 @@ myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog, dataToPas
     $scope.deposits = false;
     $scope.withdrawals = false;
     $scope.validID = false;    
+    $scope.withdrawalMethod = "PRINT";
+    $scope.returnMethod = false;
     
     $scope.cancelDeposit = function()
     {        
         $mdDialog.cancel();
-    }    
+    }; 
     
     $scope.completeDeposit = function()
     {
-        $mdDialog.hide($scope.collectedID);
-    }         
+        if ($scope.returnMethod == true)
+        {
+            
+            $mdDialog.hide($scope.withdrawalMethod);            
+            
+        } else {
+
+            $mdDialog.hide($scope.collectedID);
+        
+        }
+    };         
     
     $scope.keyClick = function($event, keyClicked)
     {
@@ -713,17 +724,21 @@ myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog, dataToPas
     } ;
     
     angular.element(document).ready(function () 
-    {        
-        if (dataToPass == true)
+    {       
+
+        if (dataToPass === true)
         {
-            
-           $scope.withdrawals = true;
-           
+            $scope.withdrawals = true;
+
+        } else if (dataToPass === false) {
+
+            $scope.deposits = true;            
+
         } else {
             
-           $scope.deposits = true;            
+            $scope.returnMethod = true;
             
-        }            
+        }
         
         $scope.$digest();
     });     
@@ -1677,6 +1692,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     $scope.comments = undefined;
     $scope.showStory = 1;    
     $scope.visitorID = 0;
+    $scope.withDrawalMethod = '';
     $scope.isLoved = false;    
     $scope.tags = undefined;
     
@@ -1877,15 +1893,18 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             dataToPass: true
         })
         .then(function(answer) {
-            
+
             //  Store response
             $scope.visitorID = answer * 1;
             
-            //  Alrighty, now that it's closing, we need to open the email bit ;p            
-            window.setTimeout(function() { $scope.openEmail(); }, 100);
+            //  Alrighty, now that it's closing, we need to open the email bit ;p   
+            if ($scope.visitorID > 0)
+            {
+                window.setTimeout(function() { $scope.openMethod(); }, 100);
+            }
             
             $rootScope.openDialog = false;
-  
+
         }, function() {
             
             //    No action
@@ -1944,6 +1963,69 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
         
     }
     
+    $scope.openMethod = function(ev)
+    {
+        
+        //  Abstract the deposit into a dialog ... templated, yes.s
+        $rootScope.openDialog = $mdDialog.show({
+            templateUrl: 'Templates/Keyboard/outputChoice.html',
+            controller: 'NumPadCTRL',         
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            dataToPass: { visitorID: $scope.visitorID }
+        })
+        .then(function(answer) {
+            
+            $scope.withDrawalMethod = answer;
+            
+            switch ($scope.withDrawalMethod)
+            {
+                case "PRINT":
+                    window.setTimeout(function() { $scope.openPrint(ev, ''); }, 100);
+                    break;
+                case "EMAIL":
+                case "EMAIL_PRINT":
+                    window.setTimeout(function() { $scope.openEmail(ev, ''); }, 100);
+                    break;
+                default:
+                    break;
+            }
+           
+            $rootScope.openDialog = false;
+  
+        }, function() {
+            
+            //    No action
+            $rootScope.openDialog = false;
+          
+        });        
+        
+    }
+    
+    $scope.openPrint = function(ev, email)
+    {
+        //  Ok ... but how it actually needs to send these to an api ...        
+        if ($scope.visitorID > 0)
+        {
+            var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=email'
+                    + '&visitorID=' + $scope.visitorID
+                    + '&emails=' + email;
+
+            //  Call the login function appropriately
+            $http.get(url).then(
+                function (response)   
+                {
+                    //  Needs work here, since it's a clusterfuck on safari/ipad
+                    if ($scope.withDrawalMethod.includes("PRINT"))
+                    {
+                        printJS({ printable: response.data, type: 'pdf' })
+                    }
+                }); 
+
+        }        
+    }    
+    
     $scope.openEmail = function(ev)
     {
 
@@ -1963,17 +2045,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             //  Ok ... but how it actually needs to send these to an api ...        
             if (answer.length > 0)
             {
-                var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=email'
-                        + '&visitorID=' + $scope.visitorID
-                        + '&emails=' + answer;
-
-                //  Call the login function appropriately
-                $http.get(url).then(
-                    function (response)   
-                    {
-                        printJS({ printable: response.data, type: 'pdf' })
-                    }); 
-
+                window.setTimeout(function() { $scope.openPrint(ev, answer); }, 100);
             }
             
             $rootScope.openDialog = false;

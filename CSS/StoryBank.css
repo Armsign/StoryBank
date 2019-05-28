@@ -511,7 +511,7 @@ h1.screenSaverTitle
 **  Number Pad
 */
 
-.numPad
+.numPad, .outputChoice
 {
     display: block;
     padding: 2%;
@@ -560,7 +560,7 @@ h1.screenSaverTitle
 
 div.paperButton
 {
-    margin-top: 16px;
+    margin-top: 24px;
     padding: 4%;
     display: block;
 }
@@ -574,6 +574,31 @@ div.paperButton p
     font-weight: bold !important;
     line-height: 36px !important;
     font-size: 36px !important;
+}
+
+md-radio-button .md-label
+{
+    width: 92%;
+    display: block;
+    text-align: center;   
+    margin: 4%;
+    font-family: SkitchRegular !important;
+    font-weight: bold !important;
+    line-height: 32px !important;
+    font-size: 32px !important;   
+}
+
+.outputChoice h2
+{
+    width: 96%;
+    display: block;
+    text-align: center !important;   
+    margin: 2% !important;
+    font-family: BalfordBase !important;
+    font-weight: normal !important;
+    line-height: 2em !important;
+    font-size: 2em !important;    
+    margin-bottom: 64px !important;
 }
 
 /*
@@ -932,6 +957,7 @@ h3.instructions
 /* width */
 ::-webkit-scrollbar {
   width: 2%;
+  max-width: 16px;
 }
 
 /* Track */

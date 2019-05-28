@@ -1,0 +1,46 @@
+<md-dialog aria-label="Account Balance">
+  <form ng-cloak>
+
+    <md-dialog-content>
+        <div class="md-dialog-content">                    
+            <md-input-container md-no-float class="outputChoice">                 
+
+                <div>
+                    <h2>
+                        Please choose your preferred <b class="red">Withdrawal</b> method.
+                    </h2>                                  
+                </div>                
+                
+                <div>
+
+                    <md-radio-group ng-model="withdrawalMethod">
+
+                        <md-radio-button value="EMAIL_PRINT" class="md-primary">Email & Print</md-radio-button>
+                        <md-radio-button value="EMAIL">Email Only</md-radio-button>
+                        <md-radio-button value="PRINT">Print Only</md-radio-button>
+
+                    </md-radio-group>                    
+                    
+                </div>
+                
+                
+                <div class="paperButton">
+                    
+                    <p ng-click="cancelDeposit();">
+                        <b class="blue">Cancel!</b>
+                    </p>                
+
+                    <p ng-click="completeDeposit();">
+                        <b class="red">Next!</b>
+                    </p>                    
+                    
+                </div>
+                
+            </md-input-container>
+
+        </div>          
+        
+    </md-dialog-content>
+
+  </form>
+</md-dialog>
