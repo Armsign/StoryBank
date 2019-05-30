@@ -7,5 +7,11 @@ return array(
     'fsHost' => 'Files',
     'dbDatabase' => 'StoryVault',
     'dbUsername' => 'vaultAdmin',
-    'dbPassword'=> 'Q2QBL5BQDKB85KNG'
+    'dbPassword'=> 'Q2QBL5BQDKB85KNG',
+    
+    'smtpHost' => 'smtp.gmail.com',
+    'smtpUser' => 'paul@armsign.com.au',
+    'smtpPassword' => '58FXMT95UZPTHC9O',
+    'smtpSecurity' => 'tls',
+    'smtpPort' => 587   
 );

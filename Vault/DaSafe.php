@@ -661,6 +661,6 @@ class DaSafe
         
         //  And hand back a nice little array       
         return $rows;        
-    }    
+    }   
     
 }

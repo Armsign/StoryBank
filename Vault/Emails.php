@@ -17,10 +17,16 @@ use PHPMailer\PHPMailer\PHPMailer;
  */
 class ArmsignEmails
 {
-    //  Standard Fonts to setup
-    private $font_BalfordBase = null;
-    private $font_SourceSansPro = null;
-    private $font_Skitch = null;            
+    //  Standard Fonts to setup  
+    private $configs = null;
+
+    /*
+     *      Constructor!
+     */
+    public function __construct() 
+    {
+        $this->configs = include('conf.php');
+    }    
     
     public function CreateAccountStatement($visitorID, $email)
     {        
@@ -738,14 +744,14 @@ class ArmsignEmails
         $mail = new PHPMailer(true);
 
         //Server settings
-        $mail->SMTPDebug = 0;                                       // Enable verbose debug output
-        $mail->isSMTP();                                            // Set mailer to use SMTP
-        $mail->Host       = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
-        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = 'paul@armsign.com.au';                  // SMTP username
-        $mail->Password   = '58FXMT95UZPTHC9O';                          // SMTP password
-        $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
-        $mail->Port       = 587;                                    // TCP port to connect to
+        $mail->SMTPDebug = 0;                                 // Enable verbose debug output
+        $mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->Host       = $this->configs['smtpHost'];       // Specify main and backup SMTP servers
+        $mail->SMTPAuth   = true;                             // Enable SMTP authentication
+        $mail->Username   = $this->configs['smtpUser'];       // SMTP username
+        $mail->Password   = $this->configs['smtpPassword'];       // SMTP password
+        $mail->SMTPSecure = $this->configs['smtpSecurity'];       // Enable TLS encryption, `ssl` also accepted
+        $mail->Port       = $this->configs['smtpPort'];       // TCP port to connect to
 
         //Recipients
         $mail->setFrom('teller@storybank.com.au', 'Story Bank');
