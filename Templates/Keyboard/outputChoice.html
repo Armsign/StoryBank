@@ -11,28 +11,25 @@
                     </h2>                                  
                 </div>                
                 
-                <div>
-
-                    <md-radio-group ng-model="withdrawalMethod">
-
-                        <md-radio-button value="EMAIL_PRINT" class="md-primary">Email & Print</md-radio-button>
-                        <md-radio-button value="EMAIL">Email Only</md-radio-button>
-                        <md-radio-button value="PRINT">Print Only</md-radio-button>
-
-                    </md-radio-group>                    
+                <div class="withdrawalMethod">
                     
-                </div>
-                
-                
-                <div class="paperButton">
+                    <p ng-click="processOutput('EMAIL_PRINT');">
+                        <b class="red">Email & Print</b>
+                    </p>  
+                                        
+                    <p ng-click="processOutput('EMAIL');">
+                        <b class="red">Email Only</b>
+                    </p>  
+
+                    <p ng-click="processOutput('PRINT');">
+                        <b class="red">Print Only</b>
+                    </p>  
+
+                    <p>&nbsp;</p>
                     
                     <p ng-click="cancelDeposit();">
                         <b class="blue">Cancel!</b>
-                    </p>                
-
-                    <p ng-click="completeDeposit();">
-                        <b class="red">Next!</b>
-                    </p>                    
+                    </p>  
                     
                 </div>
                 

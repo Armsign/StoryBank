@@ -115,9 +115,30 @@ class Deposits
      */
     public function sendEmails($visitorID, $email)
     {
+        //  This is the appropes place to perform this.        
         $mailer = new ArmsignEmails();
-        echo $mailer->CreateAccountStatement($visitorID, $email);        
+        
+        $fileName = $mailer->CreateAccountStatement($visitorID, $email);        
+        
+        //  Trigger print ...
+        $output = shell_exec('lpr -P DOCUCENTRE -o media=A4 -o sides=two-sided-long-edge /volume1/web/StoryBank/' . $fileName);
+        
+        if (strlen($email) > 0)
+        {
+            $emails = explode(';', $email);
+            
+            foreach ($emails as $oneMail)
+            {
+                if (filter_var($oneMail, FILTER_VALIDATE_EMAIL)) 
+                {
+                    $mailer->HitSend($oneMail, $fileName);                                     
+                }                
+            }                
+        }
+        
         unset($mailer);
+     
+        return $output;
     }
     
     public function createStory($promptID, $email, $visitorID, $nomDePlume, $story, $charDesign, $hasConsent = 0, $useEmail = 0)

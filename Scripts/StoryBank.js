@@ -666,7 +666,13 @@ myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog, dataToPas
             $mdDialog.hide($scope.collectedID);
         
         }
-    };         
+    };        
+    
+    $scope.processOutput = function(method)
+    {
+        $scope.withDrawalMethod = method;
+        $scope.completeDeposit();
+    }
     
     $scope.keyClick = function($event, keyClicked)
     {
@@ -2016,11 +2022,10 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             $http.get(url).then(
                 function (response)   
                 {
-                    //  Needs work here, since it's a clusterfuck on safari/ipad
-                    if ($scope.withDrawalMethod.includes("PRINT"))
-                    {
-                        printJS({ printable: response.data, type: 'pdf' })
-                    }
+                    
+                    //  This will have simply worked, hopefully.
+                    
+                    
                 }); 
 
         }        

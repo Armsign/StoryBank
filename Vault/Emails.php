@@ -30,8 +30,6 @@ class ArmsignEmails
         //  $fileLocation = $this->CompilePDF($outputHTML);
         $fileLocation = $this->CompilePS($visitorID, $visitorStories);        
         
-        //  $this->HitSend($email, $outputHTML, $fileLocation);
-        
         return $fileLocation;         
     }
     
@@ -734,7 +732,7 @@ class ArmsignEmails
         return;
     }
 
-    private function HitSend($email, $outputHTML, $fileLocation)
+    public function HitSend($email, $fileLocation)
     {
         //  Open a mailer, takes more time, but is working
         $mail = new PHPMailer(true);
@@ -745,7 +743,7 @@ class ArmsignEmails
         $mail->Host       = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
         $mail->Username   = 'paul@armsign.com.au';                  // SMTP username
-        $mail->Password   = 'Reddragon01';                          // SMTP password
+        $mail->Password   = '58FXMT95UZPTHC9O';                          // SMTP password
         $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
         $mail->Port       = 587;                                    // TCP port to connect to
 
@@ -757,15 +755,24 @@ class ArmsignEmails
         // Attachments
         if (strlen($fileLocation) > 0)
         {        
-            $mail->addAttachment($fileLocation);         // Add attachments
+            $mail->addAttachment('/volume1/web/StoryBank/' . $fileLocation);         // Add attachments
         }
 
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = 'Storybank Withdrawal';
+        $mail->Subject = 'My Account Statement - The Story Bank, Maryborough';
 
-        $mail->Body .= $outputHTML;
-
+        $mail->Body = '<i>Thank you for visiting and opening an account at The Story Bank, Maryborough.</i><br/><br/>' .
+                'Your adventures through the Bank today have been safely deposited in to your account.  These valuable investments will add compound interest to your story.<br/><br/' .
+                'The attached Account Statement provides a balance of your ideas and thoughts.<br/>' .
+                'Now it\'s time to keep growing your balance by working hard while the interest rate is high.<br/><br/>' .
+                'Keep investing in your story - it will reap satisfying returns.<br/><br/>'.
+                'The Story Bank is continually growing its collection. Once your story is complete, you are invited to secure a long-term deposit so that future visitors can share in our wealth of stories.<br/><br/>' .
+                'To register your interest in future story investment opportunities and tips on how to develop your story portfolio, visit us online <a href="www.storybankmaryborough.com.au" target="_blank">www.storybankmaryborough.com.au</a> or follow us on <a href="www.facebook.com" target="_blank">Facebook</a> <a href="www.instagram.com" target="_blank">Instagram</a><br/><br/>' .
+                'Yours most sincerely,<br/><br/>' .
+                'The Story Bank Teller<br/><br/>' . 
+                'p.s. <i>Once upon a time is always...</i>';
+   
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
         $mail->send();

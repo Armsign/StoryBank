@@ -158,6 +158,11 @@ md-dialog
     background-size:cover;    
 }
 
+.md-dialog-content
+{
+    padding: 0 !important;
+}
+
 [disabled] md-input-container .md-input, md-input-container .md-input[disabled]
 {
     color: #333333 !important;
@@ -558,11 +563,16 @@ h1.screenSaverTitle
     display: none; 
 }
 
-div.paperButton
+div.paperButton, div.withdrawalMethod
 {
     margin-top: 24px;
     padding: 4%;
     display: block;
+}
+
+div.withdrawalMethod
+{
+    margin: 0;
 }
 
 div.paperButton p
@@ -574,6 +584,18 @@ div.paperButton p
     font-weight: bold !important;
     line-height: 36px !important;
     font-size: 36px !important;
+}
+
+div.withdrawalMethod p
+{
+    display: block;
+    text-align: center;
+    margin: 4%;
+    padding: 0;    
+    font-family: SkitchRegular !important;
+    font-weight: bold !important;
+    line-height: 36px !important;
+    font-size: 36px !important;    
 }
 
 md-radio-button .md-label
@@ -598,7 +620,6 @@ md-radio-button .md-label
     font-weight: normal !important;
     line-height: 2em !important;
     font-size: 2em !important;    
-    margin-bottom: 64px !important;
 }
 
 /*
