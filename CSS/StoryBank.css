@@ -1033,3 +1033,20 @@ h3.instructions
     overflow: hidden;
 }
 
+.processing
+{
+    text-align: center;
+}
+
+.processing img
+{
+    margin: 4%;
+    height: 354;
+    width: 240;
+}
+
+h1.thankYou
+{
+    margin: 4em !important;
+    font-family: SkitchRegular !important;
+}

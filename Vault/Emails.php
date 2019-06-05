@@ -754,9 +754,9 @@ class ArmsignEmails
         $mail->Port       = $this->configs['smtpPort'];       // TCP port to connect to
 
         //Recipients
-        $mail->setFrom('teller@storybank.com.au', 'Story Bank');
+        $mail->setFrom('yourstory@storybankmaryborough.com.au', 'Story Bank');
         $mail->addAddress($email, 'Storybank Visitor');     // Add a recipient
-        $mail->addReplyTo('donotreply@storybank.com.au', 'Do Not Reply');
+        $mail->addReplyTo('yourstory@storybankmaryborough.com.au', 'Do Not Reply');
 
         // Attachments
         if (strlen($fileLocation) > 0)

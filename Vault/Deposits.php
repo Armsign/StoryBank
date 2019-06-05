@@ -113,7 +113,7 @@ class Deposits
     /*
      *      Kiosk Functions
      */
-    public function sendEmails($visitorID, $email)
+    public function sendEmails($visitorID, $email, $print)
     {
         //  This is the appropes place to perform this.        
         $mailer = new ArmsignEmails();
@@ -121,7 +121,10 @@ class Deposits
         $fileName = $mailer->CreateAccountStatement($visitorID, $email);        
         
         //  Trigger print ...
-        $output = shell_exec('lpr -P DOCUCENTRE -o media=A4 -o sides=two-sided-long-edge /volume1/web/StoryBank/' . $fileName);
+        if ($print == true)
+        {
+            $output = shell_exec('lpr -P DOCUCENTRE -o media=A4 -o sides=two-sided-long-edge /volume1/web/StoryBank/' . $fileName);
+        }
         
         if (strlen($email) > 0)
         {

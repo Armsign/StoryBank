@@ -23,6 +23,7 @@ function Withdraw()
     $title = trim($_GET["title"]);
     $story = trim($_GET["story"]); 
     $emails = trim($_GET["emails"]);
+    $print = trim($_GET["print"]);
     $comment = trim($_GET["comments"]);
     $charDesign = trim($_GET["charDesign"]);      
     $hasConsent = trim($_GET["hasConsent"]);
@@ -44,7 +45,7 @@ function Withdraw()
         
         //  Kiosk functions
         case ("email"):
-            echo $deposits->sendEmails($visitorID, $emails);                        
+            echo $deposits->sendEmails($visitorID, $emails, $print);                        
             break;
         case ("withdrawal"):            
             $tag = trim($_GET["tag"]);                  

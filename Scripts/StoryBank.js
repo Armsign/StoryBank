@@ -409,7 +409,7 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
         
     }    
        
-    $scope.completeDeposit = function()
+    $scope.completeDeposit = function(ev)
     {        
         var jsonCharGen = '';
 
@@ -436,7 +436,8 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
             function (response)   
             {               
 
-                //  What do I care if the save failed or not?
+                window.setTimeout(function() { $scope.showThankYou(ev); }, 100); 
+                
                 
             }, 
             function(response) 
@@ -451,8 +452,34 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
         $scope.email = '';    
         $scope.nomDePlume = '';             
 
-        $scope.$digest();
+        // $scope.$digest();
     }       
+    
+    $scope.showThankYou = function(ev)
+    {
+        
+        //  What do I care if the save failed or not?
+        //  The user does, so show the thankyou!
+        $rootScope.openDialog = $mdDialog.show({
+            templateUrl: 'Templates/Keyboard/thankYou.html',
+            controller: 'NumPadCTRL',         
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            dataToPass: "thanks"
+        })
+        .then(function(answer) {
+
+            $rootScope.openDialog = false;
+
+        }, function() {
+
+            //    No action
+            $rootScope.openDialog = false;
+
+        });                   
+        
+    }
 
     $scope.keyClick = function($event, keyClicked)
     {
@@ -490,7 +517,7 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
                     $scope.nomDePlume = 'Anon';
 
                     // Make deposit
-                    $scope.completeDeposit();      
+                    $scope.completeDeposit($event);      
 
                     $rootScope.openDialog = false;
 
@@ -729,6 +756,11 @@ myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog, dataToPas
         angular.element(result).removeClass("animated pulse");    
     } ;
     
+    $scope.autoClose = function()
+    {
+        $mdDialog.hide();        
+    }
+    
     angular.element(document).ready(function () 
     {       
 
@@ -739,6 +771,12 @@ myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog, dataToPas
         } else if (dataToPass === false) {
 
             $scope.deposits = true;            
+
+        } else if (dataToPass === "thanks") {
+
+            //  Let's test this one huh
+            window.setTimeout(function() { $scope.autoClose(); }, 3000);        
+
 
         } else {
             
@@ -2011,22 +2049,49 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     
     $scope.openPrint = function(ev, email)
     {
+        $print = false;
+        
         //  Ok ... but how it actually needs to send these to an api ...        
         if ($scope.visitorID > 0)
         {
+            if ($scope.withDrawalMethod.includes("PRINT"))
+            {
+                $print = true;
+            }
+            
+            $rootScope.openDialog = $mdDialog.show({
+                        templateUrl: 'Templates/Modals/processing.html',
+                        controller: 'NumPadCTRL',         
+                        parent: angular.element(document.body),
+                        targetEvent: ev,
+                        backdrop  : 'static',
+                        clickOutsideToClose: false,
+                        dataToPass: { visitorID: $scope.visitorID }
+                    })
+                    .then(function(answer) {
+
+                        $rootScope.openDialog = false;
+
+                    }, function() {
+
+                        //    No action
+                        $rootScope.openDialog = false;
+
+                    });                  
+
             var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=email'
                     + '&visitorID=' + $scope.visitorID
-                    + '&emails=' + email;
+                    + '&emails=' + email
+                    + '&print=' + $print;
 
             //  Call the login function appropriately
             $http.get(url).then(
                 function (response)   
                 {
+                    $mdDialog.hide();                    
+                    $rootScope.openDialog = false;
                     
-                    //  This will have simply worked, hopefully.
-                    
-                    
-                }); 
+                });                                
 
         }        
     }    
