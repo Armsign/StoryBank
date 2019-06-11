@@ -9,6 +9,18 @@
 require_once("Logins.php"); 
 require_once("Tags.php"); 
 require_once("Deposits.php"); 
+require_once("DaSafe.php"); 
+
+function Archive()
+{
+    //  Achive has been triggered, hooray ...
+    $mySafe = new DaSafe();
+    $mySafe->triggerArchive();    
+    unset($mySafe);
+    
+    //  Files done, woo
+    
+}
 
 function Withdraw()
 {    
@@ -317,6 +329,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     //  This switch effectively maps to the API calls ... 
     switch($_GET["action"])
     {
+        case ("archive"):
+                Archive();
+                break;
         case ("deposit"):
             Deposit();
             break;

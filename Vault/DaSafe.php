@@ -438,8 +438,6 @@ class DaSafe
 
         $returnArray = $this->transactionalSQL($sql);   
         
-        echo $sql;
-
         return $returnArray;     
     }    
     
@@ -491,6 +489,46 @@ class DaSafe
         return $this->executeSQL($sql);
     }     
     
+    public function insertPrintCount($visitorID)
+    {
+        //  Validate the token to get the user id
+        $returnArray = array();        
+        
+        $sql = "INSERT INTO PRINT_REQUEST ( VISITOR_ID, PRINTED_ON ) VALUES ('" . $visitorID . "', NOW())";
+
+        $returnArray = $this->transactionalSQL($sql);   
+
+        return $returnArray;           
+    }
+    
+    public function fetchPrintCount($visitorID)
+    {
+        return $this->executeSQL("SELECT COUNT(*) AS PRINT_COUNT FROM PRINT_REQUEST WHERE VISITOR_ID = '" . $visitorID . "' AND DATE(PRINTED_ON) = CURDATE()");        
+    }
+    
+    public function triggerArchive()
+    {
+        
+        $this->transactionalSQL("CALL Archive_Deposits();");    //  Archives entries older than 3 days
+    
+        //  Now to clear out the files ... wooo ;p, since they can regenerated on cue ...
+        $files = scandir(__DIR__ . '/Files/');
+        $now   = time();
+
+        foreach ($files as $file) 
+        {
+            if (is_file(__DIR__ . '/Files/' . $file)) 
+            {
+                if ($now - filemtime($file) >= 60 * 60 * 24 * 3) // 3 Days
+                {                     
+                    unlink(__DIR__ . '/Files/' . $file);
+                }
+            }
+        } 
+                
+        return;
+    }
+          
     /*
      *      Fetch all those tags
      */

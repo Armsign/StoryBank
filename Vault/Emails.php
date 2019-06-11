@@ -37,10 +37,15 @@ class ArmsignEmails
         $fileLocation = $this->CompilePS($visitorID, $visitorStories);        
         
         //  Trigger print ...
-        if ($print === true)
+        if ($print == true && $this->EligiblePrint($visitorID))
         {
+            //  Update print request
             shell_exec('lpr -P ' . $this->configs['printer'] . ' -o media=A4 -o sides=two-sided-long-edge /volume1/web/StoryBank/' . $fileLocation);
-        }
+            
+            $daSafe = new DaSafe();       
+            $daSafe->insertPrintCount($visitorID);
+            unset($daSafe);   
+        } 
         
         return $fileLocation;         
     }
@@ -437,7 +442,7 @@ class ArmsignEmails
         //  $pdf->SetTextColor(216,0,0);       
         
         $displayText = '<table><tbody>';
-        for ($i = 0; $i < 17; $i++)
+        for ($i = 0; $i < 16; $i++)
         {        
             if ($i % 2 == 0)
             {                
@@ -873,7 +878,20 @@ class ArmsignEmails
     private function EligiblePrint($visitorID)
     {
         //  How many times have they printed this?
+        $daSafe = new DaSafe();       
+        $returnArray = $daSafe->fetchPrintCount($visitorID);
+        unset($daSafe);         
         
+        //  3 Print Restrictions
+        foreach ($returnArray as $results)
+        {
+            if ($results["PRINT_COUNT"] >= 3)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
     
     private function UpdateStories($visitorID, $email)

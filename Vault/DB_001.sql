@@ -187,21 +187,10 @@ JOIN	email_addresses ea ON eb.email_address_id = ea.id
 LEFT 	JOIN accounts parent ON a.parent_id = parent.id
 WHERE	a.deleted = 0 
 
+mysql --user=vaultAdmin --password=Q2QBL5BQDKB85KNG StoryVault
 
-http://demo.armsign.com.au/Vault/API.php?action=tags
-&method=update
-&token=c4fbb242c5ba845c3271e660fefe45d8072814c412d044e52cb530a6fe7e65a1
-&id=00000000000000000012
-&title=Adventure
-&description=Stores%20of%20exciting%20adventures!
-&isPublic=1
+mysql --user=vaultAdmin --password=Q2QBL5BQDKB85KNG StoryVault < "call Archive_Deposits();"
 
-[customer-area-dashboard /]
-
-7yrs Polycure External Signage;
-5yrs Digital Print Signage;
-3yrs ACS/ACM/ACB (Aluminium Composites);
-10yrs Etched Anodised Signage;
-10yrs for all interior installations.
+--execute="CALL Archive_Deposits();"
 
 */
