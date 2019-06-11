@@ -118,13 +118,7 @@ class Deposits
         //  This is the appropes place to perform this.        
         $mailer = new ArmsignEmails();
         
-        $fileName = $mailer->CreateAccountStatement($visitorID, $email);        
-        
-        //  Trigger print ...
-        if ($print == true)
-        {
-            $output = shell_exec('lpr -P DOCUCENTRE -o media=A4 -o sides=two-sided-long-edge /volume1/web/StoryBank/' . $fileName);
-        }
+        $fileName = $mailer->CreateAccountStatement($visitorID, $email, $print);        
         
         if (strlen($email) > 0)
         {

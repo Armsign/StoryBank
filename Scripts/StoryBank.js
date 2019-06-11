@@ -421,7 +421,7 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
         }            
         
         var url = 'http://' + $location.host() 
-                + '/Vault/API.php?action=deposit&method=create'
+                + '/StoryBank/Vault/API.php?action=deposit&method=create'
                 + '&promptId=' + $scope.artefact
                 + '&visitorID=' + $scope.visitorID   
                 + '&email=' + $scope.email 
@@ -822,7 +822,7 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
         if ($scope.token && $scope.token.length > 0)
         {
             //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=approvedStories&token=' + $scope.token;       
+            var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=deposit&method=approvedStories&token=' + $scope.token;       
             
             //  Call the login function appropriately
             $http.get(url).then(
@@ -840,7 +840,7 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
         if ($scope.token && $scope.token.length > 0)
         {
             //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=unApprovedStories&token=' + $scope.token;       
+            var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=deposit&method=unApprovedStories&token=' + $scope.token;       
             
             //  Call the login function appropriately
             $http.get(url).then(
@@ -860,7 +860,7 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
         if (token && token.length > 0)
         {
             //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + ':'+ $location.port() + '/Vault/API.php?action=members&method=fetch&token=' + token;       
+            var url = 'http://' + $location.host() + ':'+ $location.port() + '/StoryBank/Vault/API.php?action=members&method=fetch&token=' + token;       
             
             //  Call the login function appropriately
             $http.get(url).then(
@@ -889,7 +889,7 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
     {
 
         //  Ok ... but how it actually needs to send these to an api ...        
-        var url = 'http://' + $location.host() + '/Vault/API.php?action=tags&method=fetch';       
+        var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=tags&method=fetch';       
 
         //  Call the tags function appropriately
         $http.get(url).then(
@@ -911,7 +911,7 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
         if ($scope.token && $scope.token.length > 0)
         {
             //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=newComments&token=' + $scope.token;       
+            var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=deposit&method=newComments&token=' + $scope.token;       
             
             //  Call the login function appropriately
             $http.get(url).then(
@@ -930,7 +930,7 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
         {        
             $scope.securedLogin = -1;
             
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=administer&method=login&email=' + this.email + '&password=' + this.password;       
+            var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=administer&method=login&email=' + this.email + '&password=' + this.password;       
 
             //  Call the login function appropriately
             $http.get(url).then(
@@ -1078,7 +1078,7 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
                 {
                                 //  Ok ... but how it actually needs to send these to an api ...        
                     var url = 'http://' + $location.host() 
-                        + '/Vault/API.php?action=tags&method=delete&token=' + $scope.token
+                        + '/StoryBank/Vault/API.php?action=tags&method=delete&token=' + $scope.token
                         + '&id=' + tag.ID;
 
                     //  Call the login function appropriately
@@ -1118,7 +1118,7 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
            $mdDialog.show(confirm).then(function(result) {
              
                 var url = 'http://' + $location.host() 
-                        + '/Vault/API.php?action=members&method=password&token=' + $scope.token
+                        + '/StoryBank/Vault/API.php?action=members&method=password&token=' + $scope.token
                         + '&id=' + member.ID
                         + '&password=' + result;
 
@@ -1228,7 +1228,7 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
                 {
                                 //  Ok ... but how it actually needs to send these to an api ...        
                     var url = 'http://' + $location.host() 
-                        + '/Vault/API.php?action=deposit&method=delete&token=' + $scope.token
+                        + '/StoryBank/Vault/API.php?action=deposit&method=delete&token=' + $scope.token
                         + '&id=' + deposit.ID;
 
                     //  Call the login function appropriately
@@ -1270,7 +1270,7 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
                 {
                                 //  Ok ... but how it actually needs to send these to an api ...        
                     var url = 'http://' + $location.host() 
-                        + '/Vault/API.php?action=deposit&method=deleteComment&token=' + $scope.token
+                        + '/StoryBank/Vault/API.php?action=deposit&method=deleteComment&token=' + $scope.token
                         + '&id=' + comment.ID;
 
                     //  Call the login function appropriately
@@ -1306,7 +1306,7 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
                 {
                                 //  Ok ... but how it actually needs to send these to an api ...        
                     var url = 'http://' + $location.host() 
-                        + '/Vault/API.php?action=deposit&method=approveComment&token=' + $scope.token
+                        + '/StoryBank/Vault/API.php?action=deposit&method=approveComment&token=' + $scope.token
                         + '&id=' + comment.ID;
 
                     //  Call the login function appropriately
@@ -1337,7 +1337,7 @@ myApp.controller('AdminCTRL', function($rootScope, $scope, $http, $mdDialog, $co
         if ($scope.token && $scope.token.length > 0)
         {
             //  Ok ... but how it actually needs to send these to an api ...        
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=administer&method=relogin&token=' + $scope.token;       
+            var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=administer&method=relogin&token=' + $scope.token;       
 
             //  Call the login function appropriately
             $http.get(url).then(
@@ -1410,7 +1410,7 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
     $scope.fetchTags = function()
     {
         //  Ok ... but how it actually needs to send these to an api ...        
-        var url = 'http://' + $location.host() + '/Vault/API.php?action=tags&method=fetch';       
+        var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=tags&method=fetch';       
 
         //  Call the tags function appropriately
         $http.get(url).then(
@@ -1429,7 +1429,7 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
     $scope.fetchStoryTags = function()
     {
         //  Ok ... but how it actually needs to send these to an api ...        
-        var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=storyTags&token=' + $scope.token
+        var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=deposit&method=storyTags&token=' + $scope.token
                 + '&id=' + $scope.deposit.ID;
 
         //  Call the tags function appropriately
@@ -1448,7 +1448,7 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
     $scope.fetchSingleStory = function()
     {
         //  Ok ... but how it actually needs to send these to an api ...        
-        var url = 'http://' + $location.host() + '/Vault/API.php?action=deposit&method=singleStory&token=' + $scope.token
+        var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=deposit&method=singleStory&token=' + $scope.token
                 + '&id=' + $scope.deposit.ID;
 
         //  Call the tags function appropriately
@@ -1485,7 +1485,7 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
     $scope.saveDialog = function()
     {        
         //  That's easy, but we need an update here ...
-        var url = 'http://' + $location.host() + '/Vault/API.php'; 
+        var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php'; 
 
         //  Compile data
         $scope.jsonDeposit.TOKEN = $scope.token;
@@ -1531,7 +1531,7 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
 
             //  That's easy, but we need an update here ...
             var url = 'http://' + $location.host() 
-                    + '/Vault/API.php?action=tags&method=bridge&token=' + $scope.token
+                    + '/StoryBank/Vault/API.php?action=tags&method=bridge&token=' + $scope.token
                     + '&storyID=' + id
                     + '&tagID=' + $scope.storyTags[i].ID;
             
@@ -1614,7 +1614,7 @@ myApp.controller('TagCtrl', function ($rootScope, $scope, $http, $mdDialog, $coo
     {                        
         //  That's easy, but we need an update here ...
         var url = 'http://' + $location.host() 
-                + '/Vault/API.php?action=tags&method=update&token=' + $scope.token
+                + '/StoryBank/Vault/API.php?action=tags&method=update&token=' + $scope.token
                 + '&id=' + $scope.tag.ID
                 + '&title=' + $scope.tag.TITLE 
                 + '&description=' + $scope.tag.DESCRIPTION
@@ -1677,7 +1677,7 @@ myApp.controller('MemberCtrl', function ($rootScope, $scope, $http, $mdDialog, $
     {                        
         //  That's easy, but we need an update here ...
         var url = 'http://' + $location.host() 
-                + '/Vault/API.php?action=members&method=update&token=' + $scope.token
+                + '/StoryBank/Vault/API.php?action=members&method=update&token=' + $scope.token
                 + '&id=' + $scope.staff.ID
                 + '&email=' + $scope.staff.EMAIL 
                 + '&preferredName=' + $scope.staff.PREFERRED_NAME 
@@ -1744,7 +1744,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     $scope.getTagServerData = function() 
     {
         //  Ok ... but how it actually needs to send these to an api ...        
-        var url = 'http://' + $location.host() + '/Vault/API.php?action=tags&method=fetch';       
+        var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=tags&method=fetch';       
 
         //  Call the tags function appropriately
         $http.get(url).then(
@@ -1769,7 +1769,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     {
  
         //  Ok ... but how it actually needs to send these to an api ...        
-        var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=withdrawal&tag=' + $scope.activeCategory + '&orderBy=' + $scope.sortBy;       
+        var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=withdraw&method=withdrawal&tag=' + $scope.activeCategory + '&orderBy=' + $scope.sortBy;       
 
         //  Call the login function appropriately
         $http.get(url).then(
@@ -1875,7 +1875,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     {
         
         //  Ok ... but how it actually needs to send these to an api ...        
-        var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=storyID&id=' + id;       
+        var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=withdraw&method=storyID&id=' + id;       
 
         //  Call the login function appropriately
         $http.get(url).then(
@@ -1890,7 +1890,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             });          
             
         //  Also fetch up the comments       
-        url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=comments&id=' + id;       
+        url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=withdraw&method=comments&id=' + id;       
 
         //  Call the login function appropriately
         $http.get(url).then(
@@ -1978,7 +1978,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             {
                 
                 //  Ok ... but how it actually needs to send these to an api ...        
-                var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=love&id=' + $scope.activeStory.ID + '&visitorID=' + $scope.visitorID;       
+                var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=withdraw&method=love&id=' + $scope.activeStory.ID + '&visitorID=' + $scope.visitorID;       
 
                 //  Call the login function appropriately
                 $http.get(url).then(
@@ -2079,7 +2079,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
 
                     });                  
 
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=email'
+            var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=withdraw&method=email'
                     + '&visitorID=' + $scope.visitorID
                     + '&emails=' + email
                     + '&print=' + $print;
@@ -2144,7 +2144,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
         .then(function(answer) {
 
             //  Submit comment for processing ... woo.
-            var url = 'http://' + $location.host() + '/Vault/API.php?action=withdraw&method=addComments&id=' + $scope.activeStory.ID + '&visitorID=' + $scope.visitorID + '&comments=' + answer;       
+            var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=withdraw&method=addComments&id=' + $scope.activeStory.ID + '&visitorID=' + $scope.visitorID + '&comments=' + answer;       
 
             //  Call the login function appropriately
             $http.get(url).then(

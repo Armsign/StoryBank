@@ -3,7 +3,7 @@
 //  Add a new entry for each part of the configuration. Make the file invisible to everyone else.
 return array(
     
-    'host' => 'armsign-office',
+    'host' => 'STORYBOX',
     'port' => '3307',    
     'fsHost' => 'Files',
     'dbDatabase' => 'StoryVault',
@@ -14,6 +14,8 @@ return array(
     'smtpUser' => 'yourstory@storybankmaryborough.com.au',
     'smtpPassword' => '3B&CNkBbjM;U7UAx}=',
     'smtpSecurity' => 'ssl',
-    'smtpPort' => 465  
+    'smtpPort' => 465,
+    
+    'printer' => 'DOCUCENTRE',
     
 );

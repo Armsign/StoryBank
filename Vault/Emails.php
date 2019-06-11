@@ -28,13 +28,19 @@ class ArmsignEmails
         $this->configs = include('conf.php');
     }    
     
-    public function CreateAccountStatement($visitorID, $email)
+    public function CreateAccountStatement($visitorID, $email, $print)
     {        
         
         $visitorStories = $this->GatherData($visitorID);
 
         //  $fileLocation = $this->CompilePDF($outputHTML);
         $fileLocation = $this->CompilePS($visitorID, $visitorStories);        
+        
+        //  Trigger print ...
+        if ($print === true)
+        {
+            shell_exec('lpr -P ' . $this->configs['printer'] . ' -o media=A4 -o sides=two-sided-long-edge /volume1/web/StoryBank/' . $fileLocation);
+        }
         
         return $fileLocation;         
     }
@@ -431,7 +437,7 @@ class ArmsignEmails
         //  $pdf->SetTextColor(216,0,0);       
         
         $displayText = '<table><tbody>';
-        for ($i = 0; $i < 18; $i++)
+        for ($i = 0; $i < 17; $i++)
         {        
             if ($i % 2 == 0)
             {                
@@ -862,6 +868,18 @@ class ArmsignEmails
         }
 
         return '';
+    }
+    
+    private function EligiblePrint($visitorID)
+    {
+        //  How many times have they printed this?
+        
+    }
+    
+    private function UpdateStories($visitorID, $email)
+    {
+        //  Record the email address the story was sent to
+        
     }
     
 }
