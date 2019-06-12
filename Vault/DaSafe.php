@@ -506,6 +506,11 @@ class DaSafe
         return $this->executeSQL("SELECT COUNT(*) AS PRINT_COUNT FROM PRINT_REQUEST WHERE VISITOR_ID = '" . $visitorID . "' AND DATE(PRINTED_ON) = CURDATE()");        
     }
     
+    public function tagEmail($visitorID, $email)
+    {
+        $this->transactionalSQL("UPDATE DEPOSITS SET STORED_BY = '" . $email . "' WHERE VISITOR_ID = '" . $visitorID . "';");        
+    }
+    
     public function triggerArchive()
     {
         

@@ -122,13 +122,17 @@ class Deposits
         
         if (strlen($email) > 0)
         {
+            $daSafe = new DaSafe();
+            $daSafe->tagEmail($visitorID, $email);
+            unset($daSafe);
+            
             $emails = explode(';', $email);
             
             foreach ($emails as $oneMail)
             {
                 if (filter_var($oneMail, FILTER_VALIDATE_EMAIL)) 
                 {
-                    $mailer->HitSend($oneMail, $fileName);                                     
+                    $mailer->HitSend($oneMail, $fileName);
                 }                
             }                
         }

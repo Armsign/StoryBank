@@ -19,3 +19,9 @@ return array(
     'printer' => 'DOCUCENTRE',
     
 );
+
+
+
+//  Magic Words to apply IP Alias, which don't work over wifi ... boooooooo
+
+//  sudo ifconfig eth0:0 192.168.45.10 up

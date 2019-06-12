@@ -852,17 +852,6 @@ class ArmsignEmails
         return 'Today';
     }
     
-    private function MakeTableLayout($pdf)
-    {
-        
-        $pdf->Rect($pdf->GetX(), $pdf->GetY(), 30, 10, 'L', '', '' );
-        $pdf->Rect($pdf->GetX() + 30, $pdf->GetY(), 30, 10, 'L', '', '' );
-        $pdf->Rect($pdf->GetX() + 60, $pdf->GetY(), 130, 10, 'L', '', '' );
-        $pdf->Rect($pdf->GetX(), $pdf->GetY() + 10, 60, 60, 'L', '', '' );        
-        $pdf->Rect($pdf->GetX() + 60, $pdf->GetY() + 10, 130, 60, 'L', '', '' );         
-        
-    }
-    
     private function GetResolvedFileName($fileName)
     {
         $armPieces = explode("/", $fileName);
@@ -897,6 +886,9 @@ class ArmsignEmails
     private function UpdateStories($visitorID, $email)
     {
         //  Record the email address the story was sent to
+        
+        
+        
         
     }
     
