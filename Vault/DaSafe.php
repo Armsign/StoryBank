@@ -226,17 +226,12 @@ class DaSafe
         return $returnArray;
     }     
     
-    public function fetchMembers($token)
+    public function fetchMembers()
     {
         //  Need to check if this is a user
-        $logins = $this->fetchToken($token);
-        
         $returnArray = array();
         
-        if (sizeof($logins) == 1)
-        {            
-            $returnArray = $this->executeSQL("SELECT ID, EMAIL, IS_ACTIVE, PREFERRED_NAME, SESSION, PASSWORD FROM LOGINS ORDER BY EMAIL ASC");                                        
-        }
+        $returnArray = $this->executeSQL("SELECT ID, EMAIL, IS_ACTIVE, PREFERRED_NAME, SESSION, PASSWORD FROM LOGINS ORDER BY EMAIL ASC");                                        
         
         return $returnArray;        
     }
@@ -273,13 +268,9 @@ class DaSafe
         {            
             $sanePassword = hash('md5', $password);  
             
-            echo "Crypto Password: " . $sanePassword;
-            
             $sql = "UPDATE LOGINS SET "
                 . "PASSWORD = '" . $sanePassword . "' "
                 . "WHERE ID = " . $id . ";";               
-            
-            echo $sql;
             
             $returnArray = $this->transactionalSQL($sql);                                        
         }        
@@ -508,7 +499,7 @@ class DaSafe
     
     public function tagEmail($visitorID, $email)
     {
-        $this->transactionalSQL("UPDATE DEPOSITS SET STORED_BY = '" . $email . "' WHERE VISITOR_ID = '" . $visitorID . "';");        
+        return $this->transactionalSQL("UPDATE DEPOSITS SET STORED_BY = '" . $email . "' WHERE VISITOR_ID = '" . $visitorID . "';");        
     }
     
     public function triggerArchive()

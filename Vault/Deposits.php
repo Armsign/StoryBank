@@ -118,6 +118,8 @@ class Deposits
         //  This is the appropes place to perform this.        
         $mailer = new ArmsignEmails();
         
+        echo $print;
+        
         $fileName = $mailer->CreateAccountStatement($visitorID, $email, $print);        
         
         if (strlen($email) > 0)
@@ -126,17 +128,19 @@ class Deposits
             $daSafe->tagEmail($visitorID, $email);
             unset($daSafe);
             
-            $emails = explode(';', $email);
+            $emails = explode(',', $email);
             
             foreach ($emails as $oneMail)
             {
+                $oneMail = trim($oneMail);
+                
                 if (filter_var($oneMail, FILTER_VALIDATE_EMAIL)) 
                 {
                     $mailer->HitSend($oneMail, $fileName);
                 }                
             }                
         }
-        
+                
         unset($mailer);
      
         return $output;
