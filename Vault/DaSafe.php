@@ -114,11 +114,7 @@ class DaSafe
                     
                     $returnArray = mysqli_insert_id($this->mysqli);                                    
                     
-                } else {
-                    
-                    $returnArray = $id;
-                    
-                }
+                } 
                 
                 $stmt->close();                            
             }

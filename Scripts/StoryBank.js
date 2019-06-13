@@ -438,7 +438,6 @@ myApp.controller('KeyboardCTRL', function($rootScope, $scope, $routeParams, $loc
 
                 window.setTimeout(function() { $scope.showThankYou(ev); }, 100); 
                 
-                
             }, 
             function(response) 
             {
@@ -1505,7 +1504,7 @@ myApp.controller('DepositCtrl', function ($rootScope, $scope, $http, $mdDialog, 
         //  Call the tags function appropriately        
         $http.post(url, payload).then(
             function (response)   
-            {               
+            {            
                 //  A big deal about it because we need to save the tags now too ... so we ought to get an id back at least right?
                 if ((response.data * 1) > 0)
                 {
@@ -1850,7 +1849,8 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             controller: 'NumPadCTRL',         
             parent: angular.element(document.body),
             targetEvent: ev,
-            clickOutsideToClose:true
+            clickOutsideToClose:true,
+            dataToPass: false
         })
         .then(function(answer) {
             
@@ -1870,6 +1870,32 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
         });         
 
     };
+    
+    $scope.showThankYou = function(ev)
+    {
+        
+        //  What do I care if the save failed or not?
+        //  The user does, so show the thankyou!
+        $rootScope.openDialog = $mdDialog.show({
+            templateUrl: 'Templates/Keyboard/thankYou.html',
+            controller: 'NumPadCTRL',         
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            dataToPass: "thanks"
+        })
+        .then(function(answer) {
+
+            $rootScope.openDialog = false;
+
+        }, function() {
+
+            //    No action
+            $rootScope.openDialog = false;
+
+        });                   
+        
+    }    
     
     $scope.loadStory = function(id)
     {
@@ -1967,7 +1993,8 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             controller: 'NumPadCTRL',         
             parent: angular.element(document.body),
             targetEvent: ev,
-            clickOutsideToClose:true
+            clickOutsideToClose:true,
+            dataToPass: false
         })
         .then(function(answer) {
             
@@ -2149,9 +2176,8 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             //  Call the login function appropriately
             $http.get(url).then(
                 function (response)   
-                {
-                    //  Really it just doesn't do anything now ...
-                    //  But we'll need some authentication
+                { 
+                    window.setTimeout(function() { $scope.showThankYou(ev); }, 100); 
                 }, 
                 function(response) 
                 {
