@@ -152,7 +152,7 @@ md-whiteframe
 
 md-dialog
 {
-    padding: 1em;
+    /* padding: 1em; */
     width: 80%;
     background-image: url("../Images/Common/DialogBackground.jpg");      
     background-size:cover;    
@@ -196,6 +196,12 @@ md-dialog
     grid-template-rows: 2% 8% 8% 8% 8% 8% 8% 8% 8% 8% 8% 8% 8% 2%;    
     
     overflow: hidden;
+}
+
+.emailSubmission
+{
+    padding: 1em;
+    height: 100%;
 }
 
 @media only screen and (min-width: 1920px) 
@@ -254,11 +260,11 @@ md-dialog
 .typeWriter
 {
     
-    height: 90vh;
+    height: 100vh;
     width: 50vw;
     
     grid-template-columns: 8% 8% 68% 8% 8%;
-    grid-template-rows: 50% 50%;
+    grid-template-rows: 42% 12% 40%;
 
 }
 
@@ -266,7 +272,6 @@ md-dialog
 {
     position: relative;
     padding: 16px;
-    margin-bottom: 16px;
     background-color: rgba(255, 255, 255, .4) !important;
     overflow: hidden;    
     
@@ -295,11 +300,6 @@ md-dialog
     margin: 0;
     padding: 0;   
     color: #666666 !important;
-}
-
-.keyBoardLayout
-{
-    margin-top: 48px;   
 }
 
 .emailSubmission .keyBoardLayout
@@ -413,8 +413,18 @@ h1.screenSaverTitle
     background-size: contain;
 }
 
- .maryWindLeft, .maryWindRight
- {
+@media only screen and (min-width: 1920px) 
+{
+    
+    .callToAction h1
+    {
+        margin: 1em !important;
+    }
+    
+}
+
+.maryWindLeft, .maryWindRight
+{
     position: absolute;
     height: 256px;
     opacity: 0.0;  
