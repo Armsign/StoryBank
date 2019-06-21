@@ -16,8 +16,8 @@
         <img src="Images/RoomL/MyAccount_Button.svg" ng-click="openAccount($event)"/>            
     </div>    
     
-    <ul class="grid-item" style="grid-column: 2 / span 15; grid-row: 4 / span 12;">            
-        <li ng-if="tag.IS_PUBLIC == 1" class="center category" ng-repeat="tag in tags" ng-click="switchCategory($event, tag.TITLE);">                
+    <ul class="grid-item category" style="grid-column: 2 / span 15; grid-row: 4 / span 12;">            
+        <li ng-if="tag.IS_PUBLIC == 1" class="center" ng-repeat="tag in tags" ng-click="switchCategory($event, tag.TITLE);">                
             <div>{{tag.TITLE}}</div>
         </li>
     </ul>
