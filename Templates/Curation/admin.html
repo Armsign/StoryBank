@@ -32,13 +32,13 @@
     </div>   
 
     <!-- Dashboard view -->
-    <div ng-if="securedLogin === 1" style="grid-column: 11 / span 4; grid-row: 3;">
+    <div ng-if="securedLogin === 1" style="grid-column: 6 / span 9; grid-row: 3;">
         
         <md-input-container class="md-block right">
             <md-button class="md-raised" ng-click="logOut()">Logout</md-button> 
             <md-button class="md-raised" ng-click="addTag($event)">Create a Tag</md-button>
             <md-button class="md-raised" ng-click="addStaff($event)">Create Staff</md-button>
-            <md-button class="md-raised" ng-click="addDeposit()">Create a Story</md-button>
+            <md-button class="md-raised" ng-click="addDeposit($event)">Create a Story</md-button>
         </md-input-container>   
         
     </div>

@@ -198,7 +198,7 @@ function Administer()
     switch ($_GET["method"])
     {       
         case ("login"):
-            echo $login->Authenticate($_GET["email"], $_GET["password"]);
+            echo $login->Authenticate($_GET["email"], $_GET["password"]);            
             break;
         case ("relogin"):
             echo $login->ReAuthenticate($_GET["token"]);
