@@ -791,9 +791,9 @@ class ArmsignEmails
                 'p.s. <i>Once upon a time is always...</i>';
    
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
+    
         $mail->send();
-
+        
         // Tidy this mess up boy
         unset($mail);
     }

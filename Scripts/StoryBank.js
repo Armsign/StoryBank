@@ -1855,10 +1855,14 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
         .then(function(answer) {
             
             //  Store response
-            $scope.visitorID = answer * 1;
+            //  $scope.visitorID = answer * 1;
+            $scope.visitorID = answer;
             
             //  Alrighty, now that it's closing, we need to open the email bit ;p            
-            window.setTimeout(function() { $scope.openComment(); }, 100);
+            if ($scope.visitorID.length > 0)
+            {
+                window.setTimeout(function() { $scope.openComment(); }, 100);
+            }
             
             $rootScope.openDialog = false;
   
@@ -2000,9 +2004,10 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
         .then(function(answer) {
             
             //  Store response
-            $scope.visitorID = answer * 1;
+            //  $scope.visitorID = answer * 1;
+            $scope.visitorID = answer;
             
-            if ($scope.visitorID > 0)
+            if ($scope.visitorID.length > 0)
             {
                 
                 //  Ok ... but how it actually needs to send these to an api ...        
@@ -2077,14 +2082,14 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
     
     $scope.openPrint = function(ev, email)
     {
-        $print = false;
+        var print = false;
         
         //  Ok ... but how it actually needs to send these to an api ...        
-        if ($scope.visitorID > 0)
+        if ($scope.visitorID.length > 0)
         {
             if ($scope.withDrawalMethod.includes("PRINT"))
             {
-                $print = true;
+                 print = true;
             }
             
             $rootScope.openDialog = $mdDialog.show({
@@ -2110,7 +2115,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=withdraw&method=email'
                     + '&visitorID=' + $scope.visitorID
                     + '&emails=' + email
-                    + '&print=' + $print;
+                    + '&print=' + print;
 
             //  Call the login function appropriately
             $http.get(url).then(
@@ -2119,6 +2124,12 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
                     $mdDialog.hide();                    
                     $rootScope.openDialog = false;
                     
+                }, function() {
+                    
+                    alert("Unexpected error");
+                    $mdDialog.hide();                    
+                    $rootScope.openDialog = false;
+                
                 });                                
 
         }        

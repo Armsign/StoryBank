@@ -65,6 +65,17 @@
                                             filter-type="text" />                                            
 
                                     </th>
+                                    
+                                    <th sortable="VISITOR_ID" class="sortable" style="width: 8%;">#
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="approvedStoriesOptions.filter()"
+                                            ng-model="VISITOR_ID"
+                                            filter-by="VISITOR_ID"
+                                            filter-type="text" />                                            
+
+                                    </th>                                    
 
                                     <th sortable="STORED_BY" class="sortable" style="width: 12.5%;">Email
 
@@ -110,7 +121,7 @@
 
                                     </th>                                      
                                     
-                                    <th sortable="TITLE" class="sortable" style="width: 42%;">Title                                    
+                                    <th sortable="TITLE" class="sortable" style="width: 34%;">Title                                    
 
                                          <input type="text" class="form-control"
                                             placeholder="Search ..."
@@ -126,11 +137,12 @@
                                 <tbody>
                                     <tr grid-item>
                                         <td style="width: 12.5%;" ng-click="editDeposit(item, $event)" ng-bind="item.ID" class="underline"></td>
+                                        <td style="width: 8%;" ng-bind="item.VISITOR_ID"></td> 
                                         <td style="width: 12.5%;" ng-bind="item.STORED_BY"></td> 
                                         <td style="width: 12.5%;" ng-bind="item.STORED_AS"></td> 
                                         <td style="width: 12.5%;" ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
                                         <td style="width: 12.5%;" ng-bind="item.REVIEWED_ON | date:'dd/MM/yyyy'"></td>                                        
-                                        <td style="width: 42%;" ng-bind="item.TITLE"></td>
+                                        <td style="width: 34%;" ng-bind="item.TITLE"></td>
 
                                         <td style="width: 8%;" ng-click="deleteDeposit(item, $event)" class="underline centre">
                                             Delete                                                
@@ -184,6 +196,18 @@
                                             filter-type="text">                                            
 
                                     </th>
+                                    
+                                    <th sortable="VISITOR_ID" class="sortable" style="width: 8%;">#
+
+                                         <input type="text" class="form-control"
+                                            placeholder="Search ..."
+                                            ng-change="unApprovedStoriesOptions.filter()"
+                                            ng-model="VISITOR_ID"
+                                            filter-by="VISITOR_ID"
+                                            filter-type="text" />                                            
+
+                                    </th>                                         
+                                    
                                     <th sortable="STORED_BY" class="sortable" style="width: 12.5%;">Email
 
                                          <input type="text" class="form-control"
@@ -244,11 +268,12 @@
                                 <tbody>
                                     <tr grid-item>
                                         <td style="width: 12.5%;" ng-click="editDeposit(item, $event)" ng-bind="item.ID" class="underline"></td>
+                                        <td style="width: 8%;" ng-bind="item.VISITOR_ID"></td>                                         
                                         <td style="width: 12.5%;" ng-bind="item.STORED_BY"></td> 
                                         <td style="width: 12.5%;" ng-bind="item.STORED_AS"></td> 
                                         <td style="width: 12.5%;" ng-bind="item.STORED_ON | date:'dd/MM/yyyy'"></td>
                                         <td style="width: 12.5%;" ng-bind="item.REVIEWED_ON | date:'dd/MM/yyyy'"></td>                                        
-                                        <td style="width: 42%;" ng-bind="item.TITLE"></td>                                        
+                                        <td style="width: 34%;" ng-bind="item.TITLE"></td>                                        
                                         <td style="width: 8%;" ng-click="deleteDeposit(item, $event)" class="underline centre">
                                             Delete                                                
                                         </td> 

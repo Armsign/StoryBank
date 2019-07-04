@@ -278,7 +278,7 @@ class DaSafe
     {        
         $returnArray = $this->executeSQL("SELECT PROMPT_ID, TITLE, STORED_BY, STORED_AS, "
                 . "IS_PLAYABLE, REVIEWED_BY, HAS_CONSENT, USE_EMAIL, "
-                . "REVIEWED_ON, LEFT(TRANSCRIPTION, 32) AS TRANSCRIPTION, ID, STORED_ON "
+                . "REVIEWED_ON, LEFT(TRANSCRIPTION, 32) AS TRANSCRIPTION, ID, STORED_ON, VISITOR_ID "
                 . "FROM DEPOSITS "
                 . "WHERE IS_PLAYABLE = 1 "
                 . "AND REVIEWED_BY > 0 "
@@ -291,7 +291,7 @@ class DaSafe
     {
         $returnArray = $this->executeSQL("SELECT PROMPT_ID, TITLE, STORED_BY, STORED_AS, "
                 . "IS_PLAYABLE, REVIEWED_BY, HAS_CONSENT, USE_EMAIL, "
-                . "REVIEWED_ON, LEFT(TRANSCRIPTION, 32) AS TRANSCRIPTION, ID, STORED_ON "
+                . "REVIEWED_ON, LEFT(TRANSCRIPTION, 32) AS TRANSCRIPTION, ID, STORED_ON, VISITOR_ID "
                 . "FROM DEPOSITS "
                 . "WHERE IS_PLAYABLE = 0 "
                 . "ORDER BY STORED_ON DESC");                                        

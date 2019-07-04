@@ -118,8 +118,6 @@ class Deposits
         //  This is the appropes place to perform this.        
         $mailer = new ArmsignEmails();
         
-        echo $print;
-        
         $fileName = $mailer->CreateAccountStatement($visitorID, $email, $print);        
         
         if (strlen($email) > 0)
