@@ -1965,10 +1965,11 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
         .then(function(answer) {
 
             //  Store response
-            $scope.visitorID = answer * 1;
-            
+            //  $scope.visitorID = answer * 1;
+            $scope.visitorID = answer;            
+
             //  Alrighty, now that it's closing, we need to open the email bit ;p   
-            if ($scope.visitorID > 0)
+            if ($scope.visitorID.length > 0)
             {
                 window.setTimeout(function() { $scope.openMethod(); }, 100);
             }
