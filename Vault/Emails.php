@@ -715,7 +715,7 @@ class ArmsignEmails
         
         $pdf->SetFont('sourcesansprolight', '', 12);        
         $pdf->MultiCell(150, 60, 
-                "Great! Now it's time to keep growing your balance by taking your Story Workshop or your favourite creative place and using them to create your story.\n\n" .
+                "Great! Now it's time to keep growing your balance by taking your story to the Workshop or your favourite creative place and using them to create your story.\n\n" .
                 "Develop an outline by listing a series of events in the order that they will happen. Seeing all the moments in your story will highlight any gaps. It will also show you opportunities to fill with twists and turns, surprises and delights. Easy, right?\n\n" .
                 "As Mary Poppins herself says:                                                         Good luck!\n\n" . 
                 "Oh, and when you're finished, let us know - we'd love to share your story!",
@@ -724,7 +724,7 @@ class ArmsignEmails
         $pdf->SetFont('sourcesansproi', '', 12);                
         $pdf->MultiCell(150, 10, 
                 '"Well begun is half done!"',
-                0, 'L', 0, 0, 96, 226, true, 0, false, true, 0, 'T', false);         
+                0, 'L', 0, 0, 96, 226.5, true, 0, false, true, 0, 'T', false);         
         
         //  Contact Details
         $pdf->ImageSVG('../Images/Email/Hand.svg', 22, 258, 22, 10, '', '', '', 0, false);                   
@@ -740,7 +740,7 @@ class ArmsignEmails
         $pdf->MultiCell(190, 1, 
                 "<a href='mailto:storybank@frasercoast.qld.gov.au'>StoryBank@frasercoast.qld.gov.au</a><br/><br/>" .
                 "#storybankmaryborough<br/><br/>" .
-                "<a href='http://www.storybankmaryborough.com.au' target='_blank'>www,storybankmaryborough.com.au</a>",
+                "<a href='http://www.storybankmaryborough.com.au' target='_blank'>www.storybankmaryborough.com.au</a>",
                 0, 'L', 0, 0, 45, 254, true, 0, true, true, 0, 'M', false);        
         
         
@@ -785,7 +785,7 @@ class ArmsignEmails
                 'Now it\'s time to keep growing your balance by working hard while the interest rate is high.<br/><br/>' .
                 'Keep investing in your story - it will reap satisfying returns.<br/><br/>'.
                 'The Story Bank is continually growing its collection. Once your story is complete, you are invited to secure a long-term deposit so that future visitors can share in our wealth of stories.<br/><br/>' .
-                'To register your interest in future story investment opportunities and tips on how to develop your story portfolio, visit us online <a href="www.storybankmaryborough.com.au" target="_blank">www.storybankmaryborough.com.au</a> or follow us on <a href="www.facebook.com" target="_blank">Facebook</a> <a href="www.instagram.com" target="_blank">Instagram</a><br/><br/>' .
+                'To register your interest in future story investment opportunities and tips on how to develop your story portfolio, visit us online <a href="www.storybankmaryborough.com.au" target="_blank">www.storybankmaryborough.com.au</a> or follow us on <a href="https://www.facebook.com/storybankmaryborough/" target="_blank">Facebook</a> <a href="https://www.instagram.com/storybankmaryborough/" target="_blank">Instagram</a><br/><br/>' .
                 'Yours most sincerely,<br/><br/>' .
                 'The Story Bank Teller<br/><br/>' . 
                 'p.s. <i>Once upon a time is always...</i>';
