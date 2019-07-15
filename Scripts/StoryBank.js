@@ -666,7 +666,7 @@ myApp.controller('CommentCTRL', function($rootScope, $scope, $mdDialog, dataToPa
     
 });
 
-myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog, dataToPass) 
+myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog, $location, $http, dataToPass) 
 {
     $scope.collectedID = 'XXXXX';
     $scope.deposits = false;
@@ -674,6 +674,7 @@ myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog, dataToPas
     $scope.validID = false;    
     $scope.withdrawalMethod = "PRINT";
     $scope.returnMethod = false;
+    $scope.nomDePlume = '';
     
     $scope.cancelDeposit = function()
     {        
@@ -692,13 +693,13 @@ myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog, dataToPas
             $mdDialog.hide($scope.collectedID);
         
         }
-    };        
+    };   
     
     $scope.processOutput = function(method)
     {
         $scope.withdrawalMethod = method;
         $scope.completeDeposit();
-    }
+    };
     
     $scope.keyClick = function($event, keyClicked)
     {
@@ -760,6 +761,30 @@ myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog, dataToPas
         $mdDialog.hide();        
     }
     
+    $scope.fetchNomDePlume = function(visitorID)    
+    {
+        
+        //  Ok, let's get that data!
+        var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=withdraw&method=fetchNomDePlume&visitorID=' + visitorID;
+
+        //  Call the login function appropriately
+        $http.get(url).then(
+            function (response)   
+            {
+                
+                if (response.data.length === 1)
+                {  
+                    
+                   $scope.nomDePlume = response.data[0].NOMDEPLUME;
+                   
+                }
+
+            }, function() {
+
+            });           
+        
+    }
+    
     angular.element(document).ready(function () 
     {       
 
@@ -776,8 +801,13 @@ myApp.controller('NumPadCTRL', function($rootScope, $scope, $mdDialog, dataToPas
             //  Let's test this one huh
             window.setTimeout(function() { $scope.autoClose(); }, 3000);        
 
-
         } else {
+            
+            if (!isNaN(dataToPass.visitorID))
+            {
+                //  We also need to fetch this person's nom de plume ... hmm...
+                $scope.fetchNomDePlume(dataToPass.visitorID);                
+            }
             
             $scope.returnMethod = true;
             
@@ -1975,7 +2005,7 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             //  Alrighty, now that it's closing, we need to open the email bit ;p   
             if ($scope.visitorID.length > 0)
             {
-                window.setTimeout(function() { $scope.openMethod(); }, 100);
+                window.setTimeout(function() { $scope.openMethod(ev); }, 100);
             }
             
             $rootScope.openDialog = false;
@@ -2058,6 +2088,9 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
             
             switch ($scope.withDrawalMethod)
             {
+                case "NOM_DE_PLUME":
+                    window.setTimeout(function() { $scope.openNomDePlume(ev, ''); }, 100);                    
+                    break;
                 case "PRINT":
                     window.setTimeout(function() { $scope.openPrint(ev, ''); }, 100);
                     break;
@@ -2134,6 +2167,116 @@ myApp.controller('WithdrawalsCTRL', function ($rootScope, $scope, $routeParams, 
 
         }        
     }    
+    
+    $scope.openEmail = function(ev)
+    {
+
+        //  Abstract the deposit into a dialog ... templated, yes.s
+        $rootScope.openDialog = $mdDialog.show({
+            templateUrl: 'Templates/Keyboard/commentCollector.html',
+            controller: 'CommentCTRL',         
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            dataToPass: { visitorID: $scope.visitorID, question: "Please enter your email address so we can deliver your Account Statement. If you'd like to send it to multiple recipients, just put a , between them.\nFor example: jane@smith.com, john@smith.com" }
+        })
+        .then(function(answer) {
+            
+            //  Should have some emails now ;p
+            //  Fire off a buncha requests to the API for each email and call it a day, huh?
+            //  Ok ... but how it actually needs to send these to an api ...        
+            if (answer.length > 0)
+            {
+                window.setTimeout(function() { $scope.openPrint(ev, answer); }, 100);
+            }
+            
+            $rootScope.openDialog = false;
+  
+        }, function() {
+            
+            //    No action
+            $rootScope.openDialog = false;
+          
+        });
+        
+    }   
+    
+    $scope.openNomDePlume = function(ev)
+    {
+
+        //  Abstract the deposit into a dialog ... templated, yes.s
+        $rootScope.openDialog = $mdDialog.show({
+            templateUrl: 'Templates/Keyboard/commentCollector.html',
+            controller: 'CommentCTRL',         
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            dataToPass: { visitorID: $scope.visitorID, question: "Please enter your Nom De Plume, or pen name, for your records." }
+        })
+        .then(function(answer) {
+            
+            if (answer.length > 0)
+            {
+                window.setTimeout(function() { $scope.updateNomDePlume(ev, answer); }, 100);
+            }
+            
+            $rootScope.openDialog = false;
+            
+            $rootScope.openDialog = false;
+  
+        }, function() {
+            
+            //    No action
+            $rootScope.openDialog = false;
+          
+        });
+        
+    }      
+    
+    $scope.updateNomDePlume = function(ev, nomDePlume)
+    {
+        
+        $rootScope.openDialog = $mdDialog.show({
+                    templateUrl: 'Templates/Modals/processing.html',
+                    controller: 'NumPadCTRL',         
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    backdrop  : 'static',
+                    clickOutsideToClose: false,
+                    dataToPass: { visitorID: $scope.visitorID }
+                })
+                .then(function(answer) {
+
+                    $rootScope.openDialog = false;
+
+                }, function() {
+
+                    //    No action
+                    $rootScope.openDialog = false;
+
+                });        
+        
+        
+        var url = 'http://' + $location.host() + '/StoryBank/Vault/API.php?action=withdraw&method=updateNomDePlume'
+                          + '&visitorID=' + $scope.visitorID
+                          + '&nomDePlume=' + nomDePlume;
+
+        //  Call the login function appropriately
+        $http.get(url).then(
+            function (response)   
+            {
+                $mdDialog.hide();                    
+                $rootScope.openDialog = false;
+
+            }, function() {
+
+                alert("Unexpected error");
+                $mdDialog.hide();                    
+                $rootScope.openDialog = false;
+
+            });             
+        
+    }
     
     $scope.openEmail = function(ev)
     {

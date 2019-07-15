@@ -280,6 +280,22 @@ class Deposits
         return $returnValue;                   
     }
     
+    public function updateNomDePlume($visitorID, $nomDePlume)
+    {
+        $returnValue = '';
+        
+        if (strlen($nomDePlume) > 0)
+        {        
+            $mySafe = new DaSafe();        
+            
+            $returnValue = json_encode($mySafe->updateNomDePlume($visitorID, $nomDePlume));                        
+            
+            unset($mySafe);
+        }        
+        
+        return $returnValue;
+    }
+    
     public function fetchNomDePlume($email)
     {
         $returnValue = '';
@@ -293,6 +309,20 @@ class Deposits
 
         return $returnValue;      
     }    
+    
+    public function displayNomDePlume($visitorID)
+    {
+        $returnValue = '';
+        
+        if (strlen($visitorID) > 0)
+        {        
+            $mySafe = new DaSafe();        
+            $returnValue = json_encode($mySafe->fetchStoryNomDePlumeByVisitorID($visitorID));                        
+            unset($mySafe);
+        }
+
+        return $returnValue;      
+    }     
     
     public function hasConsent($email)
     {   

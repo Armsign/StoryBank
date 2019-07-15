@@ -73,7 +73,13 @@ function Withdraw()
             break;              
         case ("addComments"):         
             echo $deposits->addComments($id, $visitorID, $comment);
-            break;      
+            break;    
+        case ("updateNomDePlume"):
+            echo $deposits->updateNomDePlume($visitorID, $nomDePlume);
+            break;
+        case ("fetchNomDePlume"):
+            echo $deposits->displayNomDePlume($visitorID);
+            break;        
         case ("storyID"):            
             echo $deposits->fetchWithdrawalStoryId($id);
             break;        

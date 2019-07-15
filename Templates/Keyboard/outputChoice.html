@@ -7,14 +7,18 @@
 
                 <div>
                     <h2>
-                        Please choose your preferred <b class="red">Withdrawal</b> method.
+                        Welcome <b class="blue">{{nomDePlume}}</b> to your <b class="red">Story Bank Account</b>. What would you like to do today?
                     </h2>                                  
                 </div>                
                 
                 <div class="withdrawalMethod">
                     
+                    <p ng-click="processOutput('NOM_DE_PLUME');">
+                        <b class="red">Update Nom De Plume</b>
+                    </p>                                          
+                    
                     <p ng-click="processOutput('EMAIL_PRINT');">
-                        <b class="red">Email & Print</b>
+                        <b class="red">Email & Print Account Statement</b>
                     </p>  
                                         
                     <p ng-click="processOutput('EMAIL');">

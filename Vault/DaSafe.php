@@ -136,7 +136,22 @@ class DaSafe
     public function fetchStoryNomDePlume($email)
     {
         return $this->executeSQL("SELECT STORED_AS AS NOMDEPLUME FROM DEPOSITS WHERE STORED_BY = '"  . $email . "' ORDER BY STORED_ON DESC LIMIT 1");        
-    }      
+    } 
+    
+    public function fetchStoryNomDePlumeByVisitorID($visitorID)
+    {        
+        //  Select most recent nom de plume
+        return $this->executeSQL("SELECT STORED_AS AS NOMDEPLUME FROM DEPOSITS WHERE VISITOR_ID = '"  . $visitorID . "' ORDER BY STORED_ON DESC LIMIT 1");        
+    }
+    
+    public function updateNomDePlume($visitorID, $nomDePlume)
+    {        
+        $sql = "UPDATE DEPOSITS SET "
+            . "STORED_AS = '" . $nomDePlume . "' "                 
+            . "WHERE VISITOR_ID = '" . $visitorID . "';";
+
+        return $this->transactionalSQL($sql);        
+    }
     
     public function fetchStoryCount($email)
     {
